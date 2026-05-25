@@ -1,0 +1,37 @@
+---
+description: 案件固有ルール（テンプレート）— project.mdc にコピーして編集
+alwaysApply: true
+---
+
+# 案件固有ルール
+
+## 案件情報
+
+| 項目 | 値 |
+|------|-----|
+| 案件名 | 【案件名】 |
+| Figma | 【URL】 |
+| カンプ PC / SP | 【1440】/【375】px |
+
+## 画像
+
+- Figma で圧縮・書き出し → `src/assets/img/`
+- 参照は `/img/...`（Gulp はコピーのみ）
+
+## ライブラリ（使う場合のみ CDN + script.js の import コメント解除）
+
+- [ ] GSAP + ScrollTrigger → `_fadeIn.js`
+- [ ] Swiper 11 → `_swiper.js`（HTML: `.js-swiper`）
+
+## variables.scss
+
+カラー・フォント・inner・breakpoint を更新。
+
+## JS 有効化
+
+`script.js` で必要な `import "./parts/_xxx.js"` のコメントを外す。
+
+## 納品
+
+1. 未使用の import 行・`parts/_*.js` を手動削除
+2. `npx gulp build` → `css/` `js/` `img/` `*.html`

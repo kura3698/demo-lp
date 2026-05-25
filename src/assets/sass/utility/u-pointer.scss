@@ -1,0 +1,14 @@
+@use "../config/" as *;
+.u-pointer__none {
+  pointer-events: none !important;
+  &--sp {
+    @include mq(md) {
+      pointer-events: none !important;
+    }
+  }
+  &--pc {
+    @include mq(md) {
+      pointer-events: none !important;
+    }
+  }
+}

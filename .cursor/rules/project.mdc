@@ -1,0 +1,67 @@
+---
+description: 案件固有ルール（色・フォント・カンプ・ライブラリ）— 案件ごとに編集
+alwaysApply: true
+---
+
+# 案件固有ルール — sample-test
+
+## ⚠️ AIへの初期要件
+
+- コーディングを開始する前に、必ずこのファイルの**【カラー】と【フォント】の変数を確認**し、デザイン要件に準拠すること。
+
+## 案件情報
+
+| 項目                   | 値                                          |
+| ---------------------- | ------------------------------------------- |
+| 案件名                 | sample-test（静的サイト用Gulpテンプレート） |
+| デザインカンプ PC / SP | 1440px / 375px                              |
+
+## レイアウト（variables.scss で管理）
+
+`$pc-inner: 1140` / `$pc-sidePadding: 30` / `$breakpoint: 768` / `$sp-sidePadding: 20` / `$sp-inner: 600`
+
+## カラー（必ず以下の変数を使用すること）
+
+`$text-main: #565956` / `$main-color: #f2f4f1` / `$accent-green: #609484` / `$accent-gold: #948260` / `$bg-sub: #F5F5F5`
+
+## フォント
+
+Noto Sans JP（`$ff`）/ Jost（`$ff-en`）— Google Fonts は `index.html`
+
+## 画像
+
+- Figma プラグインで圧縮・書き出し → `src/assets/img/` に配置
+- Gulp は `img/` へコピーのみ（再圧縮・WebP変換なし）
+- HTML / SCSS の参照は `/img/...` のみ
+
+## 外部ライブラリ（index.html + script.js）
+
+| ライブラリ           | 用途         | 有効化                                                         |
+| -------------------- | ------------ | -------------------------------------------------------------- |
+| GSAP + ScrollTrigger | `_fadeIn.js` | CDNコメント解除 + `import "./parts/_fadeIn.js"` のコメント解除 |
+| Swiper 11            | `_swiper.js` | 同上                                                           |
+
+## JS parts 一覧
+
+使うものだけ `script.js` の import コメントを外す。納品前に未使用ファイル・行を削除。
+
+| ファイル               | 役割                    | 推奨     |
+| ---------------------- | ----------------------- | -------- |
+| `_viewport.js`         | 375px以下 viewport 固定 | 案件次第 |
+| `_drawer.js`           | ドロワー                | UI次第   |
+| `_smooth.js`           | アンカースムース        | 推奨     |
+| `_hamburger-scroll.js` | ハンバーガー色変更      | UI次第   |
+| `_header-logo.js`      | スクロールでロゴ非表示  | UI次第   |
+| `_inview.js`           | `.inview` → `.show`     | UI次第   |
+| `_fadeIn.js`           | GSAP フェードイン       | UI次第   |
+| `_swiper.js`           | スライダー              | UI次第   |
+| `_to-top.js`           | ページトップ            | UI次第   |
+| `_tel.js`              | PCで tel: 無効          | 推奨     |
+| `_loading.js`          | 初回ローディング        | UI次第   |
+| `_resizeobserver.js`   | `--header-block-size`   | UI次第   |
+
+## 納品手順（AIは実行しない・人間が行う）
+
+1. `script.js` の未使用 import（コメントアウト含む）を削除
+2. `src/assets/js/parts/` の未使用 `_*.js` を削除
+3. `npx gulp build` → `css/` `js/` `img/` `*.html` のみアップロード

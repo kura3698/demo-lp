@@ -1,0 +1,59 @@
+---
+description: SCSS コーディング規約（FLOCSS風・関数・mixin）
+globs: "**/*.scss"
+alwaysApply: false
+---
+
+# SCSS ルール
+
+## ⚠️ AI作業時の厳守事項（ガードレール）
+
+- **ハードコード厳禁:** 新しい色（HEXコード）、フォントサイズ、余白などをベタ書きしない。**必ず `variables.scss` などの既存の変数や関数を使用**すること。
+- **BEMクラスの無断生成禁止:** 勝手に新しいコンポーネントクラスを作成する前に、既存のUtility（`u-`）やLayout（`l-`）で解決できないか検討すること。
+- **自動生成ファイル保護:** 各層の `index.scss` はGulpによる自動生成のため**【編集厳禁】**。スタイル追加は必ず各パーシャルファイル（`_*.scss`）に行うこと。
+
+## フォルダ
+
+`config/` `common/` `layout/` `components/` `pages/` `utility/` — `gulpfile.js` の `scssDirs` と一致。
+
+## 記法
+
+- `@use` / `@forward` のみ（`@import` 禁止）
+- パーシャル先頭: `@use "../config/" as *;`
+
+## 命名（BEM）
+
+| 層        | 接頭辞 |
+| --------- | ------ |
+| Layout    | `l-`   |
+| Component | `c-`   |
+| Page      | `p-`   |
+| Utility   | `u-`   |
+
+- 要素 `__` / 修飾 `--` / 状態 `.is-show`
+
+## レイアウト（l-inner）
+
+- **モバイルファースト**: ベース=SP、`@include mq(md)` 以上=PC
+- ❌ PCスタイルをベースに `mq(sm)` で SP を上書きしない
+
+## 関数・mixin
+
+`rm()` `px()` `vw()` `vw-sp()` `rclamp()` / `@include mq(md)` / `@include font()` / `@include visually-hidden`
+
+ブレイクポイント: `xs:480` `sm:600` `md:768` `lg:960` `xl:1280` `xxl:1440`
+
+## 例
+
+```scss
+@use "../config/" as *;
+
+.l-inner {
+  max-width: px($sp-inner-sum);
+  padding: 0 rm($sp-sidePadding);
+  @include mq(md) {
+    max-width: px($pc-inner-sum);
+    padding: 0 rm($pc-sidePadding);
+  }
+}
+```

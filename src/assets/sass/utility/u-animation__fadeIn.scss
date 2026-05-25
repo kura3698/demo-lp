@@ -1,0 +1,10 @@
+@use '../config/' as *;
+.u-animation__fadeIn {
+  translate: 0 20px;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  &.js-show {
+    translate: 0;
+    opacity: 1;
+  }
+}

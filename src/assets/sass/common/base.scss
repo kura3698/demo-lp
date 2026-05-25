@@ -1,0 +1,120 @@
+@use "sass:math";
+@use "../config/" as *;
+
+html {
+  // @media screen and (max-width: #{px($pc-inner-sum) - 1px}) and (min-width: #{px($breakpoint)}) {
+  //   font-size: calc(16 / #{$pc-inner-sum} * 100vw);
+  // }
+  // @media screen and (max-width: #{px($breakpoint) - 1px}) {
+  //   font-size: calc(16 / #{$sp-camp} * 100vw);
+  // }
+}
+
+body {
+  color: $text-main;
+  font-family: $ff;
+  letter-spacing: 0.1em;
+  background-color: $bg-main;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+
+  @media (any-hover: hover) {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+picture,
+img,
+a,
+span {
+  display: inline-block;
+}
+
+video,
+picture,
+img,
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+img {
+  object-fit: cover;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  background: none;
+  border: none;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+@media (min-width: px($breakpoint)) {
+  //pcではtelかけられないように
+  a[href*="tel:"] {
+    // pointer-events: none;
+    cursor: default;
+    // text-decoration: none;
+  }
+}
+
+:where(button, [type="button"], [type="reset"], [type="submit"]) {
+  touch-action: manipulation;
+}
+
+:where(
+    :any-link,
+    button,
+    [type="button"],
+    [type="reset"],
+    [type="submit"],
+    label[for],
+    select,
+    summary,
+    [role="tab"],
+    [role="button"]
+  ) {
+  cursor: pointer;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after,
+  ::backdrop {
+    background-attachment: scroll !important;
+    transition-delay: 0s !important;
+    transition-duration: 1ms !important;
+    animation-duration: 1ms !important;
+    animation-delay: 0s !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+a[href^="tel:"] {
+  cursor: default;
+}
+
+/* すべてのフォーカス可能な要素に統一したアウトラインを適用 */
+:focus-visible {
+  outline: 2px solid $main-color; /* 好きな色に変更 */
+  border-radius: 4px; /* 角丸にするなら追加 */
+}
+
+// [id],
+// :focus {
+//   scroll-margin-block-start: var(--scroll-margin);
+// }

@@ -1,0 +1,64 @@
+@use "../config/" as *;
+.u-text__center {
+  text-align: center !important;
+  &--sp {
+    @include mq(md) {
+      text-align: center !important;
+    }
+  }
+  &--pc {
+    @include mq(md) {
+      text-align: center !important;
+    }
+  }
+}
+
+.u-text__left {
+  text-align: left !important;
+  &--sp {
+    @include mq(md) {
+      text-align: left !important;
+    }
+  }
+  &--pc {
+    @include mq(md) {
+      text-align: left !important;
+    }
+  }
+}
+
+.u-text__right {
+  text-align: right !important;
+  &--sp {
+    @include mq(md) {
+      text-align: right !important;
+    }
+  }
+  &--pc {
+    @include mq(md) {
+      text-align: right !important;
+    }
+  }
+}
+
+.u-text__nowrap {
+  white-space: nowrap;
+  &--sp {
+    @include mq(md) {
+      white-space: nowrap;
+    }
+  }
+  &--pc {
+    @include mq(md) {
+      white-space: nowrap;
+    }
+  }
+}
+
+.u-text__uppercase {
+  text-transform: uppercase;
+}
+
+.u-text__bold {
+  font-weight: 700;
+}

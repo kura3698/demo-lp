@@ -1,0 +1,105 @@
+---
+description: 静的サイト制作の共通ルール（HTML / JS / 画像 / ディレクトリ / Gulp）
+alwaysApply: true
+---
+
+# WEBコーディング共通ルール
+
+## 技術スタック
+
+- HTML5（セマンティック）
+- SCSS → CSS（Gulp + Dart Sass）
+- Vanilla JavaScript（ES Modules）
+- ビルド: Gulp 4（`gulpfile.js` / `package.json` type: module）
+
+## ディレクトリ構成（編集対象）
+
+```
+プロジェクトルート/
+├── .cursor/rules/      # Cursorルール（テンプレート同梱）
+├── index.html
+├── src/assets/
+│   ├── sass/
+│   ├── js/
+│   │   ├── script.js   # import のみ（未使用はコメントアウト）
+│   │   └── parts/_*.js
+│   └── img/            # 開発用の置き場（Figmaから書き出し）
+├── css/  js/  img/     # 生成物（直接編集しない）
+```
+
+## Gulp
+
+| 用途 | コマンド         |
+| ---- | ---------------- |
+| 開発 | `npx gulp dev`   |
+| 本番 | `npx gulp build` |
+
+| タスク | 処理内容                                    |
+| ------ | ------------------------------------------- | --- |
+| Sass   | コンパイル → `css/`                         |
+| JS     | コピー＋圧縮 → `js/`（`parts/` 構造を維持） |     |
+
+## 画像パス
+
+- **開発**: `img` に配置
+- **参照（HTML / SCSS）**: 常に `/img/...`
+
+```html
+<img
+  src="/img/sample.webp"
+  alt="説明文"
+  width="800"
+  height="600"
+  loading="lazy"
+  decoding="async"
+/>
+```
+
+## HTML（セマンティック・アクセシビリティ）
+
+詳細は `web-coding-html.mdc` を参照。要点:
+
+- ランドマーク: `<header>` `<nav>` `<main>` `<footer>` を適切に使う
+- `<section>` には必ず見出し（`h2` など）。`<h1>` は1ページ1つ
+- 画像は意味のある `alt`（装飾のみは `alt=""`）
+- インタラクションは要素の役割に合わせる（遷移=`a`、操作=`button`）
+- ドロワー: `aria-expanded` `aria-hidden` `aria-controls`、フォーカストラップ・ESC（`_drawer.js`）
+- スキップリンク・フォーカス可視・`lang="ja"` を維持
+- CSS: `/css/style.css`
+- JS: `<script type="module" src="/js/script.js"></script>`
+- 外部ライブラリ: `index.html` の CDN ブロック（GSAP / Swiper）。不要ならコメントアウトし、`script.js` の import も合わせて無効化
+- クラス: `l-` `c-` `p-` `u-` / 状態 `is-` / JSフック `js-`（`js-` にスタイルを当てない）
+- `p-*` の内側に `l-inner` を入れ子（全幅背景対応）
+
+## JavaScript
+
+- `script.js` は `import "./parts/_xxx.js"` **のみ**
+- **初期状態**: 全 import をコメントアウト。使う機能だけコメントを外す
+- 各 part は `DOMContentLoaded` + 要素の存在チェック（`if (!el) return`）
+- ドロワー: フォーカストラップ・ESC・背景固定
+
+```javascript
+// script.js（開発時）
+// import "./parts/_drawer.js";
+import "./parts/_smooth.js";
+
+// parts/_drawer.js
+document.addEventListener("DOMContentLoaded", () => {
+  const drawer = document.querySelector(".c-drawer");
+  if (!drawer) return;
+});
+```
+
+## 納品前チェック（JS）
+
+Gulp は未使用 part の自動削除に対応しない。以下を**手動**で行う:
+
+1. `script.js` から未使用の import 行（コメントアウト含む）を削除
+2. `src/assets/js/parts/` から使っていない `_*.js` を削除
+3. `npx gulp build` → `css/` `js/` `img/` `*.html` のみアップロード
+
+## AI作業時
+
+- `src/` のみ編集。`css/` `js/` `img/` は Gulp 生成物
+- `**/sass/**/index.scss` は自動生成（手編集禁止）
+- 案件差分は `project.mdc` と `variables.scss`

@@ -1,0 +1,90 @@
+//_reset.scss
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+dl,
+li,
+dt,
+dd,
+p,
+div,
+span,
+img,
+a,
+table,
+tr,
+th,
+td,
+small,
+button,
+time,
+figure {
+  border: 0;
+  font-size: 100%;
+  margin: 0;
+  padding: 0;
+  vertical-align: baseline;
+  font-weight: normal;
+}
+
+html {
+  line-height: 1;
+  //追加
+  -webkit-text-size-adjust: 100%; /* Safariではまだベンダープレフィックスが必要 */
+  text-size-adjust: 100%;
+}
+
+ol,
+ul {
+  // list-style: none;
+  list-style-type: "";
+}
+
+li,
+dd {
+  list-style-type: none;
+}
+
+header,
+footer,
+nav,
+section,
+article,
+main,
+aside,
+figure,
+figcaption {
+  display: block;
+}
+
+img {
+  border: none;
+  vertical-align: bottom;
+}
+
+abbr {
+  text-decoration: none;
+}
+
+address {
+  font-style: normal;
+  font-weight: normal;
+}
+
+iframe {
+  border: none;
+}

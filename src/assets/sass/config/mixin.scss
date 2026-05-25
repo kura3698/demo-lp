@@ -1,0 +1,110 @@
+//_mixin.scss
+@use "./variables" as *;
+@use "sass:map";
+
+// ...既存のコード...
+
+// =================================
+//  メディアクエリ
+// =================================
+
+// $breakpoints: (
+//   "sp": "screen and (max-width: #{$breakpoint - 1px})",
+//   "sp-lg": "(min-width: #{$sp-inner-sum * 1px})",
+//   "pc": "(min-width: #{$breakpoint * 1px})",
+//   "lg": "(min-width: #{$pc-inner-sum * 1px})",
+// ) !default;
+
+// @mixin mq($breakpoint: sp) {
+//   @media #{map.get($breakpoints, $breakpoint)} {
+//     @content;
+//   }
+// }
+
+//xs 超小型スマホ
+//sm スマホ全般
+//md タブレット
+//lg 小型PC、タブレット横
+//xl 通常ノートPC、デスクトップ
+//xxl 大型モニタ
+
+// モバイルファースト設計：min-width で上書きしていく
+$breakpoints: (
+  "xs": "screen and (min-width:480px)",
+  "sm": "screen and (min-width:600px)",
+  "md": "screen and (min-width:768px)",
+  "lg": "screen and (min-width:960px)",
+  "xl": "screen and (min-width:1280px)",
+  "xxl": "screen and (min-width:1440px)",
+) !default;
+
+// PCファースト設計：max-width で下のサイズを上書きしていく
+// $breakpoints: (
+//   "xs": "screen and (max-width:479px)",
+//   "sm": "screen and (max-width:599px)",
+//   "md": "screen and (max-width:767px)",
+//   "lg": "screen and (max-width:959px)",
+//   "xl": "screen and (max-width:1279px)",
+//   "xxl": "screen and (max-width:1439px)"
+// ) !default;
+
+@mixin mq($breakpoint: md) {
+  @media #{map.get($breakpoints, $breakpoint)} {
+    @content;
+  }
+}
+
+// =================================
+//  フォント情報の一括入力
+// =================================
+
+//Figma の時は、こちら ===============
+@mixin font($size: null, $weight: null, $height: null, $spacing: null) {
+  @if $size {
+    font-size: max(calc($size / 16 * 1rem), calc($size * 0.8px));
+    @include mq(md) {
+      font-size: calc($size / 16 * 1rem);
+    }
+  }
+  @if $weight {
+    font-weight: $weight;
+  }
+  @if $height {
+    line-height: calc($height / $size);
+  }
+  @if $spacing {
+    letter-spacing: calc($spacing / $size * 1em);
+  }
+}
+
+// 隠しコンテンツ
+@mixin visually-hidden() {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+// 連番　＊親要素にcounter-reset: num_1;を指定してください
+// 第1引数：連番の名前　第2引数：前に付ける文字　第3引数：後に付ける文字
+@mixin counter($numName, $beforeText, $afterText) {
+  content: "#{$beforeText}" counter(num_ + $numName) "#{$afterText}";
+  counter-increment: num_ + $numName;
+}
+
+@mixin flex-center($direction: row) {
+  display: flex;
+  flex-direction: $direction;
+  align-items: center;
+  justify-content: center;
+}
+@mixin grid-center() {
+  display: grid;
+  place-items: center;
+}

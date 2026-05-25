@@ -1,0 +1,85 @@
+/*
+ * 関数定義用ファイル
+ */
+ @use "sass:meta";
+ @use "sass:math";
+ @use "./variables" as *;
+ 
+ // 要素単位指定 rem
+ @function rm($arg) {
+   @return calc($arg / 16 * 1rem);
+ }
+ 
+ @function px($arg) {
+   @return calc($arg * 1px);
+ }
+ 
+ @function vw($arg) {
+   @return calc($arg / $pc-camp * 100vw);
+ }
+ 
+ @function vw-sp($arg) {
+   @return calc($arg / $sp-camp * 100vw);
+ }
+ 
+ @function rclamp($min, $max, $min-viewport, $max-viewport) {
+   // vw単位でのスケールを計算
+   $vw-scale: math.div(($max - $min), ($max-viewport - $min-viewport));
+ 
+   // 基準となる最小値からのオフセットを計算
+   $base-offset: $min - $min-viewport * $vw-scale;
+ 
+   // remに変換
+   $min-rem: math.div($min, 16);
+   $max-rem: math.div($max, 16);
+   $base-offset-rem: math.div($base-offset, 16);
+ 
+   // vwスケールを調整
+   $vw-scale-rem: $vw-scale * 100;
+ 
+   @return clamp(
+     #{$min-rem}rem,
+     #{$base-offset-rem}rem + #{$vw-scale-rem}vw,
+     #{$max-rem}rem
+   );
+ }
+ 
+ // 単位を削除する関数
+ @function strip-unit($number) {
+   @if meta.type-of($number) == "number" and not math.is-unitless($number) {
+     @return math.div($number, ($number * 0 + 1));
+   }
+ 
+   @return $number;
+ }
+ 
+ // px → rem の変換
+ @function rem($px, $base: 16px) {
+   $value: $px;
+ 
+   // 単位がpx以外の場合は警告を出してそのまま返す
+   @if math.unit($px) != "px" {
+     @warn 'rem()の引数にpx以外の値を指定しても計算できません';
+     @return $value;
+   }
+ 
+   $value: math.div(strip-unit($px), strip-unit($base)) * 1rem;
+ 
+   @return $value;
+ }
+ 
+ // 　px → vw の変換
+ @function vw($px, $base: 375px) {
+   $value: $px;
+ 
+   // 単位がpx以外の場合は警告を出してそのまま返す
+   @if math.unit($px) != "px" {
+     @warn 'vw()の引数にpx以外の値を指定しても計算できません';
+     @return $value;
+   }
+ 
+   $value: math.div(strip-unit($px), strip-unit($base)) * 100vw;
+ 
+   @return $value;
+ }
+ 

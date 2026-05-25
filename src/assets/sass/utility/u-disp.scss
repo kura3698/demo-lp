@@ -1,0 +1,78 @@
+@use "../config/" as *;
+
+//* ===============================================
+//# レスポンシブ
+//=============================================== *//
+.u-xs-visible {
+  @include mq("xs") {
+    display: none;
+  }
+}
+
+.u-xs-hidden {
+  display: none;
+  @include mq("xs") {
+    display: block;
+  }
+}
+
+.u-sm-visible {
+  display: block;
+  @include mq("md") {
+    display: none;
+  }
+}
+
+.u-sm-hidden {
+  display: none;
+  @include mq("md") {
+    display: inline-block;
+  }
+}
+
+.u-sm-hidden--inline {
+  display: none;
+  @include mq("md") {
+    display: inline-block;
+  }
+}
+
+.u-md-hidden {
+  display: block;
+  @include mq("md") {
+    display: none;
+  }
+}
+.u-md-visible {
+  display: none;
+  @include mq("md") {
+    display: block;
+  }
+}
+
+.u-lg-visible {
+  display: none;
+  @include mq("lg") {
+    display: block;
+  }
+}
+
+.u-lg-hidden {
+  display: block;
+  @include mq("lg") {
+    display: none;
+  }
+}
+
+.u-xl-visible {
+  display: none;
+  @include mq("xl") {
+    display: block;
+  }
+}
+.u-xxl-visible {
+  display: none;
+  @include mq("xxl") {
+    display: block;
+  }
+}
