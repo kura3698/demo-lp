@@ -1,0 +1,102 @@
+@use "../config/" as *;
+
+.c-button {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: rm(300);
+  height: rm(60);
+  padding-inline: rm(40);
+  border: rm(1) solid $main-color;
+  border-radius: rm(10);
+  background-color: $main-color;
+  color: $reverse-color;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+
+  @include mq(md) {
+    width: rm(350);
+    height: rm(70);
+    padding-inline: rm(48);
+  }
+
+  &:focus-visible {
+    background-color: $reverse-color;
+    color: $main-color;
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: $reverse-color;
+      color: $main-color;
+    }
+  }
+}
+
+.c-button__text {
+  @include font(16, 700, 24);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  @include mq(md) {
+    @include font(18, 700, 26);
+  }
+}
+
+.c-button__icon {
+  position: absolute;
+  top: 50%;
+  right: rm(15);
+  flex-shrink: 0;
+  width: rm(10);
+  height: rm(12);
+  background-color: currentColor;
+  translate: 0 -50%;
+  transition: background-color 0.3s ease;
+  mask: url("/img/icon_arrow.svg") no-repeat center / contain;
+  -webkit-mask: url("/img/icon_arrow.svg") no-repeat center / contain;
+
+  @include mq(md) {
+    right: rm(20);
+    width: rm(13);
+    height: rm(15.6);
+  }
+}
+
+.c-button--modal {
+  width: rm(250);
+  height: rm(50);
+
+  @include mq(md) {
+    height: rm(60);
+  }
+}
+
+.c-button--submit {
+  width: rm(170);
+  height: rm(50);
+  border-radius: rm(5);
+
+  @include mq(md) {
+    height: rm(70);
+  }
+}
+
+.c-button--submit .c-button__text {
+  @include font(16, 700, 23);
+
+  @include mq(md) {
+    @include font(20, 700, 30);
+  }
+}
+
+.c-button--submit .c-button__icon {
+  display: none;
+}

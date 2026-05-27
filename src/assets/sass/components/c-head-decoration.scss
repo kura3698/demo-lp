@@ -1,0 +1,34 @@
+@use "../config/" as *;
+
+// 見出し内の小見出し装飾（hタグは付けない・配置は .p-feature__head-badge 等で調整）
+.c-head-decoration {
+  position: relative;
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+  padding-bottom: rm(10);
+  color: $text-main;
+  text-align: center;
+  @include font(14, 500, 20, 0);
+
+  @include mq(md) {
+    padding-bottom: rm(15);
+    @include font(20, 500, 20, 0);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: calc(100% - rm(25));
+    width: 100%;
+    aspect-ratio: 176 / 47;
+    background: url("/img/deco_head-line@2x.webp") no-repeat center / 100% 100%;
+    pointer-events: none;
+    transform-origin: center center;
+
+    @include mq(md) {
+      top: calc(100% - rm(30));
+    }
+  }
+}

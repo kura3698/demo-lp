@@ -1,7 +1,7 @@
 ---
 description: HTML マークアップ・アクセシビリティ規約
 globs: "**/*.html"
-alwaysApply: false
+alwaysApply: true
 ---
 
 # HTML / アクセシビリティ / UI実装ルール
