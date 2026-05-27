@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{let e=document.querySelectorAll(".inview");e.length&&window.addEventListener("scroll",()=>{e.forEach(e=>{e.getBoundingClientRect().top+window.pageYOffset-window.innerHeight<window.pageYOffset&&e.classList.add("show")})})});
