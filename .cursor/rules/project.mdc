@@ -23,7 +23,7 @@ alwaysApply: true
 | メイン幅(PC/SP)       | 1000 / 600 | `$pc-inner` / `$sp-inner`             |
 | 左右パディング(PC/SP) | 30 / 20    | `$pc-sidePadding` / `$sp-sidePadding` |
 | ブレイクポイント      | 768        | `$breakpoint`                         |
-| PCの狭い幅            | 768        | `$pc-narrow-inner`                    |
+| PCの狭い幅            | 852        | `$pc-narrow-inner`                    |
 
 ## レスポンシブ方針
 
@@ -34,7 +34,7 @@ alwaysApply: true
 
 ## カラー（必ず以下の変数を使用すること）
 
-`$text-main: #333333` /` $text-accent: #D91621` / ;`$main-color: #f2f4f1` / `$sub-color: #609484` / `$hover-color: #948260` / `$bg-main: #FFF9EB` /`$bg-sub: #F5F5F5`
+`$text-main: #333333` /` $text-accent: #D91621` / ;`$main-color: #4FABBF` /`$reverse-color: #fff` / `$bg-main: #FFF9EB` /
 
 ## フォント
 

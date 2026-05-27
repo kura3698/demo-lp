@@ -2,20 +2,20 @@
 //_variables.scss
 $ff: "Noto Sans JP", sans-serif; // bodyに指定するフォント
 $ff-jp: "Noto Sans JP", sans-serif; //日本語onlyのフォント
-$ff-en: "Jost", sans-serif; //英語onlyのフォント
+$ff-en: "Oswald", sans-serif; //英語onlyのフォント
 
 //===========================================
 //   レイアウト (単位は不要)
 //===========================================
-$pc-inner: 1140; // pc版inner幅
+$pc-inner: 1000; // pc版inner幅
 $pc-sidePadding: 30; //pc版サイドのpadding
 $pc-inner-sum: calc($pc-inner + $pc-sidePadding * 2);
-$pc-narrow-inner: 1000; //狭いinner幅
+$pc-narrow-inner: 852; //狭いinner幅
 $pc-narrow-inner-sum: calc($pc-narrow-inner + $pc-sidePadding * 2);
 $breakpoint: 768; // ブレイクポイント (pc版カンプとsp版カンプの境界)
 $sp-sidePadding: 20; //sp版サイドのpadding
 $pc-camp: 1440; // pc版のカンプサイズを入力
-$sp-camp: 375; // sp版のカンプサイズを入力
+$sp-camp: 390; // sp版のカンプサイズを入力
 $sp-inner: 600;
 $sp-inner-sum: calc($sp-inner + $sp-sidePadding * 2);
 
@@ -32,11 +32,12 @@ $z-drawer: 101;
 // 1. 基本カラー（メインで使用）
 $text-main: #333333;
 $text-accent: #d91621;
-$main-color: #f2f4f1;
-$sub-color: #609484;
-$hover-color: #948260;
+$main-color: #4fabbf;
+// $sub-color: #609484;
+// $hover-color: #948260;
+$reverse-color: #fff;
 $bg-main: #fff9eb;
-$bg-sub: #f5f5f5;
+// $bg-sub: #f5f5f5;
 
 // 2. 拡張カラー（必要に応じて追加・利用すること）
 // AIへの指示: デザイン指示で以下の色が必要になった場合、
