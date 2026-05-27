@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{var e=document.querySelectorAll('a[href^="tel:"]');e.length&&!/iphone|android(.+)?mobile/.test(navigator.userAgent.toLowerCase())&&e.forEach(e=>{e.removeAttribute("href"),e.style.cursor="default",e.addEventListener("click",e=>{e.preventDefault()})})});

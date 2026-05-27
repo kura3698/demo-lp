@@ -1,0 +1,8 @@
+document.addEventListener("DOMContentLoaded",()=>{let n=document.querySelector(".c-hamburger-icon"),a=document.querySelector(".c-drawer");if(n&&a){let t=document.body,o=`
+    a[href], area[href],
+    button:not([disabled]),
+    input:not([disabled]),
+    select:not([disabled]),
+    textarea:not([disabled]),
+    [tabindex]:not([tabindex="-1"])
+  `,s=t=>{var e=t?("scrollingElement"in document?document.scrollingElement:document.documentElement).scrollTop:parseInt(document.body.style.top||"0",10);let s={height:"100vh",position:"fixed",top:-1*e+"px",left:"0",width:"100vw"};Object.keys(s).forEach(e=>{document.body.style[e]=t?s[e]:""}),t||window.scrollTo(0,-1*e)};function d(){a.classList.remove("js-show"),n.classList.remove("js-show"),t.classList.remove("js-show"),n.setAttribute("aria-expanded","false"),a.setAttribute("aria-hidden","true"),s(!1),document.removeEventListener("keydown",c),n.focus()}function c(e){var t,s;"Escape"===e.key||27===e.keyCode?d():"Tab"!==e.key&&9!==e.keyCode||(e=e,(t=a.querySelectorAll(o)).length&&(s=t[0],t=t[t.length-1],e.shiftKey&&document.activeElement===s?(e.preventDefault(),t.focus()):e.shiftKey||document.activeElement!==t||(e.preventDefault(),s.focus())))}n.addEventListener("click",e=>{e.stopPropagation(),a.classList.contains("js-show")?d():(a.classList.add("js-show"),n.classList.add("js-show"),t.classList.add("js-show"),n.setAttribute("aria-expanded","true"),a.setAttribute("aria-hidden","false"),s(!0),document.addEventListener("keydown",c),0<(e=a.querySelectorAll(o)).length&&e[0].focus())}),a.addEventListener("click",t=>{var e=a.querySelectorAll(".c-hamburger-icon"),e=Array.from(e).some(e=>e.contains(t.target));a.classList.contains("js-show")&&!e&&d()})}});

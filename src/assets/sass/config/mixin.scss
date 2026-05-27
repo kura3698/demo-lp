@@ -2,51 +2,31 @@
 @use "./variables" as *;
 @use "sass:map";
 
-// ...既存のコード...
+// mixin.scss
+@use "./variables" as *;
 
-// =================================
-//  メディアクエリ
-// =================================
+// AIへの指示: $responsive-strategy に基づいて分岐すること
+$breakpoints: ();
 
-// $breakpoints: (
-//   "sp": "screen and (max-width: #{$breakpoint - 1px})",
-//   "sp-lg": "(min-width: #{$sp-inner-sum * 1px})",
-//   "pc": "(min-width: #{$breakpoint * 1px})",
-//   "lg": "(min-width: #{$pc-inner-sum * 1px})",
-// ) !default;
-
-// @mixin mq($breakpoint: sp) {
-//   @media #{map.get($breakpoints, $breakpoint)} {
-//     @content;
-//   }
-// }
-
-//xs 超小型スマホ
-//sm スマホ全般
-//md タブレット
-//lg 小型PC、タブレット横
-//xl 通常ノートPC、デスクトップ
-//xxl 大型モニタ
-
-// モバイルファースト設計：min-width で上書きしていく
-$breakpoints: (
-  "xs": "screen and (min-width:480px)",
-  "sm": "screen and (min-width:600px)",
-  "md": "screen and (min-width:768px)",
-  "lg": "screen and (min-width:960px)",
-  "xl": "screen and (min-width:1280px)",
-  "xxl": "screen and (min-width:1440px)",
-) !default;
-
-// PCファースト設計：max-width で下のサイズを上書きしていく
-// $breakpoints: (
-//   "xs": "screen and (max-width:479px)",
-//   "sm": "screen and (max-width:599px)",
-//   "md": "screen and (max-width:767px)",
-//   "lg": "screen and (max-width:959px)",
-//   "xl": "screen and (max-width:1279px)",
-//   "xxl": "screen and (max-width:1439px)"
-// ) !default;
+@if $responsive-strategy == "mobile-first" {
+  $breakpoints: (
+    "xs": "screen and (min-width:#{$bp-xs}px)",
+    "sm": "screen and (min-width:#{$bp-sm}px)",
+    "md": "screen and (min-width:#{$bp-md}px)",
+    "lg": "screen and (min-width:#{$bp-lg}px)",
+    "xl": "screen and (min-width:#{$bp-xl}px)",
+    "xxl": "screen and (min-width:#{$bp-xxl}px)",
+  );
+} @else {
+  $breakpoints: (
+    "xs": "screen and (max-width:#{$bp-xs - 1}px)",
+    "sm": "screen and (max-width:#{$bp-sm - 1}px)",
+    "md": "screen and (max-width:#{$bp-md - 1}px)",
+    "lg": "screen and (max-width:#{$bp-lg - 1}px)",
+    "xl": "screen and (max-width:#{$bp-xl - 1}px)",
+    "xxl": "screen and (max-width:#{$bp-xxl - 1}px)",
+  );
+}
 
 @mixin mq($breakpoint: md) {
   @media #{map.get($breakpoints, $breakpoint)} {

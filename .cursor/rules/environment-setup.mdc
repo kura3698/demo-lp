@@ -1,0 +1,66 @@
+---
+description: 新規案件の環境構築自動化スクリプト（設定の同期・Gulp起動）
+globs:
+alwaysApply: false
+---
+
+# 環境構築ワークフロー（AI実行用スクリプト）
+
+## ⚠️ トリガーと前提条件
+
+このルールは、ユーザーから「環境構築して」「セットアップして」等の指示があった場合のみ実行すること。
+実行を開始したら、ユーザーの追加指示を待たずに **Phase 0 から Phase 4 までを全自動で一気に実行** すること。
+
+---
+
+## Phase 0 — 情報ソースの読み込み
+
+作業前に必ず以下のファイルを Read ツールで読み込むこと。
+
+1. `.cursor/rules/project.mdc` (案件の変数定義：最優先)
+2. `.cursor/rules/web-coding-common.mdc` (共通の規約)
+3. `.cursor/rules/web-coding-html.mdc` (htmlの規約)
+4. `.cursor/rules/web-coding-scss.mdc` (SCSSの規約)
+
+※ `project.mdc` に `【案件名】` などのプレースホルダーが残っている場合は処理を中断し、「project.mdcの変数を入力してください」とユーザーに促すこと。
+
+---
+
+## Phase 1 — SCSS・HTMLの自動同期
+
+`project.mdc` の内容を元に、以下のファイルを**上書き**する。AIの自己解釈による変数の追加・削除は厳禁。
+
+### 1. `src/assets/sass/config/variables.scss`
+
+`project.mdc` の値と **完全一致** させる。計算式（`calc()`等）の行は絶対に消さないこと。使わないカラー変数はコメントアウトして残す。
+
+### 2. `src/assets/sass/config/mixin.scss`
+
+- `md` のブレイクポイントを `variables.scss` の `$breakpoint` と一致させること（例: `768px`）。
+- `xxl` はカンプの最大幅（`$pc-camp`）に合わせること。
+
+### 3. `src/assets/sass/common/base.scss`
+- `project.mdc`（または `variables.scss`）の `$is-liquid-layout` が `true` の場合、`html` セレクタ内にある `font-size: calc(...vw)` のメディアクエリブロックの **コメントアウト（`//`）を必ず外して有効化** すること。
+- `$is-liquid-layout` が `false` の場合は、コメントアウト状態を維持すること。
+- `:focus-visible` の `outline` 色を `$accent-green` 等の案件変数に合わせる。
+- それ以外の無用なスタイルの追加は行わない。
+
+### 4. `index.html`
+
+- `project.mdc` で指定されたフォント名と**ウェイト（太さ）**の表を読み取り、正しい Google Fonts の `<link>` タグを生成して書き換えること。
+  （例: Noto Sans JP の 400,500,700 の場合、`wght@400;500;700` のように正しく URL パラメータを構築し、2つのフォントを1つのリクエストにまとめること）
+- `<title>` と OGP のサイト名を案件名に変更する。
+
+### 4. `src\assets\js\parts\_viewport.js`
+
+- 数値をカンプのSP幅の数値と合わせる
+
+---
+
+## Phase 2 — ターミナルでのビルド実行
+
+Phase 1 が完了したら、ターミナルを開いて以下のコマンドを順に実行する。
+
+```bash
+npx gulp build
+```

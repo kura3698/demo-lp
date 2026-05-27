@@ -5,7 +5,7 @@
  * 納品前: 未使用の import 行と parts/_*.js ファイルを手動で削除する。
  */
 
-// import "./parts/_viewport.js";
+import "./parts/_viewport.js";
 // import "./parts/_drawer.js";
 // import "./parts/_smooth.js";
 // import "./parts/_hamburger-scroll.js";

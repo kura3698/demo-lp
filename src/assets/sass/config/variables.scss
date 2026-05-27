@@ -29,23 +29,41 @@ $z-drawer: 101;
 //===========================================
 //   カラー
 //===========================================
-$text-main: #565956;
-$text-white: #fff;
-// $text-accent: #99b901;
-
-$base-color: #fff;
+// 1. 基本カラー（メインで使用）
+$text-main: #333333;
+$text-accent: #d91621;
 $main-color: #f2f4f1;
+$sub-color: #609484;
+$hover-color: #948260;
+$bg-main: #fff9eb;
+$bg-sub: #f5f5f5;
 
-$accent-green: #609484;
-$accent-gold: #948260;
-
-$hover-color: #565956;
-
-$bg-main:#fff;
-$bg-sub:#F5F5F5;
-
+// 2. 拡張カラー（必要に応じて追加・利用すること）
+// AIへの指示: デザイン指示で以下の色が必要になった場合、
+// ここに新しい変数を追加し、プロジェクト全体で再利用できるようにすること。
 // $color-other1: #e10048;
 // $color-other2: #105f00;
 // $color-other3: #fdd401;
 // $color-other4: #ffa426;
 // $color-other5: #99b901;
+
+// =================================
+// サイト設計設定（AI参照用）
+// =================================
+
+// 1. レスポンシブ設計方針
+// "mobile-first" または "pc-first" を指定
+$responsive-strategy: "mobile-first";
+
+// 2. 流体レイアウト設定（リキッド）
+// true = VW等で相対可変にする / false = 固定幅+中央寄せを基本とする
+$is-liquid-layout: false;
+
+// 3. ブレイクポイント定義（px）
+// ここを修正すれば mixin.scss も自動的に整合性が保たれるようにする
+$bp-xs: 480; // スマホ
+$bp-sm: 600; // スマホ全般
+$bp-md: 768; // タブレット
+$bp-lg: 960; // 小型PC、タブレット
+$bp-xl: 1280; // デスクトップ
+$bp-xxl: 1440; // 大型モニタ

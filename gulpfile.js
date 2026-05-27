@@ -166,7 +166,6 @@ export const compileSassTask = compileSass;
 export const watchTask = watchFiles;
 export const browserInitTask = browserInit;
 export const formatJSTask = formatJS;
-export const copyImageTask = copyImage;
 
 export const dev = gulp.series(
   generateIndexScss,
@@ -174,5 +173,5 @@ export const dev = gulp.series(
 );
 export const build = gulp.series(
   generateIndexScss,
-  gulp.parallel(formatJS, compileSass, copyImage),
+  gulp.parallel(formatJS, compileSass),
 );

@@ -1,0 +1,1 @@
+(()=>{let e=document.querySelector('meta[name="viewport"]');function t(){var t=375<window.outerWidth?"width=device-width,initial-scale=1":"width=375";e.getAttribute("content")!==t&&e.setAttribute("content",t)}e&&(addEventListener("resize",t,!1),t())})();

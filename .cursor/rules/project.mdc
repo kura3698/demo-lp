@@ -11,37 +11,54 @@ alwaysApply: true
 
 ## 案件情報
 
-| 項目                   | 値                                          |
-| ---------------------- | ------------------------------------------- |
-| 案件名                 | sample-test（静的サイト用Gulpテンプレート） |
-| デザインカンプ PC / SP | 1440px / 375px                              |
+| 項目   | 値      |
+| ------ | ------- |
+| 案件名 | demo-lp |
 
 ## レイアウト（variables.scss で管理）
 
-`$pc-inner: 1140` / `$pc-sidePadding: 30` / `$breakpoint: 768` / `$sp-sidePadding: 20` / `$sp-inner: 600`
+| 項目                  | 値         | AI用変数マッピング                    |
+| --------------------- | ---------- | ------------------------------------- |
+| カンプPC / SP幅       | 1440 / 390 | `$pc-camp` / `$sp-camp`               |
+| メイン幅(PC/SP)       | 1000 / 600 | `$pc-inner` / `$sp-inner`             |
+| 左右パディング(PC/SP) | 30 / 20    | `$pc-sidePadding` / `$sp-sidePadding` |
+| ブレイクポイント      | 768        | `$breakpoint`                         |
+| PCの狭い幅            | 768        | `$pc-narrow-inner`                    |
+
+## レスポンシブ方針
+
+| 設定項目           | 値           | 選択肢・補足                                     |
+| :----------------- | :----------- | :----------------------------------------------- |
+| レスポンシブ方針   | mobile-first | `mobile-first` または `pc-first`                 |
+| リキッドレイアウト | false        | `true`（ルート可変rem） または `false`（固定幅） |
 
 ## カラー（必ず以下の変数を使用すること）
 
-`$text-main: #565956` / `$main-color: #f2f4f1` / `$accent-green: #609484` / `$accent-gold: #948260` / `$bg-sub: #F5F5F5`
+`$text-main: #333333` /` $text-accent: #D91621` / ;`$main-color: #f2f4f1` / `$sub-color: #609484` / `$hover-color: #948260` / `$bg-main: #FFF9EB` /`$bg-sub: #F5F5F5`
 
 ## フォント
 
-Noto Sans JP（`$ff`）/ Jost（`$ff-en`）— Google Fonts は `index.html`
-
-## ⚠️ クラス設計・実装ガイドライン（FLOCSSベース）
+| 種類   | フォント名（Google Fonts） | 必要なウェイト（太さ） | SCSS変数 |
+| ------ | -------------------------- | ---------------------- | -------- |
+| 日本語 | Noto Sans JP               | Regular, Medium, Bold  | `$ff`    |
+| 英語   | Oswald                     | Regular, Medium        | `$ff-en` |
 
 AIはマークアップ時、以下の命名規則と実装パターンを厳守すること。
 自己流のクラス名や無駄なラッパー（`div`）の乱用を禁止する。
 
 ### 1. 共通レイアウト (Layout)
+
 ページの骨格となる要素。幅や余白のみを管理し、装飾は持たない。
+
 - `.l-header` / `.l-footer` : ヘッダー・フッター
 - `.l-main` : メインコンテンツ
 - `.l-inner` : 中央揃え・最大幅指定（※`.l-container`ではなく`.l-inner`に統一）
 - `.l-section` : 各セクションの共通上下余白
 
 ### 2. コンポーネント (Component)
+
 プロジェクト全体で再利用可能な汎用UIパーツ。特定のセクションに依存しない。
+
 - **タイトル:** `.c-section-title`
 - **ボタン:** `.c-btn`（修飾: `.c-btn--primary`, `.c-btn--large` ※独立したセレクタで記述）
 - **UIパーツ:** `.c-hamburger`, `.c-slider` (Swiperラッパー), `.c-modal`, `.c-accordion`
@@ -49,21 +66,23 @@ AIはマークアップ時、以下の命名規則と実装パターンを厳守
 - **フォーム:** `.c-form`（要素: `.c-form__group`, `.c-form__label`, `.c-form__input`）
 
 ### 3. セクション別クラス (Project)
+
 特定のセクション専用のスタイル。`c-` に該当しないものはすべて `p-` で囲む。
 ※ 要素(`__`)は必ずネストさせず、独立したセレクタとしてCSSを記述すること。
 
-| セクション | クラス例（構成） | AIへの実装指示 |
-|------------|------------------|----------------|
-| **ヘッダー** | `.p-global-nav`, `.p-global-nav__list`, `.p-global-nav__item`, `.p-global-nav__link` | PC/SPでの表示切り替えを考慮すること。 |
-| **FV (Hero)** | `.p-fv`, `.p-fv__slider` | フルスクリーン・背景動画・スライダー等、案件に合わせて実装。 |
-| **特徴/強み** | `.p-features`, `.p-features__item`, `.p-features__figure`, `.p-features__body` | 画像＋テキストの王道パターン。交互配置の場合は `:nth-child(even)` 等を活用。 |
-| **サービス** | `.p-services`, `.p-services__list` | PCは `display: grid`、SPは `.c-slider` と組み合わせてSwiper化する構成を想定すること。 |
-| **ギャラリー** | `.p-gallery`, `.p-gallery__slider` | 無限ループスライダーなどの実装を想定。 |
-| **お客様の声** | `.p-reviews`, `.p-reviews__list` | クリックで `.is-open` を付与し、`.c-modal` を表示する想定でマークアップすること。 |
-| **FAQ** | `.p-faq`, `.p-faq__item`, `.p-faq__q`, `.p-faq__a` | アコーディオン (`.c-accordion`) の実装を想定。 |
-| **メッセージ** | `.p-message`, `.p-message__bg`, `.p-message__box` | 背景画像の上にテキストボックスを重ねるレイアウト。 |
+| セクション     | クラス例（構成）                                                                     | AIへの実装指示                                                                        |
+| -------------- | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------- |
+| **ヘッダー**   | `.p-global-nav`, `.p-global-nav__list`, `.p-global-nav__item`, `.p-global-nav__link` | PC/SPでの表示切り替えを考慮すること。                                                 |
+| **FV (Hero)**  | `.p-fv`, `.p-fv__slider`                                                             | フルスクリーン・背景動画・スライダー等、案件に合わせて実装。                          |
+| **特徴/強み**  | `.p-features`, `.p-features__item`, `.p-features__figure`, `.p-features__body`       | 画像＋テキストの王道パターン。交互配置の場合は `:nth-child(even)` 等を活用。          |
+| **サービス**   | `.p-services`, `.p-services__list`                                                   | PCは `display: grid`、SPは `.c-slider` と組み合わせてSwiper化する構成を想定すること。 |
+| **ギャラリー** | `.p-gallery`, `.p-gallery__slider`                                                   | 無限ループスライダーなどの実装を想定。                                                |
+| **お客様の声** | `.p-reviews`, `.p-reviews__list`                                                     | クリックで `.is-open` を付与し、`.c-modal` を表示する想定でマークアップすること。     |
+| **FAQ**        | `.p-faq`, `.p-faq__item`, `.p-faq__q`, `.p-faq__a`                                   | アコーディオン (`.c-accordion`) の実装を想定。                                        |
+| **メッセージ** | `.p-message`, `.p-message__bg`, `.p-message__box`                                    | 背景画像の上にテキストボックスを重ねるレイアウト。                                    |
 
 ### ⚠️ AIによるクラスの自律的な追加・命名ルール
+
 上記のリストはあくまで代表例（テンプレート）です。案件に応じて新しいセクション（例: 料金表、会社概要、導入の流れ など）が登場した場合、AIは以下のルールに従って**自律的に新しい `p-` クラスを作成**すること。
 
 1. **直感的で短い英単語の採用:** （例: `.p-price`, `.p-company`, `.p-flow` など）。意味不明な略語や、長すぎるクラス名（例: `.p-section-company-information-wrapper`）は避けること。
@@ -71,9 +90,9 @@ AIはマークアップ時、以下の命名規則と実装パターンを厳守
 3. **既存コンポーネントの活用:** 新しい `p-` クラスを作る場合でも、中のタイトルやボタンは必ず既存の `.c-section-title` や `.c-btn` を使い回し、無駄なCSSを増やさないこと。
 
 ### 💡 レスポンシブ実装における絶対ルール（コツ）
+
 - **DOMの複製禁止:** PC用とSP用でHTMLの構造が大きく変わる場合でも、安易に `.***--pc` と `.***--sp` のようにHTMLを複製して `display: none` で切り替えるのは**最終手段**とする。
 - **CSSでの解決を優先:** まずは `display: flex` の `order` や、`display: grid` の `grid-template-areas` などを駆使して、**同一のHTML構造のままCSSでレイアウトを変更できないか**を第一に検討すること。
-
 
 ## 画像
 
