@@ -1,0 +1,45 @@
+@use "../config/" as *;
+
+.c-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: rm(15);
+  color: $text-main;
+  @include font(18, 700, 27, 0.9);
+
+  @include mq(md) {
+    @include font(30, 700, 45, 1.5);
+  }
+
+  &::before,
+  &::after {
+    content: "";
+    flex-shrink: 0;
+    width: rm(58);
+    height: rm(20);
+    opacity: 0.8;
+    background-image:
+      url("/img/deco_section-title-red@2x.webp"),
+      url("/img/deco_section-title-blue@2x.webp"),
+      url("/img/deco_section-title-red@2x.webp");
+    background-repeat: no-repeat;
+    background-size:
+      rm(16) rm(20),
+      rm(16) rm(20),
+      rm(16) rm(20);
+    background-position:
+      left center,
+      center center,
+      right center;
+
+    @include mq(md) {
+      width: rm(125);
+      height: rm(46);
+      background-size:
+        rm(35) rm(46),
+        rm(35) rm(46),
+        rm(35) rm(46);
+    }
+  }
+}
