@@ -1,0 +1,73 @@
+﻿@use "../config/" as *;
+
+.c-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: $z-drawer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  padding-top: rm(70);
+  background-color: $color-drawer-overlay;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+
+  @include mq(lg) {
+    display: none;
+  }
+
+  &.js-show {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+.c-drawer__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: rm(20);
+  width: 100%;
+  max-width: px($sp-inner);
+  margin: 0;
+  padding: 0 rm($sp-sidePadding);
+  list-style: none;
+}
+
+.c-drawer__item {
+  width: 100%;
+}
+
+.c-drawer__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: rm(44);
+  padding-block: rm(10);
+  color: $reverse-color;
+  text-align: center;
+  text-decoration: none;
+  @include font(18, 700, 27);
+  transition: opacity 0.3s ease;
+
+  &:focus-visible {
+    opacity: 0.7;
+    outline: 2px solid $reverse-color;
+    border-radius: rm(4);
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}

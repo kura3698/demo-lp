@@ -1,0 +1,63 @@
+﻿@use "../config/" as *;
+
+.p-global-nav {
+  display: none;
+
+  @include mq(lg) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.p-global-nav__list {
+  display: flex;
+  gap: rm(2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.p-global-nav__item {
+  flex-shrink: 0;
+}
+
+.p-global-nav__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: rm(130);
+  height: rm(60);
+  border: rm(1) solid $main-color;
+  border-radius: rm(5);
+  background-color: $main-color;
+  color: $reverse-color;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease,
+    border-color 0.3s ease;
+  @include font(14, 500, 21);
+
+  &:focus-visible {
+    background-color: $reverse-color;
+    color: $main-color;
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      background-color: $reverse-color;
+      color: $main-color;
+    }
+  }
+}
+
+.p-global-nav__icon {
+  flex-shrink: 0;
+  width: rm(20);
+  height: rm(16);
+  object-fit: contain;
+}

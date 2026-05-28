@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="ja">
   <head>
     <meta charset="UTF-8" />
@@ -54,5 +54,100 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js" defer></script> -->
   </head>
 
-  <body></body>
+  <body>
+    <header class="l-header">
+      <div class=" l-header__inner">
+        <a href="#top" class="l-header__logo">
+          <img
+            src="/img/logo.webp"
+            alt="Mongolia Balloon Camp"
+            width="114"
+            height="50"
+            decoding="async"
+          />
+        </a>
+
+        <nav class="p-global-nav" aria-label="メインナビゲーション">
+          <ul class="p-global-nav__list p-global-nav__list--left">
+            <li class="p-global-nav__item">
+              <a
+                href="#top"
+                class="p-global-nav__link p-global-nav__link--icon"
+                aria-label="TOP"
+              >
+                <span class="p-global-nav__icon" aria-hidden="true"></span>
+              </a>
+            </li>
+            <li class="p-global-nav__item">
+              <a href="#activity" class="p-global-nav__link">アクティビティ</a>
+            </li>
+            <li class="p-global-nav__item">
+              <a href="#about" class="p-global-nav__link">キャンプについて</a>
+            </li>
+          </ul>
+          <ul class="p-global-nav__list p-global-nav__list--right">
+            <li class="p-global-nav__item">
+              <a href="#travel" class="p-global-nav__link">旅行例</a>
+            </li>
+            <li class="p-global-nav__item">
+              <a href="#gallery" class="p-global-nav__link">フォトギャラリー</a>
+            </li>
+            <li class="p-global-nav__item">
+              <a href="#blog" class="p-global-nav__link">ぼるふ〜草原記</a>
+            </li>
+          </ul>
+        </nav>
+
+        <button
+          type="button"
+          class="c-hamburger-icon"
+          aria-expanded="false"
+          aria-controls="global-drawer"
+          aria-label="メニューを開く"
+        >
+          <span class="c-hamburger-icon__bar" aria-hidden="true"></span>
+          <span class="c-hamburger-icon__bar" aria-hidden="true"></span>
+          <span class="c-hamburger-icon__bar" aria-hidden="true"></span>
+          <span class="c-hamburger-icon__label c-hamburger-icon__label--open"
+            >MENU</span
+          >
+          <span class="c-hamburger-icon__label c-hamburger-icon__label--close"
+            >CLOSE</span
+          >
+        </button>
+      </div>
+    </header>
+
+    <nav
+      id="global-drawer"
+      class="c-drawer"
+      aria-label="メニュー"
+      aria-hidden="true"
+    >
+      <ul class="c-drawer__list">
+        <li class="c-drawer__item">
+          <a href="#top" class="c-drawer__link">TOP</a>
+        </li>
+        <li class="c-drawer__item">
+          <a href="#activity" class="c-drawer__link">アクティビティ</a>
+        </li>
+        <li class="c-drawer__item">
+          <a href="#about" class="c-drawer__link">キャンプについて</a>
+        </li>
+        <li class="c-drawer__item">
+          <a href="#travel" class="c-drawer__link">旅行例</a>
+        </li>
+        <li class="c-drawer__item">
+          <a href="#gallery" class="c-drawer__link">フォトギャラリー</a>
+        </li>
+        <li class="c-drawer__item">
+          <a href="#blog" class="c-drawer__link">ぼるふ〜草原記</a>
+        </li>
+      </ul>
+    </nav>
+
+    <main id="main"></main>
+
+    <script type="module" src="/js/script.js"></script>
+  </body>
 </html>

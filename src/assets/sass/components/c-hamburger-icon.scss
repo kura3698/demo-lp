@@ -1,0 +1,76 @@
+﻿@use "../config/" as *;
+
+.c-hamburger-icon {
+  position: relative;
+  z-index: $z-drawerIcon;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+  width: rm(24);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  @include mq(lg) {
+    display: none;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $text-accent;
+    border-radius: rm(4);
+  }
+}
+
+.c-hamburger-icon__bar {
+  display: block;
+  width: rm(24);
+  height: rm(2);
+  background-color: #fff;
+  transform-origin: center;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease,
+    translate 0.3s ease;
+
+  &:not(:first-child) {
+    margin-top: rm(6);
+  }
+}
+
+.c-hamburger-icon__label {
+  margin-top: rm(2);
+  color: #fff;
+  @include font(8, 700, 12);
+  transition: opacity 0.3s ease;
+}
+
+.c-hamburger-icon__label--close {
+  display: none;
+}
+
+.c-hamburger-icon.js-show {
+  .c-hamburger-icon__bar {
+    &:nth-child(1) {
+      translate: 0 rm(8);
+      rotate: 45deg;
+    }
+
+    &:nth-child(2) {
+      opacity: 0;
+    }
+
+    &:nth-child(3) {
+      translate: 0 rm(-8);
+      rotate: -45deg;
+    }
+  }
+
+  .c-hamburger-icon__label--open {
+    display: none;
+  }
+
+  .c-hamburger-icon__label--close {
+    display: block;
+  }
+}
