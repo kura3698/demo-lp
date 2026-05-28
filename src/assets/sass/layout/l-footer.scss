@@ -1,0 +1,11 @@
+@use "../config/" as *;
+
+.l-footer {
+  background-color: $main-color;
+  color: $reverse-color;
+}
+
+.l-footer__inner {
+  padding-block-start: rm(40);
+  padding-block-end: rm(30);
+}
