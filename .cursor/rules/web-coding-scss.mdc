@@ -8,7 +8,7 @@ alwaysApply: true
 
 ## ⚠️ AI作業時の厳守事項（ガードレール）
 
-- **ハードコード厳禁:** 新しい色（HEXコード）、フォントサイズ、余白などをベタ書きしない。**必ず `variables.scss` などの既存の変数や関数を使用**すること。
+- **ハードコード厳禁:** 新しい色（HEXコード）、フォントサイズ、余白などをベタ書きしない。**必ず `variables.scss` などの既存の変数や関数を使用**すること（数値の出所不明な直書き = マジックナンバー → **`マジックナンバー禁止`** 節を参照）。
 - **BEMクラスの無断生成禁止:** 勝手に新しいコンポーネントクラスを作成する前に、既存のUtility（`u-`）やLayout（`l-`）で解決できないか検討すること。
 - **自動生成ファイル保護:** 各層の `index.scss` はGulpによる自動生成のため**【編集厳禁】**。スタイル追加は必ず各パーシャルファイル（`_*.scss`）に行うこと。
 
@@ -133,9 +133,126 @@ padding: rm(20px); // 【禁止】引数に px を付けない（エラーの原
 font-size: 16px; // 【禁止】関数を使わずに px を直書きしない
 }
 
+## マジックナンバー禁止ルール
+
+プロパティ値に**意味のない生数字**を直書きすることを禁止する。数値には必ず出所（カンプ px・親要素サイズ・共通変数）を持たせること。
+
+※ 単位変換の詳細は上記 **`rm()` ルール** を参照。共通レイアウト値は **`variables.scss`** を参照。
+
+### 優先順位
+
+1. **`variables.scss` の共通変数**（`$pc-camp`, `$sp-sidePadding`, `$z-header` 等）
+2. **ファイル先頭のローカル変数**（カンプ px + 用途コメントで集約）
+3. **変換関数**（`rm()`, `vw()`, `vw-sp()`, `rclamp()`）でプロパティ値に適用
+
+### ローカル変数の書き方
+
+カンプ値はファイル先頭に、**単位なし数値 + 用途コメント**で命名・集約する。
+
+```scss
+// FV テキスト配置（カンプ上の px）
+$fv-pc-height: 700;
+$fv-text-pc-inset-block: 200;
+$fv-text-pc-inset-block-ratio: math.div($fv-text-pc-inset-block, $fv-pc-height) * 100%;
+```
+
+- 2箇所以上で使う値は `variables.scss` へ昇格する
+- **例外（直書き可）:** `0`, `100%`, `auto`, `1fr`, `z-index` の `$z-*` など文脈上自明な値
+
+### AIへの短い指示例
+
+| 指示フレーズ | 意味 |
+| --- | --- |
+| `マジックナンバー禁止` | 生数字直書きをやめ、変数 + 関数に置き換える |
+| `カンプ値はファイル先頭に変数化` | デザイン px を `$xxx: 数値;` で集約してから使う |
+| `共通値は variables に` | 複数ファイルで使う値を `variables.scss` へ移す |
+
+⭕ 良い例
+
+```scss
+$fv-pc-height: 700;
+$fv-text-pc-inset-block: 200;
+$inset-ratio: math.div($fv-text-pc-inset-block, $fv-pc-height) * 100%;
+
+.p-fv__content {
+  inset-block-start: $inset-ratio;
+  margin-block-start: rm($sp-sidePadding);
+}
+```
+
+❌ 悪い例
+
+```scss
+.p-fv__content {
+  inset-block-start: 28.57%; // 【禁止】出所不明の比率
+  margin-block-start: rm(47); // 【禁止】カンプ根拠のない数値
+}
+```
+
+## 相対配置（position）ルール
+
+要素の重ね合わせ・オーバーレイ配置は、以下の優先順位で実装する。
+
+※ `inset` の方向指定は **`論理プロパティ（block / inline）`** 節を参照。数値の出所は **`マジックナンバー禁止`** 節を参照。
+
+### 配置パターン早見表
+
+| 用途 | 推奨手法 |
+| --- | --- |
+| フロー内配置 | Flex / Grid（`margin`, `gap`, `align`） |
+| セクション内重ね | Grid オーバーレイ（同一 `grid-area` で重ねる） |
+| 装飾・バッジ | 親 `relative` + 子 `absolute` + 比率 inset |
+
+### 基本ルール
+
+- **Grid / Flex を第一選択。** `position: absolute` は重ね合わせ・装飾バッジ等、レイアウトフロー外が必要な場合のみ使う
+- 子に `position: absolute` → 親（または Grid オーバーレイ親）に `position: relative` を必ず付与
+- **Grid 重ね（推奨）:** `display: grid` + 子要素を同一 `grid-area: 1 / 1` で重ねる（`p-fv.scss` パターン）
+- **`top` / `left` 等の物理方向 inset は禁止。** `inset-block-start` 等の論理プロパティを使う
+- カンプ px の inset は **親要素またはカンプ幅に対する比率（%）** または `vw()` / `vw-sp()` / `clamp()` に変換する。生 px の inset 直書きは禁止
+- SP 幅依存の配置: `vw-sp()` または `calc(100vw * $px / $sp-camp)`
+- PC 固定幅: `rm()` + `clamp()` で min/max を `$pc-sidePadding` 等の既存変数と組み合わせる
+
+### AIへの短い指示例
+
+| 指示フレーズ | 意味 |
+| --- | --- |
+| `相対配置ルールで` | Grid 優先・比率 inset で実装する |
+| `カンプ px を比率変換` | `math.div(配置px, 親px) * 100%` で inset に使う |
+| `absolute 直書き inset 禁止` | inset 値は必ず変数・関数経由にする |
+
+⭕ 良い例
+
+```scss
+.p-fv__slide {
+  display: grid;
+
+  > .p-fv__bg,
+  > .p-fv__content {
+    grid-area: 1 / 1;
+  }
+}
+
+.p-fv__content {
+  position: absolute;
+  inset-block-start: $fv-text-sp-inset-block-ratio;
+  inset-inline-start: rm($sp-sidePadding);
+}
+```
+
+❌ 悪い例
+
+```scss
+.p-feature__head-badge {
+  position: absolute;
+  top: rm(12); // 【禁止】物理方向 + マジックナンバー
+  left: rm(-8);
+}
+```
+
 ## 論理プロパティ（block / inline）の利用ルール
 
-パディング・マージン・配置（`inset`）など、縦横の方向を表す記述は、**基本的に物理方向（`top` / `right` / `bottom` / `left`）ではなく論理プロパティ（`block` / `inline`）を使用**すること。
+パディング・マージン・配置（`inset`）など、縦横の方向を表す記述は、**基本的に物理方向（`top` / `right` / `bottom` / `left`）ではなく論理プロパティ（`block` / `inline`）を使用**すること。`position: absolute` での配置値は **`相対配置（position）ルール`** に従う。
 
 | 物理（避ける）   | 論理（推奨）           |
 | ---------------- | ---------------------- |

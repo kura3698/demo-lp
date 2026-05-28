@@ -161,7 +161,128 @@
       </div>
     </header>
 
-    <main id="main"></main>
+    <main id="main">
+      <section class="p-fv" id="top" aria-label="ファーストビュー">
+        <div class="swiper p-fv__slider">
+          <div class="swiper-wrapper">
+            <!-- スライド1 -->
+            <div class="swiper-slide p-fv__slide">
+              <picture class="p-fv__bg">
+                <source
+                  media="(min-width: 768px)"
+                  srcset="/img/img_fv-1-pc@2x.webp"
+                  width="1440"
+                  height="700"
+                />
+                <img
+                  src="/img/img_fv-1-sp@2x.webp"
+                  alt=""
+                  width="390"
+                  height="580"
+                  fetchpriority="high"
+                  decoding="async"
+                />
+              </picture>
+              <div class="p-fv__content">
+                <h1 class="p-fv__heading">
+                  <picture
+                    class="p-fv__heading-picture p-fv__heading-picture--s1"
+                  >
+                    <source
+                      media="(min-width: 768px)"
+                      srcset="/img/img_fv-text1-pc@2x.webp"
+                    />
+                    <img
+                      src="/img/img_fv-text1-sp@2x.webp"
+                      alt="オープンから20年 伝統あるキャンプ場で最高のモンゴル旅を"
+                      width="350"
+                      height="130"
+                      decoding="async"
+                    />
+                  </picture>
+                </h1>
+              </div>
+            </div>
+
+            <!-- スライド2 -->
+            <div class="swiper-slide p-fv__slide">
+              <picture class="p-fv__bg">
+                <source
+                  media="(min-width: 768px)"
+                  srcset="/img/img_fv-2-pc@2x.webp"
+                  width="1440"
+                  height="700"
+                />
+                <img
+                  src="/img/img_fv-2-sp@2x.webp"
+                  alt=""
+                  width="390"
+                  height="580"
+                  decoding="async"
+                />
+              </picture>
+              <div class="p-fv__content">
+                <p class="p-fv__heading">
+                  <picture
+                    class="p-fv__heading-picture p-fv__heading-picture--s2"
+                  >
+                    <source
+                      media="(min-width: 768px)"
+                      srcset="/img/img_fv-text2-pc@2x.webp"
+                    />
+                    <img
+                      src="/img/img_fv-text2-sp@2x.webp"
+                      alt="大草原を眺めながら空の散歩 モンゴルでここでしか出来ない体験を"
+                      width="350"
+                      height="130"
+                      decoding="async"
+                    />
+                  </picture>
+                </p>
+              </div>
+            </div>
+
+            <!-- スライド3 -->
+            <div class="swiper-slide p-fv__slide">
+              <picture class="p-fv__bg">
+                <source
+                  media="(min-width: 768px)"
+                  srcset="/img/img_fv-3-pc@2x.webp"
+                  width="1440"
+                  height="700"
+                />
+                <img
+                  src="/img/img_fv-3-sp@2x.webp"
+                  alt=""
+                  width="390"
+                  height="580"
+                  decoding="async"
+                />
+              </picture>
+              <div class="p-fv__content">
+                <p class="p-fv__heading">
+                  <picture
+                    class="p-fv__heading-picture p-fv__heading-picture--s3"
+                  >
+                    <source
+                      media="(min-width: 768px)"
+                      srcset="/img/img_fv-text3-pc@2x.webp"
+                    />
+                    <img
+                      src="/img/img_fv-text3-sp@2x.webp"
+                      alt="360度大パノラマの草原で 息を呑むほど美しい満天の星空を"
+                      width="350"
+                      height="130"
+                      decoding="async"
+                    />
+                  </picture>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
 
     <script type="module" src="/js/script.js"></script>
   </body>
