@@ -9,11 +9,11 @@
   padding-bottom: rm(10);
   color: $text-main;
   text-align: center;
-  @include font(14, 500, 20, 0);
+  @include font(14, 500, 1.43, 0);
 
   @include mq(md) {
     padding-bottom: rm(15);
-    @include font(20, 500, 20, 0);
+    @include font(20, 500, 1, 0);
   }
 
   &::after {

@@ -1,16 +1,238 @@
 @use "../config/" as *;
 
+// ============================================================
+// ローカル変数（カンプ値）
+// ============================================================
+$features-img-radius: 15;
+$features-sp-img-main-w: 350;
+$features-sp-img-main-h: 200;
+$features-sp-img-sub-w: 170;
+$features-sp-img-sub-h: 120;
+$features-pc-img-main-w: 450;
+$features-pc-img-main-h: 280;
+$features-pc-img-sub-w: 220;
+$features-pc-img-sub-h: 150;
+
+// ============================================================
+// セクション
+// ============================================================
+.p-features {
+  background-color: $bg-main;
+}
+
+// ============================================================
+// 見出しエリア
+// ============================================================
+.p-features__head {
+  text-align: center;
+  margin-block-end: rm(50);
+
+  @include mq(md) {
+    margin-block-end: rm(70);
+  }
+}
+
+// h2 ラッパー（絶対配置の土台として既存スタブを継続使用）
 .p-feature__head {
   position: relative;
+  display: inline-block;
   color: $text-main;
   text-align: center;
   width: fit-content;
   margin-inline: auto;
+  padding-block-start: rm(30);
+
+  @include mq(md) {
+    padding-block-start: rm(40);
+  }
 }
 
-.p-feature__head-badge {
+// c-head-decoration の絶対配置調整（位置はここで変更）
+.p-features__head-badge {
   position: absolute;
-  top: 0;
-  left: 0;
-  transform: rotate(-14deg);
+  inset-block-start: 0;
+  inset-inline-start: 50%;
+  transform: translateX(-50%) rotate(-14deg);
+}
+
+// "モンゴルバルーンキャンプ" サブタイトル（.c-head-decoration の絶対配置の基点）
+.p-features__sub-title {
+  position: relative;
+  display: block;
+  @include font(22, 700, 1.4);
+  color: $text-main;
+  text-align: center;
+  margin-block-end: rm(8);
+
+  @include mq(md) {
+    @include font(30, 700, 1.4);
+    margin-block-end: rm(12);
+  }
+}
+
+// "３つの魅力" ラッパー（疑似要素でのあしらい用）
+.p-features__title {
+  position: relative;
+  display: block;
+  @include font(22, 700, 1.4);
+  color: $text-main;
+
+  @include mq(md) {
+    @include font(30, 700, 1.4);
+  }
+}
+
+// "３" だけ大きく
+.p-features__title-num {
+  font-family: $ff-en;
+  font-size: rm(30);
+  font-weight: 500;
+  letter-spacing: 0.1em;
+
+  @include mq(md) {
+    font-size: rm(42);
+  }
+}
+
+// ============================================================
+// リスト
+// ============================================================
+.p-features__list {
+  display: flex;
+  flex-direction: column;
+  gap: rm(60);
+
+  @include mq(md) {
+    gap: rm(80);
+  }
+}
+
+// ============================================================
+// アイテム（SP: 縦積み）
+// ============================================================
+.p-features__item {
+  display: flex;
+  flex-direction: column;
+  gap: rm(24);
+
+  @include mq(md) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: rm(20);
+    align-items: center;
+  }
+}
+
+// ============================================================
+// 写真エリア
+// ============================================================
+.p-features__figure {
+  display: flex;
+  flex-direction: column;
+  gap: rm(10);
+
+  img {
+    border-radius: rm($features-img-radius);
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+.p-features__figure-sub {
+  display: flex;
+  gap: rm(10);
+  align-items: flex-end;
+
+  img {
+    width: calc(50% - rm(5));
+    aspect-ratio: #{$features-sp-img-sub-w} / #{$features-sp-img-sub-h};
+    object-fit: cover;
+
+    @include mq(md) {
+      aspect-ratio: #{$features-pc-img-sub-w} / #{$features-pc-img-sub-h};
+    }
+  }
+}
+
+// ============================================================
+// テキストエリア
+// ============================================================
+.p-features__body {
+  display: flex;
+  flex-direction: column;
+  gap: rm(16);
+
+  @include mq(md) {
+    gap: rm(20);
+  }
+}
+
+.p-features__label {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: rm(12);
+  row-gap: rm(8);
+}
+
+.p-features__num {
+  font-family: $ff-en;
+  font-size: rm(45);
+  font-weight: 500;
+  line-height: 1;
+  color: $text-main;
+  letter-spacing: 0.05em;
+
+  @include mq(md) {
+    font-size: rm(65);
+  }
+
+  &::after {
+    content: "";
+    display: inline-block;
+    width: rm(50);
+    height: rm(1);
+    background-color: $text-main;
+    vertical-align: middle;
+    margin-inline-start: rm(12);
+  }
+}
+
+.p-features__heading {
+  @include font(18, 700, 1.5);
+  color: $text-main;
+
+  @include mq(md) {
+    @include font(28, 700, 1.5);
+  }
+}
+
+.p-features__text {
+  @include font(14, 400, 1.7);
+  color: $text-main;
+
+  @include mq(md) {
+    @include font(18, 400, 1.7);
+  }
+}
+
+// ボタン中央配置
+.p-features__body .c-button {
+  align-self: center;
+}
+
+// ============================================================
+// PCレイアウト — 偶数アイテム: 写真右・テキスト左
+// ============================================================
+.p-features__item:nth-child(even) .p-features__figure {
+  @include mq(md) {
+    order: 2;
+  }
+}
+
+.p-features__item:nth-child(even) .p-features__body {
+  @include mq(md) {
+    order: 1;
+  }
 }

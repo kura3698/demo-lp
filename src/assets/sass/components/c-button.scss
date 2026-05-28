@@ -40,13 +40,13 @@
 }
 
 .c-button__text {
-  @include font(16, 700, 24);
+  @include font(16, 700, 1.5);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 
   @include mq(md) {
-    @include font(18, 700, 26);
+    @include font(18, 700, 1.44);
   }
 }
 
@@ -90,10 +90,10 @@
 }
 
 .c-button--submit .c-button__text {
-  @include font(16, 700, 23);
+  @include font(16, 700, 1.44);
 
   @include mq(md) {
-    @include font(20, 700, 30);
+    @include font(20, 700, 1.5);
   }
 }
 

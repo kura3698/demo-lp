@@ -44,7 +44,7 @@
   margin-top: rm(2);
   color: #fff;
   line-height: 1;
-  @include font(8, 700, 12);
+  @include font(8, 700, 1.5);
   transition: opacity 0.3s ease;
 }
 

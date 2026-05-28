@@ -1,0 +1,9 @@
+@use "../config/" as *;
+
+.l-section {
+  padding-block: rm(60);
+
+  @include mq(md) {
+    padding-block: rm(90);
+  }
+}

@@ -86,6 +86,29 @@ AIは `variables.scss` に定義された以下のフラグを読み取り、実
 
 ブレイクポイント: `xs:480` `sm:600` `md:768` `lg:960` `xl:1280` `xxl:1440`
 
+### `@include font()` の line-height ルール
+
+`@include font($size, $weight, $height, $spacing)` の第3引数 `$height` は **unitless の比率**（例: `1.5`）で渡すこと。ミックスインは計算を行わず `line-height: $height` をそのまま出力する。
+
+⭕ 良い例
+
+```scss
+.p-card__text {
+  @include font(16, 400, 1.5);      // line-height: 1.5 が出力される
+  @include font(14, 400, 1.7);      // line-height: 1.7 が出力される
+  @include font(18, 700, 1.5, 0.9); // letter-spacing も指定する場合
+}
+```
+
+❌ 悪い例
+
+```scss
+.p-card__text {
+  @include font(16, 400, 24); // 【禁止】px値を渡すと line-height: 24 になる
+  @include font(14, 400, 1.7 * 14); // 【禁止】事前計算も不要
+}
+```
+
 ## 例
 
 ```scss
