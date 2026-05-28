@@ -1,0 +1,101 @@
+@use "../config/" as *;
+
+.p-fv {
+  position: relative;
+}
+
+.p-fv__slider {
+  height: 100svh;
+  overflow: hidden;
+}
+
+// Swiper有効化前の静的表示用スタイル
+.p-fv__slider .swiper-wrapper {
+  display: flex;
+  height: 100%;
+}
+
+.p-fv__slider .swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.p-fv__slide {
+  position: relative;
+  overflow: hidden;
+}
+
+.p-fv__bg {
+  position: absolute;
+  inset: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.p-fv__bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.p-fv__content {
+  position: absolute;
+  inset-block-start: 24%;
+  inset-inline-start: rm($sp-sidePadding);
+
+  @include mq(md) {
+    inset-block-start: 28%;
+    inset-inline-start: 46.5%;
+  }
+}
+
+.p-fv__heading {
+  color: $reverse-color;
+  font-size: rm(20);
+  font-weight: 700;
+  line-height: 1.5;
+  text-shadow: 2px 2px 3px rgba($text-main, 0.5);
+
+  @include mq(md) {
+    font-size: rm(32);
+    letter-spacing: 0.03em;
+  }
+}
+
+.p-fv__line {
+  display: block;
+
+  &:not(:last-child) {
+    margin-block-end: rm(13);
+
+    @include mq(md) {
+      margin-block-end: rm(21);
+    }
+  }
+}
+
+.p-fv__deco-text {
+  display: inline-block;
+  vertical-align: middle;
+  height: rm(54);
+  width: auto;
+
+  @include mq(md) {
+    height: rm(80);
+  }
+}
+
+.p-fv__num {
+  font-family: $ff-en;
+  font-weight: 500;
+  font-size: rm(22);
+  letter-spacing: 0.05em;
+
+  @include mq(md) {
+    font-size: rm(36);
+  }
+}
