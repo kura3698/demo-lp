@@ -13,11 +13,11 @@
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  padding-block: rm(30);
+  padding-block: rm(20);
   position: relative;
   width: 100%;
   height: inherit;
-  padding-inline: rm($sp-sidePadding);
+  padding-inline: rm($sp-sidePadding) calc(rm($sp-sidePadding) - rm(4)); // スマホ版のハンバーガーアイコンの位置調整
   margin-inline: auto;
 
   @include mq(lg) {
@@ -33,6 +33,7 @@
   flex-shrink: 0;
   width: rm(70);
   transition: opacity 0.3s ease;
+  z-index: $z-drawerIcon;
 
   @include mq(lg) {
     position: absolute;

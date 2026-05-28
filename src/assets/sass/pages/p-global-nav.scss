@@ -55,9 +55,44 @@
   }
 }
 
-.p-global-nav__icon {
+.p-global-nav__link--icon {
+  position: relative;
+}
+
+.p-global-nav__icon--default,
+.p-global-nav__icon--hover {
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
   flex-shrink: 0;
   width: rm(20);
   height: rm(16);
+  max-width: rm(20);
+  max-height: rm(16);
   object-fit: contain;
+  translate: -50% -50%;
+  transition: opacity 0.3s ease;
+}
+
+.p-global-nav__icon--hover {
+  opacity: 0;
+}
+
+.p-global-nav__link--icon:focus-visible .p-global-nav__icon--default {
+  opacity: 0;
+}
+
+.p-global-nav__link--icon:focus-visible .p-global-nav__icon--hover {
+  opacity: 1;
+}
+
+@media (any-hover: hover) {
+  .p-global-nav__link--icon:hover .p-global-nav__icon--default {
+    opacity: 0;
+  }
+
+  .p-global-nav__link--icon:hover .p-global-nav__icon--hover {
+    opacity: 1;
+  }
 }

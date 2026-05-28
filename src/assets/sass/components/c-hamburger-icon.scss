@@ -6,8 +6,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   flex-shrink: 0;
-  width: rm(24);
+  width: rm(32);
+  height: rm(32);
+  padding: 0;
   border: none;
   background: transparent;
   cursor: pointer;
@@ -41,6 +44,7 @@
 .c-hamburger-icon__label {
   margin-top: rm(2);
   color: #fff;
+  line-height: 1;
   @include font(8, 700, 12);
   transition: opacity 0.3s ease;
 }

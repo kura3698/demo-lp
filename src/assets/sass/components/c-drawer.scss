@@ -11,7 +11,7 @@
   height: 100vh;
   height: 100dvh;
   padding-top: rm(70);
-  background-color: $color-drawer-overlay;
+  background-color: $color-drawer;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -34,7 +34,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: rm(20);
+  gap: rm(10);
   width: 100%;
   max-width: px($sp-inner);
   margin: 0;
@@ -52,22 +52,12 @@
   justify-content: center;
   width: 100%;
   min-height: rm(44);
-  padding-block: rm(10);
+  padding-block: rm(5);
+  max-width: rm(240);
+  margin-inline: auto;
   color: $reverse-color;
   text-align: center;
   text-decoration: none;
   @include font(18, 700, 27);
   transition: opacity 0.3s ease;
-
-  &:focus-visible {
-    opacity: 0.7;
-    outline: 2px solid $reverse-color;
-    border-radius: rm(4);
-  }
-
-  @media (any-hover: hover) {
-    &:hover {
-      opacity: 0.7;
-    }
-  }
 }

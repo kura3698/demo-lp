@@ -56,7 +56,7 @@
 
   <body>
     <header class="l-header">
-      <div class=" l-header__inner">
+      <div class="l-header__inner">
         <a href="#top" class="l-header__logo">
           <img
             src="/img/logo.webp"
@@ -75,7 +75,22 @@
                 class="p-global-nav__link p-global-nav__link--icon"
                 aria-label="TOP"
               >
-                <span class="p-global-nav__icon" aria-hidden="true"></span>
+                <img
+                  src="/img/icon_home.svg"
+                  alt=""
+                  class="p-global-nav__icon p-global-nav__icon--default"
+                  width="20"
+                  height="16"
+                  decoding="async"
+                />
+                <img
+                  src="/img/icon_home-hover.svg"
+                  alt=""
+                  class="p-global-nav__icon p-global-nav__icon--hover"
+                  width="20"
+                  height="16"
+                  decoding="async"
+                />
               </a>
             </li>
             <li class="p-global-nav__item">
@@ -115,36 +130,36 @@
             >CLOSE</span
           >
         </button>
+
+        <nav
+          id="global-drawer"
+          class="c-drawer"
+          aria-label="メニュー"
+          aria-hidden="true"
+        >
+          <ul class="c-drawer__list">
+            <li class="c-drawer__item">
+              <a href="#top" class="c-drawer__link">TOP</a>
+            </li>
+            <li class="c-drawer__item">
+              <a href="#activity" class="c-drawer__link">アクティビティ</a>
+            </li>
+            <li class="c-drawer__item">
+              <a href="#about" class="c-drawer__link">キャンプについて</a>
+            </li>
+            <li class="c-drawer__item">
+              <a href="#travel" class="c-drawer__link">旅行例</a>
+            </li>
+            <li class="c-drawer__item">
+              <a href="#gallery" class="c-drawer__link">フォトギャラリー</a>
+            </li>
+            <li class="c-drawer__item">
+              <a href="#blog" class="c-drawer__link">ぼるふ〜草原記</a>
+            </li>
+          </ul>
+        </nav>
       </div>
     </header>
-
-    <nav
-      id="global-drawer"
-      class="c-drawer"
-      aria-label="メニュー"
-      aria-hidden="true"
-    >
-      <ul class="c-drawer__list">
-        <li class="c-drawer__item">
-          <a href="#top" class="c-drawer__link">TOP</a>
-        </li>
-        <li class="c-drawer__item">
-          <a href="#activity" class="c-drawer__link">アクティビティ</a>
-        </li>
-        <li class="c-drawer__item">
-          <a href="#about" class="c-drawer__link">キャンプについて</a>
-        </li>
-        <li class="c-drawer__item">
-          <a href="#travel" class="c-drawer__link">旅行例</a>
-        </li>
-        <li class="c-drawer__item">
-          <a href="#gallery" class="c-drawer__link">フォトギャラリー</a>
-        </li>
-        <li class="c-drawer__item">
-          <a href="#blog" class="c-drawer__link">ぼるふ〜草原記</a>
-        </li>
-      </ul>
-    </nav>
 
     <main id="main"></main>
 
