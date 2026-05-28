@@ -35,7 +35,6 @@
     transform 0.3s ease,
     opacity 0.3s ease,
     translate 0.3s ease;
-
   &:not(:first-child) {
     margin-top: rm(6);
   }
@@ -53,11 +52,10 @@
   display: none;
 }
 
-.c-hamburger-icon.js-show {
+.c-hamburger-icon.is-open {
   .c-hamburger-icon__bar {
     &:nth-child(1) {
-      translate: 0 rm(8);
-      rotate: 45deg;
+      transform: translateY(rm(8)) rotate(45deg);
     }
 
     &:nth-child(2) {
@@ -65,8 +63,7 @@
     }
 
     &:nth-child(3) {
-      translate: 0 rm(-8);
-      rotate: -45deg;
+      transform: translateY(rm(-8)) rotate(-45deg);
     }
   }
 

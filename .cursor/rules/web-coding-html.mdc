@@ -41,6 +41,76 @@ alwaysApply: true
 - リストは `ul` / `ol`、表は `table` + `caption` / `th scope`
 - 装飾目的だけの `div` 乱用を避け、意味のある要素を優先
 
+## ヘッダー（`.l-header`）のマークアップ構造
+
+ヘッダーは以下の DOM 構造・クラスを**標準形**とする。指示がない限り、この構成から逸脱しないこと（PC ナビ + SP ドロワーの二重構造。HTML の複製はしない）。
+
+```html
+<header class="l-header">
+  <div class="l-header__inner">
+    <a href="#top" class="l-header__logo">
+      <img src="/img/logo.webp" alt="サイト名" width="114" height="50" decoding="async" />
+    </a>
+
+    <nav class="p-global-nav" aria-label="メインナビゲーション">
+      <ul class="p-global-nav__list p-global-nav__list--left">
+        <li class="p-global-nav__item">
+          <a href="#top" class="p-global-nav__link p-global-nav__link--icon" aria-label="TOP">
+            <img src="/img/icon_home.svg" alt="" class="p-global-nav__icon p-global-nav__icon--default" width="20" height="16" decoding="async" />
+            <img src="/img/icon_home-hover.svg" alt="" class="p-global-nav__icon p-global-nav__icon--hover" width="20" height="16" decoding="async" />
+          </a>
+        </li>
+        <li class="p-global-nav__item">
+          <a href="#activity" class="p-global-nav__link">アクティビティ</a>
+        </li>
+        <!-- 左リストの項目を続ける -->
+      </ul>
+      <ul class="p-global-nav__list p-global-nav__list--right">
+        <li class="p-global-nav__item">
+          <a href="#travel" class="p-global-nav__link">旅行例</a>
+        </li>
+        <!-- 右リストの項目を続ける -->
+      </ul>
+    </nav>
+
+    <button
+      type="button"
+      class="c-hamburger-icon"
+      aria-expanded="false"
+      aria-controls="global-drawer"
+      aria-label="メニューを開く"
+    >
+      <span class="c-hamburger-icon__bar" aria-hidden="true"></span>
+      <span class="c-hamburger-icon__bar" aria-hidden="true"></span>
+      <span class="c-hamburger-icon__bar" aria-hidden="true"></span>
+      <span class="c-hamburger-icon__label c-hamburger-icon__label--open">MENU</span>
+      <span class="c-hamburger-icon__label c-hamburger-icon__label--close">CLOSE</span>
+    </button>
+
+    <nav id="global-drawer" class="c-drawer" aria-label="メニュー" aria-hidden="true">
+      <ul class="c-drawer__list">
+        <li class="c-drawer__item">
+          <a href="#top" class="c-drawer__link">TOP</a>
+        </li>
+        <!-- グローバルナビと同一のリンクを c-drawer__link で列挙 -->
+      </ul>
+    </nav>
+  </div>
+</header>
+```
+
+| 要素 | 役割 |
+| ---- | ---- |
+| `.l-header` / `.l-header__inner` | レイアウト・余白 |
+| `.l-header__logo` | ロゴリンク |
+| `.p-global-nav` | PC 用ナビ（`mq(lg)` 以上で表示） |
+| `.p-global-nav__list--left` / `--right` | ロゴ左右のリンク群 |
+| `.c-hamburger-icon` | SP 用メニュー開閉ボタン |
+| `#global-drawer.c-drawer` | SP 用ドロワーパネル（`aria-controls` と id を対応） |
+
+- ドロワー内リンクは `.c-drawer__link` とし、PC ナビ（`.p-global-nav__link`）と**同じ href・文言**を揃える。
+- ハンバーガーは `<button type="button">`。バー・ラベルは `<span aria-hidden="true">`（ラベル文字は可視のため CLOSE/MENU は aria-hidden なしでも可。現行どおり 3 バーに `aria-hidden`）。
+
 ## UIコンポーネントの実装方針（Vanilla JS前提）
 
 - **スライダー:** `Swiper` を想定。必要なラッパークラス（`.swiper`, `.swiper-wrapper`, `.swiper-slide`）を付与すること。

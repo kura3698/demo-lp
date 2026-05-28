@@ -42,10 +42,11 @@ document.addEventListener("DOMContentLoaded", () => {
   };
 
   function openDrawer() {
-    drawer.classList.add("js-show");
-    drawerBtn.classList.add("js-show");
-    body.classList.add("js-show");
+    drawer.classList.add("is-open");
+    drawerBtn.classList.add("is-open");
+    body.classList.add("is-open");
     drawerBtn.setAttribute("aria-expanded", "true");
+    drawerBtn.setAttribute("aria-label", "メニューを閉じる");
     drawer.setAttribute("aria-hidden", "false");
 
     backgroundFix(true);
@@ -58,10 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function closeDrawer() {
-    drawer.classList.remove("js-show");
-    drawerBtn.classList.remove("js-show");
-    body.classList.remove("js-show");
+    drawer.classList.remove("is-open");
+    drawerBtn.classList.remove("is-open");
+    body.classList.remove("is-open");
     drawerBtn.setAttribute("aria-expanded", "false");
+    drawerBtn.setAttribute("aria-label", "メニューを開く");
     drawer.setAttribute("aria-hidden", "true");
 
     backgroundFix(false);
@@ -99,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
   drawerBtn.addEventListener("click", (e) => {
     e.stopPropagation();
 
-    if (drawer.classList.contains("js-show")) {
+    if (drawer.classList.contains("is-open")) {
       closeDrawer();
     } else {
       openDrawer();
@@ -107,12 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   drawer.addEventListener("click", (e) => {
-    const buttons = drawer.querySelectorAll(".c-hamburger-icon");
-    const isButtonClick = Array.from(buttons).some((button) =>
-      button.contains(e.target)
-    );
-
-    if (drawer.classList.contains("js-show") && !isButtonClick) {
+    if (drawer.classList.contains("is-open") && e.target === drawer) {
       closeDrawer();
     }
   });
