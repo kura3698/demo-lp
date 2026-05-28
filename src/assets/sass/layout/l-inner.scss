@@ -1,24 +1,25 @@
-@use "../config/" as *;
+﻿@use "../config/" as *;
 
 .l-inner {
   position: relative;
   width: 100%;
-  max-width: px($pc-inner-sum);
+  max-width: px($sp-inner-sum);
   height: inherit;
-  padding: 0 rm($pc-sidePadding);
+  padding-inline: rm($sp-sidePadding);
   margin-inline: auto;
 
-  @include mq(sm) {
-    width: 100%;
-    max-width: px($sp-inner-sum);
-    padding: 0 rm($sp-sidePadding);
+  @include mq(md) {
+    max-width: px($pc-inner-sum);
+    padding-inline: rm($pc-sidePadding);
   }
 }
 
 .l-inner__narrow {
-  max-width: rm($pc-narrow-inner);
-  @include mq(sm) {
-    padding: 0 rm($sp-sidePadding);
-    max-width: px($sp-inner);
+  max-width: px($sp-inner);
+  padding-inline: rm($sp-sidePadding);
+
+  @include mq(md) {
+    max-width: px($pc-narrow-inner);
+    padding-inline: rm($pc-sidePadding);
   }
 }

@@ -30,7 +30,7 @@ alwaysApply: true
 | Page      | `p-`   |
 | Utility   | `u-`   |
 
-- 要素 `__` / 修飾 `--` / 状態 `.is-show`
+- 要素 `__` / 修飾 `--` / 状態 `.is-open` 等（`.is-*`）
 
 ## レスポンシブとレイアウトの厳格な実装ルール
 
@@ -67,14 +67,16 @@ AIは `variables.scss` に定義された以下のフラグを読み取り、実
 - 余白は`gap`で調整してください。
 
 **例外的に Flexbox を使用するケース：**
-* **コンテンツベースの流動的なレイアウト:**
-    * アイテムの幅が一定ではなく、内部のテキスト量に依存する場合（例：タグのリスト、パンくずリスト）。
-* **シンプルな1方向（1次元）の配置:**
-    * ヘッダー内のメニュー項目や、横に並ぶアイコン付きボタンなど、単一軸での均等配置や整列のみが必要な場合。
-* **柔軟な折り返しが主目的の場合:**
-    * 画面幅に応じて自然に要素を折り返したい（`flex-wrap: wrap`）要素群の場合。
+
+- **コンテンツベースの流動的なレイアウト:**
+  - アイテムの幅が一定ではなく、内部のテキスト量に依存する場合（例：タグのリスト、パンくずリスト）。
+- **シンプルな1方向（1次元）の配置:**
+  - ヘッダー内のメニュー項目や、横に並ぶアイコン付きボタンなど、単一軸での均等配置や整列のみが必要な場合。
+- **柔軟な折り返しが主目的の場合:**
+  - 画面幅に応じて自然に要素を折り返したい（`flex-wrap: wrap`）要素群の場合。
 
 **実装時の思考プロセス:**
+
 1. まず「Gridで組むべきか？」を考える（列数や行数が明確か？全体構造か？）。
 2. 「ただ横に並べるだけ」「中身のサイズに合わせて並べたいだけ」であれば Flexbox に切り替える。
 
@@ -131,6 +133,64 @@ padding: rm(20px); // 【禁止】引数に px を付けない（エラーの原
 font-size: 16px; // 【禁止】関数を使わずに px を直書きしない
 }
 
+## 論理プロパティ（block / inline）の利用ルール
+
+パディング・マージン・配置（`inset`）など、縦横の方向を表す記述は、**基本的に物理方向（`top` / `right` / `bottom` / `left`）ではなく論理プロパティ（`block` / `inline`）を使用**すること。
+
+| 物理（避ける）   | 論理（推奨）           |
+| ---------------- | ---------------------- |
+| `padding-top`    | `padding-block-start`  |
+| `padding-bottom` | `padding-block-end`    |
+| `padding-left`   | `padding-inline-start` |
+| `padding-right`  | `padding-inline-end`   |
+| `margin-top`     | `margin-block-start`   |
+| `margin-bottom`  | `margin-block-end`     |
+| `margin-left`    | `margin-inline-start`  |
+| `margin-right`   | `margin-inline-end`    |
+| `top`            | `inset-block-start`    |
+| `bottom`         | `inset-block-end`      |
+| `left`           | `inset-inline-start`   |
+| `right`          | `inset-inline-end`     |
+
+- 上下・左右をまとめる場合は `padding-block` / `padding-inline`、`margin-block` / `margin-inline` も可。
+- 数値は引き続き `rm()` を使用する（例: `padding-block-start: rm(1);`）。
+- 日本語横書き（`writing-mode: horizontal-tb`）が前提。RTL 対応や将来の多言語化を見据えた記述とする。
+
+⭕ 良い例
+
+```scss
+.l-header__inner {
+  padding-block: rm(20);
+  padding-inline: rm($sp-sidePadding);
+  margin-inline: auto;
+}
+
+.c-drawer {
+  inset: 0; // 全方向ゼロは inset ショートハンド可
+  padding-block-start: rm(70);
+}
+
+.p-card {
+  margin-block-end: rm(16);
+  border-inline-start: rm(2) solid $main-color;
+}
+```
+
+❌ 悪い例
+
+```scss
+.l-header__inner {
+  padding-top: rm(20); // 【非推奨】→ padding-block-start
+  padding-left: rm(20); // 【非推奨】→ padding-inline-start
+  margin-left: auto; // 【非推奨】→ margin-inline-start（中央寄せは margin-inline: auto）
+}
+
+.c-drawer {
+  top: 0;
+  left: 0; // 【非推奨】固定配置の基準は inset-block-start / inset-inline-start 等
+}
+```
+
 ## ⚠️ ネスト（階層）とスコープの厳格なルール
 
 AIはトークン節約のために `&__` を使いたがりますが、検索性と保守性を担保するため、以下のルールを**【絶対厳守】**すること。
@@ -176,7 +236,71 @@ AIはトークン節約のために `&__` を使いたがりますが、検索�
 }
 ```
 
+## transform / transition の記述ルール
+
+回転・移動などにアニメーションを付ける可能性があるプロパティは、個別の `rotate` / `translate` ではなく **`transform` にまとめて記述**すること。`transition` も `transform` を対象にする。
+
+⭕ 良い例
+
+```scss
+.c-hamburger-icon__bar {
+  transform-origin: center;
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.c-hamburger-icon.is-open .c-hamburger-icon__bar:nth-child(1) {
+  transform: translateY(rm(8)) rotate(45deg);
+}
+```
+
+❌ 悪い例
+
+```scss
+.c-hamburger-icon__bar {
+  transition:
+    rotate 0.3s ease,
+    translate 0.3s ease; // 【禁止】
+}
+
+.c-hamburger-icon.is-open .c-hamburger-icon__bar:nth-child(1) {
+  translate: 0 rm(8); // 【禁止】アニメ対象は transform にまとめる
+  rotate: 45deg;
+}
+```
+
+## ドロワーメニュー（`.c-drawer`）の実装ルール
+
+- **高さ:** `height: 100svh;` を基本とする（モバイルのアドレスバー対策）。`100vh` のみの指定は避ける。
+- **ホバー:** `.c-drawer__link` などドロワー内リンクに**ホバーアニメーションは基本付けない**（`:hover` による opacity / 色変化等を追加しない）。開閉状態（`.is-open`）と表示切替の transition のみで足りる。
+- **状態クラス:** 開閉の見た目は `.is-open`（`js-` クラスにスタイルを当てない）。
+
+⭕ 良い例
+
+```scss
+.c-drawer {
+  height: 100vh;
+  height: 100svh;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
+
+  &.is-open {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.c-drawer__link {
+  // ホバー・focus の装飾アニメは付けない（仕様）
+}
+```
+
 ## インタラクション（ホバー・フォーカス）の厳格ルール
+
 ボタン（.c-btn）やリンク（aタグ）、カードコンポーネントなど、ホバーアニメーションやスタイル変更を行う場合は、キーボード操作（アクセシビリティ）とデバイス特性を考慮し、必ず以下の構造で記述すること。
 
 ⚠️ AIが守るべき絶対ルール
@@ -187,29 +311,29 @@ PCのみに限定（ホバー粘着防止）: スマホなどのタッチデバ�
 ⭕ 良い例（AIが従うべきインタラクションの基本形）
 SCSS
 .p-card-link {
-  transition: opacity 0.3s ease;
+transition: opacity 0.3s ease;
 
-  // 1. キーボード操作（TABキー）用
-  &:focus-visible {
-    outline: 2px solid $text-accent; // 案件共通のフォーカス線を出す
-    opacity: 0.7;
-  }
+// 1. キーボード操作（TABキー）用
+&:focus-visible {
+outline: 2px solid $text-accent; // 案件共通のフォーカス線を出す
+opacity: 0.7;
+}
 
-  // 2. PCの静的なマウスホバー用（スマホでは実行されない）
-  @media (any-hover: hover) {
-    &:hover {
-      opacity: 0.7;
-    }
-  }
+// 2. PCの静的なマウスホバー用（スマホでは実行されない）
+@media (any-hover: hover) {
+&:hover {
+opacity: 0.7;
+}
+}
 }
 ❌ 悪い例（AIがやりがちな禁止パターン）
 SCSS
 .p-card-link {
-  // 【禁止】スマホでタップした時に色が変わりっぱなしになる
-  &:hover {
-    opacity: 0.7;
-  }
-  // 【禁止】キーボード操作のことが考慮されていない
+// 【禁止】スマホでタップした時に色が変わりっぱなしになる
+&:hover {
+opacity: 0.7;
+}
+// 【禁止】キーボード操作のことが考慮されていない
 }
 
 ## カラー変数の運用ルール
@@ -218,8 +342,6 @@ SCSS
 - **拡張性:** `variables.scss` には「基本カラー」と「拡張カラー」のセクションを設ける。
 - **AIによる拡張:** デザインカンプから新しい色を抽出する必要がある場合、AIは勝手に適当な色を使わず、必ず `variables.scss` に新しい変数名（例: `$color-other6` または意味のある名称）を定義してから使用すること。
 - **命名の指針:** `other1` のような汎用名よりも、役割が明確なら `accent-red` のように役割に合わせた命名を推奨する。
-
-
 
 # 状態（State）に関するスタイリング規約
 

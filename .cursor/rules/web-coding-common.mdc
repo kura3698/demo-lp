@@ -41,6 +41,8 @@ alwaysApply: true
 | Sass   | コンパイル → `css/`                         |
 | JS     | コピー＋圧縮 → `js/`（`parts/` 構造を維持） |     |
 
+**開発時:** `npx gulp dev` の watch が SCSS / JS / 画像を自動反映する。**ユーザーが dev を常時起動している前提**とし、通常のコーディング作業のたびに AI が Gulp コマンドを実行しないこと。
+
 ## 画像パス
 
 - **開発**: `img` に配置
@@ -109,10 +111,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // 処理を記述
 });
+```
 
 ## 納品前チェック（JS）
 
-Gulp は未使用 part の自動削除に対応しない。以下を**手動**で行う:
+Gulp は未使用 part の自動削除に対応しない。以下を**人間が手動**で行う（AI は実行しない）:
 
 1. `script.js` から未使用の import 行（コメントアウト含む）を削除
 2. `src/assets/js/parts/` から使っていない `_*.js` を削除
@@ -124,4 +127,4 @@ Gulp は未使用 part の自動削除に対応しない。以下を**手動**�
 - `**/sass/**/index.scss` は自動生成（手編集禁止）
 - 案件差分は `project.mdc` と `variables.scss`
 - `project-rules.mdc`（案件固有ルール）を最優先で確認し、指定された変数・設定に従うこと。
-```
+- **`npx gulp dev` / `npx gulp build` は作業完了時に実行しない。** dev の watch が生成物を更新する。build は納品時（人間）またはユーザーが明示指示した場合のみ。

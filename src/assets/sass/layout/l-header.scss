@@ -1,0 +1,58 @@
+﻿@use "../config/" as *;
+
+.l-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: $z-header;
+  width: 100%;
+  background-color: rgba(255, 249, 235, 0.5);
+}
+
+.l-header__inner {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-block: rm(20);
+  position: relative;
+  width: 100%;
+  height: inherit;
+  padding-inline: rm($sp-sidePadding) calc(rm($sp-sidePadding) - rm(4)); // スマホ版のハンバーガーアイコンの位置調整
+  margin-inline: auto;
+
+  @include mq(lg) {
+    display: block;
+    min-height: rm(120);
+    padding-block: rm(30);
+    max-width: rm(938);
+    padding-inline: 0;
+  }
+}
+
+.l-header__logo {
+  flex-shrink: 0;
+  width: rm(70);
+  transition: opacity 0.3s ease;
+  z-index: $z-drawerIcon;
+
+  @include mq(lg) {
+    position: absolute;
+    top: rm(35);
+    left: 50%;
+    z-index: 1;
+    width: rm(114);
+    translate: -50% 0;
+  }
+
+  &:focus-visible {
+    opacity: 0.7;
+    outline: 2px solid $text-accent;
+    border-radius: rm(4);
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
