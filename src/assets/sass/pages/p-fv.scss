@@ -1,4 +1,46 @@
+@use "sass:math";
 @use "../config/" as *;
+
+// FV テキスト画像サイズ（カンプ1x / px）
+$fv-text-sp-w-s1: 350;
+$fv-text-sp-w-s2: 340;
+$fv-text-sp-w-s3: 331;
+$fv-text-pc-w-s1: 658;
+$fv-text-pc-w-s2: 560;
+$fv-text-pc-w-s3: 536;
+
+// FV テキスト配置（カンプ上の px → 比率に変換）
+$fv-pc-height: 700;
+$fv-sp-height: 580;
+$fv-text-pc-inset-inline: 670;
+$fv-text-pc-inset-block: 200;
+$fv-text-sp-inset-block: 140;
+
+$fv-text-pc-inset-inline-ratio: math.div($fv-text-pc-inset-inline, $pc-camp) *
+  100%;
+$fv-text-pc-inset-block-ratio: math.div(
+    $fv-text-pc-inset-block,
+    $fv-pc-height
+  ) *
+  100%;
+$fv-text-sp-inset-block-ratio: math.div(
+    $fv-text-sp-inset-block,
+    $fv-sp-height
+  ) *
+  100%;
+
+@mixin fv-heading-picture-sp($sp-width) {
+  width: calc(100vw * #{$sp-width} / #{$sp-camp});
+}
+
+@mixin fv-heading-picture-pc($pc-width) {
+  width: rm($pc-width);
+  margin-inline-start: clamp(
+    rm($pc-sidePadding),
+    $fv-text-pc-inset-inline-ratio,
+    calc(100vw - rm($pc-width) - rm($pc-sidePadding))
+  );
+}
 
 .p-fv {
   position: relative;
@@ -24,6 +66,12 @@
 .p-fv__slide {
   position: relative;
   overflow: hidden;
+  display: grid;
+
+  > .p-fv__bg,
+  > .p-fv__content {
+    grid-area: 1 / 1;
+  }
 }
 
 .p-fv__bg {
@@ -44,58 +92,52 @@
 
 .p-fv__content {
   position: absolute;
-  inset-block-start: 24%;
+  inset-block-start: $fv-text-sp-inset-block-ratio;
   inset-inline-start: rm($sp-sidePadding);
 
   @include mq(md) {
-    inset-block-start: 28%;
-    inset-inline-start: 46.5%;
+    position: relative;
+    inset-block-start: $fv-text-pc-inset-block-ratio;
+    inset-inline-start: auto;
+    align-self: start;
+    margin-inline-start: 0;
   }
 }
 
 .p-fv__heading {
-  color: $reverse-color;
-  font-size: rm(20);
-  font-weight: 700;
-  line-height: 1.5;
-  text-shadow: 2px 2px 3px rgba($text-main, 0.5);
-
-  @include mq(md) {
-    font-size: rm(32);
-    letter-spacing: 0.03em;
-  }
+  margin: 0;
 }
 
-.p-fv__line {
+.p-fv__heading-picture {
   display: block;
+}
 
-  &:not(:last-child) {
-    margin-block-end: rm(13);
+.p-fv__heading-picture img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
-    @include mq(md) {
-      margin-block-end: rm(21);
-    }
+.p-fv__heading-picture--s1 {
+  @include fv-heading-picture-sp($fv-text-sp-w-s1);
+
+  @include mq(md) {
+    @include fv-heading-picture-pc($fv-text-pc-w-s1);
   }
 }
 
-.p-fv__deco-text {
-  display: inline-block;
-  vertical-align: middle;
-  height: rm(54);
-  width: auto;
+.p-fv__heading-picture--s2 {
+  @include fv-heading-picture-sp($fv-text-sp-w-s2);
 
   @include mq(md) {
-    height: rm(80);
+    @include fv-heading-picture-pc($fv-text-pc-w-s2);
   }
 }
 
-.p-fv__num {
-  font-family: $ff-en;
-  font-weight: 500;
-  font-size: rm(22);
-  letter-spacing: 0.05em;
+.p-fv__heading-picture--s3 {
+  @include fv-heading-picture-sp($fv-text-sp-w-s3);
 
   @include mq(md) {
-    font-size: rm(36);
+    @include fv-heading-picture-pc($fv-text-pc-w-s3);
   }
 }
