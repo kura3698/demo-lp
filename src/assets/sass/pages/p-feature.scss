@@ -3,6 +3,8 @@
 // ============================================================
 // ローカル変数（カンプ値）
 // ============================================================
+
+// 画像サイズ・角丸
 $features-img-radius: 15;
 $features-sp-img-main-w: 350;
 $features-sp-img-main-h: 200;
@@ -12,6 +14,49 @@ $features-pc-img-main-w: 450;
 $features-pc-img-main-h: 280;
 $features-pc-img-sub-w: 220;
 $features-pc-img-sub-h: 150;
+$features-figure-gap: 10; // 画像エリア内 gap（メイン・サブ共通）
+
+// 見出しエリア
+$features-head-margin-sp: 30;
+$features-head-margin-pc: 70;
+$features-subtitle-margin-pc: 12;
+
+// バッジ配置（カンプ px）
+$features-badge-offset-block: 17;
+$features-badge-offset-inline: 73;
+
+// タイトルデコレーション（SVG アイコン幅 = padding-inline と一致）
+$features-title-deco-w: 22;
+$features-title-deco-inset-s: 12; // ::before の inset-block-start
+$features-title-deco-inset-e: 5;  // ::after の inset-block-end
+
+// リスト
+$features-list-gap-sp: 60;
+$features-list-gap-pc: 80;
+$features-list-max-w: 950;
+
+// アイテム gap（SP値 = rclamp の min）
+$features-item-gap-sp: 20;
+$features-item-gap-pc: 50;
+
+// テキストエリア gap
+$features-body-gap-sp: 20;
+$features-body-gap-min: 10; // rclamp の最小値（md ブレイクポイント直後）
+$features-body-gap-max: 25;
+
+// ラベル gap
+$features-label-col-gap-sp: 12;
+$features-label-row-gap: 8;
+$features-label-col-gap-pc: 18;
+
+// ナンバー区切り線
+$features-num-sep-w: 3;
+$features-num-sep-h-sp: 50;
+$features-num-sep-h-pc: 75;
+$features-num-sep-gap: 12;
+
+// テキスト
+$features-text-margin-end: 19;
 
 // ============================================================
 // セクション
@@ -25,10 +70,10 @@ $features-pc-img-sub-h: 150;
 // ============================================================
 .p-features__head {
   text-align: center;
-  margin-block-end: rm(50);
+  margin-block-end: rm($features-head-margin-sp);
 
   @include mq(md) {
-    margin-block-end: rm(70);
+    margin-block-end: rm($features-head-margin-pc);
   }
 }
 
@@ -40,33 +85,29 @@ $features-pc-img-sub-h: 150;
   text-align: center;
   width: fit-content;
   margin-inline: auto;
-  padding-block-start: rm(30);
 
   @include mq(md) {
-    padding-block-start: rm(40);
   }
 }
 
 // c-head-decoration の絶対配置調整（位置はここで変更）
 .p-features__head-badge {
   position: absolute;
-  inset-block-start: 0;
-  inset-inline-start: 50%;
-  transform: translateX(-50%) rotate(-14deg);
+  inset-block-end: calc(100% + rm($features-badge-offset-block));
+  inset-inline-end: calc(50% + rm($features-badge-offset-inline));
 }
 
 // "モンゴルバルーンキャンプ" サブタイトル（.c-head-decoration の絶対配置の基点）
 .p-features__sub-title {
   position: relative;
   display: block;
-  @include font(22, 700, 1.4);
+  @include font(22, 700, 1.5);
   color: $text-main;
   text-align: center;
-  margin-block-end: rm(8);
 
   @include mq(md) {
     @include font(30, 700, 1.4);
-    margin-block-end: rm(12);
+    margin-block-end: rm($features-subtitle-margin-pc);
   }
 }
 
@@ -74,11 +115,34 @@ $features-pc-img-sub-h: 150;
 .p-features__title {
   position: relative;
   display: block;
-  @include font(22, 700, 1.4);
+  @include font(22, 700, 1.8);
   color: $text-main;
+  padding-inline: rm($features-title-deco-w);
+
+  &::before {
+    position: absolute;
+    background: url("/img/deco_feature-left.svg") no-repeat center left /
+      contain;
+    content: "";
+    inset-block-start: rm($features-title-deco-inset-s);
+    inset-inline-start: 0;
+    width: rm($features-title-deco-w);
+    height: 100%;
+  }
+
+  &::after {
+    position: absolute;
+    background: url("/img/deco_feature-right.svg") no-repeat center left /
+      contain;
+    content: "";
+    inset-block-end: rm($features-title-deco-inset-e);
+    inset-inline-end: 0;
+    width: rm($features-title-deco-w);
+    height: 100%;
+  }
 
   @include mq(md) {
-    @include font(30, 700, 1.4);
+    @include font(30, 500, 1.5);
   }
 }
 
@@ -87,7 +151,7 @@ $features-pc-img-sub-h: 150;
   font-family: $ff-en;
   font-size: rm(30);
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: -0.1em;
 
   @include mq(md) {
     font-size: rm(42);
@@ -100,58 +164,83 @@ $features-pc-img-sub-h: 150;
 .p-features__list {
   display: flex;
   flex-direction: column;
-  gap: rm(60);
+  gap: rm($features-list-gap-sp);
+  max-width: rm($features-list-max-w);
 
   @include mq(md) {
-    gap: rm(80);
+    gap: rm($features-list-gap-pc);
   }
 }
 
 // ============================================================
-// アイテム（SP: 縦積み）
+// アイテム（SP: 縦積み / PC: 2カラムGrid）
 // ============================================================
 .p-features__item {
   display: flex;
   flex-direction: column;
-  gap: rm(24);
+  gap: rm($features-item-gap-sp);
 
   @include mq(md) {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: rm(20);
+    gap: rclamp($features-item-gap-sp, $features-item-gap-pc, $bp-md, $pc-inner);
     align-items: center;
   }
 }
 
 // ============================================================
-// 写真エリア
+// 写真エリア（DOM: body→figure の順なのでorderで視覚調整）
+// SP・PC奇数: 画像を視覚的に先頭（上 / 左）へ
 // ============================================================
 .p-features__figure {
   display: flex;
   flex-direction: column;
-  gap: rm(10);
+  gap: rm($features-figure-gap);
+  order: -1;
 
-  img {
-    border-radius: rm($features-img-radius);
-    width: 100%;
-    height: auto;
-    display: block;
+  @include mq(md) {
+    // 奇数アイテムは order: -1 のまま（画像左・テキスト右）
   }
 }
 
+// PC偶数アイテム: DOM順に戻す（テキスト左・画像右）
+.p-features__item:nth-child(even) .p-features__figure {
+  @include mq(md) {
+    order: 0;
+  }
+}
+
+// ============================================================
+// メイン画像ラッパー
+// ============================================================
+.p-features__figure-main {
+  border-radius: rm($features-img-radius);
+  overflow: hidden;
+  aspect-ratio: #{$features-sp-img-main-w} / #{$features-sp-img-main-h};
+
+  @include mq(md) {
+    aspect-ratio: #{$features-pc-img-main-w} / #{$features-pc-img-main-h};
+  }
+}
+
+// ============================================================
+// サブ画像エリア
+// ============================================================
 .p-features__figure-sub {
   display: flex;
-  gap: rm(10);
+  gap: rm($features-figure-gap);
   align-items: flex-end;
+}
 
-  img {
-    width: calc(50% - rm(5));
-    aspect-ratio: #{$features-sp-img-sub-w} / #{$features-sp-img-sub-h};
-    object-fit: cover;
+// サブ画像ラッパー
+.p-features__figure-item {
+  border-radius: rm($features-img-radius);
+  overflow: hidden;
+  width: calc(50% - rm($features-figure-gap * 0.5));
+  aspect-ratio: #{$features-sp-img-sub-w} / #{$features-sp-img-sub-h};
 
-    @include mq(md) {
-      aspect-ratio: #{$features-pc-img-sub-w} / #{$features-pc-img-sub-h};
-    }
+  @include mq(md) {
+    aspect-ratio: #{$features-pc-img-sub-w} / #{$features-pc-img-sub-h};
   }
 }
 
@@ -161,10 +250,10 @@ $features-pc-img-sub-h: 150;
 .p-features__body {
   display: flex;
   flex-direction: column;
-  gap: rm(16);
+  gap: rm($features-body-gap-sp);
 
   @include mq(md) {
-    gap: rm(20);
+    gap: rclamp($features-body-gap-min, $features-body-gap-max, $bp-md, $pc-inner);
   }
 }
 
@@ -172,8 +261,12 @@ $features-pc-img-sub-h: 150;
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  column-gap: rm(12);
-  row-gap: rm(8);
+  column-gap: rm($features-label-col-gap-sp);
+  row-gap: rm($features-label-row-gap);
+
+  @include mq(md) {
+    column-gap: rm($features-label-col-gap-pc);
+  }
 }
 
 .p-features__num {
@@ -183,6 +276,7 @@ $features-pc-img-sub-h: 150;
   line-height: 1;
   color: $text-main;
   letter-spacing: 0.05em;
+  display: flex;
 
   @include mq(md) {
     font-size: rm(65);
@@ -191,48 +285,37 @@ $features-pc-img-sub-h: 150;
   &::after {
     content: "";
     display: inline-block;
-    width: rm(50);
-    height: rm(1);
+    width: rm($features-num-sep-w);
+    height: rm($features-num-sep-h-sp);
     background-color: $text-main;
-    vertical-align: middle;
-    margin-inline-start: rm(12);
+    margin-inline-start: rm($features-num-sep-gap);
+
+    @include mq(md) {
+      height: rm($features-num-sep-h-pc);
+    }
   }
 }
 
 .p-features__heading {
-  @include font(18, 700, 1.5);
+  font-size: rclamp(18, 28, $bp-md, $pc-inner);
+  font-weight: 700;
+  line-height: 1.5;
   color: $text-main;
-
-  @include mq(md) {
-    @include font(28, 700, 1.5);
-  }
 }
 
 .p-features__text {
-  @include font(14, 400, 1.7);
+  font-size: rclamp(14, 18, $bp-md, $pc-inner);
+  font-weight: 400;
+  line-height: 1.5;
   color: $text-main;
+  margin-block-end: rm($features-text-margin-end);
 
   @include mq(md) {
-    @include font(18, 400, 1.7);
+    line-height: 1.7;
   }
 }
 
 // ボタン中央配置
 .p-features__body .c-button {
   align-self: center;
-}
-
-// ============================================================
-// PCレイアウト — 偶数アイテム: 写真右・テキスト左
-// ============================================================
-.p-features__item:nth-child(even) .p-features__figure {
-  @include mq(md) {
-    order: 2;
-  }
-}
-
-.p-features__item:nth-child(even) .p-features__body {
-  @include mq(md) {
-    order: 1;
-  }
 }

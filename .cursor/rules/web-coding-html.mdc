@@ -138,6 +138,98 @@ alwaysApply: true
 - `width` と `height` を必ず指定（CLS対策）。
 - ファーストビュー（FV）以外の画像には `loading="lazy" decoding="async"` を付与すること。
 
+### imgタグ実装ルール
+
+**1. ラッパー必須**
+スタイリングしやすいよう、`<img>` は必ず `<div>` または `<figure>` でラップすること。コンテンツとして意味を持つ画像（キャプションが付く・独立した図版）には `<figure>`、装飾・レイアウト目的には `<div>` を選択する。
+
+```html
+<!-- コンテンツ画像（figure推奨） -->
+<figure class="p-card__figure">
+  <img src="/img/photo_sample.webp" alt="説明文" width="400" height="300" loading="lazy" decoding="async" />
+</figure>
+
+<!-- レイアウト用（div可） -->
+<div class="p-fv__img">
+  <img src="/img/photo_hero.webp" alt="説明文" width="1440" height="900" decoding="async" />
+</div>
+```
+
+**2. `img` のベーススタイルは `base.scss` で管理**
+`src/assets/sass/common/base.scss` に `img` タグのリセット・ベーススタイル（`object-fit: cover` 等）が定義されている。指示がない限り、各コンポーネントのSCSSで `img` タグのベース挙動を上書き・再定義しないこと。
+
+**3. `alt` 属性の記述ルール**
+ファイル名のプレフィックスによって `alt` の記述方針を切り替える。
+
+| ファイル名のプレフィックス | `alt` の扱い | 理由 |
+| --- | --- | --- |
+| `deco_` | `alt=""` | 装飾目的のため空文字 |
+| `bg_` | `alt=""` | 背景として使う画像のため空文字 |
+| `icon_` | `alt=""` | 隣接するテキストが意味を補完するため空文字（単独で意味を持つ場合は除く） |
+| 上記以外 | **必ず内容を説明するテキストを入力** | コンテンツ画像はスクリーンリーダー等に情報を伝える |
+
+```html
+<!-- deco_ / bg_ / icon_ は alt="" -->
+<img src="/img/deco_wave.webp" alt="" width="1440" height="80" loading="lazy" decoding="async" />
+<img src="/img/bg_about.webp" alt="" width="1440" height="600" loading="lazy" decoding="async" />
+<img src="/img/icon_arrow.svg" alt="" width="16" height="16" loading="lazy" decoding="async" />
+
+<!-- それ以外は説明文を入力 -->
+<img src="/img/photo_tour-01.webp" alt="沖縄の海でシュノーケリングを楽しむ参加者" width="400" height="300" loading="lazy" decoding="async" />
+```
+
+## カード（`.c-card` / `.c-card-*`）のマークアップ規約
+
+カードコンポーネントは**アクセシビリティのためにHTMLの記述順とCSSの視覚順を分離**する。
+
+### 絶対ルール: テキスト先・画像後
+
+- **HTMLのDOMの順序:** `テキスト（タイトル・本文・CTAなど）→ 画像（`<figure>`）`の順で必ずマークアップすること。
+- **理由:** スクリーンリーダーはDOMの順序で読み上げる。画像が先にあると「画像の説明→タイトル→本文」という不自然な読み上げ順になり、コンテキストが失われる。
+- **視覚上の順序:** CSSの `order` プロパティ（Flex / Grid使用時）で画像を視覚的に先頭に移動させること。
+
+```html
+<!-- ✅ 正しいHTML記述順（テキスト → 画像） -->
+<article class="c-card">
+  <div class="c-card__body">
+    <h3 class="c-card__title">カードタイトル</h3>
+    <p class="c-card__text">説明テキスト</p>
+  </div>
+  <figure class="c-card__figure">
+    <img src="/img/photo_sample.webp" alt="説明文" width="400" height="300" loading="lazy" decoding="async" />
+  </figure>
+</article>
+
+<!-- ❌ 禁止（画像 → テキストの順）スクリーンリーダーの読み上げが不自然になる -->
+<article class="c-card">
+  <figure class="c-card__figure">…</figure>
+  <div class="c-card__body">…</div>
+</article>
+```
+
+### SCSS側での視覚順調整
+
+視覚上「画像→テキスト」の順で表示したい場合は、`order` で制御する。
+
+```scss
+// 視覚上は 画像（figure）→ テキスト（body）の並びにする例
+.c-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-card__figure {
+  order: -1; // 視覚的に先頭に移動
+}
+
+.c-card__body {
+  order: 0; // デフォルト（明示不要だが可読性のために書いても可）
+}
+```
+
+- `order` はあくまで視覚上の並び替えのみ。**DOMの順序（HTML）は絶対に変えない**こと。
+- Gridレイアウトの場合は `grid-row` / `grid-column` または `grid-template-areas` で同様に制御する。
+
 ## 避ける例
 
 - 見出しなしの `<section>`
@@ -145,3 +237,4 @@ alwaysApply: true
 - `href="#"` だけのダミーリンク（スムーススクロール用は `button` または有効な ID）
 - 意味のない `title` 属性の乱用
 - href="#" だけのダミーリンク（スムーススクロール用は button または有効な ID）
+- カードの画像をテキストよりDOMで先に書く（スクリーンリーダー対策のため禁止）

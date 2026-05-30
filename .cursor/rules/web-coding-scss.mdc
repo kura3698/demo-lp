@@ -487,3 +487,111 @@ opacity: 0.7;
 
 - アコーディオンやモーダルの「開閉」、ハンバーガーメニューの「アクティブ状態」などは、JavaScriptで付与する予定の共通クラス（例: .is-open, .is-active）を想定し、そのクラスがついた際のスタイル（CSS）を静的実装フェーズの時点で先行して記述しておくこと。
 - モーダルやアコーディオンの初期状態は `display: none;` や `opacity: 0;` などで画面から隠し、上記の状態クラスが付与されたら表示されるように設計すること。
+
+## カード（`.c-card` / `.c-card-*`）のレイアウト規約
+
+カードは **アクセシビリティのためDOMの順序（HTML）とCSSの視覚順を分離する**設計を必ず守ること。
+
+### `order` による視覚順の制御
+
+HTMLはテキスト先・画像後で記述し、CSSの `order` または `grid-template-areas` で視覚上「画像→テキスト」に並べ直す。
+
+⭕ 良い例
+
+```scss
+// Flexboxパターン
+.c-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-card__figure {
+  order: -1; // 視覚的に先頭（画像を上に）
+}
+
+// Gridパターン
+.c-card {
+  display: grid;
+  grid-template-areas:
+    "figure"
+    "body";
+}
+
+.c-card__figure {
+  grid-area: figure;
+}
+
+.c-card__body {
+  grid-area: body;
+}
+```
+
+❌ 悪い例
+
+```scss
+// 【禁止】視覚順を合わせるためにHTMLのDOM順序を変える（SCSSで解決すること）
+// → DOMは必ずテキスト先・画像後に固定し、order / grid-template-areas で対応する
+```
+
+- **`order` はあくまで視覚的な並び替えのみ。フォーカス順やスクリーンリーダーの読み上げ順はDOMに従う。**
+- HTML側の詳細は `web-coding-html.mdc` の「カードのマークアップ規約」を参照。
+
+## `rclamp()` の使いどころルール
+
+`rclamp()` はフォントサイズだけでなく、**2カラムレイアウト内の `gap` や余白がブレイクポイント付近で急変する場合にも積極的に使用**すること。
+
+### 基本方針
+
+- `$min`: SPの値（またはブレイクポイント直後に望ましい最小値）
+- `$max`: PCの最大値
+- viewport範囲: `$bp-md` 〜 `$pc-inner` を基本とする（コンテナが内側に収まる地点で最大値に達するのが自然）
+
+```scss
+// フォントサイズ
+.p-card__heading {
+  font-size: rclamp(18, 28, $bp-md, $pc-inner);
+}
+
+// gap・余白
+.p-card__item {
+  @include mq(md) {
+    gap: rclamp(20, 50, $bp-md, $pc-inner);
+  }
+}
+```
+
+- `rclamp()` を使う場合は `@include font()` による2段階切り替えや固定 `rm()` の PC ブレイクポイント上書きは不要になる
+- SP側は `rclamp()` の `$min` でクランプされるため、SP用の個別指定は基本的に省略できる
+
+## `figure` ラッパーへの `border-radius` 適用ルール
+
+`img` に `border-radius` を直接かけると、一部のブラウザや `object-fit` 使用時に角丸が効かないことがある。ラッパー要素に `overflow: hidden` と組み合わせて設定することを必須とする。
+
+⭕ 良い例
+
+```scss
+.c-card__figure {
+  border-radius: rm(15);
+  overflow: hidden; // border-radius を img に確実に適用する
+}
+
+// img 自身への border-radius 記述は不要
+```
+
+❌ 悪い例
+
+```scss
+.c-card__figure img {
+  border-radius: rm(15); // 【非推奨】object-fit 使用時に効かない場合がある
+}
+```
+
+- `aspect-ratio` もラッパー側に指定すること（`base.scss` で `img { height: 100%; }` が定義されているため、`img` に直接 `height: auto` を上書きするより確実）
+
+```scss
+.c-card__figure {
+  border-radius: rm(15);
+  overflow: hidden;
+  aspect-ratio: 16 / 9; // 比率もラッパーで管理
+}
+```
