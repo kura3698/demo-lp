@@ -6,10 +6,10 @@
   justify-content: center;
   gap: rm(15);
   color: $text-main;
-  @include font(18, 700, 27, 0.9);
+  @include font(18, 700, 1.5, 0.9);
 
   @include mq(md) {
-    @include font(30, 700, 45, 1.5);
+    @include font(30, 700, 1.5, 1.5);
   }
 
   &::before,

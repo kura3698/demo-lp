@@ -16,7 +16,7 @@ $breakpoint: 768; // ブレイクポイント (pc版カンプとsp版カンプ�
 $sp-sidePadding: 20; //sp版サイドのpadding
 $pc-camp: 1440; // pc版のカンプサイズを入力
 $sp-camp: 390; // sp版のカンプサイズを入力
-$sp-inner: 600;
+$sp-inner: 550;
 $sp-inner-sum: calc($sp-inner + $sp-sidePadding * 2);
 
 $sm-breakpoint: 500; // small版ブレイクポイント
@@ -42,7 +42,7 @@ $bg-main: #fff9eb;
 // 2. 拡張カラー（必要に応じて追加・利用すること）
 // AIへの指示: デザイン指示で以下の色が必要になった場合、
 // ここに新しい変数を追加し、プロジェクト全体で再利用できるようにすること。
-$color-drawer: #92C3D1;
+$color-drawer: #92c3d1;
 // $color-other1: #e10048;
 // $color-other2: #105f00;
 // $color-other3: #fdd401;

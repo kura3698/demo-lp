@@ -154,7 +154,7 @@ $footer-nav-bottom-to-copyright: 10;
   color: $reverse-color;
   text-decoration: none;
   transition: opacity 0.3s ease;
-  @include font(12, 400, 18);
+  @include font(12, 400, 1.5);
 
   &:focus-visible {
     opacity: $footer-nav-link-hover-opacity;
@@ -214,12 +214,12 @@ $footer-nav-bottom-to-copyright: 10;
   color: $reverse-color;
   text-align: left;
   line-height: 1.5;
-  @include font(12, 400, 18);
+  @include font(12, 400, 1.5);
 
   @include mq(md) {
     max-width: rm($footer-nav-note-pc-width);
     margin-block-start: rm($footer-nav-nav-to-note-pc);
-    @include font(16, 400, 24);
+    @include font(16, 400, 1.5);
   }
 }
 
@@ -241,9 +241,9 @@ $footer-nav-bottom-to-copyright: 10;
   margin: 0;
   color: $reverse-color;
   text-align: center;
-  @include font(10, 400, 15);
+  @include font(10, 400, 1.5);
 
   @include mq(md) {
-    @include font(12, 400, 18);
+    @include font(12, 400, 1.5);
   }
 }

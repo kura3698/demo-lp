@@ -6,29 +6,28 @@
   display: inline-block;
   width: fit-content;
   max-width: 100%;
-  padding-bottom: rm(10);
   color: $text-main;
   text-align: center;
-  @include font(14, 500, 20, 0);
+  @include font(14, 500, 1.43, 0);
+  transform: rotate(-14deg);
 
   @include mq(md) {
-    padding-bottom: rm(15);
-    @include font(20, 500, 20, 0);
+    padding-block-end: rm(15);
+    @include font(20, 500, 1, 0);
   }
 
   &::after {
     content: "";
     position: absolute;
-    left: 0;
-    top: calc(100% - rm(25));
-    width: 100%;
-    aspect-ratio: 176 / 47;
-    background: url("/img/deco_head-line@2x.webp") no-repeat center / 100% 100%;
+    inset-inline-start: rm(-5);
+    inset-block-start: 100%;
+    background: url("/img/deco_head-line@2x.webp") no-repeat center / cover;
     pointer-events: none;
-    transform-origin: center center;
+    width: 115%;
+    height: 37%;
 
     @include mq(md) {
-      top: calc(100% - rm(30));
+      inset-block-start: calc(100% - rm(15));
     }
   }
 }
