@@ -1,0 +1,323 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（カンプ値）
+// ============================================================
+
+// PC 列幅（カンプ 852px 内訳: day + schedule + meals + lodge）
+$col-day:   89;
+$col-meals: 54;
+$col-lodge: 115;
+
+// アイコンサイズ
+$icon-sp:       19; // スケジュールアイコン (SP)
+$icon-pc:       26; // スケジュールアイコン (PC)
+$icon-lodge-sp: 14; // 宿泊地アイコン (SP)
+$icon-lodge-pc: 33; // 宿泊地アイコン (PC)
+
+// スケジュールアイコンの天地オフセット（1行目テキスト基線合わせ）
+$icon-offset: 2;
+
+// セル padding
+$cell-pad-sp:        15; // スケジュールセル (SP)
+$cell-pad-pc:        20; // スケジュールセル (PC)
+$footer-pad-block-sp: 5; // 食事・宿泊地 padding-block (SP)
+$footer-pad-block-pc: 10; // 食事・宿泊地 padding-block (PC)
+$footer-pad-inline-pc: 5; // 食事・宿泊地 padding-inline (PC)
+
+// ヘッダー padding
+$header-pad-block:  9;
+$header-pad-inline: 5;
+
+// 日付セル
+$day-label-pad-block: 2;  // SP バッジ padding-block
+$day-pad-block-start: 12; // PC 日付セル padding-block-start
+
+// 食事
+$meals-label-gap-sp: 35; // SP: 食事ラベルとテキストの gap
+
+// 宿泊地
+$lodge-gap-pc: 5; // PC: アイコンとテキストの gap
+
+// ボーダー
+$table-border: 0.5px solid $text-main;
+
+// ============================================================
+// .c-schedule-table — アウター
+// ============================================================
+
+.c-schedule-table {
+  display: flex;
+  flex-direction: column;
+  gap: rm(10);
+
+  @include mq(md) {
+    gap: 0;
+    max-width: px($pc-narrow-inner);
+    margin-inline: auto;
+    border: $table-border;
+  }
+}
+
+// ── PC ヘッダー（SP: 非表示） ────────────────────────────────
+
+.c-schedule-table__header {
+  display: none;
+
+  @include mq(md) {
+    display: grid;
+    grid-template-columns: rm($col-day) 1fr rm($col-meals) rm($col-lodge);
+    background-color: $main-color;
+    border-block-end: $table-border;
+  }
+}
+
+.c-schedule-table__th {
+  @include mq(md) {
+    padding-block: rm($header-pad-block);
+    padding-inline: rm($header-pad-inline);
+    color: $reverse-color;
+    text-align: center;
+    @include font(18, 400, 1.5, 0.9);
+
+    &:not(:last-child) {
+      border-inline-end: $table-border;
+    }
+  }
+}
+
+// ── 1日分の行 ────────────────────────────────────────────────
+
+.c-schedule-table__row {
+  display: flex;
+  flex-direction: column;
+
+  @include mq(md) {
+    display: grid;
+    grid-template-columns: rm($col-day) 1fr rm($col-meals) rm($col-lodge);
+  }
+}
+
+.c-schedule-table__row + .c-schedule-table__row {
+  @include mq(md) {
+    border-block-start: $table-border;
+  }
+}
+
+// ── 日付 ─────────────────────────────────────────────────────
+
+.c-schedule-table__day {
+  @include mq(md) {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-block-start: rm($day-pad-block-start);
+    border-inline-end: $table-border;
+  }
+}
+
+.c-schedule-table__day-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: rm(50);
+  padding-block: rm($day-label-pad-block);
+  background-color: $main-color;
+  color: $reverse-color;
+  @include font(14, 400, 1.5);
+
+  @include mq(md) {
+    width: auto;
+    padding-block: 0;
+    background-color: transparent;
+    color: $text-main;
+    @include font(16, 400, 1.5);
+  }
+}
+
+// ── スケジュール ─────────────────────────────────────────────
+
+.c-schedule-table__schedule {
+  padding: rm($cell-pad-sp);
+  background-color: $reverse-color;
+  border-block-start: $table-border;
+  border-inline: $table-border;
+
+  @include mq(md) {
+    padding: rm($cell-pad-pc);
+    border-block-start: none;
+    border-inline-start: none;
+    border-inline-end: $table-border;
+  }
+}
+
+.c-schedule-table__list {
+  display: flex;
+  flex-direction: column;
+  gap: rm(10);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.c-schedule-table__item {
+  display: grid;
+  grid-template-columns: rm($icon-sp) 1fr;
+  gap: rm(10);
+  align-items: flex-start;
+
+  @include mq(md) {
+    grid-template-columns: rm($icon-pc) 1fr;
+  }
+}
+
+// base.scss: img { width: 100%; height: 100%; object-fit: cover } を活かし、
+// figure に幅と aspect-ratio を指定することでアイコンサイズを制御する。
+.c-schedule-table__icon {
+  display: flex;
+  width: rm($icon-sp);
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  margin: 0;
+  margin-block-start: rm($icon-offset);
+  overflow: hidden;
+
+  @include mq(md) {
+    width: rm($icon-pc);
+  }
+}
+
+.c-schedule-table__text {
+  @include font(14, 400, 1.5);
+  color: $text-main;
+}
+
+.c-schedule-table__note {
+  @include font(13, 400, 1.5);
+  color: $text-main;
+
+  @include mq(md) {
+    @include font(12, 400, 1.7);
+  }
+}
+
+// ── フッター（食事 + 宿泊地ラッパー）
+//    SP: 枠付き box / PC: display:contents で子要素がgridへ直接参加 ─────
+
+.c-schedule-table__footer {
+  display: flex;
+  flex-direction: column;
+  background-color: $reverse-color;
+  border: $table-border;
+  border-block-start: none;
+
+  @include mq(md) {
+    display: contents;
+  }
+}
+
+// ── 食事 ─────────────────────────────────────────────────────
+
+.c-schedule-table__meals {
+  display: flex;
+  align-items: center;
+  gap: rm($meals-label-gap-sp);
+  padding-block: rm($footer-pad-block-sp);
+  padding-inline: rm($cell-pad-sp);
+
+  @include mq(md) {
+    flex-direction: column;
+    gap: 0;
+    justify-content: center;
+    align-items: center;
+    padding-block: rm($footer-pad-block-pc);
+    padding-inline: rm($footer-pad-inline-pc);
+    border-inline-end: $table-border;
+  }
+}
+
+.c-schedule-table__meals-label {
+  flex-shrink: 0;
+  @include font(14, 400, 1.5);
+  color: $text-main;
+
+  @include mq(md) {
+    display: none;
+  }
+}
+
+.c-schedule-table__meals-text {
+  @include font(14, 400, 1.5);
+  color: $text-main;
+
+  @include mq(md) {
+    @include font(16, 400, 1.3);
+    width: rm(16);
+    word-break: break-all;
+    text-align: center;
+  }
+}
+
+.c-schedule-table__meals-flight-icon {
+  width: rm(12);
+  height: rm(12);
+  vertical-align: middle;
+
+  @include mq(md) {
+    display: block;
+    width: rm(16);
+    height: rm(16);
+    margin-inline: auto;
+  }
+}
+
+// ── 宿泊地 ───────────────────────────────────────────────────
+
+.c-schedule-table__lodge {
+  display: flex;
+  align-items: center;
+  gap: rm(10);
+  padding-block: rm($footer-pad-block-sp);
+  padding-inline: rm($cell-pad-sp);
+  border-block-start: $table-border;
+
+  @include mq(md) {
+    flex-direction: column;
+    gap: rm($lodge-gap-pc);
+    justify-content: center;
+    align-items: center;
+    padding-block: rm($footer-pad-block-pc);
+    padding-inline: rm($footer-pad-inline-pc);
+    border-block-start: none;
+  }
+}
+
+.c-schedule-table__lodge-label {
+  flex-shrink: 0;
+  @include font(14, 400, 1.5);
+  color: $text-main;
+
+  @include mq(md) {
+    display: none;
+  }
+}
+
+// base.scss の img スタイルを活かし、figure に幅と aspect-ratio を指定する。
+.c-schedule-table__lodge-icon {
+  display: flex;
+  width: rm($icon-lodge-sp);
+  aspect-ratio: 1;
+  flex-shrink: 0;
+  margin: 0;
+  overflow: hidden;
+
+  @include mq(md) {
+    width: rm($icon-lodge-pc);
+  }
+}
+
+.c-schedule-table__lodge-name {
+  @include font(12, 400, 1.5);
+  color: $text-main;
+  text-align: center;
+}
