@@ -5,13 +5,13 @@
 // ============================================================
 
 // PC 列幅（カンプ 852px 内訳: day + schedule + meals + lodge）
-$col-day:   89;
+$col-day: 89;
 $col-meals: 54;
 $col-lodge: 115;
 
 // アイコンサイズ
-$icon-sp:       19; // スケジュールアイコン (SP)
-$icon-pc:       26; // スケジュールアイコン (PC)
+$icon-sp: 19; // スケジュールアイコン (SP)
+$icon-pc: 26; // スケジュールアイコン (PC)
 $icon-lodge-sp: 14; // 宿泊地アイコン (SP)
 $icon-lodge-pc: 33; // 宿泊地アイコン (PC)
 
@@ -19,18 +19,18 @@ $icon-lodge-pc: 33; // 宿泊地アイコン (PC)
 $icon-offset: 2;
 
 // セル padding
-$cell-pad-sp:          15; // スケジュールセル (SP)
-$cell-pad-pc:          20; // スケジュールセル (PC)
-$footer-pad-block-sp:   5; // 食事・宿泊地 padding-block (SP)
-$footer-pad-block-pc:  10; // 食事・宿泊地 padding-block (PC)
-$footer-pad-inline-pc:  5; // 食事・宿泊地 padding-inline (PC)
+$cell-pad-sp: 15; // スケジュールセル (SP)
+$cell-pad-pc: 20; // スケジュールセル (PC)
+$footer-pad-block-sp: 5; // 食事・宿泊地 padding-block (SP)
+$footer-pad-block-pc: 10; // 食事・宿泊地 padding-block (PC)
+$footer-pad-inline-pc: 5; // 食事・宿泊地 padding-inline (PC)
 
 // ヘッダー padding
-$header-pad-block:   9;
-$header-pad-inline:  5;
+$header-pad-block: 9;
+$header-pad-inline: 5;
 
 // 日付セル
-$day-label-pad-block:  2; // SP バッジ padding-block
+$day-label-pad-block: 2; // SP バッジ padding-block
 $day-pad-block-start: 12; // PC 日付セル padding-block-start
 
 // 食事
@@ -77,9 +77,15 @@ $table-border: 0.5px solid $text-main;
     @include font(18, 400, 1.5, 0.9);
 
     // 固定列幅（スケジュール列 = 残り幅）
-    &:nth-child(1) { width: rm($col-day); }
-    &:nth-child(3) { width: rm($col-meals); }
-    &:nth-child(4) { width: rm($col-lodge); }
+    &:nth-child(1) {
+      width: rm($col-day);
+    }
+    &:nth-child(3) {
+      width: rm($col-meals);
+    }
+    &:nth-child(4) {
+      width: rm($col-lodge);
+    }
   }
 }
 
@@ -105,7 +111,6 @@ $table-border: 0.5px solid $text-main;
 
 .c-schedule-table__day {
   display: block;
-  background-color: $reverse-color;
 
   @include mq(md) {
     display: table-cell;
@@ -113,6 +118,7 @@ $table-border: 0.5px solid $text-main;
     text-align: center;
     padding-block-start: rm($day-pad-block-start);
     border: $table-border;
+    background-color: $reverse-color;
   }
 }
 

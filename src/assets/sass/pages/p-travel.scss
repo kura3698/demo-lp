@@ -1,0 +1,31 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（カンプ値）
+// ============================================================
+
+$travel-list-gap-sp: 20; // SP: カード間の縦 gap
+$travel-list-gap-pc: 30; // PC: カード間の縦 gap
+$travel-table-mt-sp: 40; // SP: カードリスト ↔ スケジュールテーブルの上マージン
+$travel-table-mt-pc: 60; // PC: カードリスト ↔ スケジュールテーブルの上マージン
+
+// ============================================================
+// .p-travel — 旅行例セクション
+// ============================================================
+
+// ── カードリスト ─────────────────────────────────────────────
+
+.p-travel__list {
+  display: flex;
+  flex-direction: column;
+  gap: rm($travel-list-gap-sp);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  margin-block-end: rm($travel-table-mt-sp);
+
+  @include mq(md) {
+    gap: rm($travel-list-gap-pc);
+    margin-block-end: rm($travel-table-mt-pc);
+  }
+}
