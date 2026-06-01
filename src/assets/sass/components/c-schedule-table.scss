@@ -19,43 +19,40 @@ $icon-lodge-pc: 33; // 宿泊地アイコン (PC)
 $icon-offset: 2;
 
 // セル padding
-$cell-pad-sp:        15; // スケジュールセル (SP)
-$cell-pad-pc:        20; // スケジュールセル (PC)
-$footer-pad-block-sp: 5; // 食事・宿泊地 padding-block (SP)
-$footer-pad-block-pc: 10; // 食事・宿泊地 padding-block (PC)
-$footer-pad-inline-pc: 5; // 食事・宿泊地 padding-inline (PC)
+$cell-pad-sp:          15; // スケジュールセル (SP)
+$cell-pad-pc:          20; // スケジュールセル (PC)
+$footer-pad-block-sp:   5; // 食事・宿泊地 padding-block (SP)
+$footer-pad-block-pc:  10; // 食事・宿泊地 padding-block (PC)
+$footer-pad-inline-pc:  5; // 食事・宿泊地 padding-inline (PC)
 
 // ヘッダー padding
-$header-pad-block:  9;
-$header-pad-inline: 5;
+$header-pad-block:   9;
+$header-pad-inline:  5;
 
 // 日付セル
-$day-label-pad-block: 2;  // SP バッジ padding-block
+$day-label-pad-block:  2; // SP バッジ padding-block
 $day-pad-block-start: 12; // PC 日付セル padding-block-start
 
 // 食事
 $meals-label-gap-sp: 35; // SP: 食事ラベルとテキストの gap
 
 // 宿泊地
-$lodge-gap-pc: 5; // PC: アイコンとテキストの gap
+$lodge-gap-pc: 5; // PC: アイコンと名前テキストの gap
 
 // ボーダー
 $table-border: 0.5px solid $text-main;
 
 // ============================================================
-// .c-schedule-table — アウター
+// .c-schedule-table — テーブル本体
 // ============================================================
 
 .c-schedule-table {
-  display: flex;
-  flex-direction: column;
-  gap: rm(10);
+  width: 100%;
+  border-collapse: collapse;
 
   @include mq(md) {
-    gap: 0;
     max-width: px($pc-narrow-inner);
     margin-inline: auto;
-    border: $table-border;
   }
 }
 
@@ -65,10 +62,7 @@ $table-border: 0.5px solid $text-main;
   display: none;
 
   @include mq(md) {
-    display: grid;
-    grid-template-columns: rm($col-day) 1fr rm($col-meals) rm($col-lodge);
-    background-color: $main-color;
-    border-block-end: $table-border;
+    display: table-row;
   }
 }
 
@@ -76,43 +70,49 @@ $table-border: 0.5px solid $text-main;
   @include mq(md) {
     padding-block: rm($header-pad-block);
     padding-inline: rm($header-pad-inline);
+    background-color: $main-color;
     color: $reverse-color;
     text-align: center;
+    border: $table-border;
     @include font(18, 400, 1.5, 0.9);
 
-    &:not(:last-child) {
-      border-inline-end: $table-border;
-    }
+    // 固定列幅（スケジュール列 = 残り幅）
+    &:nth-child(1) { width: rm($col-day); }
+    &:nth-child(3) { width: rm($col-meals); }
+    &:nth-child(4) { width: rm($col-lodge); }
   }
 }
 
 // ── 1日分の行 ────────────────────────────────────────────────
 
 .c-schedule-table__row {
-  display: flex;
-  flex-direction: column;
+  display: block;
 
   @include mq(md) {
-    display: grid;
-    grid-template-columns: rm($col-day) 1fr rm($col-meals) rm($col-lodge);
+    display: table-row;
   }
 }
 
 .c-schedule-table__row + .c-schedule-table__row {
+  margin-block-start: rm(10);
+
   @include mq(md) {
-    border-block-start: $table-border;
+    margin-block-start: 0;
   }
 }
 
 // ── 日付 ─────────────────────────────────────────────────────
 
 .c-schedule-table__day {
+  display: block;
+  background-color: $reverse-color;
+
   @include mq(md) {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+    display: table-cell;
+    vertical-align: top;
+    text-align: center;
     padding-block-start: rm($day-pad-block-start);
-    border-inline-end: $table-border;
+    border: $table-border;
   }
 }
 
@@ -138,16 +138,16 @@ $table-border: 0.5px solid $text-main;
 // ── スケジュール ─────────────────────────────────────────────
 
 .c-schedule-table__schedule {
+  display: block;
   padding: rm($cell-pad-sp);
   background-color: $reverse-color;
   border-block-start: $table-border;
   border-inline: $table-border;
 
   @include mq(md) {
+    display: table-cell;
     padding: rm($cell-pad-pc);
-    border-block-start: none;
-    border-inline-start: none;
-    border-inline-end: $table-border;
+    border: $table-border;
   }
 }
 
@@ -201,22 +201,9 @@ $table-border: 0.5px solid $text-main;
   }
 }
 
-// ── フッター（食事 + 宿泊地ラッパー）
-//    SP: 枠付き box / PC: display:contents で子要素がgridへ直接参加 ─────
-
-.c-schedule-table__footer {
-  display: flex;
-  flex-direction: column;
-  background-color: $reverse-color;
-  border: $table-border;
-  border-block-start: none;
-
-  @include mq(md) {
-    display: contents;
-  }
-}
-
 // ── 食事 ─────────────────────────────────────────────────────
+// SP: __schedule と連続した1つのボックスを形成するため、左右のみボーダーを付与。
+//     上下は __schedule（上辺）と __lodge（下辺の区切り線）に委ねる。
 
 .c-schedule-table__meals {
   display: flex;
@@ -224,15 +211,16 @@ $table-border: 0.5px solid $text-main;
   gap: rm($meals-label-gap-sp);
   padding-block: rm($footer-pad-block-sp);
   padding-inline: rm($cell-pad-sp);
+  background-color: $reverse-color;
+  border-inline: $table-border;
 
   @include mq(md) {
-    flex-direction: column;
-    gap: 0;
-    justify-content: center;
-    align-items: center;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
     padding-block: rm($footer-pad-block-pc);
     padding-inline: rm($footer-pad-inline-pc);
-    border-inline-end: $table-border;
+    border: $table-border;
   }
 }
 
@@ -251,8 +239,10 @@ $table-border: 0.5px solid $text-main;
   color: $text-main;
 
   @include mq(md) {
+    display: block;
     @include font(16, 400, 1.3);
     width: rm(16);
+    margin-inline: auto;
     word-break: break-all;
     text-align: center;
   }
@@ -272,6 +262,8 @@ $table-border: 0.5px solid $text-main;
 }
 
 // ── 宿泊地 ───────────────────────────────────────────────────
+// SP: border: $table-border（全辺）により、上辺が食事との区切り線、
+//     下辺がボックスの底辺として機能する。
 
 .c-schedule-table__lodge {
   display: flex;
@@ -279,16 +271,16 @@ $table-border: 0.5px solid $text-main;
   gap: rm(10);
   padding-block: rm($footer-pad-block-sp);
   padding-inline: rm($cell-pad-sp);
-  border-block-start: $table-border;
+  background-color: $reverse-color;
+  border: $table-border;
 
   @include mq(md) {
-    flex-direction: column;
-    gap: rm($lodge-gap-pc);
-    justify-content: center;
-    align-items: center;
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
     padding-block: rm($footer-pad-block-pc);
     padding-inline: rm($footer-pad-inline-pc);
-    border-block-start: none;
+    border: $table-border;
   }
 }
 
@@ -312,7 +304,10 @@ $table-border: 0.5px solid $text-main;
   overflow: hidden;
 
   @include mq(md) {
+    display: block;
     width: rm($icon-lodge-pc);
+    margin-inline: auto;
+    margin-block-end: rm($lodge-gap-pc);
   }
 }
 
