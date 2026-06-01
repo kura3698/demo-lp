@@ -587,11 +587,19 @@ HTMLはテキスト先・画像後で記述し、CSSの `order` または `grid-
 ```
 
 - `aspect-ratio` もラッパー側に指定すること（`base.scss` で `img { height: 100%; }` が定義されているため、`img` に直接 `height: auto` を上書きするより確実）
+- **`height` の固定値は禁止。** `height: rm(220)` のような固定高さを figure に指定すると、コンテンツ比率やレスポンシブ幅の変化に追従できなくなる。必ず `aspect-ratio` で算出させること。
 
 ```scss
+// ✅ 良い例（aspect-ratio でラッパーの高さを算出）
 .c-card__figure {
   border-radius: rm(15);
   overflow: hidden;
-  aspect-ratio: 16 / 9; // 比率もラッパーで管理
+  aspect-ratio: 310 / 250; // 画像の自然比率をそのまま指定
+  // width 指定と組み合わせて height が自動計算される
+}
+
+// ❌ 悪い例（height 固定）
+.c-card__figure {
+  height: rm(220); // 【禁止】固定高さ → aspect-ratio に変更すること
 }
 ```

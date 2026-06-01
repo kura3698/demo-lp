@@ -9,10 +9,10 @@ $card-pad:     10; // 全辺の基本 padding
 $card-pad-end: 20; // PC: padding-inline-end
 $card-shadow: rm(3) rm(3) rm(2) rgba($text-main, 0.3);
 
-// 画像
+// 画像（height は aspect-ratio で算出するため固定しない）
 $img-width-pc:  310; // PC: 画像幅
-$img-height-pc: 250; // PC: 画像高さ
-$img-height-sp: 220; // SP: 画像高さ（全幅）
+$img-ratio-w:   310; // 自然比率 width
+$img-ratio-h:   250; // 自然比率 height
 
 // 本文レイアウト
 $body-gap-sp:    9; // SP: body の flex gap
@@ -20,14 +20,6 @@ $body-gap-pc:   50; // PC: body の row-gap（title ↔ desc）
 $body-col-gap:  10; // PC: body の column-gap（テキスト ↔ 価格）
 $card-gap-pc:   35; // PC: 画像 ↔ 本文の gap
 $body-min-h-pc: 229; // PC: body の最小高さ
-
-// フォント
-$title-size-sp: 18;
-$title-size-pc: 24;
-$price-size-sp: 18;
-$price-size-pc: 24;
-$text-size-sp:  14;
-$text-size-pc:  18;
 
 // ============================================================
 // .c-card — カード外形
@@ -56,14 +48,13 @@ $text-size-pc:  18;
 .c-card__figure {
   order: -1;
   width: 100%;
-  height: rm($img-height-sp);
+  aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h}; // height 固定なし・比率で算出
   flex-shrink: 0;
   overflow: hidden;
   margin: 0;
 
   @include mq(md) {
     width: rm($img-width-pc);
-    height: rm($img-height-pc);
   }
 }
 
@@ -92,26 +83,29 @@ $text-size-pc:  18;
 // ── タイトル ─────────────────────────────────────────────────
 
 .c-card__title {
-  @include font($title-size-sp, 700, 1.5);
+  font-size: rclamp(18, 24, $bp-md, $pc-inner);
+  font-weight: 700;
+  line-height: 1.5;
   color: $text-main;
 
   @include mq(md) {
     grid-area: title;
-    @include font($title-size-pc, 700, 1.5);
   }
 }
 
 // ── 価格 ─────────────────────────────────────────────────────
 
 .c-card__price {
-  @include font($price-size-sp, 700, 1.5);
+  font-size: rclamp(18, 24, $bp-md, $pc-inner);
+  font-weight: 700;
+  line-height: 1.25;
   color: $text-accent;
   text-align: end;
 
   @include mq(md) {
     grid-area: price;
     align-self: center;
-    @include font($price-size-pc, 700, 1.5);
+    line-height: 1.5;
     text-align: center;
     white-space: nowrap;
   }
@@ -120,11 +114,12 @@ $text-size-pc:  18;
 // ── 本文テキスト ─────────────────────────────────────────────
 
 .c-card__text {
-  @include font($text-size-sp, 400, 1.5);
+  font-size: rclamp(14, 18, $bp-md, $pc-inner);
+  font-weight: 400;
+  line-height: 1.5;
   color: $text-main;
 
   @include mq(md) {
     grid-area: desc;
-    @include font($text-size-pc, 400, 1.5);
   }
 }

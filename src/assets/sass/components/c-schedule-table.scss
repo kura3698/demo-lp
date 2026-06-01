@@ -18,6 +18,10 @@ $icon-lodge-pc: 33; // 宿泊地アイコン (PC)
 // スケジュールアイコンの天地オフセット（1行目テキスト基線合わせ）
 $icon-offset: 2;
 
+// 宿泊地アイコンとテキストの間隔
+$lodge-icon-gap-sp: 10; // SP: アイコン右端 ↔ テキスト左端
+$lodge-gap-pc: 5; // PC: アイコン下辺 ↔ テキスト上辺
+
 // セル padding
 $cell-pad-sp: 15; // スケジュールセル (SP)
 $cell-pad-pc: 20; // スケジュールセル (PC)
@@ -36,11 +40,12 @@ $day-pad-block-start: 12; // PC 日付セル padding-block-start
 // 食事
 $meals-label-gap-sp: 35; // SP: 食事ラベルとテキストの gap
 
-// 宿泊地
-$lodge-gap-pc: 5; // PC: アイコンと名前テキストの gap
+// ラベル共通幅（「食事」2字と「宿泊地」3字を同幅に揃える）
+$label-min-inline-size: 3em;
 
-// ボーダー
-$table-border: 0.5px solid $text-main;
+// ボーダー — 外枠（solid）と内罫線（dotted）を分離
+$table-border-outer: 0.5px solid $text-main;
+$table-border-inner: 0.5px dotted $text-main;
 
 // ============================================================
 // .c-schedule-table — テーブル本体
@@ -73,18 +78,23 @@ $table-border: 0.5px solid $text-main;
     background-color: $main-color;
     color: $reverse-color;
     text-align: center;
-    border: $table-border;
     @include font(18, 400, 1.5, 0.9);
+
+    // 内罫線（全辺 dotted をベースに外辺 solid で上書き）
+    border: $table-border-inner;
+    border-block-start: $table-border-outer; // 外枠 — 上辺
 
     // 固定列幅（スケジュール列 = 残り幅）
     &:nth-child(1) {
       width: rm($col-day);
+      border-inline-start: $table-border-outer; // 外枠 — 左辺
     }
     &:nth-child(3) {
       width: rm($col-meals);
     }
     &:nth-child(4) {
       width: rm($col-lodge);
+      border-inline-end: $table-border-outer; // 外枠 — 右辺
     }
   }
 }
@@ -117,8 +127,11 @@ $table-border: 0.5px solid $text-main;
     vertical-align: top;
     text-align: center;
     padding-block-start: rm($day-pad-block-start);
-    border: $table-border;
     background-color: $reverse-color;
+
+    // 内罫線ベース + 左辺を外枠 solid で上書き
+    border: $table-border-inner;
+    border-inline-start: $table-border-outer;
   }
 }
 
@@ -147,13 +160,15 @@ $table-border: 0.5px solid $text-main;
   display: block;
   padding: rm($cell-pad-sp);
   background-color: $reverse-color;
-  border-block-start: $table-border;
-  border-inline: $table-border;
+  // SP: 上辺・左右のみ外枠 solid（下辺は meals と連続しているためなし）
+  border-block-start: $table-border-outer;
+  border-inline: $table-border-outer;
 
   @include mq(md) {
     display: table-cell;
     padding: rm($cell-pad-pc);
-    border: $table-border;
+    // PC: 全辺を内罫線（dotted）
+    border: $table-border-inner;
   }
 }
 
@@ -208,8 +223,7 @@ $table-border: 0.5px solid $text-main;
 }
 
 // ── 食事 ─────────────────────────────────────────────────────
-// SP: __schedule と連続した1つのボックスを形成するため、左右のみボーダーを付与。
-//     上下は __schedule（上辺）と __lodge（下辺の区切り線）に委ねる。
+// SP: schedule と連続した1つのボックス内。左右のみ外枠 solid。
 
 .c-schedule-table__meals {
   display: flex;
@@ -218,7 +232,8 @@ $table-border: 0.5px solid $text-main;
   padding-block: rm($footer-pad-block-sp);
   padding-inline: rm($cell-pad-sp);
   background-color: $reverse-color;
-  border-inline: $table-border;
+  // SP: 左右のみ外枠 solid（上下はなし）
+  border-inline: $table-border-outer;
 
   @include mq(md) {
     display: table-cell;
@@ -226,12 +241,14 @@ $table-border: 0.5px solid $text-main;
     vertical-align: middle;
     padding-block: rm($footer-pad-block-pc);
     padding-inline: rm($footer-pad-inline-pc);
-    border: $table-border;
+    // PC: 全辺を内罫線（dotted）
+    border: $table-border-inner;
   }
 }
 
 .c-schedule-table__meals-label {
   flex-shrink: 0;
+  min-inline-size: $label-min-inline-size; // 「宿泊地」3字と幅を揃える
   @include font(14, 400, 1.5);
   color: $text-main;
 
@@ -241,35 +258,33 @@ $table-border: 0.5px solid $text-main;
 }
 
 .c-schedule-table__meals-text {
-  @include font(14, 400, 1.5);
+  display: flex;
+  align-items: center;
+  gap: rm(4);
+  @include font(14, 400, 1);
   color: $text-main;
 
   @include mq(md) {
-    display: block;
-    @include font(16, 400, 1.3);
-    width: rm(16);
+    flex-direction: column;
+    gap: rm(4);
+    @include font(16, 400, 1);
     margin-inline: auto;
-    word-break: break-all;
-    text-align: center;
   }
 }
 
 .c-schedule-table__meals-flight-icon {
-  width: rm(12);
-  height: rm(12);
-  vertical-align: middle;
+  flex-shrink: 0;
+  width: rm(11.25);
+  height: rm(6.75);
 
   @include mq(md) {
-    display: block;
-    width: rm(16);
-    height: rm(16);
-    margin-inline: auto;
+    width: rm(15);
+    height: rm(9);
   }
 }
 
 // ── 宿泊地 ───────────────────────────────────────────────────
-// SP: border: $table-border（全辺）により、上辺が食事との区切り線、
-//     下辺がボックスの底辺として機能する。
+// SP: 上辺が内罫線（meals との区切り）、下・左右が外枠 solid。
 
 .c-schedule-table__lodge {
   display: flex;
@@ -278,7 +293,10 @@ $table-border: 0.5px solid $text-main;
   padding-block: rm($footer-pad-block-sp);
   padding-inline: rm($cell-pad-sp);
   background-color: $reverse-color;
-  border: $table-border;
+  // SP: 上辺のみ内罫線（dotted）。下・左右は外枠 solid。
+  border-block-start: $table-border-inner;
+  border-block-end: $table-border-outer;
+  border-inline: $table-border-outer;
 
   @include mq(md) {
     display: table-cell;
@@ -286,12 +304,15 @@ $table-border: 0.5px solid $text-main;
     vertical-align: middle;
     padding-block: rm($footer-pad-block-pc);
     padding-inline: rm($footer-pad-inline-pc);
-    border: $table-border;
+    // PC: 全辺を内罫線（dotted）+ 右辺のみ外枠 solid で上書き
+    border: $table-border-inner;
+    border-inline-end: $table-border-outer;
   }
 }
 
 .c-schedule-table__lodge-label {
   flex-shrink: 0;
+  min-inline-size: $label-min-inline-size; // 「食事」2字と幅を揃える
   @include font(14, 400, 1.5);
   color: $text-main;
 
@@ -300,25 +321,72 @@ $table-border: 0.5px solid $text-main;
   }
 }
 
-// base.scss の img スタイルを活かし、figure に幅と aspect-ratio を指定する。
-.c-schedule-table__lodge-icon {
-  display: flex;
-  width: rm($icon-lodge-sp);
-  aspect-ratio: 1;
-  flex-shrink: 0;
-  margin: 0;
-  overflow: hidden;
-
-  @include mq(md) {
-    display: block;
-    width: rm($icon-lodge-pc);
-    margin-inline: auto;
-    margin-block-end: rm($lodge-gap-pc);
-  }
-}
+// ── 宿泊地名（::before でアイコンを表示）────────────────────
 
 .c-schedule-table__lodge-name {
   @include font(12, 400, 1.5);
   color: $text-main;
   text-align: center;
+}
+
+// ホテル・キャンプ共通の ::before アイコン設定
+.c-schedule-table__lodge-name--hotel,
+.c-schedule-table__lodge-name--camp {
+  position: relative;
+  // SP: アイコン幅 + gap 分だけ左にパディングを取りアイコンを絶対配置
+  padding-inline-start: rm($icon-lodge-sp + $lodge-icon-gap-sp);
+
+  @include mq(md) {
+    padding-inline-start: 0;
+    // PC: アイコン高さ + gap 分だけ上にパディングを取りアイコンを絶対配置
+    padding-block-start: rm($icon-lodge-pc + $lodge-gap-pc);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    display: block;
+    width: rm($icon-lodge-sp);
+    height: rm($icon-lodge-sp);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    // SP: テキスト行の垂直中央に配置
+    inset-block-start: 50%;
+    inset-inline-start: 0;
+    transform: translateY(-50%);
+
+    @include mq(md) {
+      width: rm($icon-lodge-pc);
+      height: rm($icon-lodge-pc);
+      // PC: パディング領域の中央に配置
+      inset-block-start: 0;
+      inset-inline-start: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
+
+// 各アイコン画像を modifier ごとに指定
+.c-schedule-table__lodge-name--hotel {
+  &::before {
+    background-image: url("/img/icon_lodge-hotel.svg");
+  }
+}
+
+.c-schedule-table__lodge-name--camp {
+  &::before {
+    background-image: url("/img/icon_lodge-camp.svg");
+  }
+}
+
+// ── PC 外枠（最終行の下辺を solid に上書き）──────────────────
+
+.c-schedule-table__row:last-child .c-schedule-table__day,
+.c-schedule-table__row:last-child .c-schedule-table__schedule,
+.c-schedule-table__row:last-child .c-schedule-table__meals,
+.c-schedule-table__row:last-child .c-schedule-table__lodge {
+  @include mq(md) {
+    border-block-end: $table-border-outer;
+  }
 }
