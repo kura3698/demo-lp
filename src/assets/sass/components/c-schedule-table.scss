@@ -232,7 +232,8 @@ $table-border-inner: 0.5px dotted $text-main;
   padding-block: rm($footer-pad-block-sp);
   padding-inline: rm($cell-pad-sp);
   background-color: $reverse-color;
-  // SP: 左右のみ外枠 solid（上下はなし）
+  // SP: 上辺を内罫線（schedule との区切り）、左右は外枠 solid
+  border-block-start: $table-border-inner;
   border-inline: $table-border-outer;
 
   @include mq(md) {
