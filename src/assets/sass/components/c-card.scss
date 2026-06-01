@@ -30,10 +30,10 @@ $text-size-sp:  14;
 $text-size-pc:  18;
 
 // ============================================================
-// .c-card-tour — カード外形
+// .c-card — カード外形
 // ============================================================
 
-.c-card-tour {
+.c-card {
   display: flex;
   flex-direction: column;
   gap: rm($card-pad);
@@ -53,7 +53,7 @@ $text-size-pc:  18;
 
 // ── 画像（DOM はテキスト後、order で視覚上は先頭に移動）────────
 
-.c-card-tour__figure {
+.c-card__figure {
   order: -1;
   width: 100%;
   height: rm($img-height-sp);
@@ -69,7 +69,7 @@ $text-size-pc:  18;
 
 // ── 本文 ─────────────────────────────────────────────────────
 
-.c-card-tour__body {
+.c-card__body {
   display: flex;
   flex-direction: column;
   gap: rm($body-gap-sp);
@@ -91,7 +91,7 @@ $text-size-pc:  18;
 
 // ── タイトル ─────────────────────────────────────────────────
 
-.c-card-tour__title {
+.c-card__title {
   @include font($title-size-sp, 700, 1.5);
   color: $text-main;
 
@@ -103,7 +103,7 @@ $text-size-pc:  18;
 
 // ── 価格 ─────────────────────────────────────────────────────
 
-.c-card-tour__price {
+.c-card__price {
   @include font($price-size-sp, 700, 1.5);
   color: $text-accent;
   text-align: end;
@@ -119,7 +119,7 @@ $text-size-pc:  18;
 
 // ── 本文テキスト ─────────────────────────────────────────────
 
-.c-card-tour__text {
+.c-card__text {
   @include font($text-size-sp, 400, 1.5);
   color: $text-main;
 

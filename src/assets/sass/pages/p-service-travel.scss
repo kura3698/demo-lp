@@ -1,0 +1,92 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（カンプ値）
+// ============================================================
+
+// バッジ配置（カンプ px）
+$badge-offset-block:   6;  // バッジ下辺が見出し上辺より上に出る量（SP/PC 共通）
+$badge-offset-inline-sp: 40;  // SP: 見出し左端より外側へのオフセット
+$badge-offset-inline-pc: 88;  // PC: 見出し左端より外側へのオフセット
+
+// 余白
+$heading-mb-sp:       29; // 見出し ↔ リード文
+$heading-mb-pc:       44;
+$lead-mb-sp:          20; // リード文 ↔ カード
+$lead-mb-pc:          44;
+$card-mb-sp:          41; // カード ↔ テーブル見出し
+$card-mb-pc:          44;
+$table-heading-mb-sp: 10; // テーブル見出し ↔ テーブル
+$table-heading-mb-pc: 30;
+
+// ============================================================
+// .p-service-travel — セクション外形
+// ============================================================
+
+.p-service-travel {
+  background-image: url("/img/bg_services-baloon@2x.webp");
+  background-size: cover;
+  background-position: center;
+}
+
+// ── 見出しコンテナ（バッジの absolute 基点） ─────────────────
+
+.p-service-travel__heading-container {
+  position: relative;
+  text-align: center;
+  margin-block-end: rm($heading-mb-sp);
+
+  @include mq(md) {
+    margin-block-end: rm($heading-mb-pc);
+  }
+}
+
+// ── バッジ「おすすめNO.1！」（c-head-decoration を流用・配置のみ定義） ──
+
+.p-service-travel__badge {
+  position: absolute;
+  inset-block-end: calc(100% + rm($badge-offset-block));
+  inset-inline-start: rm(-$badge-offset-inline-sp);
+
+  @include mq(md) {
+    inset-inline-start: rm(-$badge-offset-inline-pc);
+  }
+}
+
+// ── リード文 ─────────────────────────────────────────────────
+
+.p-service-travel__lead {
+  @include font(14, 400, 1.5);
+  color: $text-main;
+  text-align: center;
+  margin-block-end: rm($lead-mb-sp);
+
+  @include mq(md) {
+    @include font(20, 400, 1.5);
+    margin-block-end: rm($lead-mb-pc);
+  }
+}
+
+// ── カードラッパー（1枚） ────────────────────────────────────
+
+.p-service-travel__card {
+  margin-block-end: rm($card-mb-sp);
+
+  @include mq(md) {
+    margin-block-end: rm($card-mb-pc);
+  }
+}
+
+// ── テーブル見出し「4日間ツアー例」 ─────────────────────────
+
+.p-service-travel__table-heading {
+  @include font(22, 700, 1.5);
+  color: $text-main;
+  text-align: center;
+  margin-block-end: rm($table-heading-mb-sp);
+
+  @include mq(md) {
+    @include font(30, 700, 1.5);
+    margin-block-end: rm($table-heading-mb-pc);
+  }
+}
