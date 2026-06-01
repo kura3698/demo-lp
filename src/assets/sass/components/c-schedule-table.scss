@@ -38,7 +38,19 @@ $day-label-pad-block: 2; // SP バッジ padding-block
 $day-pad-block-start: 12; // PC 日付セル padding-block-start
 
 // 食事
-$meals-label-gap-sp: 35; // SP: 食事ラベルとテキストの gap
+$meals-label-gap-sp:  35; // SP: 食事ラベルとテキストの gap
+$meals-text-char-gap:  4; // 食事テキスト 文字間 gap（SP / PC 共通）
+
+// リスト・アイテム
+$list-gap:   10; // スケジュールリスト行間 gap
+$item-gap:   10; // スケジュールアイテム（アイコン ↔ テキスト）gap
+$row-gap-sp: 10; // SP: 行ブロック間の margin-block-start
+
+// 日付バッジ
+$day-label-width: 50; // SP: バッジ幅
+
+// 宿泊地セル
+$lodge-cell-gap-sp: 10; // SP: ラベル ↔ 宿泊地名 の flex gap
 
 // ラベル共通幅（「食事」2字と「宿泊地」3字を同幅に揃える）
 $label-min-inline-size: 3em;
@@ -110,7 +122,7 @@ $table-border-inner: 0.5px dotted $text-main;
 }
 
 .c-schedule-table__row + .c-schedule-table__row {
-  margin-block-start: rm(10);
+  margin-block-start: rm($row-gap-sp);
 
   @include mq(md) {
     margin-block-start: 0;
@@ -139,7 +151,7 @@ $table-border-inner: 0.5px dotted $text-main;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: rm(50);
+  width: rm($day-label-width);
   padding-block: rm($day-label-pad-block);
   background-color: $main-color;
   color: $reverse-color;
@@ -175,7 +187,7 @@ $table-border-inner: 0.5px dotted $text-main;
 .c-schedule-table__list {
   display: flex;
   flex-direction: column;
-  gap: rm(10);
+  gap: rm($list-gap);
   list-style: none;
   padding: 0;
   margin: 0;
@@ -184,7 +196,7 @@ $table-border-inner: 0.5px dotted $text-main;
 .c-schedule-table__item {
   display: grid;
   grid-template-columns: rm($icon-sp) 1fr;
-  gap: rm(10);
+  gap: rm($item-gap);
   align-items: flex-start;
 
   @include mq(md) {
@@ -261,13 +273,13 @@ $table-border-inner: 0.5px dotted $text-main;
 .c-schedule-table__meals-text {
   display: flex;
   align-items: center;
-  gap: rm(4);
+  gap: rm($meals-text-char-gap);
   @include font(14, 400, 1);
   color: $text-main;
 
   @include mq(md) {
     flex-direction: column;
-    gap: rm(4);
+    gap: rm($meals-text-char-gap);
     @include font(16, 400, 1);
     margin-inline: auto;
   }
@@ -290,7 +302,7 @@ $table-border-inner: 0.5px dotted $text-main;
 .c-schedule-table__lodge {
   display: flex;
   align-items: center;
-  gap: rm(10);
+  gap: rm($lodge-cell-gap-sp);
   padding-block: rm($footer-pad-block-sp);
   padding-inline: rm($cell-pad-sp);
   background-color: $reverse-color;

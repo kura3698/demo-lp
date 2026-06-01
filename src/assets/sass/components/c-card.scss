@@ -21,6 +21,15 @@ $body-col-gap:  10; // PC: body の column-gap（テキスト ↔ 価格）
 $card-gap-pc:   35; // PC: 画像 ↔ 本文の gap
 $body-min-h-pc: 229; // PC: body の最小高さ
 
+// フォント（rclamp min / max）
+$title-size-sp: 18;
+$title-size-pc: 24;
+$price-size-sp: 18;
+$price-size-pc: 24;
+$price-lh-sp:   1.25; // SP 価格 line-height（PC は 1.5）
+$text-size-sp:  14;
+$text-size-pc:  18;
+
 // ============================================================
 // .c-card — カード外形
 // ============================================================
@@ -83,7 +92,7 @@ $body-min-h-pc: 229; // PC: body の最小高さ
 // ── タイトル ─────────────────────────────────────────────────
 
 .c-card__title {
-  font-size: rclamp(18, 24, $bp-md, $pc-inner);
+  font-size: rclamp($title-size-sp, $title-size-pc, $bp-md, $pc-inner);
   font-weight: 700;
   line-height: 1.5;
   color: $text-main;
@@ -96,9 +105,9 @@ $body-min-h-pc: 229; // PC: body の最小高さ
 // ── 価格 ─────────────────────────────────────────────────────
 
 .c-card__price {
-  font-size: rclamp(18, 24, $bp-md, $pc-inner);
+  font-size: rclamp($price-size-sp, $price-size-pc, $bp-md, $pc-inner);
   font-weight: 700;
-  line-height: 1.25;
+  line-height: $price-lh-sp;
   color: $text-accent;
   text-align: end;
 
@@ -114,7 +123,7 @@ $body-min-h-pc: 229; // PC: body の最小高さ
 // ── 本文テキスト ─────────────────────────────────────────────
 
 .c-card__text {
-  font-size: rclamp(14, 18, $bp-md, $pc-inner);
+  font-size: rclamp($text-size-sp, $text-size-pc, $bp-md, $pc-inner);
   font-weight: 400;
   line-height: 1.5;
   color: $text-main;

@@ -4,6 +4,9 @@
 // ローカル変数（カンプ値）
 // ============================================================
 
+// 見出し
+$heading-icon-gap: 15; // 見出しアイコン ↔ テキスト gap
+
 // バッジ配置（カンプ px）
 $badge-offset-block: 6; // バッジ下辺が見出し上辺より上に出る量（SP/PC 共通）
 $badge-offset-inline-sp: 166; // SP: 見出し左端より外側へのオフセット
@@ -35,7 +38,7 @@ $table-heading-mb-pc: 30;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: rm(15);
+  gap: rm($heading-icon-gap);
   color: $text-main;
   @include font(18, 700, 1.5, 0.9);
 
