@@ -30,6 +30,16 @@ $price-lh-sp:   1.25; // SP 価格 line-height（PC は 1.5）
 $text-size-sp:  14;
 $text-size-pc:  18;
 
+// モディファイア用カンプ値
+$sp-img-ratio-w:       330; // SP: 3枚統一の画像幅
+$sp-img-ratio-h:       220; // SP: 3枚統一の画像高さ
+$img-ratio-h-plan:     200; // --plan: PC画像高さ
+$body-gap-reserve-pc:   45; // --reserve: PC body row-gap
+$body-min-h-plan:      220; // --plan: PC body min-height
+$price-size-plan-pc:    22; // --plan: PC価格フォントサイズ
+$note-size-sp:          13; // --reserve: SP注釈フォントサイズ
+$note-size-pc:          16; // --reserve: PC注釈フォントサイズ
+
 // ============================================================
 // .c-card — カード外形
 // ============================================================
@@ -130,5 +140,67 @@ $text-size-pc:  18;
 
   @include mq(md) {
     grid-area: desc;
+  }
+}
+
+// ============================================================
+// .c-card--reserve — 予約必須注釈付きカード
+// ============================================================
+
+.c-card--reserve .c-card__figure {
+  aspect-ratio: #{$sp-img-ratio-w} / #{$sp-img-ratio-h};
+
+  @include mq(md) {
+    aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h};
+  }
+}
+
+.c-card--reserve .c-card__body {
+  @include mq(md) {
+    grid-template-areas:
+      "title price"
+      "desc  price"
+      "note  .    ";
+    row-gap: rm($body-gap-reserve-pc);
+  }
+}
+
+// ── 注釈テキスト ─────────────────────────────────────────────
+
+.c-card__note {
+  font-size: rm($note-size-sp);
+  font-weight: 700;
+  line-height: normal;
+  color: $text-accent;
+  white-space: nowrap;
+
+  @include mq(md) {
+    font-size: rm($note-size-pc);
+    grid-area: note;
+    align-self: end;
+  }
+}
+
+// ============================================================
+// .c-card--plan — プランカード（3枚 / SP: Swiper）
+// ============================================================
+
+.c-card--plan .c-card__figure {
+  aspect-ratio: #{$sp-img-ratio-w} / #{$sp-img-ratio-h};
+
+  @include mq(md) {
+    aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h-plan};
+  }
+}
+
+.c-card--plan .c-card__body {
+  @include mq(md) {
+    min-height: rm($body-min-h-plan);
+  }
+}
+
+.c-card--plan .c-card__price {
+  @include mq(md) {
+    font-size: rm($price-size-plan-pc);
   }
 }
