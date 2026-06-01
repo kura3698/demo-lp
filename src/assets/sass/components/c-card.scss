@@ -1,0 +1,125 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（カンプ値）
+// ============================================================
+
+// カード外形
+$card-pad:     10; // 全辺の基本 padding
+$card-pad-end: 20; // PC: padding-inline-end
+$card-shadow: rm(3) rm(3) rm(2) rgba($text-main, 0.3);
+
+// 画像（height は aspect-ratio で算出するため固定しない）
+$img-width-pc:  310; // PC: 画像幅
+$img-ratio-w:   310; // 自然比率 width
+$img-ratio-h:   250; // 自然比率 height
+
+// 本文レイアウト
+$body-gap-sp:    9; // SP: body の flex gap
+$body-gap-pc:   50; // PC: body の row-gap（title ↔ desc）
+$body-col-gap:  10; // PC: body の column-gap（テキスト ↔ 価格）
+$card-gap-pc:   35; // PC: 画像 ↔ 本文の gap
+$body-min-h-pc: 229; // PC: body の最小高さ
+
+// ============================================================
+// .c-card — カード外形
+// ============================================================
+
+.c-card {
+  display: flex;
+  flex-direction: column;
+  gap: rm($card-pad);
+  padding: rm($card-pad);
+  background-color: $reverse-color;
+  box-shadow: $card-shadow;
+
+  @include mq(md) {
+    flex-direction: row;
+    align-items: center;
+    gap: rm($card-gap-pc);
+    padding-block: rm($card-pad);
+    padding-inline-start: rm($card-pad);
+    padding-inline-end: rm($card-pad-end);
+  }
+}
+
+// ── 画像（DOM はテキスト後、order で視覚上は先頭に移動）────────
+
+.c-card__figure {
+  order: -1;
+  width: 100%;
+  aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h}; // height 固定なし・比率で算出
+  flex-shrink: 0;
+  overflow: hidden;
+  margin: 0;
+
+  @include mq(md) {
+    width: rm($img-width-pc);
+  }
+}
+
+// ── 本文 ─────────────────────────────────────────────────────
+
+.c-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: rm($body-gap-sp);
+
+  @include mq(md) {
+    // PC: grid で title・price・desc を配置
+    // price は 2 行にまたがり垂直中央に浮かぶ
+    display: grid;
+    grid-template-areas:
+      "title price"
+      "desc  price";
+    grid-template-columns: 1fr auto;
+    row-gap: rm($body-gap-pc);
+    column-gap: rm($body-col-gap);
+    min-height: rm($body-min-h-pc);
+    flex: 1;
+  }
+}
+
+// ── タイトル ─────────────────────────────────────────────────
+
+.c-card__title {
+  font-size: rclamp(18, 24, $bp-md, $pc-inner);
+  font-weight: 700;
+  line-height: 1.5;
+  color: $text-main;
+
+  @include mq(md) {
+    grid-area: title;
+  }
+}
+
+// ── 価格 ─────────────────────────────────────────────────────
+
+.c-card__price {
+  font-size: rclamp(18, 24, $bp-md, $pc-inner);
+  font-weight: 700;
+  line-height: 1.25;
+  color: $text-accent;
+  text-align: end;
+
+  @include mq(md) {
+    grid-area: price;
+    align-self: center;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+  }
+}
+
+// ── 本文テキスト ─────────────────────────────────────────────
+
+.c-card__text {
+  font-size: rclamp(14, 18, $bp-md, $pc-inner);
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-main;
+
+  @include mq(md) {
+    grid-area: desc;
+  }
+}
