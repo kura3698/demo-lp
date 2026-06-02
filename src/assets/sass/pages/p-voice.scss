@@ -16,8 +16,7 @@ $voice-pagination-bullet-gap: 10;
 $voice-nav-btn-size: 40;
 $voice-cards-gap-min: 40;
 $voice-cards-gap-max: 75;
-$voice-card-max-w-min: 350;
-$voice-card-max-w-max: 460;
+$voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
 
 // ============================================================
 // .p-voice — お客様の声セクション
@@ -55,12 +54,13 @@ $voice-card-max-w-max: 460;
   display: flex;
   flex-direction: column;
   gap: rm($voice-list-gap-sp);
+  width: 100%;
+  max-width: rm($voice-card-max-w-min);
+  margin-inline: auto;
 }
 
 .p-voice__item .c-voice-card {
   width: 100%;
-  max-width: rm($voice-card-max-w-min);
-  margin-inline: auto;
 }
 
 // ── SP 静的コントロール UI ───────────────────────────────────
@@ -125,15 +125,13 @@ $voice-card-max-w-max: 460;
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: rclamp($voice-cards-gap-min, $voice-cards-gap-max, $bp-lg, $pc-inner);
+    max-width: none;
+    margin-inline: 0;
   }
 
   .p-voice__item .c-voice-card {
-    max-width: rclamp(
-      $voice-card-max-w-min,
-      $voice-card-max-w-max,
-      $bp-lg,
-      $pc-inner
-    );
+    max-width: none;
+    margin-inline: 0;
   }
 
   .p-voice__controls {

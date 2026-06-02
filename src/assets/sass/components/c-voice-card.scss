@@ -100,19 +100,6 @@ $voice-card-line-weight: 1;
   @include mq(lg) {
     margin-block-end: rm($voice-card-quote-mb-pc);
   }
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent calc(1lh - rm($voice-card-line-weight)),
-      rgba($text-main, 0.12) calc(1lh - rm($voice-card-line-weight)),
-      rgba($text-main, 0.12) 1lh
-    );
-  }
 }
 
 .c-voice-card__text {
@@ -130,6 +117,20 @@ $voice-card-line-weight: 1;
   @include mq(lg) {
     font-size: rm($voice-card-text-size-pc);
     line-height: $voice-card-text-height-pc;
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1lh - rm($voice-card-line-weight)),
+      rgba($text-main, 0.12) calc(1lh - rm($voice-card-line-weight)),
+      rgba($text-main, 0.12) 1lh
+    );
   }
 }
 

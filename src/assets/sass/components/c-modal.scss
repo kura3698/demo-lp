@@ -81,6 +81,7 @@ $modal-line-weight: 1;
     pointer-events: none;
     background-image: repeating-linear-gradient(
       to bottom,
+      transparent 0,
       transparent calc(1lh - rm($modal-line-weight)),
       rgba($text-main, 0.12) calc(1lh - rm($modal-line-weight)),
       rgba($text-main, 0.12) 1lh
