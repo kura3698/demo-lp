@@ -1,0 +1,184 @@
+@use "sass:math";
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（カンプ値）
+// ============================================================
+
+// カード外形
+$infocard-width-pc: 320;
+$infocard-pad-block-sp: 10;
+$infocard-pad-inline-sp: 15;
+$infocard-pad-pc: 15;
+$infocard-gap-sp: 10;
+$infocard-gap-pc: 15;
+
+// 画像（aspect-ratio で高さ算出）
+$infocard-img-w-sp: 270;
+$infocard-img-h-sp: 160;
+$infocard-img-w-pc: 290;
+$infocard-img-h-pc: 180;
+
+// フォント
+$infocard-title-sp: 16;
+$infocard-title-pc: 18;
+$infocard-text-sp: 14;
+$infocard-text-pc: 16;
+$infocard-note-sp: 14;
+$infocard-note-pc: 14;
+
+// PC 吹き出し三角（Figma Polygon 21×25）
+$infocard-tail-w: 21;
+$infocard-tail-h: 25;
+$infocard-tail-half-w: math.div($infocard-tail-w, 2);
+
+// PC 三角の水平位置（カード幅 320px 基準）
+$infocard-tail-inset-restaurant: math.div(35, $infocard-width-pc) * 100%;
+$infocard-tail-inset-ger: math.div(58, $infocard-width-pc) * 100%;
+$infocard-tail-inset-shower: math.div(118, $infocard-width-pc) * 100%;
+
+// 宿泊ゲル画像トリミング（Figma object-position 相当）
+$infocard-ger-img-pos-x-sp: 3.29%;
+$infocard-ger-img-pos-y-sp: 71.19%;
+$infocard-ger-img-pos-x-pc: 6.13%;
+$infocard-ger-img-pos-y-pc: 78.97%;
+
+// ============================================================
+// .c-infocard — ラッパー
+// ============================================================
+
+.c-infocard {
+  width: 100%;
+
+  @include mq(md) {
+    width: rm($infocard-width-pc);
+    padding-block-end: rm($infocard-tail-h);
+  }
+}
+
+// ============================================================
+// .c-infocard__body — 白背景ボックス
+// ============================================================
+
+.c-infocard__body {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: rm($infocard-gap-sp);
+  padding-block: rm($infocard-pad-block-sp);
+  padding-inline: rm($infocard-pad-inline-sp);
+  background-color: $reverse-color;
+
+  @include mq(md) {
+    gap: rm($infocard-gap-pc);
+    padding: rm($infocard-pad-pc);
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset-block-start: 100%;
+      inset-inline-start: var(--infocard-tail-inset-inline, 0);
+      border-style: solid;
+      border-color: $reverse-color transparent transparent transparent;
+      border-width: rm($infocard-tail-h) rm($infocard-tail-half-w) 0
+        rm($infocard-tail-half-w);
+      pointer-events: none;
+    }
+  }
+}
+
+// ============================================================
+// .c-infocard__figure — 画像（DOM 後・視覚上は先頭）
+// ============================================================
+
+.c-infocard__figure {
+  order: -1;
+  width: 100%;
+  margin: 0;
+  aspect-ratio: #{$infocard-img-w-sp} / #{$infocard-img-h-sp};
+  overflow: hidden;
+
+  @include mq(md) {
+    aspect-ratio: #{$infocard-img-w-pc} / #{$infocard-img-h-pc};
+  }
+}
+
+// ============================================================
+// .c-infocard__title / __text / __emphasis / __note
+// ============================================================
+
+.c-infocard__title {
+  color: $text-main;
+  @include font($infocard-title-sp, 700, 1.5);
+
+  @include mq(md) {
+    @include font($infocard-title-pc, 700, 1.5);
+  }
+}
+
+.c-infocard__text {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  color: $text-main;
+  @include font($infocard-text-sp, 400, 1.5);
+
+  @include mq(md) {
+    @include font($infocard-text-pc, 400, 1.5);
+  }
+}
+
+.c-infocard__text p {
+  margin: 0;
+}
+
+.c-infocard__emphasis {
+  font-weight: 700;
+}
+
+.c-infocard__note {
+  color: $text-main;
+  @include font($infocard-note-sp, 400, 1.5);
+
+  @include mq(md) {
+    @include font($infocard-note-pc, 400, 1.5);
+  }
+}
+
+// ============================================================
+// 修飾子 — PC 吹き出し三角の水平位置
+// ============================================================
+
+.c-infocard--tail-restaurant .c-infocard__body {
+  @include mq(md) {
+    --infocard-tail-inset-inline: #{$infocard-tail-inset-restaurant};
+  }
+}
+
+.c-infocard--tail-ger .c-infocard__body {
+  @include mq(md) {
+    --infocard-tail-inset-inline: #{$infocard-tail-inset-ger};
+  }
+}
+
+.c-infocard--tail-shower .c-infocard__body {
+  @include mq(md) {
+    --infocard-tail-inset-inline: #{$infocard-tail-inset-shower};
+  }
+}
+
+// ============================================================
+// 修飾子 — 宿泊ゲル（本文・画像トリミング）
+// ============================================================
+
+.c-infocard--ger .c-infocard__text p + p {
+  margin-block-start: 0;
+}
+
+.c-infocard--figure-crop-ger .c-infocard__figure img {
+  object-position: $infocard-ger-img-pos-x-sp $infocard-ger-img-pos-y-sp;
+
+  @include mq(md) {
+    object-position: $infocard-ger-img-pos-x-pc $infocard-ger-img-pos-y-pc;
+  }
+}

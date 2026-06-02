@@ -1,0 +1,29 @@
+@use "../config/" as *;
+
+// カード一覧（Figma contents: SP gap 10px / PC gap 20px 横並び）
+$info-list-gap-sp: 10;
+$info-list-gap-pc: 20;
+
+.p-info__list {
+  display: flex;
+  flex-direction: column;
+  gap: rm($info-list-gap-sp);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include mq(md) {
+    flex-direction: row;
+    gap: rm($info-list-gap-pc);
+    align-items: flex-start;
+  }
+}
+
+.p-info__item {
+  width: 100%;
+
+  @include mq(md) {
+    width: auto;
+    flex-shrink: 0;
+  }
+}
