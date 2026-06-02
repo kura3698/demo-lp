@@ -51,7 +51,6 @@ $infocard-ger-img-pos-y-pc: 78.97%;
   width: 100%;
 
   @include mq(md) {
-    width: rm($infocard-width-pc);
     padding-block-end: rm($infocard-tail-h);
   }
 }
@@ -69,7 +68,7 @@ $infocard-ger-img-pos-y-pc: 78.97%;
   padding-inline: rm($infocard-pad-inline-sp);
   background-color: $reverse-color;
 
-  @include mq(md) {
+  @media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
     gap: rm($infocard-gap-pc);
     padding: rm($infocard-pad-pc);
 
@@ -108,24 +107,20 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 // ============================================================
 
 .c-infocard__title {
+  font-size: rclamp($infocard-title-sp, $infocard-title-pc, $bp-md, $pc-inner);
+  font-weight: 700;
+  line-height: 1.5;
   color: $text-main;
-  @include font($infocard-title-sp, 700, 1.5);
-
-  @include mq(md) {
-    @include font($infocard-title-pc, 700, 1.5);
-  }
 }
 
 .c-infocard__text {
   display: flex;
   flex-direction: column;
   gap: 0;
+  font-size: rclamp($infocard-text-sp, $infocard-text-pc, $bp-md, $pc-inner);
+  font-weight: 400;
+  line-height: 1.5;
   color: $text-main;
-  @include font($infocard-text-sp, 400, 1.5);
-
-  @include mq(md) {
-    @include font($infocard-text-pc, 400, 1.5);
-  }
 }
 
 .c-infocard__text p {
@@ -134,15 +129,14 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 
 .c-infocard__emphasis {
   font-weight: 700;
+  white-space: nowrap;
 }
 
 .c-infocard__note {
+  font-size: rclamp($infocard-note-sp, $infocard-note-pc, $bp-md, $pc-inner);
+  font-weight: 400;
+  line-height: 1.5;
   color: $text-main;
-  @include font($infocard-note-sp, 400, 1.5);
-
-  @include mq(md) {
-    @include font($infocard-note-pc, 400, 1.5);
-  }
 }
 
 // ============================================================
@@ -173,6 +167,22 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 
 .c-infocard--ger .c-infocard__text p + p {
   margin-block-start: 0;
+}
+
+.c-infocard--ger .c-infocard__text p.c-infocard__note:nth-of-type(3) {
+  margin-block-start: rm(2);
+  text-align: center;
+}
+
+@media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
+  .c-infocard--ger .c-infocard__text p:nth-of-type(4),
+  .c-infocard--ger .c-infocard__text p:nth-of-type(5) {
+    display: inline;
+  }
+
+  .c-infocard--ger .c-infocard__text p:nth-of-type(4)::after {
+    content: " ";
+  }
 }
 
 .c-infocard--figure-crop-ger .c-infocard__figure img {

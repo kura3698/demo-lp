@@ -3,27 +3,35 @@
 // カード一覧（Figma contents: SP gap 10px / PC gap 20px 横並び）
 $info-list-gap-sp: 10;
 $info-list-gap-pc: 20;
+$info-item-width-mid: 660;
+$info-item-width-pc: 320;
 
 .p-info__list {
   display: flex;
   flex-direction: column;
-  gap: rm($info-list-gap-sp);
+  gap: rclamp($info-list-gap-sp, 30, $sp-camp, $bp-md);
   margin: 0;
-  padding: 0;
+  padding-block: 0;
+  padding-inline: rm(25);
   list-style: none;
 
-  @include mq(md) {
+  @media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
     flex-direction: row;
     gap: rm($info-list-gap-pc);
     align-items: flex-start;
+    padding-inline: rm(00);
   }
 }
 
 .p-info__item {
   width: 100%;
+  margin-inline: auto;
 
   @include mq(md) {
-    width: auto;
-    flex-shrink: 0;
+    width: rm($info-item-width-mid);
+  }
+
+  @media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
+    width: rm($info-item-width-pc);
   }
 }
