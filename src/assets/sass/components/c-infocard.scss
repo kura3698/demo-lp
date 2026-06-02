@@ -27,21 +27,38 @@ $infocard-text-pc: 16;
 $infocard-note-sp: 14;
 $infocard-note-pc: 14;
 
-// PC 吹き出し三角（Figma Polygon 21×25）
+// PC 吹き出し三角（Figma Polygon 21×25 / 6170:522,525,528）
 $infocard-tail-w: 21;
 $infocard-tail-h: 25;
 $infocard-tail-half-w: math.div($infocard-tail-w, 2);
 
-// PC 三角の水平位置（カード幅 320px 基準）
-$infocard-tail-inset-restaurant: math.div(35, $infocard-width-pc) * 100%;
-$infocard-tail-inset-ger: math.div(58, $infocard-width-pc) * 100%;
-$infocard-tail-inset-shower: math.div(118, $infocard-width-pc) * 100%;
+// PC 三角の水平位置（Figma left: 35 / 58 / 118、カード幅 320px 基準）
+$infocard-tail-inset-restaurant-px: 35;
+$infocard-tail-inset-ger-px: 58;
+$infocard-tail-inset-shower-px: 118;
+$infocard-tail-inset-restaurant: math.div(
+    $infocard-tail-inset-restaurant-px,
+    $infocard-width-pc
+  ) * 100%;
+$infocard-tail-inset-ger: math.div($infocard-tail-inset-ger-px, $infocard-width-pc) *
+  100%;
+$infocard-tail-inset-shower: math.div(
+    $infocard-tail-inset-shower-px,
+    $infocard-width-pc
+  ) * 100%;
 
 // 宿泊ゲル画像トリミング（Figma object-position 相当）
 $infocard-ger-img-pos-x-sp: 3.29%;
 $infocard-ger-img-pos-y-sp: 71.19%;
 $infocard-ger-img-pos-x-pc: 6.13%;
 $infocard-ger-img-pos-y-pc: 78.97%;
+
+// 1060px（$pc-inner-sum）以上
+@mixin mq-info-pc {
+  @media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
+    @content;
+  }
+}
 
 // ============================================================
 // .c-infocard — ラッパー
@@ -50,7 +67,7 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 .c-infocard {
   width: 100%;
 
-  @include mq(md) {
+  @include mq-info-pc {
     padding-block-end: rm($infocard-tail-h);
   }
 }
@@ -68,7 +85,7 @@ $infocard-ger-img-pos-y-pc: 78.97%;
   padding-inline: rm($infocard-pad-inline-sp);
   background-color: $reverse-color;
 
-  @media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
+  @include mq-info-pc {
     gap: rm($infocard-gap-pc);
     padding: rm($infocard-pad-pc);
 
@@ -82,6 +99,7 @@ $infocard-ger-img-pos-y-pc: 78.97%;
       border-width: rm($infocard-tail-h) rm($infocard-tail-half-w) 0
         rm($infocard-tail-half-w);
       pointer-events: none;
+      transform: translateX(rm(-$infocard-tail-half-w));
     }
   }
 }
@@ -97,7 +115,7 @@ $infocard-ger-img-pos-y-pc: 78.97%;
   aspect-ratio: #{$infocard-img-w-sp} / #{$infocard-img-h-sp};
   overflow: hidden;
 
-  @include mq(md) {
+  @include mq-info-pc {
     aspect-ratio: #{$infocard-img-w-pc} / #{$infocard-img-h-pc};
   }
 }
@@ -144,19 +162,19 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 // ============================================================
 
 .c-infocard--tail-restaurant .c-infocard__body {
-  @include mq(md) {
+  @include mq-info-pc {
     --infocard-tail-inset-inline: #{$infocard-tail-inset-restaurant};
   }
 }
 
 .c-infocard--tail-ger .c-infocard__body {
-  @include mq(md) {
+  @include mq-info-pc {
     --infocard-tail-inset-inline: #{$infocard-tail-inset-ger};
   }
 }
 
 .c-infocard--tail-shower .c-infocard__body {
-  @include mq(md) {
+  @include mq-info-pc {
     --infocard-tail-inset-inline: #{$infocard-tail-inset-shower};
   }
 }
@@ -174,7 +192,7 @@ $infocard-ger-img-pos-y-pc: 78.97%;
   text-align: center;
 }
 
-@media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
+@include mq-info-pc {
   .c-infocard--ger .c-infocard__text p:nth-of-type(4),
   .c-infocard--ger .c-infocard__text p:nth-of-type(5) {
     display: inline;
@@ -188,7 +206,7 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 .c-infocard--figure-crop-ger .c-infocard__figure img {
   object-position: $infocard-ger-img-pos-x-sp $infocard-ger-img-pos-y-sp;
 
-  @include mq(md) {
+  @include mq-info-pc {
     object-position: $infocard-ger-img-pos-x-pc $infocard-ger-img-pos-y-pc;
   }
 }

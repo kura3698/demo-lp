@@ -1081,9 +1081,36 @@
         </div>
       </section>
 
-      <!-- [#11] c-infocard 検証用（p-info 実装時にヘッダー等を追加） -->
-      <section class="p-info l-section" aria-label="インフォカード確認">
-        <div class="l-inner">
+      <section
+        class="p-info l-section"
+        id="info"
+        aria-labelledby="info-heading"
+      >
+        <div class="p-info__head">
+          <div class="p-info__bg" aria-hidden="true">
+            <picture>
+              <source
+                media="(min-width: 1060px)"
+                srcset="/img/bg_info-pc@2x.webp"
+                width="1440"
+                height="1000"
+              />
+              <img
+                src="/img/bg_info-sp@2x.webp"
+                alt=""
+                width="390"
+                height="200"
+                decoding="async"
+              />
+            </picture>
+          </div>
+          <div class="p-info__head-inner">
+            <h2 id="info-heading" class="p-info__heading c-head">
+              ツーリストキャンプについて
+            </h2>
+          </div>
+        </div>
+        <div class="l-inner p-info__body">
           <ul class="p-info__list">
             <li class="p-info__item">
               <article class="c-infocard c-infocard--tail-restaurant">

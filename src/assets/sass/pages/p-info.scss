@@ -1,37 +1,176 @@
+@use "sass:math";
 @use "../config/" as *;
 
-// カード一覧（Figma contents: SP gap 10px / PC gap 20px 横並び）
+// ============================================================
+// ローカル変数（Figma 6170:557 SP / 6170:511 PC）
+// ============================================================
+
+// 背景画像サイズ
+$info-bg-sp-w: 390;
+$info-bg-sp-h: 200;
+$info-bg-pc-w: $pc-camp;
+$info-bg-pc-h: 1000;
+
+// SP: タイトル位置（6170:568 top 40px / 背景高 200px）
+$info-heading-inset-block-sp: 40;
+$info-head-to-list-gap-sp: 10;
+
+// PC: タイトル・カード列（6170:511 py 90 + 見出し高 46 + gap 52）
+$info-section-pad-block-pc: 90;
+$info-heading-height-pc: 46;
+$info-heading-to-cards-gap-pc: 52;
+$info-heading-inset-block-pc: $info-section-pad-block-pc;
+$info-cards-inset-block-start-pc: $info-section-pad-block-pc +
+  $info-heading-height-pc + $info-heading-to-cards-gap-pc;
+
+// カード一覧
 $info-list-gap-sp: 10;
 $info-list-gap-pc: 20;
-$info-item-width-mid: 660;
+$info-list-pad-inline-sp: 25;
 $info-item-width-pc: 320;
+$info-section-pad-block-end-sp: 40;
+
+// ============================================================
+// mixin — 1060px（$pc-inner-sum）以上
+// ============================================================
+
+@mixin mq-info-pc {
+  @media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
+    @content;
+  }
+}
+
+// ============================================================
+// .p-info — セクション
+// ============================================================
+
+.p-info {
+  background-color: $bg-main;
+  padding-block-end: rm($info-section-pad-block-end-sp);
+
+  @include mq-info-pc {
+    display: grid;
+    min-height: rm($info-bg-pc-h);
+    padding-block: 0;
+    overflow-x: hidden;
+  }
+}
+
+// ============================================================
+// .p-info__head — 背景 + タイトル（SP: 縦積み / PC: grid 重ね）
+// ============================================================
+
+.p-info__head {
+  position: relative;
+
+  @include mq-info-pc {
+    grid-area: 1 / 1;
+    z-index: 0;
+    min-height: rm($info-bg-pc-h);
+  }
+}
+
+.p-info__bg {
+  display: block;
+  line-height: 0;
+}
+
+.p-info__bg picture,
+.p-info__bg img {
+  display: block;
+  width: 100%;
+}
+
+.p-info__bg img {
+  aspect-ratio: math.div($info-bg-sp-w, $info-bg-sp-h);
+}
+
+.p-info__head-inner {
+  position: absolute;
+  inset-block-start: math.div($info-heading-inset-block-sp, $info-bg-sp-h) *
+    100%;
+  inset-inline: 0;
+  display: flex;
+  justify-content: center;
+  padding-inline: rm($sp-sidePadding);
+  pointer-events: none;
+
+  @include mq-info-pc {
+    inset-block-start: math.div($info-heading-inset-block-pc, $info-bg-pc-h) *
+      100%;
+    padding-inline: 0;
+  }
+}
+
+.p-info__heading {
+  pointer-events: auto;
+}
+
+@include mq-info-pc {
+  .p-info__bg {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    margin-inline: calc(50% - 50vw);
+  }
+
+  .p-info__bg picture {
+    flex-shrink: 0;
+    display: block;
+    width: rm($info-bg-pc-w);
+    height: rm($info-bg-pc-h);
+  }
+
+  .p-info__bg img {
+    display: block;
+    width: rm($info-bg-pc-w);
+    height: rm($info-bg-pc-h);
+    max-width: none;
+    aspect-ratio: auto;
+  }
+}
+
+// ============================================================
+// .p-info__body — カードリスト
+// ============================================================
+
+.p-info__body {
+  margin-block-start: rm($info-head-to-list-gap-sp);
+
+  @include mq-info-pc {
+    grid-area: 1 / 1;
+    z-index: 1;
+    margin-block-start: 0;
+    padding-block-start: rm($info-cards-inset-block-start-pc);
+    align-self: start;
+  }
+}
 
 .p-info__list {
   display: flex;
   flex-direction: column;
-  gap: rclamp($info-list-gap-sp, 30, $sp-camp, $bp-md);
+  gap: rm($info-list-gap-sp);
   margin: 0;
   padding-block: 0;
-  padding-inline: rm(25);
+  padding-inline: rm($info-list-pad-inline-sp);
   list-style: none;
 
-  @media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
+  @include mq-info-pc {
     flex-direction: row;
     gap: rm($info-list-gap-pc);
     align-items: flex-start;
-    padding-inline: rm(00);
+    padding-inline: 0;
   }
 }
 
 .p-info__item {
   width: 100%;
+  max-width: rm(580);
   margin-inline: auto;
-
-  @include mq(md) {
-    width: rm($info-item-width-mid);
-  }
-
-  @media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
+  @include mq-info-pc {
     width: rm($info-item-width-pc);
+    flex-shrink: 0;
   }
 }
