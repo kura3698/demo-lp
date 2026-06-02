@@ -4,6 +4,23 @@
 // ローカル変数（カンプ値）
 // ============================================================
 
+// 主見出し（Figma 6114:233 / p-service-travel 準拠）
+$heading-mb-sp: 29; // 主見出し ↔ __top
+$heading-mb-pc: 44;
+$badge-offset-block: 6; // バッジ下辺が見出し上辺より上に出る量
+$badge-offset-inline-sp: 166; // SP: 見出し中心より左
+$badge-offset-inline-pc: 88; // PC: 見出し左端より外側（Figma left -88px）
+
+// 第1ブロック（Figma 6126:432 / 6120:388）
+$top-gap-sp: 20; // __top 内 gap
+$top-gap-pc: 45;
+$top-mb-plans-sp: 30; // __top ↔ プラン見出し
+$top-mb-plans-pc: 64;
+$lead-size-sp: 14;
+$lead-size-pc: 20;
+$intro-max-w-sp: 350; // SP イラスト最大幅（カンプ）
+$intro-max-w-pc: 419; // PC イラスト最大幅（Figma イラスト領域）
+
 $plans-heading-mb-sp: 20; // 見出し ↔ カードリスト
 $plans-heading-mb-pc: 30;
 $plans-gap-pc: 30; // PC: カード間 gap（Figma gap-[30px]）
@@ -70,6 +87,105 @@ $cta-sheep-inset-block-pc: 38;
 
 .p-service-mongol {
   background-color: $bg-main;
+}
+
+// ── セクション主見出し ───────────────────────────────────────
+
+.p-service-mongol__heading-container {
+  position: relative;
+  text-align: center;
+  margin-block-end: rm($heading-mb-sp);
+
+  @include mq(md) {
+    margin-block-end: rm($heading-mb-pc);
+  }
+}
+
+.p-service-mongol__heading {
+  color: $text-main;
+  @include font(18, 700, 1.5);
+
+  @include mq(md) {
+    @include font(30, 700, 1.5);
+  }
+}
+
+.p-service-mongol__badge {
+  position: absolute;
+  inset-block-end: calc(100% + rm($badge-offset-block));
+  inset-inline-start: calc(50% - rm($badge-offset-inline-sp));
+
+  @include mq(md) {
+    inset-inline-start: rm(-$badge-offset-inline-pc);
+  }
+}
+
+// ── 第1ブロック（イントロ・リード・予約カード）──────────────
+
+.p-service-mongol__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: rm($top-gap-sp);
+  margin-block-end: rm($top-mb-plans-sp);
+
+  @include mq(md) {
+    gap: rm($top-gap-pc);
+    margin-block-end: rm($top-mb-plans-pc);
+  }
+}
+
+.p-service-mongol__intro {
+  width: 100%;
+}
+
+.p-service-mongol__intro-figure {
+  width: 100%;
+  max-width: rclamp(
+    $intro-max-w-sp,
+    $intro-max-w-pc,
+    $bp-md,
+    $pc-inner
+  );
+  margin-inline: auto;
+}
+
+.p-service-mongol__lead {
+  font-size: rclamp($lead-size-sp, $lead-size-pc, $bp-md, $pc-inner);
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-main;
+  text-align: center;
+}
+
+.p-service-mongol__lead-br--sp-only {
+  @include mq(md) {
+    display: none;
+  }
+}
+
+.p-service-mongol__reserve {
+  width: 100%;
+}
+
+.p-service-mongol__reserve-title-br--sp {
+  @include mq(md) {
+    display: none;
+  }
+}
+
+.p-service-mongol__reserve-title-br--pc {
+  display: none;
+
+  @include mq(md) {
+    display: block;
+  }
+}
+
+.p-service-mongol__reserve-text-ger {
+  @include mq(md) {
+    display: none;
+  }
 }
 
 // ── プラン見出し（第2弾で装飾見出しに差し替え可能） ─────────

@@ -8,7 +8,7 @@
 // カード外形
 $card-pad: 10; // 全辺の基本 padding
 $card-pad-end: 20; // PC: padding-inline-end
-$card-shadow: rm(3) rm(3) rm(2) rgba($text-main, 0.3);
+$card-shadow: rm(3) rm(3) rm(4) rgba($text-main, 0.3);
 
 // 画像（height は aspect-ratio で算出するため固定しない）
 $img-width-pc: 310; // PC: 画像幅
@@ -221,7 +221,7 @@ $price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
 // ── 注釈テキスト ─────────────────────────────────────────────
 
 .c-card__note {
-  font-size: rm($note-size-sp);
+  font-size: rclamp($note-size-sp, $note-size-pc, $bp-md, $pc-inner);
   font-weight: 700;
   line-height: normal;
   color: $text-accent;
