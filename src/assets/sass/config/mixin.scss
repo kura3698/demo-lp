@@ -114,23 +114,41 @@ $ruled-line-opacity: 0.3;
   background-size: rm($cycle) rm($weight);
   background-repeat: repeat;
 
-  -webkit-mask-image: repeating-linear-gradient(
-    to bottom,
-    #000 0,
-    #000 rm($weight),
-    transparent rm($weight),
-    transparent 1lh
-  );
-  -webkit-mask-size: 100% 1lh;
-  -webkit-mask-repeat: repeat-y;
+  -webkit-mask-image:
+    repeating-linear-gradient(
+      to bottom,
+      #000 0,
+      #000 rm($weight),
+      transparent rm($weight),
+      transparent 1lh
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1lh - rm($weight)),
+      #000 calc(1lh - rm($weight)),
+      #000 1lh
+    );
+  -webkit-mask-size: 100% 1lh, 100% 1lh;
+  -webkit-mask-repeat: repeat-y, repeat-y;
+  -webkit-mask-composite: source-over;
 
-  mask-image: repeating-linear-gradient(
-    to bottom,
-    #000 0,
-    #000 rm($weight),
-    transparent rm($weight),
-    transparent 1lh
-  );
-  mask-size: 100% 1lh;
-  mask-repeat: repeat-y;
+  mask-image:
+    repeating-linear-gradient(
+      to bottom,
+      #000 0,
+      #000 rm($weight),
+      transparent rm($weight),
+      transparent 1lh
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1lh - rm($weight)),
+      #000 calc(1lh - rm($weight)),
+      #000 1lh
+    );
+  mask-size: 100% 1lh, 100% 1lh;
+  mask-repeat: repeat-y, repeat-y;
+  mask-composite: add;
 }
