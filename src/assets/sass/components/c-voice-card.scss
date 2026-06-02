@@ -1,0 +1,139 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（Figma 6142:270 SP / 6142:270 PC）
+// ============================================================
+
+$voice-card-shadow-x: 3;
+$voice-card-shadow-y: 4;
+$voice-card-shadow-blur: 4;
+$voice-card-shadow-opacity: 0.3;
+
+$voice-card-pad-inline-sp: 15;
+$voice-card-pad-inline-pc: 44;
+$voice-card-pad-block-start-sp: 30;
+$voice-card-pad-block-start-pc: 31;
+$voice-card-pad-block-end-sp: 30;
+$voice-card-pad-block-end-pc: 29;
+$voice-card-header-gap-sp: 1;
+$voice-card-header-gap-pc: 5;
+$voice-card-header-mb-sp: 15;
+$voice-card-header-mb-pc: 15;
+$voice-card-quote-mb-sp: 20;
+$voice-card-quote-mb-pc: 20;
+
+$voice-card-title-size-sp: 16;
+$voice-card-title-size-pc: 20;
+$voice-card-author-size-sp: 16;
+$voice-card-author-size-pc: 20;
+$voice-card-text-size-sp: 14;
+$voice-card-text-size-pc: 20;
+$voice-card-text-height-sp: 1.8;
+$voice-card-text-height-pc: 1.5;
+
+$voice-card-min-height-sp: 469;
+$voice-card-min-height-pc: 635;
+$voice-card-line-weight: 1;
+
+// ============================================================
+// .c-voice-card — お客様の声カード
+// ============================================================
+
+.c-voice-card {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: rm($voice-card-min-height-sp);
+  padding-block: rm($voice-card-pad-block-start-sp) rm($voice-card-pad-block-end-sp);
+  padding-inline: rm($voice-card-pad-inline-sp);
+  background-color: $reverse-color;
+  box-shadow: rm($voice-card-shadow-x) rm($voice-card-shadow-y)
+    rm($voice-card-shadow-blur) rgba($text-main, $voice-card-shadow-opacity);
+
+  @include mq(lg) {
+    min-height: rclamp(
+      $voice-card-min-height-sp,
+      $voice-card-min-height-pc,
+      $bp-lg,
+      $pc-inner
+    );
+    padding-block: rm($voice-card-pad-block-start-pc) rm($voice-card-pad-block-end-pc);
+    padding-inline: rm($voice-card-pad-inline-pc);
+  }
+}
+
+.c-voice-card__header {
+  display: grid;
+  gap: rm($voice-card-header-gap-sp);
+  margin-block-end: rm($voice-card-header-mb-sp);
+
+  @include mq(lg) {
+    gap: rm($voice-card-header-gap-pc);
+    margin-block-end: rm($voice-card-header-mb-pc);
+  }
+}
+
+.c-voice-card__title {
+  color: $text-main;
+  @include font($voice-card-title-size-sp, 700, 1.5, 0.48);
+
+  @include mq(lg) {
+    @include font($voice-card-title-size-pc, 700, 1.5, 0.6);
+  }
+}
+
+.c-voice-card__author {
+  justify-self: end;
+  color: $text-main;
+  @include font($voice-card-author-size-sp, 700, 1.5, 0.8);
+
+  @include mq(lg) {
+    @include font($voice-card-author-size-pc, 700, 1.5, 1);
+  }
+}
+
+.c-voice-card__quote {
+  position: relative;
+  margin: 0;
+  margin-block-end: rm($voice-card-quote-mb-sp);
+  min-height: 0;
+
+  @include mq(lg) {
+    margin-block-end: rm($voice-card-quote-mb-pc);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent calc(1lh - rm($voice-card-line-weight)),
+      rgba($text-main, 0.12) calc(1lh - rm($voice-card-line-weight)),
+      rgba($text-main, 0.12) 1lh
+    );
+  }
+}
+
+.c-voice-card__text {
+  position: relative;
+  z-index: 1;
+  color: $text-main;
+  font-size: rm($voice-card-text-size-sp);
+  font-weight: 400;
+  line-height: $voice-card-text-height-sp;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 11;
+
+  @include mq(lg) {
+    font-size: rm($voice-card-text-size-pc);
+    line-height: $voice-card-text-height-pc;
+  }
+}
+
+.c-voice-card__more {
+  justify-self: center;
+  border-radius: rm(7);
+}

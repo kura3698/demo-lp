@@ -1197,6 +1197,84 @@
           </ul>
         </div>
       </section>
+
+      <section
+        class="p-voice l-section"
+        id="voice"
+        aria-labelledby="voice-heading"
+      >
+        <div class="l-inner p-voice__inner">
+          <h2 id="voice-heading" class="p-voice__heading c-head">
+            お客様の声
+          </h2>
+
+          <div class="p-voice__slider" aria-label="お客様の声一覧">
+            <ul class="p-voice__list">
+              <li class="p-voice__item">
+                <article class="c-voice-card">
+                  <header class="c-voice-card__header">
+                    <h3 class="c-voice-card__title">家畜たちの真ん中に</h3>
+                    <p class="c-voice-card__author">鈴木様</p>
+                  </header>
+                  <blockquote class="c-voice-card__quote">
+                    <p class="c-voice-card__text">
+                      街を離れ大自然そして家畜たちの中へそんな旅が数時間で叶うのがウンドゥルシレットリバーサイドキャンプだ。宿泊ゲル目の前には驚くほど流れがないトーラ川。そう！ここは大平原、陸に高低差がないのだ。泊まれば毎朝水を飲みにくるたくさんの家畜。羊や山羊はベーベーメーメー言いながら群れから離れまいと歩き、時に走る。ここは野生の王国ならぬ家畜の王国だ。夏なら馬の群れがいくつも川に浸かり涼んでいる。ボートに乗れば、珍しいもの（人が乗った船）と私たちを凝視する群れなす馬たちと・・・
+                    </p>
+                  </blockquote>
+                  <button
+                    type="button"
+                    class="c-voice-card__more c-button c-button--modal"
+                    aria-controls="voice-modal-1"
+                    aria-haspopup="dialog"
+                  >
+                    <span class="c-button__text">続きを読む</span>
+                    <span class="c-button__icon" aria-hidden="true"></span>
+                  </button>
+                </article>
+              </li>
+              <li class="p-voice__item">
+                <article class="c-voice-card">
+                  <header class="c-voice-card__header">
+                    <h3 class="c-voice-card__title">心を洗いに行く場所。</h3>
+                    <p class="c-voice-card__author">長田様</p>
+                  </header>
+                  <blockquote class="c-voice-card__quote">
+                    <p class="c-voice-card__text">
+                      かれこれ10年以上はお世話になっています。遊牧民の方が用意してくださった馬で、初心者ながら乗馬を楽しんでみたり、時にはおうちにご招待いただくこともあります。遮るもののない雄大な空を「つながれていない」気球に乗ってお散歩したり（地上の気球運搬用トラックとのカーチェイスもなかなかオツなものです）。蛇行するトーラ川で川遊びや釣りを楽しむこともあれば上流までボートを運んで川下りをすることも。夜にはまさに「降るような」星空を楽しめます。
+                    </p>
+                  </blockquote>
+                  <button
+                    type="button"
+                    class="c-voice-card__more c-button c-button--modal"
+                    aria-controls="voice-modal-2"
+                    aria-haspopup="dialog"
+                  >
+                    <span class="c-button__text">続きを読む</span>
+                    <span class="c-button__icon" aria-hidden="true"></span>
+                  </button>
+                </article>
+              </li>
+            </ul>
+
+            <div class="p-voice__controls" aria-hidden="true">
+              <button
+                type="button"
+                class="p-voice__nav p-voice__nav--prev"
+                aria-label="前のお客様の声"
+              ></button>
+              <div class="p-voice__pagination" role="presentation">
+                <span class="p-voice__bullet is-active"></span>
+                <span class="p-voice__bullet"></span>
+              </div>
+              <button
+                type="button"
+                class="p-voice__nav p-voice__nav--next"
+                aria-label="次のお客様の声"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="l-footer">
@@ -1586,6 +1664,59 @@
         </div>
       </div>
     </footer>
+
+    <dialog
+      class="c-modal"
+      id="voice-modal-1"
+      aria-labelledby="voice-modal-1-title"
+    >
+      <header class="c-modal__header">
+        <h2 class="c-modal__title" id="voice-modal-1-title">
+          家畜たちの真ん中に
+        </h2>
+        <p class="c-modal__author">鈴木様</p>
+      </header>
+      <div class="c-modal__body">
+        <p>
+          街を離れ大自然そして家畜たちの中へそんな旅が数時間で叶うのがウンドゥルシレットリバーサイドキャンプだ。宿泊ゲル目の前には驚くほど流れがないトーラ川。そう！ここは大平原、陸に高低差がないのだ。泊まれば毎朝水を飲みにくるたくさんの家畜。羊や山羊はベーベーメーメー言いながら群れから離れまいと歩き、時に走る。ここは野生の王国ならぬ家畜の王国だ。夏なら馬の群れがいくつも川に浸かり涼んでいる。ボートに乗れば、珍しいもの（人が乗った船）と私たちを凝視する群れなす馬たちと・・・
+        </p>
+      </div>
+      <button
+        type="button"
+        class="c-modal__close c-button c-button--modal"
+        data-modal-close
+      >
+        <span class="c-button__text">閉じる</span>
+      </button>
+    </dialog>
+
+    <dialog
+      class="c-modal"
+      id="voice-modal-2"
+      aria-labelledby="voice-modal-2-title"
+    >
+      <header class="c-modal__header">
+        <h2 class="c-modal__title" id="voice-modal-2-title">
+          心を洗いに行く場所。
+        </h2>
+        <p class="c-modal__author">長田様</p>
+      </header>
+      <div class="c-modal__body">
+        <p>
+          かれこれ10年以上はお世話になっています。遊牧民の方が用意してくださった馬で、初心者ながら乗馬を楽しんでみたり、時にはおうちにご招待いただくこともあります。
+        </p>
+        <p>
+          遮るもののない雄大な空を「つながれていない」気球に乗ってお散歩したり（地上の気球運搬用トラックとのカーチェイスもなかなかオツなものです）。蛇行するトーラ川で川遊びや釣りを楽しむこともあれば上流までボートを運んで川下りをすることも。夜にはまさに「降るような」星空を楽しめます。
+        </p>
+      </div>
+      <button
+        type="button"
+        class="c-modal__close c-button c-button--modal"
+        data-modal-close
+      >
+        <span class="c-button__text">閉じる</span>
+      </button>
+    </dialog>
 
     <script type="module" src="/js/script.js"></script>
   </body>

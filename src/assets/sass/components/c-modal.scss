@@ -1,0 +1,105 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（Figma 1:687 PC / 41:80 SP）
+// ============================================================
+
+$modal-pad-inline-sp: 20;
+$modal-pad-inline-pc: 40;
+$modal-pad-block-sp: 30;
+$modal-pad-block-pc: 40;
+$modal-max-w-pc: 700;
+$modal-gap: 20;
+$modal-title-size-sp: 16;
+$modal-title-size-pc: 20;
+$modal-text-size-sp: 14;
+$modal-text-size-pc: 18;
+$modal-line-weight: 1;
+
+// ============================================================
+// .c-modal — ダイアログ（静的: 閉状態 / JS: showModal）
+// ============================================================
+
+.c-modal {
+  width: min(100% - rm($sp-sidePadding * 2), rm($modal-max-w-pc));
+  max-height: calc(100svh - rm(40));
+  padding: rm($modal-pad-block-sp) rm($modal-pad-inline-sp);
+  border: rm(1) solid $main-color;
+  border-radius: rm(7);
+  background-color: $reverse-color;
+  color: $text-main;
+
+  @include mq(md) {
+    padding: rm($modal-pad-block-pc) rm($modal-pad-inline-pc);
+  }
+
+  &::backdrop {
+    background-color: rgba($text-main, 0.5);
+  }
+}
+
+.c-modal:not([open]) {
+  display: none;
+}
+
+.c-modal__header {
+  display: grid;
+  gap: rm(4);
+  margin-block-end: rm($modal-gap);
+}
+
+.c-modal__title {
+  @include font($modal-title-size-sp, 700, 1.5);
+
+  @include mq(md) {
+    @include font($modal-title-size-pc, 700, 1.5);
+  }
+}
+
+.c-modal__author {
+  justify-self: end;
+  @include font($modal-title-size-sp, 700, 1.5);
+
+  @include mq(md) {
+    @include font($modal-title-size-pc, 700, 1.5);
+  }
+}
+
+.c-modal__body {
+  position: relative;
+  margin-block-end: rm($modal-gap);
+  @include font($modal-text-size-sp, 400, 1.8);
+
+  @include mq(md) {
+    @include font($modal-text-size-pc, 400, 1.5);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent calc(1lh - rm($modal-line-weight)),
+      rgba($text-main, 0.12) calc(1lh - rm($modal-line-weight)),
+      rgba($text-main, 0.12) 1lh
+    );
+  }
+
+  p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+
+    + p {
+      margin-block-start: 1lh;
+    }
+  }
+}
+
+.c-modal__close {
+  display: block;
+  margin-inline-start: auto;
+  border-radius: rm(7);
+}
