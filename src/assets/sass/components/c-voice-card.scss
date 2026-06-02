@@ -33,7 +33,6 @@ $voice-card-text-height-pc: 1.5;
 
 $voice-card-min-height-sp: 469;
 $voice-card-min-height-pc: 635;
-$voice-card-line-weight: 1;
 
 // ============================================================
 // .c-voice-card — お客様の声カード
@@ -124,13 +123,7 @@ $voice-card-line-weight: 1;
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent calc(1lh - rm($voice-card-line-weight)),
-      rgba($text-main, 0.12) calc(1lh - rm($voice-card-line-weight)),
-      rgba($text-main, 0.12) 1lh
-    );
+    @include ruled-lines-dotted();
   }
 }
 

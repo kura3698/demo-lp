@@ -14,7 +14,6 @@ $modal-title-size-sp: 16;
 $modal-title-size-pc: 20;
 $modal-text-size-sp: 14;
 $modal-text-size-pc: 18;
-$modal-line-weight: 1;
 
 // ============================================================
 // .c-modal — ダイアログ（静的: 閉状態 / JS: showModal）
@@ -79,13 +78,7 @@ $modal-line-weight: 1;
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background-image: repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent calc(1lh - rm($modal-line-weight)),
-      rgba($text-main, 0.12) calc(1lh - rm($modal-line-weight)),
-      rgba($text-main, 0.12) 1lh
-    );
+    @include ruled-lines-dotted();
   }
 
   p {
