@@ -11,6 +11,59 @@ $plans-pagination-gap-sp: 20; // SP: カード ↔ ページネーション
 $plans-pagination-bullet-size: 10; // ページネーションドット直径
 $plans-pagination-bullet-gap: 10; // ドット間隔
 
+// CTA box（Figma 6132:477 / 6124:430）
+$cta-gap-plans-sp: 30; // SP: カードリスト ↔ CTA
+$cta-gap-plans-pc: 64; // PC
+$cta-comment-gap-sp: 30; // SP: コメント ↔ box
+$cta-box-pad-inline-sp: 14; // SP: 本文左右
+$cta-box-pad-block-sp: 14; // SP: 本文上下
+$cta-box-pad-inline-pc: 42; // PC: 本文左右
+$cta-box-pad-block-pc: 20; // PC: 本文上下
+$cta-box-border-sp: 1; // SP: 0.7px → 1
+$cta-box-max-w-sp: $bp-md; // SP: 白枠 max-width（768）
+$cta-box-max-w-pc: 743; // PC: 白枠 max-width（手直しカンプ）
+$cta-text-size-sp: 14; // c-card__text と同一
+$cta-text-size-pc: 18; // c-card__text と同一
+$cta-comment-size-sp: 12; // コメント（Figma SP 12px）
+$cta-comment-size-pc: 16; // コメント最大 16px
+
+// 装飾画像サイズ（論理 px）
+$cta-horse-w-sp: 53;
+$cta-horse-h-sp: 90;
+$cta-horse-w-pc: 198; // PC: 馬幅（手直しカンプ）
+$cta-sheep-w-sp: 78;
+$cta-sheep-h-sp: 72;
+$cta-sheep-w-pc: 176;
+$cta-sheep-h-pc: 146;
+
+// SP: stage 中心基準オフセット（手直しカンプ）
+$cta-horse-inset-inline-sp: 180;
+$cta-horse-inset-block-sp: -81;
+$cta-sheep-inset-inline-sp: 110;
+$cta-sheep-inset-block-sp: -69;
+$cta-horse-rotate-sp: -17deg;
+$cta-sheep-rotate-sp: 13deg;
+
+// md〜cta-pc未満: 装飾の中心基準オフセット（手直しカンプ）
+$cta-horse-offset-inline-md: -206;
+$cta-sheep-offset-inline-md: 128;
+
+// PC: stage 中心基準オフセット・block inset（手直しカンプ）
+$cta-horse-offset-inline-pc: -521;
+$cta-horse-group-block-pc: 42;
+$cta-horse-img-offset-block-pc: -9;
+$cta-horse-inset-block-pc: $cta-horse-group-block-pc +
+  $cta-horse-img-offset-block-pc;
+$cta-sheep-offset-inline-pc: 300;
+$cta-sheep-inset-block-pc: 38;
+
+// CTA: PC 切替は $pc-inner-sum（1060px）以上
+@mixin mq-cta-pc {
+  @media screen and (min-width: #{px($pc-inner-sum)}) {
+    @content;
+  }
+}
+
 // ============================================================
 // .p-service-mongol — セクション（第1弾: カードリストのみ）
 // ============================================================
@@ -80,5 +133,142 @@ $plans-pagination-bullet-gap: 10; // ドット間隔
 
   .p-service-mongol__plans .swiper-pagination {
     display: none;
+  }
+}
+
+// ============================================================
+// .p-service-mongol__cta-box — CTA（カスタマイズ案内）
+// ============================================================
+
+.p-service-mongol__cta-box {
+  display: flex;
+  flex-direction: column;
+  gap: rm($cta-comment-gap-sp);
+  margin-block-start: rm($cta-gap-plans-sp);
+
+  @include mq-cta-pc {
+    gap: 0;
+    margin-block-start: rm($cta-gap-plans-pc);
+  }
+}
+
+.p-service-mongol__cta-box-comment {
+  font-size: rclamp(
+    $cta-comment-size-sp,
+    $cta-comment-size-pc,
+    $bp-md,
+    $pc-inner
+  );
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-main;
+  text-align: center;
+
+  @include mq-cta-pc {
+    display: none;
+  }
+}
+
+.p-service-mongol__cta-box-stage {
+  position: relative;
+}
+
+.p-service-mongol__cta-box-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: rm($cta-box-max-w-sp);
+  margin-inline: auto;
+  padding-block: rm($cta-box-pad-block-sp);
+  padding-inline: rm($cta-box-pad-inline-sp);
+  background-color: $reverse-color;
+  border: rm($cta-box-border-sp) solid $main-color;
+
+  @include mq-cta-pc {
+    max-width: rm($cta-box-max-w-pc);
+    min-height: auto;
+    padding-block: rm($cta-box-pad-block-pc);
+    padding-inline: rm($cta-box-pad-inline-pc);
+  }
+}
+
+.p-service-mongol__cta-box-text {
+  font-size: rclamp($cta-text-size-sp, $cta-text-size-pc, $bp-md, $pc-inner);
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-main;
+
+  @include mq-cta-pc {
+    text-align: center;
+  }
+}
+
+.p-service-mongol__cta-box-text-br {
+  display: none;
+
+  @include mq-cta-pc {
+    display: inline;
+  }
+}
+
+// ── 装飾（馬・羊）────────────────────────────────────────────
+
+.p-service-mongol__cta-box-deco {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.p-service-mongol__cta-box-deco-figure {
+  overflow: hidden;
+}
+
+.p-service-mongol__cta-box-deco--horse .p-service-mongol__cta-box-deco-figure {
+  width: rm($cta-horse-w-sp);
+  height: rm($cta-horse-h-sp);
+
+  @include mq-cta-pc {
+    width: rm($cta-horse-w-pc);
+    height: auto;
+  }
+}
+
+.p-service-mongol__cta-box-deco--sheep .p-service-mongol__cta-box-deco-figure {
+  width: rm($cta-sheep-w-sp);
+  height: rm($cta-sheep-h-sp);
+
+  @include mq-cta-pc {
+    width: rm($cta-sheep-w-pc);
+    height: rm($cta-sheep-h-pc);
+  }
+}
+
+.p-service-mongol__cta-box-deco--horse {
+  inset-inline-start: calc(50% - rm($cta-horse-inset-inline-sp));
+  inset-block-start: rm($cta-horse-inset-block-sp);
+  transform: rotate($cta-horse-rotate-sp);
+  @include mq(md) {
+    inset-inline-start: calc(50% + rm($cta-horse-offset-inline-md));
+  }
+
+  @include mq-cta-pc {
+    inset-inline-start: calc(50% + rm($cta-horse-offset-inline-pc));
+    inset-block-start: rm($cta-horse-inset-block-pc);
+    transform: none;
+  }
+}
+
+.p-service-mongol__cta-box-deco--sheep {
+  inset-inline-start: calc(50% + rm($cta-sheep-inset-inline-sp));
+  inset-block-start: rm($cta-sheep-inset-block-sp);
+  transform: rotate($cta-sheep-rotate-sp);
+  @include mq(md) {
+    inset-inline-start: calc(50% + rm($cta-sheep-offset-inline-md));
+  }
+
+  @include mq-cta-pc {
+    inset-inline-start: calc(50% + rm($cta-sheep-offset-inline-pc));
+    inset-block-start: rm($cta-sheep-inset-block-pc);
+    transform: none;
   }
 }

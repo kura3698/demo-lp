@@ -6,19 +6,19 @@
 // ============================================================
 
 // カード外形
-$card-pad:     10; // 全辺の基本 padding
+$card-pad: 10; // 全辺の基本 padding
 $card-pad-end: 20; // PC: padding-inline-end
 $card-shadow: rm(3) rm(3) rm(2) rgba($text-main, 0.3);
 
 // 画像（height は aspect-ratio で算出するため固定しない）
-$img-width-pc:  310; // PC: 画像幅
-$img-ratio-w:   310; // 自然比率 width
-$img-ratio-h:   250; // 自然比率 height
+$img-width-pc: 310; // PC: 画像幅
+$img-ratio-w: 310; // 自然比率 width
+$img-ratio-h: 250; // 自然比率 height
 
 // 本文レイアウト
-$body-gap-sp:    9; // SP: body の flex gap
-$body-gap-pc:   50; // PC: body の gap（title ↔ desc）
-$card-gap-pc:   35; // PC: 画像 ↔ 本文の gap
+$body-gap-sp: 9; // SP: body の flex gap
+$body-gap-pc: 50; // PC: body の gap（title ↔ desc）
+$card-gap-pc: 35; // PC: 画像 ↔ 本文の gap
 $body-min-h-pc: 229; // PC: body の最小高さ
 
 // フォント（rclamp min / max）
@@ -26,43 +26,55 @@ $title-size-sp: 18;
 $title-size-pc: 24;
 $price-size-sp: 18;
 $price-size-pc: 24;
-$price-lh-sp:   1.25; // SP 価格 line-height（PC は 1.5）
-$text-size-sp:  14;
-$text-size-pc:  18;
+$price-lh-sp: 1.25; // SP 価格 line-height（PC は 1.5）
+$text-size-sp: 14;
+$text-size-pc: 18;
 
 // PC 価格 absolute 配置（カンプ px → body 幅/高さに対する比率）
-$price-body-w-base:     625;
-$price-body-h-base:     229;
+$price-body-w-base: 625;
+$price-body-h-base: 229;
 $price-pos-inline-base: 544.5;
-$price-pos-block-base:  88;
-$price-inset-inline-base: math.div($price-pos-inline-base, $price-body-w-base) * 100%;
-$price-inset-block-base:  math.div($price-pos-block-base, $price-body-h-base) * 100%;
+$price-pos-block-base: 88;
+$price-inset-inline-base: math.div($price-pos-inline-base, $price-body-w-base) *
+  100%;
+$price-inset-block-base: math.div($price-pos-block-base, $price-body-h-base) *
+  100%;
 
 // モディファイア用カンプ値
-$sp-img-ratio-w:       330; // SP: 3枚統一の画像幅
-$sp-img-ratio-h:       220; // SP: 3枚統一の画像高さ
-$img-ratio-h-plan:     200; // --plan: PC画像高さ
-$body-gap-reserve-pc:   45; // --reserve: PC title ↔ text 間隔
+$sp-img-ratio-w: 330; // SP: 3枚統一の画像幅
+$sp-img-ratio-h: 220; // SP: 3枚統一の画像高さ
+$img-ratio-h-plan: 200; // --plan: PC画像高さ
+$body-gap-reserve-pc: 45; // --reserve: PC title ↔ text 間隔
 $body-gap-reserve-note: 10; // --reserve: PC text ↔ note 間隔
-$body-gap-plan-sp:      15; // --plan: SP body gap（Figma CardMongolPlan）
-$body-min-h-plan:      220; // --plan: PC body min-height
-$price-size-plan-pc:    22; // --plan: PC価格フォントサイズ
-$note-size-sp:          13; // --reserve: SP注釈フォントサイズ
-$note-size-pc:          16; // --reserve: PC注釈フォントサイズ
+$body-gap-plan-sp: 15; // --plan: SP body gap（Figma CardMongolPlan）
+$body-min-h-plan: 220; // --plan: PC body min-height
+$price-size-plan-pc: 22; // --plan: PC価格フォントサイズ
+$note-size-sp: 13; // --reserve: SP注釈フォントサイズ
+$note-size-pc: 16; // --reserve: PC注釈フォントサイズ
 
-$price-body-w-reserve:     625;
-$price-body-h-reserve:     229;
+$price-body-w-reserve: 625;
+$price-body-h-reserve: 229;
 $price-pos-inline-reserve: 551.5;
-$price-pos-block-reserve:  86.5;
-$price-inset-inline-reserve: math.div($price-pos-inline-reserve, $price-body-w-reserve) * 100%;
-$price-inset-block-reserve:  math.div($price-pos-block-reserve, $price-body-h-reserve) * 100%;
+$price-pos-block-reserve: 86.5;
+$price-inset-inline-reserve: math.div(
+    $price-pos-inline-reserve,
+    $price-body-w-reserve
+  ) *
+  100%;
+$price-inset-block-reserve: math.div(
+    $price-pos-block-reserve,
+    $price-body-h-reserve
+  ) *
+  100%;
 
-$price-body-w-plan:     596;
-$price-body-h-plan:     220;
+$price-body-w-plan: 596;
+$price-body-h-plan: 220;
 $price-pos-inline-plan: 556.5;
-$price-pos-block-plan:  87.5;
-$price-inset-inline-plan: math.div($price-pos-inline-plan, $price-body-w-plan) * 100%;
-$price-inset-block-plan:  math.div($price-pos-block-plan, $price-body-h-plan) * 100%;
+$price-pos-block-plan: 87.5;
+$price-inset-inline-plan: math.div($price-pos-inline-plan, $price-body-w-plan) *
+  100%;
+$price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
+  100%;
 
 // ============================================================
 // .c-card — カード外形
