@@ -1,0 +1,390 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（カンプ値）
+// ============================================================
+
+// 主見出し（Figma 6114:233 / p-service-travel 準拠）
+$heading-mb-sp: 29; // 主見出し ↔ __top
+$heading-mb-pc: 44;
+$badge-offset-block: 6; // バッジ下辺が見出し上辺より上に出る量
+$badge-offset-inline-sp: 166; // SP: 見出し中心より左
+$badge-offset-inline-pc: 88; // PC: 見出し左端より外側（Figma left -88px）
+
+// 第1ブロック（Figma 6126:432 / 6120:388）
+$top-gap-sp: 20; // __top 内 gap
+$top-gap-pc: 45;
+$top-mb-plans-sp: 30; // __top ↔ プラン見出し
+$top-mb-plans-pc: 64;
+$lead-size-sp: 14;
+$lead-size-pc: 20;
+$intro-max-w-sp: 350; // SP イラスト最大幅（カンプ）
+$intro-max-w-pc: 419; // PC イラスト最大幅（Figma イラスト領域）
+
+$plans-heading-mb-sp: 20; // 見出し ↔ カードリスト
+$plans-heading-mb-pc: 30;
+$plans-gap-pc: 30; // PC: カード間 gap（Figma gap-[30px]）
+$plans-pagination-gap-sp: 20; // SP: カード ↔ ページネーション
+$plans-pagination-bullet-size: 10; // ページネーションドット直径
+$plans-pagination-bullet-gap: 10; // ドット間隔
+
+// CTA box（Figma 6132:477 / 6124:430）
+$cta-gap-plans-sp: 30; // SP: カードリスト ↔ CTA
+$cta-gap-plans-pc: 64; // PC
+$cta-comment-gap-sp: 30; // SP: コメント ↔ box
+$cta-box-pad-inline-sp: 14; // SP: 本文左右
+$cta-box-pad-block-sp: 14; // SP: 本文上下
+$cta-box-pad-inline-pc: 42; // PC: 本文左右
+$cta-box-pad-block-pc: 20; // PC: 本文上下
+$cta-box-border-sp: 1; // SP: 0.7px → 1
+$cta-box-max-w-sp: $bp-md; // SP: 白枠 max-width（768）
+$cta-box-max-w-pc: 743; // PC: 白枠 max-width（手直しカンプ）
+$cta-text-size-sp: 14; // c-card__text と同一
+$cta-text-size-pc: 18; // c-card__text と同一
+$cta-comment-size-sp: 12; // コメント（Figma SP 12px）
+$cta-comment-size-pc: 16; // コメント最大 16px
+
+// 装飾画像サイズ（論理 px）
+$cta-horse-w-sp: 53;
+$cta-horse-h-sp: 90;
+$cta-horse-w-pc: 198; // PC: 馬幅（手直しカンプ）
+$cta-sheep-w-sp: 78;
+$cta-sheep-h-sp: 72;
+$cta-sheep-w-pc: 176;
+$cta-sheep-h-pc: 146;
+
+// SP: stage 中心基準オフセット（手直しカンプ）
+$cta-horse-inset-inline-sp: 180;
+$cta-horse-inset-block-sp: -81;
+$cta-sheep-inset-inline-sp: 110;
+$cta-sheep-inset-block-sp: -69;
+$cta-horse-rotate-sp: -17deg;
+$cta-sheep-rotate-sp: 13deg;
+
+// md〜cta-pc未満: 装飾の中心基準オフセット（手直しカンプ）
+$cta-horse-offset-inline-md: -206;
+$cta-sheep-offset-inline-md: 128;
+
+// PC: stage 中心基準オフセット・block inset（手直しカンプ）
+$cta-horse-offset-inline-pc: -521;
+$cta-horse-group-block-pc: 42;
+$cta-horse-img-offset-block-pc: -9;
+$cta-horse-inset-block-pc: $cta-horse-group-block-pc +
+  $cta-horse-img-offset-block-pc;
+$cta-sheep-offset-inline-pc: 300;
+$cta-sheep-inset-block-pc: 38;
+
+// CTA: PC 切替は $pc-inner-sum（1060px）以上
+@mixin mq-cta-pc {
+  @media screen and (min-width: #{px($pc-inner-sum)}) {
+    @content;
+  }
+}
+
+// ============================================================
+// .p-service-mongol — セクション（第1弾: カードリストのみ）
+// ============================================================
+
+.p-service-mongol {
+  background-color: $bg-main;
+}
+
+// ── セクション主見出し ───────────────────────────────────────
+
+.p-service-mongol__heading-container {
+  position: relative;
+  text-align: center;
+  margin-block-end: rm($heading-mb-sp);
+
+  @include mq(md) {
+    margin-block-end: rm($heading-mb-pc);
+  }
+}
+
+.p-service-mongol__heading {
+  color: $text-main;
+  @include font(18, 700, 1.5);
+
+  @include mq(md) {
+    @include font(30, 700, 1.5);
+  }
+}
+
+.p-service-mongol__badge {
+  position: absolute;
+  inset-block-end: calc(100% + rm($badge-offset-block));
+  inset-inline-start: calc(50% - rm($badge-offset-inline-sp));
+
+  @include mq(md) {
+    inset-inline-start: rm(-$badge-offset-inline-pc);
+  }
+}
+
+// ── 第1ブロック（イントロ・リード・予約カード）──────────────
+
+.p-service-mongol__top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: rm($top-gap-sp);
+  margin-block-end: rm($top-mb-plans-sp);
+
+  @include mq(md) {
+    gap: rm($top-gap-pc);
+    margin-block-end: rm($top-mb-plans-pc);
+  }
+}
+
+.p-service-mongol__intro {
+  width: 100%;
+}
+
+.p-service-mongol__intro-figure {
+  width: 100%;
+  max-width: rclamp(
+    $intro-max-w-sp,
+    $intro-max-w-pc,
+    $bp-md,
+    $pc-inner
+  );
+  margin-inline: auto;
+}
+
+.p-service-mongol__lead {
+  font-size: rclamp($lead-size-sp, $lead-size-pc, $bp-md, $pc-inner);
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-main;
+  text-align: center;
+}
+
+.p-service-mongol__lead-br--sp-only {
+  @include mq(md) {
+    display: none;
+  }
+}
+
+.p-service-mongol__reserve {
+  width: 100%;
+}
+
+.p-service-mongol__reserve-title-br--sp {
+  @include mq(md) {
+    display: none;
+  }
+}
+
+.p-service-mongol__reserve-title-br--pc {
+  display: none;
+
+  @include mq(md) {
+    display: block;
+  }
+}
+
+.p-service-mongol__reserve-text-ger {
+  @include mq(md) {
+    display: none;
+  }
+}
+
+// ── プラン見出し（第2弾で装飾見出しに差し替え可能） ─────────
+
+.p-service-mongol__plans-heading {
+  @include font(18, 700, 1.5);
+  color: $text-main;
+  text-align: center;
+  margin-block-end: rm($plans-heading-mb-sp);
+
+  @include mq(md) {
+    @include font(30, 700, 1.5);
+    margin-block-end: rm($plans-heading-mb-pc);
+  }
+}
+
+// ── カードリスト（SP: Swiper静的表示 / PC: 縦並び） ─────────
+
+.p-service-mongol__plans {
+  overflow: hidden;
+}
+
+// Swiper有効化前の静的表示用スタイル
+.p-service-mongol__plans .swiper-wrapper {
+  display: flex;
+}
+
+.p-service-mongol__plans .swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: auto;
+}
+
+.p-service-mongol__plans .swiper-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: rm($plans-pagination-bullet-gap);
+  margin-block-start: rm($plans-pagination-gap-sp);
+}
+
+.p-service-mongol__plans .swiper-pagination-bullet {
+  display: block;
+  width: rm($plans-pagination-bullet-size);
+  height: rm($plans-pagination-bullet-size);
+  border-radius: 50%;
+  background-color: $text-main;
+  opacity: 0.3;
+  cursor: default;
+}
+
+.p-service-mongol__plans .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+@include mq(md) {
+  .p-service-mongol__plans .swiper-wrapper {
+    flex-direction: column;
+    gap: rm($plans-gap-pc);
+  }
+
+  .p-service-mongol__plans .swiper-pagination {
+    display: none;
+  }
+}
+
+// ============================================================
+// .p-service-mongol__cta-box — CTA（カスタマイズ案内）
+// ============================================================
+
+.p-service-mongol__cta-box {
+  display: flex;
+  flex-direction: column;
+  gap: rm($cta-comment-gap-sp);
+  margin-block-start: rm($cta-gap-plans-sp);
+
+  @include mq-cta-pc {
+    gap: 0;
+    margin-block-start: rm($cta-gap-plans-pc);
+  }
+}
+
+.p-service-mongol__cta-box-comment {
+  font-size: rclamp(
+    $cta-comment-size-sp,
+    $cta-comment-size-pc,
+    $bp-md,
+    $pc-inner
+  );
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-main;
+  text-align: center;
+
+  @include mq-cta-pc {
+    display: none;
+  }
+}
+
+.p-service-mongol__cta-box-stage {
+  position: relative;
+}
+
+.p-service-mongol__cta-box-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: rm($cta-box-max-w-sp);
+  margin-inline: auto;
+  padding-block: rm($cta-box-pad-block-sp);
+  padding-inline: rm($cta-box-pad-inline-sp);
+  background-color: $reverse-color;
+  border: rm($cta-box-border-sp) solid $main-color;
+
+  @include mq-cta-pc {
+    max-width: rm($cta-box-max-w-pc);
+    min-height: auto;
+    padding-block: rm($cta-box-pad-block-pc);
+    padding-inline: rm($cta-box-pad-inline-pc);
+  }
+}
+
+.p-service-mongol__cta-box-text {
+  font-size: rclamp($cta-text-size-sp, $cta-text-size-pc, $bp-md, $pc-inner);
+  font-weight: 400;
+  line-height: 1.5;
+  color: $text-main;
+
+  @include mq-cta-pc {
+    text-align: center;
+  }
+}
+
+.p-service-mongol__cta-box-text-br {
+  display: none;
+
+  @include mq-cta-pc {
+    display: inline;
+  }
+}
+
+// ── 装飾（馬・羊）────────────────────────────────────────────
+
+.p-service-mongol__cta-box-deco {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.p-service-mongol__cta-box-deco-figure {
+  overflow: hidden;
+}
+
+.p-service-mongol__cta-box-deco--horse .p-service-mongol__cta-box-deco-figure {
+  width: rm($cta-horse-w-sp);
+  height: rm($cta-horse-h-sp);
+
+  @include mq-cta-pc {
+    width: rm($cta-horse-w-pc);
+    height: auto;
+  }
+}
+
+.p-service-mongol__cta-box-deco--sheep .p-service-mongol__cta-box-deco-figure {
+  width: rm($cta-sheep-w-sp);
+  height: rm($cta-sheep-h-sp);
+
+  @include mq-cta-pc {
+    width: rm($cta-sheep-w-pc);
+    height: rm($cta-sheep-h-pc);
+  }
+}
+
+.p-service-mongol__cta-box-deco--horse {
+  inset-inline-start: calc(50% - rm($cta-horse-inset-inline-sp));
+  inset-block-start: rm($cta-horse-inset-block-sp);
+  transform: rotate($cta-horse-rotate-sp);
+  @include mq(md) {
+    inset-inline-start: calc(50% + rm($cta-horse-offset-inline-md));
+  }
+
+  @include mq-cta-pc {
+    inset-inline-start: calc(50% + rm($cta-horse-offset-inline-pc));
+    inset-block-start: rm($cta-horse-inset-block-pc);
+    transform: none;
+  }
+}
+
+.p-service-mongol__cta-box-deco--sheep {
+  inset-inline-start: calc(50% + rm($cta-sheep-inset-inline-sp));
+  inset-block-start: rm($cta-sheep-inset-block-sp);
+  transform: rotate($cta-sheep-rotate-sp);
+  @include mq(md) {
+    inset-inline-start: calc(50% + rm($cta-sheep-offset-inline-md));
+  }
+
+  @include mq-cta-pc {
+    inset-inline-start: calc(50% + rm($cta-sheep-offset-inline-pc));
+    inset-block-start: rm($cta-sheep-inset-block-pc);
+    transform: none;
+  }
+}
