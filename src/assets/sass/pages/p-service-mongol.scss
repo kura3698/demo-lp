@@ -1,0 +1,84 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（カンプ値）
+// ============================================================
+
+$plans-heading-mb-sp: 20; // 見出し ↔ カードリスト
+$plans-heading-mb-pc: 30;
+$plans-gap-pc: 30; // PC: カード間 gap（Figma gap-[30px]）
+$plans-pagination-gap-sp: 20; // SP: カード ↔ ページネーション
+$plans-pagination-bullet-size: 10; // ページネーションドット直径
+$plans-pagination-bullet-gap: 10; // ドット間隔
+
+// ============================================================
+// .p-service-mongol — セクション（第1弾: カードリストのみ）
+// ============================================================
+
+.p-service-mongol {
+  background-color: $bg-main;
+}
+
+// ── プラン見出し（第2弾で装飾見出しに差し替え可能） ─────────
+
+.p-service-mongol__plans-heading {
+  @include font(18, 700, 1.5);
+  color: $text-main;
+  text-align: center;
+  margin-block-end: rm($plans-heading-mb-sp);
+
+  @include mq(md) {
+    @include font(30, 700, 1.5);
+    margin-block-end: rm($plans-heading-mb-pc);
+  }
+}
+
+// ── カードリスト（SP: Swiper静的表示 / PC: 縦並び） ─────────
+
+.p-service-mongol__plans {
+  overflow: hidden;
+}
+
+// Swiper有効化前の静的表示用スタイル
+.p-service-mongol__plans .swiper-wrapper {
+  display: flex;
+}
+
+.p-service-mongol__plans .swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: auto;
+}
+
+.p-service-mongol__plans .swiper-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: rm($plans-pagination-bullet-gap);
+  margin-block-start: rm($plans-pagination-gap-sp);
+}
+
+.p-service-mongol__plans .swiper-pagination-bullet {
+  display: block;
+  width: rm($plans-pagination-bullet-size);
+  height: rm($plans-pagination-bullet-size);
+  border-radius: 50%;
+  background-color: $text-main;
+  opacity: 0.3;
+  cursor: default;
+}
+
+.p-service-mongol__plans .swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+@include mq(md) {
+  .p-service-mongol__plans .swiper-wrapper {
+    flex-direction: column;
+    gap: rm($plans-gap-pc);
+  }
+
+  .p-service-mongol__plans .swiper-pagination {
+    display: none;
+  }
+}
