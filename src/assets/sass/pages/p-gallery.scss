@@ -1,0 +1,53 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（Figma 6082:590 SP / 6182:737 PC）
+// ============================================================
+
+$gallery-slide-w-sp: 186;
+$gallery-slide-h-sp: 126;
+$gallery-slide-w-pc: 350;
+$gallery-slide-h-pc: 240;
+$gallery-slide-gap-sp: 4;
+$gallery-slide-gap-pc: 10;
+
+// ============================================================
+// .p-gallery — フォトギャラリー（スライダーのみ）
+// ============================================================
+
+.p-gallery {
+  background-color: $bg-main;
+  padding-block: 0;
+}
+
+.p-gallery__heading {
+  @include visually-hidden();
+}
+
+// ── スライダー（静的: flex 横並び / 動的フェーズで Swiper 初期化） ──
+
+.p-gallery__slider {
+  overflow: hidden;
+}
+
+.p-gallery__slider .swiper-wrapper {
+  display: flex;
+  gap: rclamp($gallery-slide-gap-sp, $gallery-slide-gap-pc, $bp-md, $pc-inner);
+  padding-inline: 0;
+}
+
+.p-gallery__slider .swiper-slide {
+  flex-shrink: 0;
+  width: rclamp($gallery-slide-w-sp, $gallery-slide-w-pc, $sp-camp, $pc-inner);
+  height: auto;
+}
+
+.p-gallery__figure {
+  aspect-ratio: #{$gallery-slide-w-sp} / #{$gallery-slide-h-sp};
+  margin: 0;
+  overflow: hidden;
+
+  @include mq(md) {
+    aspect-ratio: #{$gallery-slide-w-pc} / #{$gallery-slide-h-pc};
+  }
+}
