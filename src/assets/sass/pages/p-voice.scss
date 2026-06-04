@@ -1,0 +1,140 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（Figma 6142:208 PC / 6023:973 SP）
+// ============================================================
+
+$voice-section-pad-block-sp: 40;
+$voice-section-pad-block-pc: 90;
+$voice-heading-mb-sp: 30;
+$voice-heading-mb-pc: 60;
+$voice-list-gap-sp: 30;
+$voice-controls-gap-sp: 20;
+$voice-controls-mt-sp: 30;
+$voice-pagination-bullet-size: 10;
+$voice-pagination-bullet-gap: 10;
+$voice-nav-btn-size: 40;
+$voice-cards-gap-min: 40;
+$voice-cards-gap-max: 75;
+$voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
+
+// ============================================================
+// .p-voice — お客様の声セクション
+// ============================================================
+
+.p-voice {
+  background-color: $bg-main;
+  padding-block: rm($voice-section-pad-block-sp);
+
+  @include mq(md) {
+    padding-block: rm($voice-section-pad-block-pc);
+  }
+}
+
+.p-voice__inner {
+  display: flex;
+  flex-direction: column;
+}
+
+.p-voice__heading {
+  margin-block-end: rm($voice-heading-mb-sp);
+
+  @include mq(md) {
+    margin-block-end: rm($voice-heading-mb-pc);
+  }
+}
+
+// ── リスト（SP: 縦積み / lg: 2カラム） ─────────────────────
+
+.p-voice__slider {
+  overflow: hidden;
+}
+
+.p-voice__list {
+  display: flex;
+  flex-direction: column;
+  gap: rm($voice-list-gap-sp);
+  width: 100%;
+  max-width: rm($voice-card-max-w-min);
+  margin-inline: auto;
+}
+
+.p-voice__item .c-voice-card {
+  width: 100%;
+}
+
+// ── SP 静的コントロール UI ───────────────────────────────────
+
+.p-voice__controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: rm($voice-controls-gap-sp);
+  margin-block-start: rm($voice-controls-mt-sp);
+}
+
+.p-voice__nav {
+  position: relative;
+  flex-shrink: 0;
+  width: rm($voice-nav-btn-size);
+  height: rm($voice-nav-btn-size);
+  border: rm(1) solid $text-main;
+  border-radius: 50%;
+  background-color: $reverse-color;
+  cursor: default;
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: rm(8);
+    height: rm(8);
+    border-block-start: rm(2) solid $text-main;
+    border-inline-end: rm(2) solid $text-main;
+    transform: translate(-35%, -50%) rotate(45deg);
+  }
+}
+
+.p-voice__nav--prev::after {
+  transform: translate(-65%, -50%) rotate(-135deg);
+}
+
+.p-voice__pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: rm($voice-pagination-bullet-gap);
+}
+
+.p-voice__bullet {
+  display: block;
+  width: rm($voice-pagination-bullet-size);
+  height: rm($voice-pagination-bullet-size);
+  border-radius: 50%;
+  background-color: $text-main;
+  opacity: 0.3;
+}
+
+.p-voice__bullet.is-active {
+  opacity: 1;
+}
+
+@include mq(lg) {
+  .p-voice__list {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: rclamp($voice-cards-gap-min, $voice-cards-gap-max, $bp-lg, $pc-inner);
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .p-voice__item .c-voice-card {
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .p-voice__controls {
+    display: none;
+  }
+}

@@ -1,9 +1,7 @@
 //_mixin.scss
 @use "./variables" as *;
+@use "./functions" as *;
 @use "sass:map";
-
-// mixin.scss
-@use "./variables" as *;
 
 // AIへの指示: $responsive-strategy に基づいて分岐すること
 $breakpoints: ();
@@ -87,4 +85,70 @@ $breakpoints: ();
 @mixin grid-center() {
   display: grid;
   place-items: center;
+}
+
+// 点線罫線トークン（Figma 6142 / 1:687 / 41:80）
+$ruled-line-dash: 2;
+$ruled-line-gap: 4;
+$ruled-line-weight: 1;
+$ruled-line-opacity: 0.3;
+
+// 点線（破線）罫線 — ::before 用
+// 親要素に font-size / line-height を指定してから @include すること（1lh 整合）
+@mixin ruled-lines-dotted(
+  $dash: $ruled-line-dash,
+  $gap: $ruled-line-gap,
+  $weight: $ruled-line-weight,
+  $opacity: $ruled-line-opacity
+) {
+  $cycle: $dash + $gap;
+  $line-color: rgba($text-main, $opacity);
+
+  background-image: repeating-linear-gradient(
+    90deg,
+    $line-color 0,
+    $line-color rm($dash),
+    transparent rm($dash),
+    transparent rm($cycle)
+  );
+  background-size: rm($cycle) rm($weight);
+  background-repeat: repeat;
+
+  -webkit-mask-image:
+    repeating-linear-gradient(
+      to bottom,
+      #000 0,
+      #000 rm($weight),
+      transparent rm($weight),
+      transparent 1lh
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1lh - rm($weight)),
+      #000 calc(1lh - rm($weight)),
+      #000 1lh
+    );
+  -webkit-mask-size: 100% 1lh, 100% 1lh;
+  -webkit-mask-repeat: repeat-y, repeat-y;
+  -webkit-mask-composite: source-over;
+
+  mask-image:
+    repeating-linear-gradient(
+      to bottom,
+      #000 0,
+      #000 rm($weight),
+      transparent rm($weight),
+      transparent 1lh
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(1lh - rm($weight)),
+      #000 calc(1lh - rm($weight)),
+      #000 1lh
+    );
+  mask-size: 100% 1lh, 100% 1lh;
+  mask-repeat: repeat-y, repeat-y;
+  mask-composite: add;
 }

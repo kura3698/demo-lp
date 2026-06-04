@@ -1,0 +1,135 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（Figma 6212:146 PC / 6212:152 SP / 6209:79・84）
+// ============================================================
+
+$modal-panel-pad-inline-sp: 20;
+$modal-panel-pad-inline-pc: 40;
+$modal-panel-pad-block-sp: 30;
+$modal-panel-pad-block-pc: 40;
+$modal-panel-gap: 20;
+$modal-root-gap-sp: 20;
+$modal-root-gap-pc: 30;
+$modal-title-size-sp: 16;
+$modal-title-size-pc: 20;
+$modal-text-size-sp: 14;
+$modal-text-size-pc: 18;
+$modal-panel-shadow-x: 3;
+$modal-panel-shadow-y: 4;
+$modal-panel-shadow-blur: 4;
+
+// ============================================================
+// .c-modal — ダイアログ（静的: 閉状態 / JS: showModal）
+// ============================================================
+
+.c-modal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: rm($modal-root-gap-sp);
+  width: min(
+    100% - rm($sp-sidePadding * 2),
+    rclamp($sp-inner, $pc-inner, $bp-md, $pc-inner)
+  );
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: $text-main;
+  overflow: visible;
+
+  @include mq(md) {
+    gap: rm($modal-root-gap-pc);
+  }
+
+  &::backdrop {
+    background-color: rgba($text-main, 0.5);
+  }
+}
+
+.c-modal[open] {
+  display: flex;
+}
+
+.c-modal:not([open]) {
+  display: none;
+}
+
+.c-modal__panel {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  width: 100%;
+  gap: rm($modal-panel-gap);
+  padding: rm($modal-panel-pad-block-sp) rm($modal-panel-pad-inline-sp);
+  border: rm(1) solid $main-color;
+  border-radius: rm(7);
+  background-color: $reverse-color;
+  box-shadow: rm($modal-panel-shadow-x) rm($modal-panel-shadow-y)
+    rm($modal-panel-shadow-blur) rgba($text-main, 0.3);
+
+  @include mq(md) {
+    padding: rm($modal-panel-pad-block-pc) rm($modal-panel-pad-inline-pc);
+  }
+}
+
+.c-modal__header {
+  display: grid;
+  gap: rm(4);
+  margin-block-end: 0;
+}
+
+.c-modal__title {
+  @include font($modal-title-size-sp, 700, 1.5);
+
+  @include mq(md) {
+    @include font($modal-title-size-pc, 700, 1.5);
+  }
+}
+
+.c-modal__author {
+  text-align: end;
+  @include font($modal-title-size-sp, 700, 1.5);
+
+  @include mq(md) {
+    @include font($modal-title-size-pc, 700, 1.5);
+  }
+}
+
+.c-modal__body {
+  position: relative;
+  margin-block-end: 0;
+  @include font($modal-text-size-sp, 400, 1.8);
+
+  @include mq(md) {
+    @include font($modal-text-size-pc, 400, 1.5);
+  }
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    @include ruled-lines-dotted();
+  }
+
+  p {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+
+    + p {
+      margin-block-start: 1lh;
+    }
+  }
+}
+
+.c-modal__blank {
+  min-height: 1lh;
+}
+
+.c-modal__close {
+  display: block;
+  flex-shrink: 0;
+  margin-inline: auto;
+}
