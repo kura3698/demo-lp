@@ -1,0 +1,262 @@
+@use "sass:color";
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（Figma 6082:1373 PC / 6082:533 SP）
+// QAボックス: 6084:2195 PC / 6213:346 SP
+// トグル: 6213:191 PC / 6213:268 SP
+// ============================================================
+
+$faq-section-pad-block-sp: 40;
+$faq-section-pad-block-pc: 90;
+$faq-heading-mb-sp: 30;
+$faq-heading-mb-pc: 60;
+$faq-list-gap-sp: 15;
+$faq-list-gap-pc: 20;
+$faq-cta-mt-sp: 30;
+$faq-cta-mt-pc: 61;
+$faq-list-max-w-sp: $sp-inner;
+$faq-list-max-w-pc: $pc-inner;
+$faq-q-height-sp: 40;
+$faq-q-height-pc: 59;
+$faq-q-icon-size-sp: 22;
+$faq-q-icon-size-pc: 37;
+$faq-q-gap-sp: 15;
+$faq-q-gap-pc: 45;
+$faq-q-pad-block-sp: 9;
+$faq-q-pad-block-pc: 11;
+$faq-q-pad-inline-sp: 10;
+$faq-q-pad-inline-pc: 22;
+$faq-q-pad-inline-end-sp: 50;
+$faq-q-pad-inline-end-pc: 61;
+$faq-toggle-w-sp: 13;
+$faq-toggle-h-sp: 13;
+$faq-toggle-w-pc: 20;
+$faq-toggle-h-pc: 20;
+$faq-toggle-icon-w-sp: 9;
+$faq-toggle-icon-h-sp: 7;
+$faq-toggle-icon-w-pc: 12;
+$faq-toggle-icon-h-pc: 9;
+$faq-a-pad-block-sp: 9;
+$faq-a-pad-block-pc: 12;
+$faq-a-pad-inline-sp: 10;
+$faq-a-pad-inline-pc: 22;
+$faq-a-pad-inline-end-sp: 17;
+$faq-a-pad-inline-end-pc: 97;
+$faq-a-gap-sp: 15;
+$faq-a-gap-pc: 50;
+$faq-border-radius: 5;
+$faq-border-alpha: 0.5;
+
+$faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
+
+// ============================================================
+// .p-faq — よくある質問セクション
+// ============================================================
+
+.p-faq {
+  background-color: $bg-main;
+  padding-block: rm($faq-section-pad-block-sp);
+
+  @include mq(md) {
+    padding-block: rm($faq-section-pad-block-pc);
+  }
+}
+
+.p-faq__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.p-faq__heading {
+  margin-block-end: rm($faq-heading-mb-sp);
+  width: 100%;
+
+  @include mq(md) {
+    margin-block-end: rm($faq-heading-mb-pc);
+  }
+}
+
+.p-faq__list {
+  display: flex;
+  flex-direction: column;
+  gap: rm($faq-list-gap-sp);
+  width: 100%;
+  max-width: rm($faq-list-max-w-sp);
+  margin-inline: auto;
+
+  @include mq(md) {
+    gap: rm($faq-list-gap-pc);
+    max-width: rm($faq-list-max-w-pc);
+  }
+}
+
+// ── アコーディオン item（1カード = 1外枠） ───────────────────
+
+.p-faq__item {
+  border: rm(1) solid $faq-border-color;
+  border-radius: rm($faq-border-radius);
+  background-color: $reverse-color;
+  overflow: hidden;
+}
+
+// ── 質問行（summary） ───────────────────────────────────────
+
+.p-faq__q {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: rm($faq-q-gap-sp);
+  min-height: rm($faq-q-height-sp);
+  padding-block: rm($faq-q-pad-block-sp);
+  padding-inline: rm($faq-q-pad-inline-sp) rm($faq-q-pad-inline-end-sp);
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+
+  @include mq(md) {
+    gap: rm($faq-q-gap-pc);
+    min-height: rm($faq-q-height-pc);
+    padding-block: rm($faq-q-pad-block-pc);
+    padding-inline: rm($faq-q-pad-inline-pc) rm($faq-q-pad-inline-end-pc);
+  }
+}
+
+.p-faq__item[open] .p-faq__q {
+  border-block-end: rm(1) solid $faq-border-color;
+}
+
+// ── Q / A ラベル ────────────────────────────────────────────
+
+.p-faq__label {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  font-family: $ff-en;
+  line-height: 1;
+}
+
+.p-faq__label--q {
+  width: rm($faq-q-icon-size-sp);
+  height: rm($faq-q-icon-size-sp);
+  background-color: $main-color;
+  color: $reverse-color;
+  @include font(16, 400, 1);
+
+  @include mq(md) {
+    width: rm($faq-q-icon-size-pc);
+    height: rm($faq-q-icon-size-pc);
+    @include font(28, 400, 1);
+  }
+}
+
+.p-faq__label--a {
+  width: rm($faq-q-icon-size-sp);
+  height: rm($faq-q-icon-size-sp);
+  border: rm(1) solid $main-color;
+  background-color: $reverse-color;
+  color: $main-color;
+  @include font(16, 400, 1);
+
+  @include mq(md) {
+    width: rm($faq-q-icon-size-pc);
+    height: rm($faq-q-icon-size-pc);
+    @include font(28, 400, 1);
+  }
+}
+
+// ── 質問文・回答文 ──────────────────────────────────────────
+
+.p-faq__question {
+  color: $text-main;
+  @include font(14, 400, 1.5);
+
+  @include mq(md) {
+    @include font(20, 400, 1.5);
+  }
+}
+
+.p-faq__answer {
+  color: $text-main;
+  margin: 0;
+  @include font(14, 400, 1.5);
+
+  @include mq(md) {
+    @include font(20, 400, 1.5);
+  }
+}
+
+// ── 開閉トグル（chevron SVG + 疑似要素の背景円） ─────────────
+
+.p-faq__toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: rm($faq-toggle-w-sp);
+  height: rm($faq-toggle-h-sp);
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: $main-color;
+    z-index: 0;
+  }
+
+  @include mq(md) {
+    width: rm($faq-toggle-w-pc);
+    height: rm($faq-toggle-h-pc);
+  }
+}
+
+.p-faq__toggle img {
+  position: relative;
+  z-index: 1;
+  width: rm($faq-toggle-icon-w-sp);
+  height: rm($faq-toggle-icon-h-sp);
+  object-fit: contain;
+  transform-origin: center;
+  transition: transform 0.3s ease;
+  @include mq(md) {
+    width: rm($faq-toggle-icon-w-pc);
+    height: rm($faq-toggle-icon-h-pc);
+  }
+}
+
+.p-faq__item[open] .p-faq__toggle img {
+  transform: rotate(180deg);
+}
+
+// ── 回答パネル ──────────────────────────────────────────────
+
+.p-faq__a {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: rm($faq-a-gap-sp);
+  padding-block: rm($faq-a-pad-block-sp);
+  padding-inline: rm($faq-a-pad-inline-sp) rm($faq-a-pad-inline-end-sp);
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+
+  @include mq(md) {
+    gap: rm($faq-a-gap-pc);
+    padding-block: rm($faq-a-pad-block-pc);
+    padding-inline: rm($faq-a-pad-inline-pc) rm($faq-a-pad-inline-end-pc);
+  }
+}
+
+// ── CTA ─────────────────────────────────────────────────────
+
+.p-faq__cta {
+  margin-block-start: rm($faq-cta-mt-sp);
+  margin-inline: auto;
+
+  @include mq(md) {
+    margin-block-start: rm($faq-cta-mt-pc);
+  }
+}
