@@ -1,35 +1,45 @@
 @use "../config/" as *;
 
 // ============================================================
-// ローカル変数（Figma 1:687 PC / 41:80 SP）
+// ローカル変数（Figma 6212:146 PC / 6212:152 SP / 6209:79・84）
 // ============================================================
 
-$modal-pad-inline-sp: 20;
-$modal-pad-inline-pc: 40;
-$modal-pad-block-sp: 30;
-$modal-pad-block-pc: 40;
-$modal-max-w-pc: 700;
-$modal-gap: 20;
+$modal-panel-pad-inline-sp: 20;
+$modal-panel-pad-inline-pc: 40;
+$modal-panel-pad-block-sp: 30;
+$modal-panel-pad-block-pc: 40;
+$modal-panel-gap: 20;
+$modal-root-gap-sp: 20;
+$modal-root-gap-pc: 30;
 $modal-title-size-sp: 16;
 $modal-title-size-pc: 20;
 $modal-text-size-sp: 14;
 $modal-text-size-pc: 18;
+$modal-panel-shadow-x: 3;
+$modal-panel-shadow-y: 4;
+$modal-panel-shadow-blur: 4;
 
 // ============================================================
 // .c-modal — ダイアログ（静的: 閉状態 / JS: showModal）
 // ============================================================
 
 .c-modal {
-  width: min(100% - rm($sp-sidePadding * 2), rm($modal-max-w-pc));
-  max-height: calc(100svh - rm(40));
-  padding: rm($modal-pad-block-sp) rm($modal-pad-inline-sp);
-  border: rm(1) solid $main-color;
-  border-radius: rm(7);
-  background-color: $reverse-color;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: rm($modal-root-gap-sp);
+  width: min(
+    100% - rm($sp-sidePadding * 2),
+    rclamp($sp-inner, $pc-inner, $bp-md, $pc-inner)
+  );
+  padding: 0;
+  border: none;
+  background: transparent;
   color: $text-main;
+  overflow: visible;
 
   @include mq(md) {
-    padding: rm($modal-pad-block-pc) rm($modal-pad-inline-pc);
+    gap: rm($modal-root-gap-pc);
   }
 
   &::backdrop {
@@ -37,14 +47,36 @@ $modal-text-size-pc: 18;
   }
 }
 
+.c-modal[open] {
+  display: flex;
+}
+
 .c-modal:not([open]) {
   display: none;
+}
+
+.c-modal__panel {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  width: 100%;
+  gap: rm($modal-panel-gap);
+  padding: rm($modal-panel-pad-block-sp) rm($modal-panel-pad-inline-sp);
+  border: rm(1) solid $main-color;
+  border-radius: rm(7);
+  background-color: $reverse-color;
+  box-shadow: rm($modal-panel-shadow-x) rm($modal-panel-shadow-y)
+    rm($modal-panel-shadow-blur) rgba($text-main, 0.3);
+
+  @include mq(md) {
+    padding: rm($modal-panel-pad-block-pc) rm($modal-panel-pad-inline-pc);
+  }
 }
 
 .c-modal__header {
   display: grid;
   gap: rm(4);
-  margin-block-end: rm($modal-gap);
+  margin-block-end: 0;
 }
 
 .c-modal__title {
@@ -56,7 +88,7 @@ $modal-text-size-pc: 18;
 }
 
 .c-modal__author {
-  justify-self: end;
+  text-align: end;
   @include font($modal-title-size-sp, 700, 1.5);
 
   @include mq(md) {
@@ -66,7 +98,7 @@ $modal-text-size-pc: 18;
 
 .c-modal__body {
   position: relative;
-  margin-block-end: rm($modal-gap);
+  margin-block-end: 0;
   @include font($modal-text-size-sp, 400, 1.8);
 
   @include mq(md) {
@@ -92,8 +124,12 @@ $modal-text-size-pc: 18;
   }
 }
 
+.c-modal__blank {
+  min-height: 1lh;
+}
+
 .c-modal__close {
   display: block;
-  margin-inline-start: auto;
-  border-radius: rm(7);
+  flex-shrink: 0;
+  margin-inline: auto;
 }

@@ -73,6 +73,7 @@
 .c-button--modal {
   width: rm(250);
   height: rm(50);
+  border-radius: rm(7);
 
   @include mq(md) {
     height: rm(60);
