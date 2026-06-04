@@ -1,0 +1,155 @@
+@use "sass:color";
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（Figma 6082:518 SP / 6082:1358 PC）
+// ============================================================
+
+// セクション
+$message-section-pad-block-sp: 40;
+$message-section-pad-block-pc: 90;
+$message-section-pad-inline-sp: 20;
+$message-section-pad-inline-pc: 285; // (1440 - 870) / 2
+$message-content-w-pc: $pc-camp - $message-section-pad-inline-pc * 2;
+$message-heading-to-box-gap-sp: 32;
+$message-heading-to-box-gap-pc: 60;
+$message-section-max-h-pc: 806; // Figma PC フレーム高（6082:1358）
+$message-heading-height-pc: 46; // .c-head の PC 装飾高（c-head.scss と一致）
+$message-box-max-h-pc: $message-section-max-h-pc -
+  $message-section-pad-block-pc * 2 - $message-heading-height-pc -
+  $message-heading-to-box-gap-pc;
+
+// 背景（SP/PC 共通1枚・object-position: bottom）
+$message-bg-w: 2880;
+$message-bg-h: 1614;
+
+// ボックス（6082:1359 PC / 6182:743 SP）
+$message-box-min-h-pc: 520;
+$message-box-pad-block-sp: 20;
+$message-box-pad-inline-sp: 15;
+$message-box-pad-block-pc: 25;
+$message-box-pad-inline-pc: 40;
+$message-box-border-sp: 1;
+$message-box-border-pc: 1;
+$message-box-bg-alpha: 0.7;
+
+// 本文
+$message-text-size-sp: 14;
+$message-text-size-pc: 18;
+$message-text-lh-sp: 1.5;
+$message-text-lh-pc: 1.6;
+$message-emphasis-lh-sp: 1.7;
+$message-emphasis-lh-pc: 1.8;
+
+// ============================================================
+// .p-message — 私たちの思い
+// ============================================================
+
+.p-message {
+  display: grid;
+
+  @include mq(xxl) {
+    height: rm($message-section-max-h-pc);
+    max-height: rm($message-section-max-h-pc);
+    overflow: hidden;
+  }
+}
+
+.p-message__bg {
+  grid-area: 1 / 1;
+  z-index: 0;
+  align-self: stretch;
+  justify-self: stretch;
+  overflow: hidden;
+}
+
+.p-message__bg-img {
+  display: block;
+  line-height: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+}
+
+.p-message__bg-img img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  object-fit: cover;
+  object-position: bottom;
+}
+
+.p-message__inner {
+  grid-area: 1 / 1;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: rm($message-heading-to-box-gap-sp);
+  width: 100%;
+  max-width: 100%;
+  padding-block: rm($message-section-pad-block-sp);
+  padding-inline: rm($message-section-pad-inline-sp);
+
+  @include mq(md) {
+    gap: rm($message-heading-to-box-gap-pc);
+    padding-block: rm($message-section-pad-block-pc);
+    padding-inline: max(
+      rm($message-section-pad-inline-sp),
+      calc((100% - rm($message-content-w-pc)) / 2)
+    );
+  }
+
+  @include mq(xxl) {
+    height: 100%;
+    min-height: 0;
+  }
+}
+
+.p-message__heading {
+  flex-shrink: 0;
+}
+
+.p-message__box {
+  width: 100%;
+  padding-block: rm($message-box-pad-block-sp);
+  padding-inline: rm($message-box-pad-inline-sp);
+  background-color: color.change($reverse-color, $alpha: $message-box-bg-alpha);
+  border: rm($message-box-border-sp) solid $main-color;
+
+  @include mq(md) {
+    min-height: rm($message-box-min-h-pc);
+    padding-block: rm($message-box-pad-block-pc);
+    padding-inline: rm($message-box-pad-inline-pc);
+    border-width: rm($message-box-border-pc);
+  }
+
+  @include mq(xxl) {
+    flex: 1 1 auto;
+    min-height: rm($message-box-min-h-pc);
+    max-height: rm($message-box-max-h-pc);
+  }
+}
+
+.p-message__body {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.p-message__text {
+  color: $text-main;
+  @include font($message-text-size-sp, 400, $message-text-lh-sp);
+
+  @include mq(md) {
+    @include font($message-text-size-pc, 400, $message-text-lh-pc);
+  }
+}
+
+.p-message__text--emphasis {
+  @include font($message-text-size-sp, 700, $message-emphasis-lh-sp);
+
+  @include mq(md) {
+    @include font($message-text-size-pc, 700, $message-emphasis-lh-pc);
+  }
+}
