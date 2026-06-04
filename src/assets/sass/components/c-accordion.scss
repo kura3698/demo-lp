@@ -1,0 +1,28 @@
+@use "../config/" as *;
+
+// アコーディオン（details / summary）共通
+.c-accordion {
+  display: flex;
+  flex-direction: column;
+}
+
+.c-accordion__item {
+  width: 100%;
+}
+
+.c-accordion__summary {
+  list-style: none;
+  cursor: pointer;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::marker {
+    content: none;
+  }
+}
+
+.c-accordion__panel {
+  display: grid;
+}
