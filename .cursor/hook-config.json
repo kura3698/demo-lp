@@ -1,0 +1,10 @@
+{
+  "disableAutoFinish": true,
+  "excludeFromCommit": [
+    "css/**",
+    "js/**",
+    "img/**",
+    "**/sass/**/index.scss"
+  ],
+  "commitMessagePrefix": "[#{issue}]"
+}
