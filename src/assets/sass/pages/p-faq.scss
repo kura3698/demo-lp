@@ -2,7 +2,9 @@
 @use "../config/" as *;
 
 // ============================================================
-// ローカル変数（Figma 6023:236 PC / 6023:912 SP）
+// ローカル変数（Figma 6082:1373 PC / 6082:533 SP）
+// QAボックス: 6084:2195 PC / 6213:346 SP
+// トグル: 6213:191 PC / 6213:268 SP
 // ============================================================
 
 $faq-section-pad-block-sp: 40;
@@ -12,27 +14,35 @@ $faq-heading-mb-pc: 60;
 $faq-list-gap-sp: 15;
 $faq-list-gap-pc: 20;
 $faq-cta-mt-sp: 30;
-$faq-cta-mt-pc: 60;
-$faq-list-max-w-sp: 350;
+$faq-cta-mt-pc: 61;
+$faq-list-max-w-sp: $sp-inner;
 $faq-list-max-w-pc: $pc-inner;
 $faq-q-height-sp: 40;
-$faq-q-height-pc: 60;
+$faq-q-height-pc: 59;
 $faq-q-icon-size-sp: 22;
 $faq-q-icon-size-pc: 37;
 $faq-q-gap-sp: 15;
-$faq-q-gap-pc: 50;
+$faq-q-gap-pc: 45;
 $faq-q-pad-block-sp: 9;
-$faq-q-pad-block-pc: 15;
+$faq-q-pad-block-pc: 11;
 $faq-q-pad-inline-sp: 10;
 $faq-q-pad-inline-pc: 22;
-$faq-toggle-size-sp: 11;
-$faq-toggle-size-pc: 18;
-$faq-toggle-inset-inline-end-sp: 10;
-$faq-toggle-inset-inline-end-pc: 17;
-$faq-a-pad-block-sp: 7;
+$faq-q-pad-inline-end-sp: 50;
+$faq-q-pad-inline-end-pc: 61;
+$faq-toggle-w-sp: 13;
+$faq-toggle-h-sp: 13;
+$faq-toggle-w-pc: 20;
+$faq-toggle-h-pc: 20;
+$faq-toggle-icon-w-sp: 9;
+$faq-toggle-icon-h-sp: 7;
+$faq-toggle-icon-w-pc: 12;
+$faq-toggle-icon-h-pc: 9;
+$faq-a-pad-block-sp: 9;
 $faq-a-pad-block-pc: 12;
 $faq-a-pad-inline-sp: 10;
 $faq-a-pad-inline-pc: 22;
+$faq-a-pad-inline-end-sp: 17;
+$faq-a-pad-inline-end-pc: 97;
 $faq-a-gap-sp: 15;
 $faq-a-gap-pc: 50;
 $faq-border-radius: 5;
@@ -82,6 +92,15 @@ $faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
   }
 }
 
+// ── アコーディオン item（1カード = 1外枠） ───────────────────
+
+.p-faq__item {
+  border: rm(1) solid $faq-border-color;
+  border-radius: rm($faq-border-radius);
+  background-color: $reverse-color;
+  overflow: hidden;
+}
+
 // ── 質問行（summary） ───────────────────────────────────────
 
 .p-faq__q {
@@ -91,23 +110,21 @@ $faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
   gap: rm($faq-q-gap-sp);
   min-height: rm($faq-q-height-sp);
   padding-block: rm($faq-q-pad-block-sp);
-  padding-inline: rm($faq-q-pad-inline-sp) rm($faq-toggle-inset-inline-end-sp);
-  border: rm(1) solid $faq-border-color;
-  border-radius: rm($faq-border-radius);
-  background-color: $reverse-color;
+  padding-inline: rm($faq-q-pad-inline-sp) rm($faq-q-pad-inline-end-sp);
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
 
   @include mq(md) {
     gap: rm($faq-q-gap-pc);
     min-height: rm($faq-q-height-pc);
     padding-block: rm($faq-q-pad-block-pc);
-    padding-inline: rm($faq-q-pad-inline-pc) rm($faq-toggle-inset-inline-end-pc);
+    padding-inline: rm($faq-q-pad-inline-pc) rm($faq-q-pad-inline-end-pc);
   }
 }
 
 .p-faq__item[open] .p-faq__q {
-  border-block-end: 0;
-  border-end-end-radius: 0;
-  border-end-start-radius: 0;
+  border-block-end: rm(1) solid $faq-border-color;
 }
 
 // ── Q / A ラベル ────────────────────────────────────────────
@@ -171,39 +188,46 @@ $faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
   }
 }
 
-// ── 開閉トグル ──────────────────────────────────────────────
+// ── 開閉トグル（chevron SVG + 疑似要素の背景円） ─────────────
 
 .p-faq__toggle {
+  position: relative;
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  width: rm($faq-toggle-size-sp);
-  height: rm($faq-toggle-size-sp);
-  border-radius: 50%;
-  background-color: $main-color;
-  transform-origin: center;
-  transition: transform 0.3s ease;
+  width: rm($faq-toggle-w-sp);
+  height: rm($faq-toggle-h-sp);
 
   &::before {
     content: "";
-    width: rm(6);
-    height: rm(6);
-    background-color: $reverse-color;
-    clip-path: polygon(50% 100%, 0 0, 100% 0);
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: $main-color;
+    z-index: 0;
   }
 
   @include mq(md) {
-    width: rm($faq-toggle-size-pc);
-    height: rm($faq-toggle-size-pc);
-
-    &::before {
-      width: rm(10);
-      height: rm(10);
-    }
+    width: rm($faq-toggle-w-pc);
+    height: rm($faq-toggle-h-pc);
   }
 }
 
-.p-faq__item[open] .p-faq__toggle {
+.p-faq__toggle img {
+  position: relative;
+  z-index: 1;
+  width: rm($faq-toggle-icon-w-sp);
+  height: rm($faq-toggle-icon-h-sp);
+  object-fit: contain;
+  transform-origin: center;
+  transition: transform 0.3s ease;
+  @include mq(md) {
+    width: rm($faq-toggle-icon-w-pc);
+    height: rm($faq-toggle-icon-h-pc);
+  }
+}
+
+.p-faq__item[open] .p-faq__toggle img {
   transform: rotate(180deg);
 }
 
@@ -214,17 +238,15 @@ $faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
   grid-template-columns: auto 1fr;
   gap: rm($faq-a-gap-sp);
   padding-block: rm($faq-a-pad-block-sp);
-  padding-inline: rm($faq-a-pad-inline-sp);
-  border: rm(1) solid $faq-border-color;
-  border-block-start: 0;
-  border-end-end-radius: rm($faq-border-radius);
-  border-end-start-radius: rm($faq-border-radius);
-  background-color: $reverse-color;
+  padding-inline: rm($faq-a-pad-inline-sp) rm($faq-a-pad-inline-end-sp);
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
 
   @include mq(md) {
     gap: rm($faq-a-gap-pc);
     padding-block: rm($faq-a-pad-block-pc);
-    padding-inline: rm($faq-a-pad-inline-pc);
+    padding-inline: rm($faq-a-pad-inline-pc) rm($faq-a-pad-inline-end-pc);
   }
 }
 

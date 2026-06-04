@@ -141,12 +141,7 @@ $cta-sheep-inset-block-pc: 38;
 
 .p-service-mongol__intro-figure {
   width: 100%;
-  max-width: rclamp(
-    $intro-max-w-sp,
-    $intro-max-w-pc,
-    $bp-md,
-    $pc-inner
-  );
+  max-width: rclamp($intro-max-w-sp, $intro-max-w-pc, $bp-md, $pc-inner);
   margin-inline: auto;
 }
 
