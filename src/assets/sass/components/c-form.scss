@@ -4,16 +4,12 @@
 // ローカル変数（Figma 6228:746 PC / 6228:537 SP）
 // ============================================================
 
-$form-max-w-sp: $sp-inner;
-$form-max-w-pc: 753;
 $form-field-max-w-sp: 350;
 $form-label-col-pc: 266;
 $form-field-col-pc: 460;
 
 $form-gap-sp: 15;
 $form-gap-pc: 30;
-$form-cta-to-form-gap-sp: 30;
-$form-cta-to-form-gap-pc: 40;
 $form-label-to-field-gap-sp: 5;
 $form-label-row-gap-sp: 10;
 
@@ -79,14 +75,9 @@ $form-focus-outline-offset: 2;
 .c-form {
   display: grid;
   width: 100%;
-  max-width: px($form-max-w-sp);
-  margin-inline: auto;
-  margin-block-start: rm($form-cta-to-form-gap-sp);
   gap: rm($form-gap-sp);
 
   @include mq(md) {
-    max-width: px($form-max-w-pc);
-    margin-block-start: rm($form-cta-to-form-gap-pc);
     gap: rm($form-gap-pc);
   }
 }
@@ -99,13 +90,11 @@ $form-focus-outline-offset: 2;
   display: grid;
   gap: rm($form-label-to-field-gap-sp);
   width: 100%;
-  max-width: rm($form-field-max-w-sp);
 
   @include mq(md) {
     grid-template-columns: rm($form-label-col-pc) minmax(0, 1fr);
     align-items: center;
     gap: 0;
-    max-width: none;
     width: 100%;
   }
 }
@@ -288,7 +277,8 @@ $form-focus-outline-offset: 2;
   }
 }
 
-.c-form__group:not(.c-form__group--stack) .c-form__options:not(.c-form__options--wrap) {
+.c-form__group:not(.c-form__group--stack)
+  .c-form__options:not(.c-form__options--wrap) {
   @include mq(md) {
     flex-wrap: nowrap;
   }

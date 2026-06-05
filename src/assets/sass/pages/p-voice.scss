@@ -59,7 +59,7 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
   margin-inline: auto;
 }
 
-.p-voice__item .c-voice-card {
+.p-voice__item {
   width: 100%;
 }
 
@@ -129,7 +129,7 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
     margin-inline: 0;
   }
 
-  .p-voice__item .c-voice-card {
+  .p-voice__item {
     max-width: none;
     margin-inline: 0;
   }

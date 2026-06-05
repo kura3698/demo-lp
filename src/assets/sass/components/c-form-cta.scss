@@ -5,8 +5,6 @@
 // ============================================================
 
 $form-cta-card-max-w: 300;
-$form-cta-gap-sp: 20;
-$form-cta-gap-pc: 30;
 
 $form-cta-radius: 10;
 $form-cta-shadow-x: 3;
@@ -43,39 +41,6 @@ $form-cta-staff-size-sp: 14;
 $form-cta-staff-size-pc: 16;
 
 // ============================================================
-// .c-form-cta — CTA リスト
-// ============================================================
-
-.c-form-cta {
-  display: grid;
-  grid-template-columns: minmax(0, rm($form-cta-card-max-w));
-  justify-content: center;
-  gap: rm($form-cta-gap-sp);
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  @include mq(md) {
-    grid-template-columns: repeat(2, rm($form-cta-card-max-w));
-    grid-template-rows: auto 1fr;
-    gap: rm($form-cta-gap-pc);
-    justify-content: center;
-  }
-}
-
-.c-form-cta__item {
-  width: 100%;
-  max-width: rm($form-cta-card-max-w);
-  min-width: 0;
-
-  @include mq(md) {
-    display: grid;
-    grid-template-rows: subgrid;
-    grid-row: span 2;
-  }
-}
-
-// ============================================================
 // .c-form-cta__link — カード本体
 // ============================================================
 
@@ -101,8 +66,6 @@ $form-cta-staff-size-pc: 16;
   text-decoration: none;
 
   @include mq(md) {
-    grid-template-rows: subgrid;
-    grid-row: span 2;
     column-gap: rm($form-cta-head-gap-pc);
     row-gap: rm($form-cta-inner-gap-tel-pc);
     padding-block-start: rm($form-cta-pad-block-start-pc);
@@ -207,30 +170,3 @@ $form-cta-staff-size-pc: 16;
   }
 }
 
-// ============================================================
-// subgrid 非対応フォールバック
-// ============================================================
-
-@supports not (grid-template-rows: subgrid) {
-  .c-form-cta__item,
-  .c-form-cta__link {
-    grid-template-rows: unset;
-    grid-row: unset;
-  }
-
-  .c-form-cta__link {
-    height: 100%;
-  }
-}
-
-// ============================================================
-// 検証用ラッパー（Step 3 で削除）
-// ============================================================
-
-.p-form-cta-preview {
-  margin-block: rm(40);
-
-  @include mq(md) {
-    margin-block: rm(60);
-  }
-}

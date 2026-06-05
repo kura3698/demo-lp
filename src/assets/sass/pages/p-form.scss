@@ -1,0 +1,150 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（Figma 6228:727 PC / 6228:515 SP）
+// ============================================================
+
+$form-section-pad-block-sp: 40;
+$form-section-pad-block-pc: 90;
+$form-heading-mb-sp: 30;
+$form-heading-mb-pc: 60;
+$form-container-max-w-pc: 753;
+$form-container-gap-sp: 40;
+$form-container-gap-pc: 35;
+$form-footer-gap-sp: 15;
+$form-footer-gap-pc: 20;
+$form-cta-layout-max-w: 300;
+$form-cta-gap-sp: 15;
+$form-cta-gap-pc: 50;
+$form-cta-pt-pc: 15;
+$form-note-size-sp: 12;
+$form-note-size-pc: 14;
+$form-note-max-w-sp: 300;
+$form-note-max-w-pc: 644;
+
+// ============================================================
+// .p-form — お問い合わせセクション
+// ============================================================
+
+.p-form {
+  background-color: $bg-main;
+  padding-block: rm($form-section-pad-block-sp);
+
+  @include mq(md) {
+    padding-block: rm($form-section-pad-block-pc);
+  }
+}
+
+.p-form__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.p-form__heading {
+  margin-block-end: rm($form-heading-mb-sp);
+  width: 100%;
+
+  @include mq(md) {
+    margin-block-end: rm($form-heading-mb-pc);
+  }
+}
+
+.p-form__container {
+  display: grid;
+  width: 100%;
+  max-width: rm($sp-inner);
+  gap: rm($form-container-gap-sp);
+
+  @include mq(md) {
+    gap: rm($form-container-gap-pc);
+    max-width: px($form-container-max-w-pc);
+  }
+}
+
+.p-form__form {
+  width: fit-content;
+  margin-inline: auto;
+}
+
+.p-form__footer {
+  display: grid;
+  gap: rm($form-footer-gap-sp);
+  justify-items: center;
+  width: 100%;
+
+  @include mq(md) {
+    gap: rm($form-footer-gap-pc);
+  }
+}
+
+// ============================================================
+// CTA 並び（レイアウトは p- 専用クラスで定義）
+// ============================================================
+
+.p-form__cta {
+  display: grid;
+  grid-template-columns: minmax(0, rm($form-cta-layout-max-w));
+  gap: rm($form-cta-gap-sp);
+  justify-content: center;
+  justify-items: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include mq(md) {
+    grid-template-columns: repeat(2, rm($form-cta-layout-max-w));
+    grid-template-rows: auto 1fr;
+    gap: rm($form-cta-gap-pc);
+    padding-block-start: rm($form-cta-pt-pc);
+    justify-content: center;
+  }
+}
+
+.p-form__cta-item {
+  width: 100%;
+  max-width: rm($form-cta-layout-max-w);
+  min-width: 0;
+
+  @include mq(md) {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+  }
+}
+
+.p-form__cta-link {
+  @include mq(md) {
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+  }
+}
+
+@supports not (grid-template-rows: subgrid) {
+  .p-form__cta-item,
+  .p-form__cta-link {
+    grid-template-rows: unset;
+    grid-row: unset;
+  }
+
+  .p-form__cta-link {
+    height: 100%;
+  }
+}
+
+// ============================================================
+// .p-form__note — SSL 注記
+// ============================================================
+
+.p-form__note {
+  width: 100%;
+  max-width: rm($form-note-max-w-sp);
+  color: $text-main;
+  @include font($form-note-size-sp, 400, 1.5);
+
+  @include mq(md) {
+    max-width: rm($form-note-max-w-pc);
+    @include font($form-note-size-pc, 400, 1.5);
+  }
+}
