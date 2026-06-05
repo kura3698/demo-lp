@@ -1587,6 +1587,188 @@
             </a>
           </li>
         </ul>
+
+        <form class="c-form" action="#" method="post" novalidate>
+          <div class="c-form__group">
+            <div class="c-form__label-row">
+              <label class="c-form__label" for="form-name">お名前</label>
+              <span class="c-form__required" aria-hidden="true">必須</span>
+            </div>
+            <input
+              class="c-form__input"
+              type="text"
+              id="form-name"
+              name="name"
+              autocomplete="name"
+              placeholder="フルネームでご入力ください"
+              required
+            />
+          </div>
+
+          <div class="c-form__group">
+            <div class="c-form__label-row">
+              <label class="c-form__label" for="form-email"
+                >メールアドレス</label
+              >
+              <span class="c-form__required" aria-hidden="true">必須</span>
+            </div>
+            <input
+              class="c-form__input"
+              type="email"
+              id="form-email"
+              name="email"
+              autocomplete="email"
+              placeholder="mail@example.com"
+              required
+            />
+          </div>
+
+          <div class="c-form__group">
+            <label class="c-form__label" for="form-tel">電話番号</label>
+            <input
+              class="c-form__input"
+              type="tel"
+              id="form-tel"
+              name="tel"
+              autocomplete="tel"
+            />
+          </div>
+
+          <div class="c-form__group">
+            <fieldset class="c-form__fieldset">
+              <legend class="c-form__label">お問い合わせ内容</legend>
+              <div class="c-form__options">
+                <div class="c-form__option">
+                  <input
+                    class="c-form__radio"
+                    type="radio"
+                    id="form-inquiry-reserve"
+                    name="inquiry_type"
+                    value="reserve"
+                  />
+                  <label class="c-form__option-label" for="form-inquiry-reserve"
+                    >予約したい</label
+                  >
+                </div>
+                <div class="c-form__option">
+                  <input
+                    class="c-form__radio"
+                    type="radio"
+                    id="form-inquiry-question"
+                    name="inquiry_type"
+                    value="question"
+                  />
+                  <label
+                    class="c-form__option-label"
+                    for="form-inquiry-question"
+                    >質問したい</label
+                  >
+                </div>
+                <div class="c-form__option">
+                  <input
+                    class="c-form__radio"
+                    type="radio"
+                    id="form-inquiry-other"
+                    name="inquiry_type"
+                    value="other"
+                  />
+                  <label class="c-form__option-label" for="form-inquiry-other"
+                    >その他</label
+                  >
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="c-form__group c-form__group--stack">
+            <fieldset class="c-form__fieldset">
+              <legend class="c-form__label">
+                モンゴルでやってみたいこと
+                <span class="c-form__label-note">（複数選択可）</span>
+              </legend>
+              <div class="c-form__options c-form__options--wrap">
+                <div class="c-form__option">
+                  <input
+                    class="c-form__checkbox"
+                    type="checkbox"
+                    id="form-activity-balloon"
+                    name="activities[]"
+                    value="balloon"
+                  />
+                  <label
+                    class="c-form__option-label"
+                    for="form-activity-balloon"
+                    >気球</label
+                  >
+                </div>
+                <div class="c-form__option">
+                  <input
+                    class="c-form__checkbox"
+                    type="checkbox"
+                    id="form-activity-horse"
+                    name="activities[]"
+                    value="horse"
+                  />
+                  <label class="c-form__option-label" for="form-activity-horse"
+                    >乗馬</label
+                  >
+                </div>
+                <div class="c-form__option">
+                  <input
+                    class="c-form__checkbox"
+                    type="checkbox"
+                    id="form-activity-river"
+                    name="activities[]"
+                    value="river"
+                  />
+                  <label class="c-form__option-label" for="form-activity-river"
+                    >川下り</label
+                  >
+                </div>
+                <div class="c-form__option">
+                  <input
+                    class="c-form__checkbox"
+                    type="checkbox"
+                    id="form-activity-ruins"
+                    name="activities[]"
+                    value="ruins"
+                  />
+                  <label class="c-form__option-label" for="form-activity-ruins"
+                    >遺跡観光</label
+                  >
+                </div>
+                <div class="c-form__option">
+                  <input
+                    class="c-form__checkbox"
+                    type="checkbox"
+                    id="form-activity-nomad"
+                    name="activities[]"
+                    value="nomad"
+                  />
+                  <label class="c-form__option-label" for="form-activity-nomad"
+                    >遊牧民体験・家訪問</label
+                  >
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="c-form__group c-form__group--stack">
+            <label class="c-form__label" for="form-message">メッセージ本文</label>
+            <textarea
+              class="c-form__input c-form__input--textarea"
+              id="form-message"
+              name="message"
+            ></textarea>
+          </div>
+
+          <div class="c-form__actions">
+            <button type="submit" class="c-button c-button--submit">
+              <span class="c-button__text">送信する</span>
+              <span class="c-button__icon" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
       </div>
     </main>
 
