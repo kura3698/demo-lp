@@ -14,6 +14,6 @@ import "./parts/_viewport.js";
 // import "./parts/_fadeIn.js";
 // import "./parts/_swiper.js";
 // import "./parts/_to-top.js";
-// import "./parts/_tel.js";
+import "./parts/_tel.js";
 // import "./parts/_loading.js";
 // import "./parts/_resizeobserver.js";

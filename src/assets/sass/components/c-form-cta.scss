@@ -1,0 +1,236 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（Figma 6228:730 PC tel / 6228:739 PC mail / 6228:518 SP）
+// ============================================================
+
+$form-cta-card-max-w: 300;
+$form-cta-gap-sp: 20;
+$form-cta-gap-pc: 30;
+
+$form-cta-radius: 10;
+$form-cta-shadow-x: 3;
+$form-cta-shadow-y: 4;
+$form-cta-shadow-blur: 2;
+$form-cta-shadow-opacity-sp: 0.25;
+$form-cta-shadow-opacity-pc: 0.3;
+
+$form-cta-pad-block-start-sp: 17;
+$form-cta-pad-block-end-sp: 9;
+$form-cta-pad-inline-sp: 20;
+$form-cta-pad-block-start-pc: 22;
+$form-cta-pad-inline-pc: 17;
+$form-cta-pad-block-end-mail-pc: 33;
+
+$form-cta-inner-gap-sp: 7;
+$form-cta-inner-gap-tel-pc: 18;
+$form-cta-inner-gap-mail-pc: 17;
+$form-cta-head-gap-sp: 15;
+$form-cta-head-gap-pc: 10;
+$form-cta-value-pad-block-pc: 4;
+$form-cta-value-gap-pc: 8;
+
+$form-cta-icon-size-sp: 30;
+$form-cta-icon-size-pc: 36;
+
+$form-cta-label-size-sp: 16;
+$form-cta-label-size-pc: 20;
+$form-cta-value-size-sp: 24;
+$form-cta-value-size-pc: 24;
+$form-cta-value-tracking-tel-sp: 2.4;
+$form-cta-value-tracking-tel-pc: 1.2;
+$form-cta-staff-size-sp: 14;
+$form-cta-staff-size-pc: 16;
+
+// ============================================================
+// .c-form-cta — CTA リスト
+// ============================================================
+
+.c-form-cta {
+  display: grid;
+  grid-template-columns: minmax(0, rm($form-cta-card-max-w));
+  justify-content: center;
+  gap: rm($form-cta-gap-sp);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  @include mq(md) {
+    grid-template-columns: repeat(2, rm($form-cta-card-max-w));
+    grid-template-rows: auto 1fr;
+    gap: rm($form-cta-gap-pc);
+    justify-content: center;
+  }
+}
+
+.c-form-cta__item {
+  width: 100%;
+  max-width: rm($form-cta-card-max-w);
+  min-width: 0;
+
+  @include mq(md) {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+  }
+}
+
+// ============================================================
+// .c-form-cta__link — カード本体
+// ============================================================
+
+.c-form-cta__link {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-template-areas:
+    "icon label"
+    "value value";
+  grid-template-rows: auto 1fr;
+  column-gap: rm($form-cta-head-gap-sp);
+  row-gap: rm($form-cta-inner-gap-sp);
+  width: 100%;
+  max-width: rm($form-cta-card-max-w);
+  height: 100%;
+  padding-block: rm($form-cta-pad-block-start-sp) rm($form-cta-pad-block-end-sp);
+  padding-inline: rm($form-cta-pad-inline-sp);
+  border-radius: rm($form-cta-radius);
+  background-color: $reverse-color;
+  box-shadow: rm($form-cta-shadow-x) rm($form-cta-shadow-y)
+    rm($form-cta-shadow-blur) rgba(0, 0, 0, $form-cta-shadow-opacity-sp);
+  color: $text-main;
+  text-decoration: none;
+
+  @include mq(md) {
+    grid-template-rows: subgrid;
+    grid-row: span 2;
+    column-gap: rm($form-cta-head-gap-pc);
+    row-gap: rm($form-cta-inner-gap-tel-pc);
+    padding-block-start: rm($form-cta-pad-block-start-pc);
+    padding-inline: rm($form-cta-pad-inline-pc);
+    box-shadow: rm($form-cta-shadow-x) rm($form-cta-shadow-y)
+      rm($form-cta-shadow-blur) rgba($text-main, $form-cta-shadow-opacity-pc);
+  }
+}
+
+.c-form-cta__link--mail {
+  @include mq(md) {
+    row-gap: rm($form-cta-inner-gap-mail-pc);
+    padding-block-end: rm($form-cta-pad-block-end-mail-pc);
+  }
+}
+
+// ============================================================
+// .c-form-cta__icon / __label / __value / __staff
+// ============================================================
+
+.c-form-cta__icon {
+  grid-area: icon;
+  flex-shrink: 0;
+  width: rm($form-cta-icon-size-sp);
+  height: rm($form-cta-icon-size-sp);
+
+  @include mq(md) {
+    width: rm($form-cta-icon-size-pc);
+    height: rm($form-cta-icon-size-pc);
+  }
+}
+
+.c-form-cta__label {
+  grid-area: label;
+  align-self: center;
+  color: $text-main;
+  @include font($form-cta-label-size-sp, 400, 1.5);
+
+  @include mq(md) {
+    @include font($form-cta-label-size-pc, 400, 1.5);
+  }
+}
+
+.c-form-cta__value {
+  grid-area: value;
+  display: grid;
+  grid-template-rows: auto auto;
+  gap: rm($form-cta-value-gap-pc);
+  align-content: start;
+  width: 100%;
+  color: $text-main;
+  text-align: center;
+  @include font($form-cta-value-size-sp, 700, 1.5);
+
+  @include mq(md) {
+    padding-block: rm($form-cta-value-pad-block-pc);
+    @include font($form-cta-value-size-pc, 700, 1.5);
+  }
+}
+
+.c-form-cta__link--tel .c-form-cta__value {
+  @include font($form-cta-value-size-sp, 700, 1.5, $form-cta-value-tracking-tel-sp);
+
+  @include mq(md) {
+    @include font(
+      $form-cta-value-size-pc,
+      700,
+      1.5,
+      $form-cta-value-tracking-tel-pc
+    );
+  }
+}
+
+.c-form-cta__staff {
+  width: 100%;
+  color: $text-main;
+  text-align: end;
+  letter-spacing: normal;
+  @include font($form-cta-staff-size-sp, 400, 1.5);
+
+  @include mq(md) {
+    @include font($form-cta-staff-size-pc, 400, 1.5);
+  }
+}
+
+// ============================================================
+// インタラクション（メールのみ）
+// ============================================================
+
+.c-form-cta__link--mail {
+  transition: opacity 0.3s ease;
+
+  &:focus-visible {
+    opacity: 0.7;
+    outline: rm(2) solid $text-accent;
+  }
+
+  @media (any-hover: hover) {
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+// ============================================================
+// subgrid 非対応フォールバック
+// ============================================================
+
+@supports not (grid-template-rows: subgrid) {
+  .c-form-cta__item,
+  .c-form-cta__link {
+    grid-template-rows: unset;
+    grid-row: unset;
+  }
+
+  .c-form-cta__link {
+    height: 100%;
+  }
+}
+
+// ============================================================
+// 検証用ラッパー（Step 3 で削除）
+// ============================================================
+
+.p-form-cta-preview {
+  margin-block: rm(40);
+
+  @include mq(md) {
+    margin-block: rm(60);
+  }
+}
