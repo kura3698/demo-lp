@@ -1,0 +1,393 @@
+@use "../config/" as *;
+
+// ============================================================
+// ローカル変数（Figma 6228:746 PC / 6228:537 SP）
+// ============================================================
+
+$form-field-max-w-sp: 350;
+$form-label-col-pc: 266;
+$form-field-col-pc: 460;
+
+$form-gap-sp: 15;
+$form-gap-pc: 30;
+$form-label-to-field-gap-sp: 5;
+$form-label-row-gap-sp: 10;
+
+$form-input-h-sp: 35;
+$form-input-h-pc: 45;
+$form-input-pad-inline-sp: 10;
+$form-input-pad-inline-pc: 27;
+$form-input-radius: 3;
+$form-textarea-radius: 8;
+$form-input-border: 1;
+
+$form-label-size-sp: 14;
+$form-label-size-pc: 24;
+$form-label-note-size-sp: 12;
+$form-label-note-size-pc: 20;
+$form-input-size-sp: 14;
+$form-input-size-pc: 20;
+$form-option-label-size-sp: 14;
+$form-option-label-size-pc: 20;
+
+$form-required-w-sp: 30;
+$form-required-h-sp: 16;
+$form-required-radius-sp: 1;
+$form-required-size-sp: 12;
+$form-required-w-pc: 44;
+$form-required-h-pc: 26;
+$form-required-radius-pc: 3;
+$form-required-size-pc: 16;
+
+$form-textarea-min-h-sp: 160;
+$form-textarea-min-h-pc: 226;
+
+$form-control-size-sp: 18;
+$form-control-size-pc: 25;
+$form-control-gap-sp: 7;
+$form-control-gap-pc: 15;
+$form-options-gap-inquiry-sp: 25;
+$form-options-gap-inquiry-pc: 40;
+$form-options-gap-activities-sp: 10;
+$form-options-gap-activities-block-sp: 5;
+$form-options-gap-activities-pc: 30;
+
+$form-actions-mt-sp: 10;
+$form-actions-mt-pc: 0;
+
+$form-control-check-w: 2;
+$form-control-check-inset-block-sp: 4;
+$form-control-check-inset-inline-sp: 6;
+$form-control-check-inset-block-pc: 6;
+$form-control-check-inset-inline-pc: 8;
+$form-control-check-w-sp: 5;
+$form-control-check-h-sp: 9;
+$form-control-check-w-pc: 7;
+$form-control-check-h-pc: 12;
+$form-radio-fill-inset-ratio: 25%;
+$form-focus-outline-w: 3;
+$form-focus-outline-offset: 2;
+
+// ============================================================
+// .c-form — フォームコンテナ
+// ============================================================
+
+.c-form {
+  display: grid;
+  width: 100%;
+  gap: rm($form-gap-sp);
+
+  @include mq(md) {
+    gap: rm($form-gap-pc);
+  }
+}
+
+// ============================================================
+// .c-form__group — フィールド行
+// ============================================================
+
+.c-form__group {
+  display: grid;
+  gap: rm($form-label-to-field-gap-sp);
+  width: 100%;
+
+  @include mq(md) {
+    grid-template-columns: rm($form-label-col-pc) minmax(0, 1fr);
+    align-items: center;
+    gap: 0;
+    width: 100%;
+  }
+}
+
+.c-form__group--stack {
+  @include mq(md) {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+}
+
+// ============================================================
+// .c-form__label-row / __label / __label-note / __required
+// ============================================================
+
+.c-form__label-row {
+  display: flex;
+  align-items: center;
+  gap: rm($form-label-row-gap-sp);
+
+  @include mq(md) {
+    grid-column: 1;
+    grid-row: 1;
+    justify-content: space-between;
+    width: 100%;
+  }
+}
+
+.c-form__label {
+  color: $text-main;
+  @include font($form-label-size-sp, 700, 1.5);
+
+  @include mq(md) {
+    @include font($form-label-size-pc, 700, 1.5);
+  }
+}
+
+.c-form__group > .c-form__label {
+  @include mq(md) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+.c-form__label-note {
+  color: $text-main;
+  @include font($form-label-note-size-sp, 400, 1.5);
+
+  @include mq(md) {
+    @include font($form-label-note-size-pc, 400, 1.5);
+  }
+}
+
+.c-form__required {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: rm($form-required-w-sp);
+  height: rm($form-required-h-sp);
+  border-radius: rm($form-required-radius-sp);
+  background-color: $main-color;
+  color: $reverse-color;
+  @include font($form-required-size-sp, 500, 1.5);
+
+  @include mq(md) {
+    width: rm($form-required-w-pc);
+    height: rm($form-required-h-pc);
+    border-radius: rm($form-required-radius-pc);
+    @include font($form-required-size-pc, 700, 1.5);
+  }
+}
+
+// ============================================================
+// .c-form__input
+// ============================================================
+
+.c-form__input {
+  display: block;
+  width: 100%;
+  height: rm($form-input-h-sp);
+  padding-inline: rm($form-input-pad-inline-sp);
+  border: rm($form-input-border) solid $border-input;
+  border-radius: rm($form-input-radius);
+  background-color: $reverse-color;
+  color: $text-main;
+  @include font($form-input-size-sp, 400, 1.5);
+
+  @include mq(md) {
+    grid-column: 2;
+    grid-row: 1;
+    height: rm($form-input-h-pc);
+    padding-inline: rm($form-input-pad-inline-pc);
+    @include font($form-input-size-pc, 400, 1.5);
+  }
+
+  &::placeholder {
+    color: $text-placeholder;
+  }
+}
+
+.c-form__input--textarea {
+  height: auto;
+  min-height: rm($form-textarea-min-h-sp);
+  padding-block: rm($form-input-pad-inline-sp);
+  border-radius: rm($form-textarea-radius);
+  resize: vertical;
+
+  @include mq(md) {
+    grid-column: 1;
+    grid-row: 2;
+    min-height: rm($form-textarea-min-h-pc);
+    padding-block: rm($form-input-pad-inline-pc);
+  }
+}
+
+.c-form__group--stack > .c-form__input--textarea {
+  @include mq(md) {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+.c-form__group--stack > .c-form__label {
+  @include mq(md) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+// ============================================================
+// .c-form__fieldset / __options / __option
+// ============================================================
+
+.c-form__fieldset {
+  display: grid;
+  gap: rm($form-label-to-field-gap-sp);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.c-form__group:not(.c-form__group--stack) .c-form__fieldset {
+  @include mq(md) {
+    display: contents;
+  }
+}
+
+.c-form__group--stack .c-form__fieldset {
+  @include mq(md) {
+    grid-template-columns: 1fr;
+    align-items: start;
+    gap: rm($form-label-to-field-gap-sp);
+  }
+}
+
+.c-form__fieldset .c-form__label {
+  @include mq(md) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+.c-form__group--stack .c-form__fieldset .c-form__label {
+  @include mq(md) {
+    grid-column: 1;
+    grid-row: 1;
+  }
+}
+
+.c-form__options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: rm($form-options-gap-inquiry-sp);
+
+  @include mq(md) {
+    grid-column: 2;
+    grid-row: 1;
+    gap: rm($form-options-gap-inquiry-pc);
+  }
+}
+
+.c-form__group:not(.c-form__group--stack)
+  .c-form__options:not(.c-form__options--wrap) {
+  @include mq(md) {
+    flex-wrap: nowrap;
+  }
+}
+
+.c-form__options--wrap {
+  column-gap: rm($form-options-gap-activities-sp);
+  row-gap: rm($form-options-gap-activities-block-sp);
+
+  @include mq(md) {
+    grid-column: 1;
+    grid-row: 2;
+    gap: rm($form-options-gap-activities-pc);
+  }
+}
+
+.c-form__option {
+  display: flex;
+  align-items: center;
+  gap: rm($form-control-gap-sp);
+
+  @include mq(md) {
+    gap: rm($form-control-gap-pc);
+  }
+}
+
+.c-form__input,
+.c-form__radio,
+.c-form__checkbox {
+  &:focus-visible {
+    border-color: $main-color;
+    outline: rm($form-focus-outline-w) solid $text-accent;
+    outline-offset: rm($form-focus-outline-offset);
+  }
+}
+
+.c-form__radio,
+.c-form__checkbox {
+  position: relative;
+  flex-shrink: 0;
+  width: rm($form-control-size-sp);
+  height: rm($form-control-size-sp);
+  margin: 0;
+  border: rm($form-input-border) solid $border-input;
+  background-color: $reverse-color;
+  cursor: pointer;
+  appearance: none;
+
+  @include mq(md) {
+    width: rm($form-control-size-pc);
+    height: rm($form-control-size-pc);
+  }
+}
+
+.c-form__radio {
+  border-radius: rm($form-input-radius);
+
+  &:checked::after {
+    content: "";
+    position: absolute;
+    inset: $form-radio-fill-inset-ratio;
+    border-radius: rm(1);
+    background-color: $main-color;
+  }
+}
+
+.c-form__checkbox {
+  border-radius: 0;
+
+  &:checked::after {
+    content: "";
+    position: absolute;
+    inset-block-start: rm($form-control-check-inset-block-sp);
+    inset-inline-start: rm($form-control-check-inset-inline-sp);
+    width: rm($form-control-check-w-sp);
+    height: rm($form-control-check-h-sp);
+    border-inline-end: rm($form-control-check-w) solid $main-color;
+    border-block-end: rm($form-control-check-w) solid $main-color;
+    transform: rotate(45deg);
+
+    @include mq(md) {
+      inset-block-start: rm($form-control-check-inset-block-pc);
+      inset-inline-start: rm($form-control-check-inset-inline-pc);
+      width: rm($form-control-check-w-pc);
+      height: rm($form-control-check-h-pc);
+    }
+  }
+}
+
+.c-form__option-label {
+  color: $text-main;
+  cursor: pointer;
+  @include font($form-option-label-size-sp, 400, 1.5);
+
+  @include mq(md) {
+    @include font($form-option-label-size-pc, 400, 1.5);
+  }
+}
+
+// ============================================================
+// .c-form__actions
+// ============================================================
+
+.c-form__actions {
+  display: grid;
+  justify-items: center;
+  margin-block-start: rm($form-actions-mt-sp);
+
+  @include mq(md) {
+    margin-block-start: rm($form-actions-mt-pc);
+  }
+}

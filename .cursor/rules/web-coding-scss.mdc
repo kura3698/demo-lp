@@ -376,6 +376,69 @@ AIはトークン節約のために `&__` を使いたがりますが、検索�
 }
 ```
 
+## コンポーネント・アーキテクチャ（p-/c- 責務分離）
+
+Project レイヤー（`p-`）と Component レイヤー（`c-`）の責務を完全に分離する。UI の変更やクラス追加時は、末尾の**自己検証チェックリスト**で出力前に確認すること。
+
+### 1. プレフィックスのスコープ分離（絶対厳守）
+
+- `pages/` 内で `c-` を子セレクタとして上書きすることを禁止
+- `components/` 内で `p-` を参照することも禁止（双方向）
+- レイアウト差分は **Project 専用クラス**（例: `.p-form__cta`, `.p-voice__item`）で吸収する
+
+❌ DON'T
+
+```scss
+// p- のスコープ内で c- を上書きしている
+.p-form__footer .c-form-cta {
+  display: grid;
+  grid-template-columns: minmax(0, rm($form-cta-layout-max-w));
+  gap: rm($form-cta-gap-sp);
+}
+```
+
+⭕ DO
+
+```scss
+// p- 専用のクラスとして定義し直す
+.p-form__cta {
+  display: grid;
+  grid-template-columns: minmax(0, rm($form-cta-layout-max-w));
+  gap: rm($form-cta-gap-sp);
+}
+```
+
+### 2. コンポーネント（Block）の独立性
+
+コンポーネントは「どこに配置しても影響を与えない・影響を受けない」粒度で設計する。
+
+| 項目 | ルール |
+| ---- | ------ |
+| サイズ | Block ルート（`.c-button` 等）に固定 `width` / `height` を付けない。`max-width` や子 Element の `width: 100%` は可 |
+| 余白 | Block ルートに `margin` を設定しない。余白は親の `p-*__item` や `gap` で制御する |
+| タグ | `h2`, `div` 等のタグセレクタでスタイルを当てない。必ずクラス名に対して指定する |
+
+### 3. BEM 設計基準と Modifier の運用
+
+- Element が入れ子になりそうな場合（例: `.cards__item__link`）は、直近の親を起点とした**新しい Block**として切り出すことを検討する
+- 判断基準: 「〇〇（Block）の〇〇（Element）」という日本語表現が自然に成立するか
+- Modifier（`--`）は**見た目の差分**（色・状態等）のみに使用する（例: `.c-card--active`）
+- HTML の構造が変わるような変更には Modifier を使わず、別 Block を作成する
+- 要素（`__`）のネスト結合禁止は、上記「ネスト（階層）とスコープの厳格なルール」と同一
+
+### 4. 余白（Margin）の方向性
+
+コンポーネント同士の余白は「消える可能性がある方」や「改行しても影響のない方」に配慮する。
+
+- 例: 日付とラベルが横並びの場合、ラベル側から押すのではなく、日付側の要素に `margin-inline-end` を付与して右側の要素を押し出す
+
+### 5. AI 自己検証チェックリスト（実装前）
+
+- `p-` スコープで `c-` をネストしていないか
+- `c-` Block ルートに `margin` / 固定サイズがないか
+- タグセレクタを使っていないか
+- Modifier が見た目差分のみか
+
 ## transform / transition の記述ルール
 
 回転・移動などにアニメーションを付ける可能性があるプロパティは、個別の `rotate` / `translate` ではなく **`transform` にまとめて記述**すること。`transition` も `transform` を対象にする。

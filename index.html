@@ -315,7 +315,7 @@
                 <p class="p-features__text">
                   モンゴル気球連盟に加入し、政府からフライト許可を得てお客様を載せてフリーフライトしているのはモンゴルバルーンキャンプだけです。モンゴルで気球を上げ続けて20年の伝統があります。日本人の一流パイロットが操縦し、日本の保険にも加入しています。気球に乗り自然のままに蛇行するトーラ川や動物達、どこまでも続く大草原を上空1,000フィートからお楽しみください。
                 </p>
-                <a href="#balloon" class="c-button">
+                <a href="#balloon" class="c-button p-features__btn">
                   <span class="c-button__text">気球特設ページはこちら</span>
                   <span class="c-button__icon" aria-hidden="true"></span>
                 </a>
@@ -367,7 +367,7 @@
                 <p class="p-features__text">
                   遊牧民と結婚した友子さんがキャンプ場長を務めています。言語も文化も違うモンゴルの地で安全に、そして快適にお客様に過ごしていただけるよう、スタッフ一同心を込めてサポートいたします。旅に関する心配事やご要望がありましたら、いつでもご相談ください。友子さんはモンゴル文化や遊牧民の生活をブログで紹介しています。読んだらモンゴル通になれること間違いなしです！
                 </p>
-                <a href="#blog" class="c-button">
+                <a href="#blog" class="c-button p-features__btn">
                   <span class="c-button__text">ぼるふ〜草原記を読む</span>
                   <span class="c-button__icon" aria-hidden="true"></span>
                 </a>
@@ -419,7 +419,7 @@
                 <p class="p-features__text">
                   ウランバートルから南西へ200km。都市から離れた大自然のど真ん中にあるので、美しい大草原や山々を一望できます。夜は周囲に光が全くないので、満天の星空と天の川を見ることができます。そんな大自然の中で、熱気球フライトは勿論、乗馬や川下り、フィッシングなど他では真似のできない多彩なオプショナルツアーをご用意しております。
                 </p>
-                <a href="#activity" class="c-button">
+                <a href="#activity" class="c-button p-features__btn">
                   <span class="c-button__text">アクティビティ詳細はこちら</span>
                   <span class="c-button__icon" aria-hidden="true"></span>
                 </a>
@@ -1504,11 +1504,7 @@
         </div>
       </section>
 
-      <section
-        class="p-message"
-        id="message"
-        aria-labelledby="message-heading"
-      >
+      <section class="p-message" id="message" aria-labelledby="message-heading">
         <div class="p-message__bg" aria-hidden="true">
           <div class="p-message__bg-img">
             <img
@@ -1537,6 +1533,264 @@
               </p>
               <p class="p-message__text">
                 ウランバートルから南西へ180km、カラコルムとの中間に位置し、大草原をゆったり流れるトーラ川のほとりにあります。作家、椎名誠さんの監督映画「白い馬」の撮影地にキャンプ場を作りました。その美しさからクボタのＣＦ撮影地になったこともあります。キャンプ場はウンドゥルシレット村から特別の許可を得ており、他のキャンプ場や施設は一切ありません。ですから夜は正に360度、満天の星に包まれます。日本人には星が多すぎて星座も判らないほどです。貴方も大草原の中に身を置き、モンゴルでゆったりとした時間を過ごしてみませんか？価値観が変わってしまうかもしれませんよ・・・
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="p-form" id="form" aria-labelledby="form-heading">
+        <div class="l-inner p-form__inner">
+          <h2 id="form-heading" class="p-form__heading c-head">お問い合わせ</h2>
+
+          <div class="p-form__container">
+            <form class="c-form p-form__form" action="#" method="post" novalidate>
+              <div class="c-form__group">
+                <div class="c-form__label-row">
+                  <label class="c-form__label" for="form-name">お名前</label>
+                  <span class="c-form__required" aria-hidden="true">必須</span>
+                </div>
+                <input
+                  class="c-form__input"
+                  type="text"
+                  id="form-name"
+                  name="name"
+                  autocomplete="name"
+                  placeholder="フルネームでご入力ください"
+                  required
+                />
+              </div>
+
+              <div class="c-form__group">
+                <div class="c-form__label-row">
+                  <label class="c-form__label" for="form-email"
+                    >メールアドレス</label
+                  >
+                  <span class="c-form__required" aria-hidden="true">必須</span>
+                </div>
+                <input
+                  class="c-form__input"
+                  type="email"
+                  id="form-email"
+                  name="email"
+                  autocomplete="email"
+                  placeholder="mail@example.com"
+                  required
+                />
+              </div>
+
+              <div class="c-form__group">
+                <label class="c-form__label" for="form-tel">電話番号</label>
+                <input
+                  class="c-form__input"
+                  type="tel"
+                  id="form-tel"
+                  name="tel"
+                  autocomplete="tel"
+                />
+              </div>
+
+              <div class="c-form__group">
+                <fieldset class="c-form__fieldset">
+                  <legend class="c-form__label">お問い合わせ内容</legend>
+                  <div class="c-form__options">
+                    <div class="c-form__option">
+                      <input
+                        class="c-form__radio"
+                        type="radio"
+                        id="form-inquiry-reserve"
+                        name="inquiry_type"
+                        value="reserve"
+                      />
+                      <label
+                        class="c-form__option-label"
+                        for="form-inquiry-reserve"
+                        >予約したい</label
+                      >
+                    </div>
+                    <div class="c-form__option">
+                      <input
+                        class="c-form__radio"
+                        type="radio"
+                        id="form-inquiry-question"
+                        name="inquiry_type"
+                        value="question"
+                      />
+                      <label
+                        class="c-form__option-label"
+                        for="form-inquiry-question"
+                        >質問したい</label
+                      >
+                    </div>
+                    <div class="c-form__option">
+                      <input
+                        class="c-form__radio"
+                        type="radio"
+                        id="form-inquiry-other"
+                        name="inquiry_type"
+                        value="other"
+                      />
+                      <label
+                        class="c-form__option-label"
+                        for="form-inquiry-other"
+                        >その他</label
+                      >
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              <div class="c-form__group c-form__group--stack">
+                <fieldset class="c-form__fieldset">
+                  <legend class="c-form__label">
+                    モンゴルでやってみたいこと
+                    <span class="c-form__label-note">（複数選択可）</span>
+                  </legend>
+                  <div class="c-form__options c-form__options--wrap">
+                    <div class="c-form__option">
+                      <input
+                        class="c-form__checkbox"
+                        type="checkbox"
+                        id="form-activity-balloon"
+                        name="activities[]"
+                        value="balloon"
+                      />
+                      <label
+                        class="c-form__option-label"
+                        for="form-activity-balloon"
+                        >気球</label
+                      >
+                    </div>
+                    <div class="c-form__option">
+                      <input
+                        class="c-form__checkbox"
+                        type="checkbox"
+                        id="form-activity-horse"
+                        name="activities[]"
+                        value="horse"
+                      />
+                      <label
+                        class="c-form__option-label"
+                        for="form-activity-horse"
+                        >乗馬</label
+                      >
+                    </div>
+                    <div class="c-form__option">
+                      <input
+                        class="c-form__checkbox"
+                        type="checkbox"
+                        id="form-activity-river"
+                        name="activities[]"
+                        value="river"
+                      />
+                      <label
+                        class="c-form__option-label"
+                        for="form-activity-river"
+                        >川下り</label
+                      >
+                    </div>
+                    <div class="c-form__option">
+                      <input
+                        class="c-form__checkbox"
+                        type="checkbox"
+                        id="form-activity-ruins"
+                        name="activities[]"
+                        value="ruins"
+                      />
+                      <label
+                        class="c-form__option-label"
+                        for="form-activity-ruins"
+                        >遺跡観光</label
+                      >
+                    </div>
+                    <div class="c-form__option">
+                      <input
+                        class="c-form__checkbox"
+                        type="checkbox"
+                        id="form-activity-nomad"
+                        name="activities[]"
+                        value="nomad"
+                      />
+                      <label
+                        class="c-form__option-label"
+                        for="form-activity-nomad"
+                        >遊牧民体験・家訪問</label
+                      >
+                    </div>
+                  </div>
+                </fieldset>
+              </div>
+
+              <div class="c-form__group c-form__group--stack">
+                <label class="c-form__label" for="form-message"
+                  >メッセージ本文</label
+                >
+                <textarea
+                  class="c-form__input c-form__input--textarea"
+                  id="form-message"
+                  name="message"
+                ></textarea>
+              </div>
+
+              <div class="c-form__actions">
+                <button type="submit" class="c-button c-button--submit">
+                  <span class="c-button__text">送信する</span>
+                  <span class="c-button__icon" aria-hidden="true"></span>
+                </button>
+              </div>
+            </form>
+
+            <div class="p-form__footer">
+              <ul class="p-form__cta">
+                <li class="p-form__cta-item c-form-cta__item">
+                  <a
+                    href="tel:050XXXXXXXX"
+                    class="c-form-cta__link c-form-cta__link--tel p-form__cta-link"
+                  >
+                    <div class="c-form-cta__icon">
+                      <img
+                        src="/img/icon_form-tel.svg"
+                        alt=""
+                        width="36"
+                        height="36"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <span class="c-form-cta__label"
+                      >お電話でのお問い合わせ</span
+                    >
+                    <span class="c-form-cta__value">
+                      050-XXXX-XXXX
+                      <span class="c-form-cta__staff">（担当：長野）</span>
+                    </span>
+                  </a>
+                </li>
+                <li class="p-form__cta-item c-form-cta__item">
+                  <a
+                    href="mailto:info@example.com"
+                    class="c-form-cta__link c-form-cta__link--mail p-form__cta-link"
+                  >
+                    <div class="c-form-cta__icon">
+                      <img
+                        src="/img/icon_form-mail.svg"
+                        alt=""
+                        width="36"
+                        height="36"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    </div>
+                    <span class="c-form-cta__label"
+                      >メールでのお問い合わせ</span
+                    >
+                    <span class="c-form-cta__value">info@example.com</span>
+                  </a>
+                </li>
+              </ul>
+
+              <p class="p-form__note">
+                お客様の個人情報を守るため、信頼できるサイトの証として、当サイトは全てのページにSSL暗号化通信を導入しています。送信の内容が第三者に盗み見られる心配はございません。
               </p>
             </div>
           </div>

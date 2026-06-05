@@ -32,6 +32,8 @@ $z-drawer: 101;
 // 1. 基本カラー（メインで使用）
 $text-main: #333333;
 $text-accent: #d91621;
+$text-placeholder: rgba($text-main, 0.3);
+$border-input: rgba($text-main, 0.5);
 $main-color: #4fabbf;
 // $sub-color: #609484;
 // $hover-color: #948260;
