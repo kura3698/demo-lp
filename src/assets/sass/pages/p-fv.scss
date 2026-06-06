@@ -9,6 +9,16 @@ $fv-text-pc-w-s1: 658;
 $fv-text-pc-w-s2: 560;
 $fv-text-pc-w-s3: 536;
 
+// 固定CTA（SP CSSボタン実寸・c-floating-cta と同値 / Figma 6082:959）
+$cta-sp-border: 5;
+$cta-sp-pad-block: 12;
+$cta-sp-font-size: 24;
+$cta-sp-line-height: 1.5;
+$cta-sp-block-size: calc(
+  #{rm($cta-sp-border * 2)} + #{rm($cta-sp-pad-block * 2)} +
+    #{rm($cta-sp-font-size)} * #{$cta-sp-line-height}
+);
+
 // FV テキスト配置（カンプ上の px → 比率に変換）
 $fv-pc-height: 700;
 $fv-sp-height: 580;
@@ -49,6 +59,10 @@ $fv-text-sp-inset-block-ratio: math.div(
 .p-fv__slider {
   height: 100svh;
   overflow: hidden;
+
+  @include mq(md) {
+    height: 100svh;
+  }
 }
 
 // Swiper有効化前の静的表示用スタイル

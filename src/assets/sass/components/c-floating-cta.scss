@@ -1,0 +1,118 @@
+@use "../config/" as *;
+
+// 固定CTA（Figma 6239:30 PC / 6082:959 SP）
+$cta-pc-w: 147;
+$cta-pc-h: 226;
+$cta-pc-offset: 40;
+$cta-sp-border: 5;
+$cta-sp-pad-block: 12;
+$cta-sp-pad-inline: 27;
+$cta-sp-font-size: 24;
+$cta-sp-line-height: 1.5;
+$cta-hover-scale: 1.1;
+$cta-hover-float-y: 12;
+$cta-hover-scale-duration: 0.4s;
+$cta-hover-duration: 2.5s;
+
+$cta-sp-block-size: calc(
+  #{rm($cta-sp-border * 2)} + #{rm($cta-sp-pad-block * 2)} +
+    #{rm($cta-sp-font-size)} * #{$cta-sp-line-height}
+);
+
+@keyframes c-floating-cta-pc-float {
+  0%,
+  100% {
+    transform: scale($cta-hover-scale) translateY(0);
+  }
+
+  50% {
+    transform: scale($cta-hover-scale) translateY(rm(-$cta-hover-float-y));
+  }
+}
+
+.c-floating-cta {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: $z-floating-cta;
+  width: 100%;
+  pointer-events: none;
+
+  @include mq(md) {
+    inset-block-end: rm($cta-pc-offset);
+    inset-inline: auto rm($cta-pc-offset);
+    width: rm($cta-pc-w);
+  }
+}
+
+.c-floating-cta__link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  width: 100%;
+  padding-block: rm($cta-sp-pad-block);
+  padding-inline: rm($cta-sp-pad-inline);
+  background-color: $reverse-color;
+  border: rm($cta-sp-border) solid $main-color;
+  text-align: center;
+  pointer-events: auto;
+
+  &:focus-visible {
+    outline: 2px solid $text-accent;
+    outline-offset: rm(2);
+  }
+
+  @include mq(md) {
+    display: block;
+    padding: 0;
+    border: none;
+    background-color: transparent;
+  }
+}
+
+.c-floating-cta__label {
+  font-size: rm($cta-sp-font-size);
+  font-weight: 700;
+  line-height: $cta-sp-line-height;
+  color: $main-color;
+  white-space: nowrap;
+
+  @include mq(md) {
+    display: none;
+  }
+}
+
+.c-floating-cta__figure {
+  display: none;
+  aspect-ratio: #{$cta-pc-w} / #{$cta-pc-h};
+
+  @include mq(md) {
+    display: block;
+    transform: scale(1);
+    transform-origin: center bottom;
+    transition: transform $cta-hover-scale-duration ease-in-out;
+  }
+}
+
+@include mq(md) {
+  .c-floating-cta__link:focus-visible .c-floating-cta__figure {
+    transform: scale($cta-hover-scale);
+    animation: c-floating-cta-pc-float $cta-hover-duration ease-in-out
+      $cta-hover-scale-duration infinite;
+  }
+
+  @media (any-hover: hover) {
+    .c-floating-cta__link:hover .c-floating-cta__figure {
+      transform: scale($cta-hover-scale);
+      animation: c-floating-cta-pc-float $cta-hover-duration ease-in-out
+        $cta-hover-scale-duration infinite;
+    }
+  }
+}
+
+.c-floating-cta__figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
