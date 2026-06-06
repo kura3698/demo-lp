@@ -1199,10 +1199,10 @@
         <div class="l-inner p-voice__inner">
           <h2 id="voice-heading" class="p-voice__heading c-head">お客様の声</h2>
 
-          <div class="p-voice__slider" aria-label="お客様の声一覧">
-            <ul class="p-voice__list">
-              <li class="p-voice__item">
-                <article class="c-voice-card">
+          <div class="p-voice__slider swiper" aria-label="お客様の声一覧">
+            <ul class="p-voice__list swiper-wrapper">
+              <li class="p-voice__item swiper-slide">
+                <article class="c-voice-card p-voice__card">
                   <header class="c-voice-card__header">
                     <h3 class="c-voice-card__title">家畜たちの真ん中に</h3>
                     <p class="c-voice-card__author">鈴木様</p>
@@ -1223,8 +1223,8 @@
                   </button>
                 </article>
               </li>
-              <li class="p-voice__item">
-                <article class="c-voice-card">
+              <li class="p-voice__item swiper-slide">
+                <article class="c-voice-card p-voice__card">
                   <header class="c-voice-card__header">
                     <h3 class="c-voice-card__title">心を洗いに行く場所。</h3>
                     <p class="c-voice-card__author">長田様</p>
@@ -1253,10 +1253,7 @@
                 class="p-voice__nav p-voice__nav--prev"
                 aria-label="前のお客様の声"
               ></button>
-              <div class="p-voice__pagination" role="presentation">
-                <span class="p-voice__bullet is-active"></span>
-                <span class="p-voice__bullet"></span>
-              </div>
+              <div class="p-voice__pagination" role="presentation"></div>
               <button
                 type="button"
                 class="p-voice__nav p-voice__nav--next"

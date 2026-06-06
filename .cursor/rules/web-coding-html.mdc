@@ -13,7 +13,7 @@ alwaysApply: true
 - **FLOCSSの厳守:** 勝手にラッパー `<div>` を増やさず、`l-`, `c-`, `p-`, `u-` のプレフィックスを用いたBEM記法でクラスを命名すること。
 
 # アニメーション・JS向けのマークアップ規約
-- スライダー（Swiper等）を導入予定の箇所は、後からのJS実装を見据え、予め該当ライブラリの公式仕様に沿ったクラス名（例: swiper, swiper-wrapper, swiper-slide 等）でマークアップを行うこと。
+- **スライダー（Swiper）:** 静的実装フェーズから `web-coding-swiper.mdc` の 3 層構造・コントロール配置・`js-` フック規約に従うこと。後から DOM を組み替えない。
 - モーダルウィンドウのHTMLは、各セクションの途中には記述せず、必ず `</body>` の直前にまとめて配置すること。
 
 ## セマンティックとアクセシビリティ
@@ -113,8 +113,7 @@ alwaysApply: true
 
 ## UIコンポーネントの実装方針（Vanilla JS前提）
 
-- **スライダー:** `Swiper` を想定。必要なラッパークラス（`.swiper`, `.swiper-wrapper`, `.swiper-slide`）を付与すること。
-- **スライダー root:** `p-セクション__slider`（または `p-セクション__plans` 等）と `swiper` を**同一要素**に付与してよい（例: `class="p-service-mongol__plans swiper"`）。シャドウ bleed 用 SCSS は `.p-xxx.swiper` 複合セレクタで書くこと（`web-coding-scss.mdc` の「overflow: hidden と box-shadow の切れ防止」参照）。外側ラッパーを増やさない。
+- **スライダー:** `web-coding-swiper.mdc` を参照。要点のみ — root に `p-xxx__slider` と `swiper` を同一要素で付与、3 層 DOM 固定、外側ラッパー禁止、コントロール UI は静的フェーズから HTML に含める。
 - **アコーディオン:** `<details>` と `<summary>` を使用したセマンティックな実装を第一選択とすること。
 - **モーダル（ポップアップ）:** `<dialog>` タグを使用し、`showModal()` / `close()` メソッドで制御すること。背景スクロール固定も意識する。
 

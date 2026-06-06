@@ -20,7 +20,6 @@ $voice-pagination-bullet-gap: 10;
 $voice-nav-btn-size: 40;
 $voice-cards-gap-min: 40;
 $voice-cards-gap-max: 75;
-$voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
 
 // ============================================================
 // .p-voice — お客様の声セクション
@@ -48,25 +47,46 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
   }
 }
 
-// ── リスト（SP: 縦積み / lg: 2カラム） ─────────────────────
+// ── リスト（SP: 横スライド / lg: 2カラム） ─────────────────
 
-.p-voice__slider {
+.p-voice__slider.swiper {
   overflow: hidden;
   box-sizing: border-box;
+  padding-inline-end: rm($voice-shadow-bleed);
   padding-block-start: rm($voice-shadow-bleed);
   padding-block-end: rm($voice-shadow-bleed);
+  width: calc(100% + #{rm($voice-shadow-bleed)});
 }
 
-.p-voice__list {
+// Swiper有効化前の静的表示用スタイル
+.p-voice__slider:not(.swiper-initialized) .swiper-wrapper {
+  display: flex;
+}
+
+.p-voice__slider:not(.swiper-initialized) .swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: auto;
+}
+
+.p-voice__slider .swiper-slide {
   display: flex;
   flex-direction: column;
-  gap: rm($voice-list-gap-sp);
   width: 100%;
-  max-width: rm($voice-card-max-w-min);
-  margin-inline: auto;
+  height: auto;
+
+  @include mq(lg) {
+    display: block;
+    height: auto;
+  }
 }
 
-.p-voice__item {
+.p-voice__card {
+  flex: 1;
+  width: 100%;
+}
+
+.p-voice__slider .swiper-wrapper {
   width: 100%;
 }
 
@@ -88,7 +108,7 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
   border: rm(1) solid $text-main;
   border-radius: 50%;
   background-color: $reverse-color;
-  cursor: default;
+  cursor: pointer;
 
   &::after {
     content: "";
@@ -121,6 +141,7 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
   border-radius: 50%;
   background-color: $text-main;
   opacity: 0.3;
+  cursor: pointer;
 }
 
 .p-voice__bullet.is-active {
@@ -128,24 +149,19 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
 }
 
 @include mq(lg) {
-  .p-voice__slider {
-    padding-inline: rm($voice-shadow-bleed);
-    padding-block-start: rm($voice-shadow-bleed);
-    padding-block-end: rm($voice-shadow-bleed);
-    width: calc(100% + #{rm($voice-shadow-bleed)} * 2);
-  }
-
-  .p-voice__list {
+  .p-voice__slider.swiper .swiper-wrapper {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: rclamp($voice-cards-gap-min, $voice-cards-gap-max, $bp-lg, $pc-inner);
     max-width: none;
     margin-inline: 0;
+    transform: none;
   }
 
-  .p-voice__item {
+  .p-voice__slider.swiper .swiper-slide {
     max-width: none;
     margin-inline: 0;
+    width: 100%;
   }
 
   .p-voice__controls {
