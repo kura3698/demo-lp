@@ -30,12 +30,25 @@ $gallery-slide-gap-pc: 10;
   overflow: hidden;
 }
 
-.p-gallery__slider .swiper-wrapper {
+// 静的フォールバック（JS 無効時）
+.p-gallery__slider:not(.swiper-initialized) .swiper-wrapper {
   display: flex;
   gap: rclamp($gallery-slide-gap-sp, $gallery-slide-gap-pc, $bp-md, $pc-inner);
   padding-inline: 0;
 }
 
+.p-gallery__slider:not(.swiper-initialized) .swiper-slide {
+  flex-shrink: 0;
+  width: rclamp($gallery-slide-w-sp, $gallery-slide-w-pc, $sp-camp, $pc-inner);
+  height: auto;
+}
+
+// マルquee: autoplay 時の等速スクロール（ギャラリーのみ）
+.p-gallery__slider.swiper .swiper-wrapper {
+  transition-timing-function: linear;
+}
+
+// 初期化後も slidesPerView: auto 用に幅は維持
 .p-gallery__slider .swiper-slide {
   flex-shrink: 0;
   width: rclamp($gallery-slide-w-sp, $gallery-slide-w-pc, $sp-camp, $pc-inner);

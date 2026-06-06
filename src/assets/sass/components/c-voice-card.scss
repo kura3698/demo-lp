@@ -10,7 +10,8 @@ $voice-card-shadow-blur: 4;
 $voice-card-shadow-opacity: 0.3;
 
 $voice-card-pad-inline-sp: 15;
-$voice-card-pad-inline-pc: 44;
+$voice-card-pad-inline-start-pc: 52;
+$voice-card-pad-inline-end-pc: 44;
 $voice-card-pad-block-start-sp: 30;
 $voice-card-pad-block-start-pc: 31;
 $voice-card-pad-block-end-sp: 30;
@@ -30,6 +31,7 @@ $voice-card-text-size-sp: 14;
 $voice-card-text-size-pc: 20;
 $voice-card-text-height-sp: 1.8;
 $voice-card-text-height-pc: 1.5;
+$voice-card-text-lines-sp: 11;
 
 $voice-card-min-height-sp: 469;
 $voice-card-min-height-pc: 635;
@@ -56,7 +58,8 @@ $voice-card-min-height-pc: 635;
       $pc-inner
     );
     padding-block: rm($voice-card-pad-block-start-pc) rm($voice-card-pad-block-end-pc);
-    padding-inline: rm($voice-card-pad-inline-pc);
+    padding-inline: rm($voice-card-pad-inline-start-pc)
+      rm($voice-card-pad-inline-end-pc);
   }
 }
 
@@ -111,9 +114,13 @@ $voice-card-min-height-pc: 635;
   display: -webkit-box;
   overflow: hidden;
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 11;
+  -webkit-line-clamp: $voice-card-text-lines-sp;
+  min-height: calc(
+    #{$voice-card-text-lines-sp} * #{$voice-card-text-height-sp} * 1em
+  );
 
   @include mq(lg) {
+    min-height: auto;
     font-size: rm($voice-card-text-size-pc);
     line-height: $voice-card-text-height-pc;
   }

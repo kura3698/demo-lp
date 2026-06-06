@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{var e=document.querySelector(".p-service-mongol__plans");e&&"undefined"!=typeof Swiper&&new Swiper(e,{slidesPerView:1,spaceBetween:20,loop:!0,speed:400,allowTouchMove:!0,pagination:{el:e.querySelector(".swiper-pagination"),clickable:!0},breakpoints:{768:{enabled:!1}}})});

@@ -47,6 +47,7 @@ $img-ratio-h-plan: 200; // --plan: PC画像高さ
 $body-gap-reserve-pc: 45; // --reserve: PC title ↔ text 間隔
 $body-gap-reserve-note: 10; // --reserve: PC text ↔ note 間隔
 $body-gap-plan-sp: 15; // --plan: SP body gap（Figma CardMongolPlan）
+$card-plan-min-h-sp: 420; // --plan: SP カード最小高さ（最長テキスト基準）
 $body-min-h-plan: 220; // --plan: PC body min-height
 $price-size-plan-pc: 22; // --plan: PC価格フォントサイズ
 $note-size-sp: 13; // --reserve: SP注釈フォントサイズ
@@ -232,6 +233,16 @@ $price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
 // .c-card--plan — プランカード（3枚 / SP: Swiper）
 // ============================================================
 
+.c-card--plan {
+  min-height: rm($card-plan-min-h-sp);
+  height: 100%;
+
+  @include mq(md) {
+    min-height: auto;
+    height: auto;
+  }
+}
+
 .c-card--plan .c-card__figure {
   aspect-ratio: #{$sp-img-ratio-w} / #{$sp-img-ratio-h};
 
@@ -242,6 +253,7 @@ $price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
 
 .c-card--plan .c-card__body {
   gap: rm($body-gap-plan-sp);
+  flex: 1;
 
   @include mq(md) {
     gap: rm($body-gap-pc);

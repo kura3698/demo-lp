@@ -8,6 +8,10 @@ $voice-section-pad-block-sp: 40;
 $voice-section-pad-block-pc: 90;
 $voice-heading-mb-sp: 30;
 $voice-heading-mb-pc: 60;
+// c-voice-card box-shadow（rm(3) rm(4) rm(4)）のはみ出し余白
+$voice-card-shadow-y: 4;
+$voice-card-shadow-blur: 4;
+$voice-shadow-bleed: 8; // y + blur + 1px 余裕
 $voice-list-gap-sp: 30;
 $voice-controls-gap-sp: 20;
 $voice-controls-mt-sp: 30;
@@ -16,7 +20,7 @@ $voice-pagination-bullet-gap: 10;
 $voice-nav-btn-size: 40;
 $voice-cards-gap-min: 40;
 $voice-cards-gap-max: 75;
-$voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
+$voice-item-max-w-sp: $sp-inner; // 550 — SP スライド最大幅
 
 // ============================================================
 // .p-voice — お客様の声セクション
@@ -44,23 +48,52 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
   }
 }
 
-// ── リスト（SP: 縦積み / lg: 2カラム） ─────────────────────
+// ── リスト（SP: 横スライド / lg: 2カラム） ─────────────────
 
-.p-voice__slider {
+.p-voice__slider.swiper {
   overflow: hidden;
+  box-sizing: border-box;
+  max-width: rm($voice-item-max-w-sp);
+  margin-inline: auto;
+  padding-inline-end: rm($voice-shadow-bleed);
+  padding-block-start: rm($voice-shadow-bleed);
+  padding-block-end: rm($voice-shadow-bleed);
+  width: calc(100% + #{rm($voice-shadow-bleed)});
 }
 
-.p-voice__list {
+// Swiper有効化前の静的表示用スタイル
+.p-voice__slider:not(.swiper-initialized) .swiper-wrapper {
+  display: flex;
+}
+
+.p-voice__slider:not(.swiper-initialized) .swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: auto;
+}
+
+.p-voice__slider .swiper-slide {
   display: flex;
   flex-direction: column;
-  gap: rm($voice-list-gap-sp);
   width: 100%;
-  max-width: rm($voice-card-max-w-min);
-  margin-inline: auto;
+  max-width: rm($voice-item-max-w-sp);
+  height: auto;
+
+  @include mq(lg) {
+    display: block;
+    height: auto;
+  }
 }
 
-.p-voice__item {
+.p-voice__card {
+  flex: 1;
   width: 100%;
+}
+
+.p-voice__slider .swiper-wrapper {
+  width: 100%;
+  max-width: rm($voice-item-max-w-sp);
+  margin-inline: auto;
 }
 
 // ── SP 静的コントロール UI ───────────────────────────────────
@@ -81,7 +114,7 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
   border: rm(1) solid $text-main;
   border-radius: 50%;
   background-color: $reverse-color;
-  cursor: default;
+  cursor: pointer;
 
   &::after {
     content: "";
@@ -114,6 +147,7 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
   border-radius: 50%;
   background-color: $text-main;
   opacity: 0.3;
+  cursor: pointer;
 }
 
 .p-voice__bullet.is-active {
@@ -121,17 +155,24 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
 }
 
 @include mq(lg) {
-  .p-voice__list {
+  .p-voice__slider.swiper {
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .p-voice__slider.swiper .swiper-wrapper {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: rclamp($voice-cards-gap-min, $voice-cards-gap-max, $bp-lg, $pc-inner);
     max-width: none;
     margin-inline: 0;
+    transform: none;
   }
 
-  .p-voice__item {
+  .p-voice__slider.swiper .swiper-slide {
     max-width: none;
     margin-inline: 0;
+    width: 100%;
   }
 
   .p-voice__controls {

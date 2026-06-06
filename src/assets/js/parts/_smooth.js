@@ -4,7 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   links.forEach((item) => {
     item.addEventListener("click", (event) => {
-      event.preventDefault();
+      if (item.classList.contains("c-drawer__link")) return;
+
       const targetId = item.getAttribute("href");
 
       if (targetId === "#" || !targetId.startsWith("#")) return;
@@ -12,8 +13,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const target = document.getElementById(targetId.replace("#", ""));
       if (!target) return;
 
+      event.preventDefault();
+
+      const MQ_PC = "(min-width: 960px)";
       const header = document.querySelector(".l-header");
-      const headerOffset = header ? header.offsetHeight : 0;
+      const headerOffset =
+        window.matchMedia(MQ_PC).matches && header ? header.offsetHeight : 0;
       const elementPosition = target.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.scrollY - headerOffset;
 

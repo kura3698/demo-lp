@@ -651,7 +651,7 @@ opacity: 0.7;
 # 状態（State）に関するスタイリング規約
 
 - アコーディオンやモーダルの「開閉」、ハンバーガーメニューの「アクティブ状態」などは、JavaScriptで付与する予定の共通クラス（例: .is-open, .is-active）を想定し、そのクラスがついた際のスタイル（CSS）を静的実装フェーズの時点で先行して記述しておくこと。
-- モーダルやアコーディオンの初期状態は `display: none;` や `opacity: 0;` などで画面から隠し、上記の状態クラスが付与されたら表示されるように設計すること。
+- モーダル等の初期状態は `display: none;` や `opacity: 0;` などで画面から隠し、上記の状態クラスが付与されたら表示されるように設計すること。アコーディオン（`details` + height アニメ）の詳細は `web-coding-accordion.mdc` を参照。
 
 ## カード（`.c-card` / `.c-card-*`）のレイアウト規約
 
@@ -768,3 +768,94 @@ HTMLはテキスト先・画像後で記述し、CSSの `order` または `grid-
   height: rm(220); // 【禁止】固定高さ → aspect-ratio に変更すること
 }
 ```
+
+## Swiper 静的フォールバック（必須）
+
+Swiper 前提の各スライダー SCSS には、**必ず** `:not(.swiper-initialized)` フォールバックを記述すること。詳細・マークアップ規約は `web-coding-swiper.mdc` を参照。
+
+```scss
+.p-xxx__slider:not(.swiper-initialized) .swiper-wrapper {
+  display: flex;
+}
+
+.p-xxx__slider:not(.swiper-initialized) .swiper-slide {
+  flex-shrink: 0;
+  width: 100%;
+  height: auto;
+}
+```
+
+- 常時横スライド（ギャラリー等）も同パターンを適用し、wrapper に常時 `display: flex` だけ書く方式は避ける
+- PC で非スライダー化する場合は、フォールバックに加え `mq(md)` 以降で `.swiper-wrapper` の `flex-direction: column` 等を定義する
+
+## overflow: hidden と box-shadow の切れ防止
+
+親に `overflow: hidden` があり、子（カード等）に `box-shadow` / `filter` / `outline` がある場合、はみ出し分がクリップされる。Swiper コンテナ（`.swiper`）も `overflow: hidden` + `padding: 0` のため同様。
+
+### 基本方針（本案件）
+
+1. `overflow: hidden` は維持（スライダー・クリップ用途のため削除しない）
+2. **切れる辺だけ** 親コンテナに shadow bleed 用 `padding` を付与（一律 padding 禁止）
+3. **inline 方向** は `width: calc(100% + bleed)` でカード幅を相殺（`box-sizing: border-box` 必須）
+4. **block 方向** は padding のみ（負 margin で縦余白を相殺しない）
+5. **gap / Swiper `spaceBetween` は変更しない**
+
+### bleed 値（ファイル先頭のローカル変数）
+
+```scss
+// box-shadow: rm(3) rm(3) rm(4) の場合
+$card-shadow-offset: 3;
+$card-shadow-blur: 4;
+$shadow-bleed: 8; // offset + blur + 1px 余裕
+```
+
+### 実装テンプレ
+
+```scss
+// inline-end のみ切れる場合（プラン一覧 SP/PC）
+.p-example__slider.swiper {
+  overflow: hidden;
+  box-sizing: border-box;
+  padding-inline-end: rm($shadow-bleed);
+  padding-block-end: rm($shadow-bleed); // 下が切れる場合のみ
+  width: calc(100% + #{rm($shadow-bleed)});
+}
+
+@include mq(md) {
+  .p-example__slider.swiper {
+    padding-block-start: rm($shadow-bleed); // 上が切れる場合のみ
+  }
+}
+
+// inline 両側（お客様の声 PC lg+）
+@include mq(lg) {
+  .p-voice__slider {
+    padding-inline: rm($shadow-bleed);
+    padding-block-start: rm($shadow-bleed);
+    padding-block-end: rm($shadow-bleed);
+    width: calc(100% + #{rm($shadow-bleed)} * 2);
+  }
+}
+```
+
+### Swiper CDN との詳細度競合
+
+- HTML で `p-*` と `.swiper` が**同一要素**に付く（例: `.p-service-mongol__plans.swiper`）
+- `index.html` では `style.css` → `swiper-bundle.min.css` の順で、**同詳細度は Swiper が後勝ち**
+- コンテナの padding / width は **`.p-xxx.swiper` 複合セレクタ**（`0,2,0`）で書く
+- pagination をフロー配置する場合は `.p-xxx.swiper .swiper-pagination` に `position: static` 等で Swiper の `absolute` を上書き
+
+### 禁止パターン
+
+```scss
+// ❌ 詳細度不足（Swiper の padding: 0 に負ける）
+.p-example__slider { padding-inline-end: rm(8); }
+
+// ❌ slide 単位に一律 padding（gap / spaceBetween と二重になる）
+.swiper-slide { padding: rm(8); }
+
+// ❌ 負 margin で縦余白を相殺（本案件方針では使わない）
+margin-block: rm(-8);
+```
+
+参照実装: `p-service-mongol.scss`（プラン一覧）、`p-voice.scss`（お客様の声）

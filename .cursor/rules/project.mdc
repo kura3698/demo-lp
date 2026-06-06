@@ -61,7 +61,7 @@ AIはマークアップ時、以下の命名規則と実装パターンを厳守
 
 - **タイトル:** `.c-section-title`
 - **ボタン:** `.c-btn`（修飾: `.c-btn--primary`, `.c-btn--large` ※独立したセレクタで記述）
-- **UIパーツ:** `.c-hamburger`, `.c-slider` (Swiperラッパー), `.c-modal`, `.c-accordion`
+- **UIパーツ:** `.c-hamburger`, `.c-modal`, `.c-accordion`（スライダーは `.p-xxx__slider.swiper` — `web-coding-swiper.mdc` 参照、アコーディオンは `web-coding-accordion.mdc` 参照）
 - **汎用カード:** `.c-card`, `.c-card-tour`, `.c-card-review`
 - **フォーム:** `.c-form`（要素: `.c-form__group`, `.c-form__label`, `.c-form__input`）
 
@@ -75,10 +75,10 @@ AIはマークアップ時、以下の命名規則と実装パターンを厳守
 | **ヘッダー**   | `.p-global-nav`, `.p-global-nav__list`, `.p-global-nav__item`, `.p-global-nav__link` | PC/SPでの表示切り替えを考慮すること。                                                 |
 | **FV (Hero)**  | `.p-fv`, `.p-fv__slider`                                                             | フルスクリーン・背景動画・スライダー等、案件に合わせて実装。                          |
 | **特徴/強み**  | `.p-features`, `.p-features__item`, `.p-features__figure`, `.p-features__body`       | 画像＋テキストの王道パターン。交互配置の場合は `:nth-child(even)` 等を活用。          |
-| **サービス**   | `.p-services`, `.p-services__list`                                                   | PCは `display: grid`、SPは `.c-slider` と組み合わせてSwiper化する構成を想定すること。 |
+| **サービス**   | `.p-services`, `.p-services__list`                                                   | PCは `display: grid` 等、SPは `.p-xxx__slider.swiper` で Swiper 化（`web-coding-swiper.mdc` 参照）。 |
 | **ギャラリー** | `.p-gallery`, `.p-gallery__slider`                                                   | 無限ループスライダーなどの実装を想定。                                                |
 | **お客様の声** | `.p-reviews`, `.p-reviews__list`                                                     | クリックで `.is-open` を付与し、`.c-modal` を表示する想定でマークアップすること。     |
-| **FAQ**        | `.p-faq`, `.p-faq__item`, `.p-faq__q`, `.p-faq__a`                                   | アコーディオン (`.c-accordion`) の実装を想定。                                        |
+| **FAQ**        | `.p-faq`, `.p-faq__item`, `.p-faq__q`, `.p-faq__a`                                   | アコーディオン (`.c-accordion`) — `web-coding-accordion.mdc` 参照。                   |
 | **メッセージ** | `.p-message`, `.p-message__bg`, `.p-message__box`                                    | 背景画像の上にテキストボックスを重ねるレイアウト。                                    |
 
 ### ⚠️ AIによるクラスの自律的な追加・命名ルール

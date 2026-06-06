@@ -127,6 +127,14 @@ $faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
   border-block-end: rm(1) solid $faq-border-color;
 }
 
+.js-faq-accordion .p-faq__item[open] .p-faq__q {
+  border-block-end: none;
+}
+
+.js-faq-accordion .p-faq__item.is-opened .p-faq__q {
+  border-block-end: rm(1) solid $faq-border-color;
+}
+
 // ── Q / A ラベル ────────────────────────────────────────────
 
 .p-faq__label {
@@ -220,7 +228,12 @@ $faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
   height: rm($faq-toggle-icon-h-sp);
   object-fit: contain;
   transform-origin: center;
-  transition: transform 0.3s ease;
+  transition: transform #{$accordion-duration}s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+
   @include mq(md) {
     width: rm($faq-toggle-icon-w-pc);
     height: rm($faq-toggle-icon-h-pc);
@@ -228,6 +241,14 @@ $faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
 }
 
 .p-faq__item[open] .p-faq__toggle img {
+  transform: rotate(180deg);
+}
+
+.js-faq-accordion .p-faq__item[open] .p-faq__toggle img {
+  transform: rotate(0);
+}
+
+.js-faq-accordion .p-faq__item.is-opened .p-faq__toggle img {
   transform: rotate(180deg);
 }
 

@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{var e=document.querySelector(".p-fv__slider");e&&"undefined"!=typeof Swiper&&new Swiper(e,{effect:"fade",fadeEffect:{crossFade:!0},loop:!0,speed:1e3,autoplay:{delay:5e3,disableOnInteraction:!1},allowTouchMove:!1})});

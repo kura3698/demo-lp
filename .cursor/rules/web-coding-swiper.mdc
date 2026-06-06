@@ -1,0 +1,181 @@
+---
+description: Swiper前提スライダーの静的実装フェーズ規約（HTMLマークアップ・CSSフォールバック）
+alwaysApply: false
+---
+
+# Swiper 静的実装フェーズ規約
+
+Swiper 導入予定のスライダーは、**動的実装フェーズ前から**本規約どおりのマークアップと CSS を完成させること。JS なしでも崩れない見た目を作りつつ、後から `new Swiper()` しても DOM を組み替えない設計とする。
+
+詳細（shadow bleed・詳細度競合）は `web-coding-scss.mdc` の「overflow: hidden と box-shadow の切れ防止」を参照。
+
+---
+
+## 1. DOM 構造（3 層固定）
+
+Swiper 公式の 3 層を**省略・入れ替え・外側ラッパー追加禁止**。
+
+```
+[root]  .p-xxx__slider.swiper          ← 同一要素に p- と swiper
+  └──   .swiper-wrapper               ← 必須（ul/ol に複合可）
+        └── .swiper-slide（× N）      ← 必須（li に複合可）
+              └── コンテンツ（c-card / article 等）
+```
+
+| 層 | 必須クラス | 任意（p- 複合） | タグ |
+| --- | --- | --- | --- |
+| root | `.swiper` | `.p-xxx__slider` 等 | `div`（FV 等は可） |
+| wrapper | `.swiper-wrapper` | `.p-xxx__list` 等 | `div` / `ul` / `ol` |
+| slide | `.swiper-slide` | `.p-xxx__item` / `.p-xxx__slide` 等 | `div` / `li` |
+
+### クラス記述順
+
+`class="p-xxx__slider swiper"` を基本とする。JS フックが必要なときのみ末尾に `js-*` を追加（例: `p-xxx__slider swiper js-swiper`）。
+
+### セマンティック HTML
+
+リスト意味がある場合は `ul.p-xxx__list.swiper-wrapper` > `li.p-xxx__item.swiper-slide` を使ってよい（`p-voice` 参照）。**swiper 用の外側ラッパーは増やさない。**
+
+### 禁止
+
+- root の外側に `.c-slider` 等の Swiper 専用ラッパーを追加する
+- 静的フェーズで `div` のみ書き、動的フェーズで `swiper-*` を後付けする
+- `.swiper-slide` の直下にまた `.swiper-slide` をネストする
+- `js-*` クラスにスタイルを当てる
+
+---
+
+## 2. コントロール UI（静的フェーズから配置）
+
+動的フェーズで使うコントロールは**静的フェーズの HTML に含める**。後から挿入しない。
+
+| 種類 | 標準マークアップ | カスタム UI 例 |
+| --- | --- | --- |
+| ページネーション | root 内 `<div class="swiper-pagination">` | `p-xxx__pagination`（JS の `pagination.el` で指定） |
+| 前後ボタン | `swiper-button-prev` / `swiper-button-next` | `p-xxx__nav--prev` / `--next` |
+
+- 静的フェーズでは見た目のみ完成。クリックは動的フェーズまで無効でもよい
+- 装飾のみのコントロール群は `aria-hidden="true"` を付与可（`p-voice__controls` 参照）
+- 操作ボタンは `button type="button"` + `aria-label`
+
+---
+
+## 3. JS フック（`js-`）の使い分け
+
+| パターン | root の指定 | JS part | 用途 |
+| --- | --- | --- | --- |
+| 汎用 | `.js-swiper` を root に追加 | `_swiper.js` | 同一設定の複数スライダー |
+| 個別 | `.p-xxx__slider` のみ、または `.js-xxx-slider` | `_xxx-slider.js` を新規作成 | breakpoints・loop 等が異なる |
+
+**同一案件内で root の指定方法を混在させない。** 個別 part を作る場合は `p-` セレクタ直指定を推奨（`p-voice__slider` / `p-service-mongol__plans` 参照）。
+
+---
+
+## 4. レスポンシブパターン（静的 CSS）
+
+### パターン A — SP のみスライダー / PC は縦並び・グリッド
+
+`p-service-mongol__plans` 参照。
+
+- SP: `:not(.swiper-initialized)` で 1 枚表示の flex
+- PC（`mq(md)` 等）: `.swiper-wrapper` を `flex-direction: column` + `gap`、pagination を `display: none`
+- 動的フェーズの JS では `breakpoints: { 768: { enabled: false } }` 等で連動
+
+### パターン B — 常時横スライド（ギャラリー等）
+
+- 全 BP で flex 横並び。slide に `flex-shrink: 0` + カンプ幅（`rclamp` 可）
+- **必ず** `:not(.swiper-initialized)` 内に flex / width を書く（wrapper への常時 `display: flex` のみは避ける）
+- マークアップ参照: `p-gallery__slider`（`index.html`）
+
+### パターン C — 全画面 FV
+
+`p-fv__slider` 参照。slide / wrapper に `height: 100%`（`100svh` は root 側）。
+
+---
+
+## 5. 静的フォールバック CSS（必須）
+
+各 `p-xxx__slider`（または `p-xxx__plans.swiper`）の SCSS に、**必ず**以下を記述する。セクション固有の `width` / `height` / `gap` はローカル変数で上書き。
+
+```scss
+// Swiper 有効化前の静的表示用
+.p-xxx__slider:not(.swiper-initialized) .swiper-wrapper {
+  display: flex;
+}
+
+.p-xxx__slider:not(.swiper-initialized) .swiper-slide {
+  flex-shrink: 0;
+  width: 100%; // ギャラリー等はカンプ幅を指定
+  height: auto; // FV は 100%
+}
+```
+
+- スタイルの当て先は **`.p-xxx__slider`（p- 側）** を優先。`.swiper` 単体セレクタは使わない
+- shadow bleed が必要な場合は `.p-xxx__slider.swiper` 複合セレクタ（`web-coding-scss.mdc` 参照）
+
+---
+
+## 6. CDN・JS の扱い（フェーズ別）
+
+| フェーズ | `index.html` Swiper CDN | `script.js` import |
+| --- | --- | --- |
+| 静的実装 | CSS は有効でも可（pagination 初期見た目用）。JS は**コメントアウトのまま** | `_swiper.js` 等はすべてコメントアウト |
+| 動的実装 | CSS + JS を有効化 | 使う part の import のみ解除 |
+
+静的フェーズでは Swiper JS が動かなくても、上記フォールバック CSS でレイアウトが成立していること。
+
+---
+
+## 7. マークアップ例
+
+### カード一覧（パターン A）
+
+```html
+<div class="p-service-mongol__plans swiper" aria-label="ツアープラン一覧">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">
+      <a href="#" class="c-card c-card--plan">…</a>
+    </div>
+    <!-- 繰り返し -->
+  </div>
+  <div class="swiper-pagination" role="group" aria-label="スライドのページ送り"></div>
+</div>
+```
+
+### リスト意味あり（パターン A + セマンティック）
+
+```html
+<div class="p-voice__slider swiper" aria-label="お客様の声一覧">
+  <ul class="p-voice__list swiper-wrapper">
+    <li class="p-voice__item swiper-slide">
+      <article class="c-voice-card">…</article>
+    </li>
+  </ul>
+  <div class="p-voice__controls" aria-hidden="true">…</div>
+</div>
+```
+
+### 無限ループギャラリー（パターン B）
+
+```html
+<div class="p-gallery__slider swiper">
+  <div class="swiper-wrapper">
+    <div class="swiper-slide">
+      <figure class="p-gallery__figure">…</figure>
+    </div>
+  </div>
+</div>
+```
+
+---
+
+## 8. 自己検証チェックリスト
+
+- [ ] root / wrapper / slide の 3 層が揃っているか
+- [ ] `p-` と `swiper` が同一 root 要素か（外側ラッパーなし）
+- [ ] `:not(.swiper-initialized)` フォールバックがあるか
+- [ ] pagination / nav を静的 HTML に含めているか
+- [ ] PC 非スライダー時の CSS（縦並び・非表示）があるか
+- [ ] `js-*` にスタイルを当てていないか
+
+参照実装（マークアップ + フォールバック CSS）: `p-fv` / `p-service-mongol__plans` / `p-voice__slider`

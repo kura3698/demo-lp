@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  function closeDrawer() {
+  function closeDrawer({ restoreFocus = true, scrollTo = null } = {}) {
     drawer.classList.remove("is-open");
     drawerBtn.classList.remove("is-open");
     body.classList.remove("is-open");
@@ -66,9 +66,26 @@ document.addEventListener("DOMContentLoaded", () => {
     drawerBtn.setAttribute("aria-label", "メニューを開く");
     drawer.setAttribute("aria-hidden", "true");
 
-    backgroundFix(false);
+    const savedScrollY = parseInt(body.style.top || "0", 10) * -1;
+    const offsetPosition = scrollTo
+      ? scrollTo.getBoundingClientRect().top + savedScrollY
+      : null;
+
+    ["height", "position", "top", "left", "width"].forEach((key) => {
+      body.style[key] = "";
+    });
+
+    if (offsetPosition !== null) {
+      window.scrollTo({ top: offsetPosition, behavior: "auto" });
+    } else {
+      window.scrollTo(0, savedScrollY);
+    }
+
     document.removeEventListener("keydown", handleKeydown);
-    drawerBtn.focus();
+
+    if (restoreFocus) {
+      drawerBtn.focus();
+    }
   }
 
   function handleKeydown(e) {
@@ -109,8 +126,24 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   drawer.addEventListener("click", (e) => {
-    if (drawer.classList.contains("is-open") && e.target === drawer) {
+    if (!drawer.classList.contains("is-open")) return;
+    if (!e.target.closest(".c-drawer__link")) {
       closeDrawer();
     }
+  });
+
+  drawer.querySelectorAll(".c-drawer__link").forEach((link) => {
+    link.addEventListener("click", (event) => {
+      if (!drawer.classList.contains("is-open")) return;
+
+      const href = link.getAttribute("href");
+      const target =
+        href?.startsWith("#") && href !== "#"
+          ? document.getElementById(href.slice(1))
+          : null;
+
+      event.preventDefault();
+      closeDrawer({ restoreFocus: false, scrollTo: target });
+    });
   });
 });

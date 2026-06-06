@@ -23,6 +23,15 @@
   }
 }
 
+// アコーディオン開閉（JS 連動）
 .c-accordion__panel {
-  display: grid;
+  display: block;
+  overflow: hidden;
+  transition:
+    height #{$accordion-duration}s ease,
+    opacity #{$accordion-duration}s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 }

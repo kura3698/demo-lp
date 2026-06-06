@@ -66,12 +66,12 @@ $fv-text-sp-inset-block-ratio: math.div(
 }
 
 // Swiper有効化前の静的表示用スタイル
-.p-fv__slider .swiper-wrapper {
+.p-fv__slider:not(.swiper-initialized) .swiper-wrapper {
   display: flex;
   height: 100%;
 }
 
-.p-fv__slider .swiper-slide {
+.p-fv__slider:not(.swiper-initialized) .swiper-slide {
   flex-shrink: 0;
   width: 100%;
   height: 100%;
