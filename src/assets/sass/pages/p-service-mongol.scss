@@ -23,6 +23,11 @@ $intro-max-w-pc: 419; // PC イラスト最大幅（Figma イラスト領域）
 
 $plans-heading-mb-sp: 20; // 見出し ↔ カードリスト
 $plans-heading-mb-pc: 30;
+$plans-gap-sp: 20; // SP: スライド間 gap（カード ↔ カード）
+// c-card $card-shadow（rm(3) rm(3) rm(4)）のはみ出し余白
+$card-shadow-offset: 3;
+$card-shadow-blur: 4;
+$plans-shadow-bleed: 8; // offset + blur + 1px 余裕
 $plans-gap-pc: 30; // PC: カード間 gap（Figma gap-[30px]）
 $plans-pagination-gap-sp: 20; // SP: カード ↔ ページネーション
 $plans-pagination-bullet-size: 10; // ページネーションドット直径
@@ -199,19 +204,33 @@ $cta-sheep-inset-block-pc: 38;
 
 // ── カードリスト（SP: Swiper静的表示 / PC: 縦並び） ─────────
 
-.p-service-mongol__plans {
+.p-service-mongol__plans.swiper {
   overflow: hidden;
+  box-sizing: border-box;
+  padding-inline-end: rm($plans-shadow-bleed);
+  padding-block-end: rm($plans-shadow-bleed);
+  width: calc(100% + #{rm($plans-shadow-bleed)});
 }
 
 // Swiper有効化前の静的表示用スタイル
-.p-service-mongol__plans .swiper-wrapper {
+.p-service-mongol__plans:not(.swiper-initialized) .swiper-wrapper {
   display: flex;
 }
 
-.p-service-mongol__plans .swiper-slide {
+.p-service-mongol__plans:not(.swiper-initialized) .swiper-slide {
   flex-shrink: 0;
   width: 100%;
   height: auto;
+}
+
+.p-service-mongol__plans .swiper-slide {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+
+  @include mq(md) {
+    display: block;
+  }
 }
 
 .p-service-mongol__plans .swiper-pagination {
@@ -229,7 +248,7 @@ $cta-sheep-inset-block-pc: 38;
   border-radius: 50%;
   background-color: $text-main;
   opacity: 0.3;
-  cursor: default;
+  cursor: pointer;
 }
 
 .p-service-mongol__plans .swiper-pagination-bullet-active {
@@ -237,6 +256,12 @@ $cta-sheep-inset-block-pc: 38;
 }
 
 @include mq(md) {
+  .p-service-mongol__plans {
+    padding-block-start: rm($plans-shadow-bleed);
+    padding-block-end: rm($plans-shadow-bleed);
+    width: calc(100% + #{rm($plans-shadow-bleed)});
+  }
+
   .p-service-mongol__plans .swiper-wrapper {
     flex-direction: column;
     gap: rm($plans-gap-pc);

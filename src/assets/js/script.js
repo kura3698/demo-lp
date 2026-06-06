@@ -7,6 +7,7 @@
 
 import "./parts/_viewport.js";
 import "./parts/_fv-slider.js";
+import "./parts/_plans-slider.js";
 // import "./parts/_drawer.js";
 // import "./parts/_smooth.js";
 // import "./parts/_hamburger-scroll.js";

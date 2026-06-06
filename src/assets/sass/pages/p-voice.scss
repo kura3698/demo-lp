@@ -8,6 +8,10 @@ $voice-section-pad-block-sp: 40;
 $voice-section-pad-block-pc: 90;
 $voice-heading-mb-sp: 30;
 $voice-heading-mb-pc: 60;
+// c-voice-card box-shadow（rm(3) rm(4) rm(4)）のはみ出し余白
+$voice-card-shadow-y: 4;
+$voice-card-shadow-blur: 4;
+$voice-shadow-bleed: 8; // y + blur + 1px 余裕
 $voice-list-gap-sp: 30;
 $voice-controls-gap-sp: 20;
 $voice-controls-mt-sp: 30;
@@ -48,6 +52,9 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
 
 .p-voice__slider {
   overflow: hidden;
+  box-sizing: border-box;
+  padding-block-start: rm($voice-shadow-bleed);
+  padding-block-end: rm($voice-shadow-bleed);
 }
 
 .p-voice__list {
@@ -121,6 +128,13 @@ $voice-card-max-w-min: 350; // SP リスト最大幅（Figma 350px）
 }
 
 @include mq(lg) {
+  .p-voice__slider {
+    padding-inline: rm($voice-shadow-bleed);
+    padding-block-start: rm($voice-shadow-bleed);
+    padding-block-end: rm($voice-shadow-bleed);
+    width: calc(100% + #{rm($voice-shadow-bleed)} * 2);
+  }
+
   .p-voice__list {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
