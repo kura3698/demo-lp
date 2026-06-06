@@ -20,6 +20,7 @@ $voice-pagination-bullet-gap: 10;
 $voice-nav-btn-size: 40;
 $voice-cards-gap-min: 40;
 $voice-cards-gap-max: 75;
+$voice-item-max-w-sp: $sp-inner; // 550 — SP スライド最大幅
 
 // ============================================================
 // .p-voice — お客様の声セクション
@@ -52,6 +53,8 @@ $voice-cards-gap-max: 75;
 .p-voice__slider.swiper {
   overflow: hidden;
   box-sizing: border-box;
+  max-width: rm($voice-item-max-w-sp);
+  margin-inline: auto;
   padding-inline-end: rm($voice-shadow-bleed);
   padding-block-start: rm($voice-shadow-bleed);
   padding-block-end: rm($voice-shadow-bleed);
@@ -73,6 +76,7 @@ $voice-cards-gap-max: 75;
   display: flex;
   flex-direction: column;
   width: 100%;
+  max-width: rm($voice-item-max-w-sp);
   height: auto;
 
   @include mq(lg) {
@@ -88,6 +92,8 @@ $voice-cards-gap-max: 75;
 
 .p-voice__slider .swiper-wrapper {
   width: 100%;
+  max-width: rm($voice-item-max-w-sp);
+  margin-inline: auto;
 }
 
 // ── SP 静的コントロール UI ───────────────────────────────────
@@ -149,6 +155,11 @@ $voice-cards-gap-max: 75;
 }
 
 @include mq(lg) {
+  .p-voice__slider.swiper {
+    max-width: none;
+    margin-inline: 0;
+  }
+
   .p-voice__slider.swiper .swiper-wrapper {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
