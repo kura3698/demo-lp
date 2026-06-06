@@ -27,8 +27,8 @@ $features-badge-offset-inline: 73;
 
 // タイトルデコレーション（SVG アイコン幅 = padding-inline と一致）
 $features-title-deco-w: 22;
-$features-title-deco-inset-s: 12; // ::before の inset-block-start
-$features-title-deco-inset-e: 5;  // ::after の inset-block-end
+$features-title-deco-inset-s: 10; // ::before の inset-block-start
+$features-title-deco-inset-e: 5; // ::after の inset-block-end
 
 // リスト
 $features-list-gap-sp: 60;
@@ -71,6 +71,9 @@ $features-text-margin-end: 19;
 .p-features__head {
   text-align: center;
   margin-block-end: rm($features-head-margin-sp);
+  display: flex;
+  flex-direction: column;
+  gap: rm(4);
 
   @include mq(md) {
     margin-block-end: rm($features-head-margin-pc);
@@ -125,7 +128,7 @@ $features-text-margin-end: 19;
       contain;
     content: "";
     inset-block-start: rm($features-title-deco-inset-s);
-    inset-inline-start: 0;
+    inset-inline-start: rm(3);
     width: rm($features-title-deco-w);
     height: 100%;
   }
@@ -183,7 +186,12 @@ $features-text-margin-end: 19;
   @include mq(md) {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: rclamp($features-item-gap-sp, $features-item-gap-pc, $bp-md, $pc-inner);
+    gap: rclamp(
+      $features-item-gap-sp,
+      $features-item-gap-pc,
+      $bp-md,
+      $pc-inner
+    );
     align-items: center;
   }
 }
@@ -253,7 +261,12 @@ $features-text-margin-end: 19;
   gap: rm($features-body-gap-sp);
 
   @include mq(md) {
-    gap: rclamp($features-body-gap-min, $features-body-gap-max, $bp-md, $pc-inner);
+    gap: rclamp(
+      $features-body-gap-min,
+      $features-body-gap-max,
+      $bp-md,
+      $pc-inner
+    );
   }
 }
 

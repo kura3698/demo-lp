@@ -35,7 +35,7 @@ $cta-sp-block-size: calc(
   inset-block-end: 0;
   inset-inline: 0;
   z-index: $z-floating-cta;
-  width: 100%;
+  width: 100vw;
   pointer-events: none;
 
   @include mq(md) {
