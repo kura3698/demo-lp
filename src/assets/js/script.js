@@ -14,7 +14,7 @@ import "./parts/_voice-modal.js";
 import "./parts/_faq-accordion.js";
 import "./parts/_form-validation.js";
 // import "./parts/_drawer.js";
-// import "./parts/_smooth.js";
+import "./parts/_smooth.js";
 // import "./parts/_hamburger-scroll.js";
 // import "./parts/_header-logo.js";
 // import "./parts/_inview.js";
