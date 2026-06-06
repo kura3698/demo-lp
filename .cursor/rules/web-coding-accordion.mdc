@@ -1,0 +1,161 @@
+---
+description: details/summary アコーディオンの静的・動的実装規約（DOM / CSS / JS）
+alwaysApply: false
+---
+
+# アコーディオン実装規約
+
+`<details>` / `<summary>` ベースのアコーディオンは、**静的フェーズでマークアップと CSS を完成**させ、**動的フェーズで height アニメ JS を追加**する。後から DOM を組み替えない設計とする。
+
+参照実装: `p-faq`（`index.html`）/ `_faq-accordion.js` / `c-accordion.scss` / `p-faq.scss`
+
+---
+
+## 1. フェーズ分離
+
+| フェーズ | HTML / CSS | JS |
+| --- | --- | --- |
+| 静的 | `details` + `.c-accordion` 構造、開閉見た目（`[open]` / `.is-opened`）、トグル CSS | import コメントアウトのまま |
+| 動的 | 変更なし | `_xxx-accordion.js` を `script.js` で import |
+
+- 静的フェーズ: JS なしでも `details` ネイティブ開閉で崩れないこと
+- 動的フェーズ: ユーザー明示指示後のみ JS 実装
+
+---
+
+## 2. DOM 構造（2 層パネル — 必須）
+
+```
+details.p-xxx__item.c-accordion__item
+├── summary.p-xxx__q.c-accordion__summary
+└── div.c-accordion__panel          ← height / opacity アニメ専用（padding 禁止）
+    └── div.p-xxx__a                  ← grid / gap / padding（レイアウト専用）
+```
+
+### マークアップ例（FAQ）
+
+```html
+<div class="p-faq__list c-accordion">
+  <details class="p-faq__item c-accordion__item">
+    <summary class="p-faq__q c-accordion__summary">…</summary>
+    <div class="c-accordion__panel">
+      <div class="p-faq__a">
+        <span class="p-faq__label p-faq__label--a" aria-hidden="true">A</span>
+        <p class="p-faq__answer">…</p>
+      </div>
+    </div>
+  </details>
+</div>
+```
+
+### 禁止
+
+- `.p-faq__a.c-accordion__panel` のように**アニメ対象とレイアウトを同一要素**にしない
+- `.c-accordion__panel` に **padding / gap** を付けない（閉じアニメが不自然になる）
+- JS で padding を inline 付与する
+- `js-*` クラスにスタイルを当てる
+
+※ 2 層パネルは height アニメに必要なラッパーであり、装飾目的の不要な `div` 乱用には該当しない。
+
+---
+
+## 3. クラス責務
+
+| クラス | ファイル | 役割 |
+| --- | --- | --- |
+| `.c-accordion` | `c-accordion.scss` | リストラッパー |
+| `.c-accordion__item` | 同上 | `details` |
+| `.c-accordion__summary` | 同上 | `summary`（マーカー非表示） |
+| `.c-accordion__panel` | 同上 | `overflow: hidden` + height/opacity transition |
+| `.p-faq__*` 等 | `p-faq.scss` | セクション固有レイアウト・トグル |
+
+---
+
+## 4. トグルアイコンとパネルの同期（最重要）
+
+`[open]` 属性の更新タイミングは開閉で非対称（閉じるときアニメ**後**に削除）のため、JS 有効時の見た目は **`is-opened` クラス**で制御する。
+
+1. JS 初期化時に root リストへ `js-faq-accordion`（または `js-xxx-accordion`）を付与
+2. 開閉アニメ開始と**同時**に `is-opened` を add / remove
+3. アニメ時間は `variables.scss` の `$accordion-duration` をパネル・トグル両方で共有
+
+```scss
+// JS 無効フォールバック
+.p-faq__item[open] .p-faq__toggle img { transform: rotate(180deg); }
+
+// JS 有効時: [open] では回転させず is-opened のみ
+.js-faq-accordion .p-faq__item[open] .p-faq__toggle img { transform: rotate(0); }
+.js-faq-accordion .p-faq__item.is-opened .p-faq__toggle img { transform: rotate(180deg); }
+```
+
+質問行の下線（`border-block-end`）も同じ `is-opened` 連動パターンで切り替える（`p-faq.scss` 参照）。
+
+---
+
+## 5. SCSS 規約
+
+### 外側パネル（`c-accordion.scss`）
+
+```scss
+.c-accordion__panel {
+  display: block;
+  overflow: hidden;
+  transition:
+    height #{$accordion-duration}s ease,
+    opacity #{$accordion-duration}s ease;
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
+}
+```
+
+### 内側レイアウト（`p-xxx.scss`）
+
+- grid / gap / padding は内側（例: `.p-faq__a`）に記述
+- トグル `transition` も `$accordion-duration` を使用し、reduced-motion 対応を付ける
+
+### 初期状態について
+
+本パターン（`details` + height アニメ）では、**`display: none` で初期非表示にしない**。閉じ状態は `details` ネイティブ（`open` なし）+ JS による `height: 0` で制御する。モーダル等の `display: none` 初期化ルールとは用途が異なる。
+
+---
+
+## 6. JS part 規約（`_faq-accordion.js` テンプレート）
+
+- `DOMContentLoaded` + 要素存在チェック（`if (!details.length) return`）
+- `summary` click → `event.preventDefault()`
+- **外側** `.c-accordion__panel` に `height` / `opacity` を操作
+- **内側** `.p-faq__a`（等）の `scrollHeight` で高さを計測
+
+```javascript
+const content = element.querySelector(".c-accordion__panel");
+const inner = content?.querySelector(".p-faq__a");
+
+// 開く: is-opened + open → height 0 → rAF → inner.scrollHeight → transitionend で auto
+// 閉じる: is-opened 解除 → height 固定 → rAF → 0 + opacity 0 → transitionend で open 削除
+```
+
+必須対応:
+
+- 連打防止（`isAnimating`）
+- `prefers-reduced-motion: reduce` 時は即時開閉
+- 初期 `open`（1 件目等）はアニメなしで `is-opened` + `height: auto`
+- 閉じ終わり後に inline style をクリア
+
+### 新規アコーディオン追加時
+
+- 設定が FAQ と異なる場合: `_xxx-accordion.js` を `parts/` に新規作成
+- `script.js` は import のみ（ロジック直書き禁止）
+- トグル連動 CSS は `p-xxx.scss` に `js-xxx-accordion` + `is-opened` パターンで追加
+
+---
+
+## 7. 自己検証チェックリスト
+
+- [ ] 外側 `.c-accordion__panel` / 内側 `.p-xxx__a` の 2 層になっているか
+- [ ] padding / gap が外側パネルにないか
+- [ ] JS 有効時、トグル・下線が `is-opened` 連動か（`[open]` だけに依存していないか）
+- [ ] `$accordion-duration` がパネル・トグルで一致しているか
+- [ ] `prefers-reduced-motion` 対応があるか
+- [ ] `js-*` にスタイルを当てていないか

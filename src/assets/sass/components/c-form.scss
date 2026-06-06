@@ -68,6 +68,12 @@ $form-radio-fill-inset-ratio: 25%;
 $form-focus-outline-w: 3;
 $form-focus-outline-offset: 2;
 
+$form-error-size-sp: 12;
+$form-error-size-pc: 14;
+$form-error-mt: 5;
+$form-success-size-sp: 14;
+$form-success-size-pc: 16;
+
 // ============================================================
 // .c-form — フォームコンテナ
 // ============================================================
@@ -310,8 +316,7 @@ $form-focus-outline-offset: 2;
 .c-form__checkbox {
   &:focus-visible {
     border-color: $main-color;
-    outline: rm($form-focus-outline-w) solid $text-accent;
-    outline-offset: rm($form-focus-outline-offset);
+    outline: rm($form-focus-outline-w) solid $main-color;
   }
 }
 
@@ -334,13 +339,13 @@ $form-focus-outline-offset: 2;
 }
 
 .c-form__radio {
-  border-radius: rm($form-input-radius);
+  border-radius: 100%;
 
   &:checked::after {
     content: "";
     position: absolute;
     inset: $form-radio-fill-inset-ratio;
-    border-radius: rm(1);
+    border-radius: 100%;
     background-color: $main-color;
   }
 }
@@ -389,5 +394,50 @@ $form-focus-outline-offset: 2;
 
   @include mq(md) {
     margin-block-start: rm($form-actions-mt-pc);
+  }
+}
+
+// ============================================================
+// .c-form__error / __success — バリデーション
+// ============================================================
+
+.c-form__error {
+  margin-block-start: rm($form-error-mt);
+  color: $text-accent;
+  @include font($form-error-size-sp, 400, 1.5);
+
+  @include mq(md) {
+    grid-column: 2;
+    grid-row: 2;
+    @include font($form-error-size-pc, 400, 1.5);
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.c-form__group--stack .c-form__error {
+  @include mq(md) {
+    grid-column: 1;
+    grid-row: 3;
+  }
+}
+
+.c-form__group.is-error .c-form__input[aria-invalid="true"] {
+  border-color: $text-accent;
+}
+
+.c-form__success {
+  color: $main-color;
+  text-align: center;
+  @include font($form-success-size-sp, 700, 1.5);
+
+  @include mq(md) {
+    @include font($form-success-size-pc, 700, 1.5);
+  }
+
+  &[hidden] {
+    display: none;
   }
 }

@@ -21,6 +21,9 @@ $sp-inner-sum: calc($sp-inner + $sp-sidePadding * 2);
 
 $sm-breakpoint: 500; // small版ブレイクポイント
 
+// アコーディオン開閉アニメーション（秒・単位なし）
+$accordion-duration: 0.3;
+
 //z-index
 $z-floating-cta: 99;
 $z-header: 100;

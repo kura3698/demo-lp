@@ -1,6 +1,6 @@
 ---
 description: Swiper前提スライダーの静的実装フェーズ規約（HTMLマークアップ・CSSフォールバック）
-alwaysApply: true
+alwaysApply: false
 ---
 
 # Swiper 静的実装フェーズ規約

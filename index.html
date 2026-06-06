@@ -1400,13 +1400,15 @@
                   />
                 </span>
               </summary>
-              <div class="p-faq__a c-accordion__panel">
+              <div class="c-accordion__panel">
+                <div class="p-faq__a">
                 <span class="p-faq__label p-faq__label--a" aria-hidden="true"
                   >A</span
                 >
                 <p class="p-faq__answer">
                   含まれません。お手数ですが、ご自身で航空券の手配をお願いします。ご希望であればチケット手配会社のご紹介も可能です。
                 </p>
+                </div>
               </div>
             </details>
 
@@ -1427,13 +1429,15 @@
                   />
                 </span>
               </summary>
-              <div class="p-faq__a c-accordion__panel">
+              <div class="c-accordion__panel">
+                <div class="p-faq__a">
                 <span class="p-faq__label p-faq__label--a" aria-hidden="true"
                   >A</span
                 >
                 <p class="p-faq__answer">
                   モンゴリカホテルは日本語スタッフ、キャンプ場は日本人スタッフと日本語スタッフが常駐しています。その他の送迎時のドライバーはモンゴル語しか話せませんが、送付資料の中にモンゴル語でコミュニケーションするための資料がありますので、そちらでコミュニケーションはしていただけます。
                 </p>
+                </div>
               </div>
             </details>
 
@@ -1454,7 +1458,8 @@
                   />
                 </span>
               </summary>
-              <div class="p-faq__a c-accordion__panel">
+              <div class="c-accordion__panel">
+                <div class="p-faq__a">
                 <span class="p-faq__label p-faq__label--a" aria-hidden="true"
                   >A</span
                 >
@@ -1462,6 +1467,7 @@
                   基本的に朝晩が寒く、日中が暑いです。ですので、フリースなどの上着を必ずお持ちください。日中も日差しがきついので、半袖よりも薄手の長袖を羽織っているほうがいいでしょう。また、帽子・サングラスもお持ちになってください。
                   乗馬は必ずズボン着用です。靴もサンダルでは乗る事ができませんので、ご注意ください。シャワーを浴びるなどのキャンプ場内の移動やゲル内でくつろぐ用にサンダルをお持ちになると便利です。
                 </p>
+                </div>
               </div>
             </details>
 
@@ -1482,13 +1488,15 @@
                   />
                 </span>
               </summary>
-              <div class="p-faq__a c-accordion__panel">
+              <div class="c-accordion__panel">
+                <div class="p-faq__a">
                 <span class="p-faq__label p-faq__label--a" aria-hidden="true"
                   >A</span
                 >
                 <p class="p-faq__answer">
                   現地でのアルコール注文やアクティビティの追加は、アメリカドルもしくは日本円でお支払いいただけます。アメリカドルは旧ドル札はレートが悪いため使用できませんのでご注意ください。
                 </p>
+                </div>
               </div>
             </details>
           </div>
@@ -1541,7 +1549,7 @@
 
           <div class="p-form__container">
             <form
-              class="c-form p-form__form"
+              class="c-form p-form__form js-form"
               action="#"
               method="post"
               novalidate
@@ -1560,6 +1568,12 @@
                   placeholder="フルネームでご入力ください"
                   required
                 />
+                <p
+                  class="c-form__error"
+                  id="form-name-error"
+                  role="alert"
+                  hidden
+                ></p>
               </div>
 
               <div class="c-form__group">
@@ -1578,6 +1592,12 @@
                   placeholder="mail@example.com"
                   required
                 />
+                <p
+                  class="c-form__error"
+                  id="form-email-error"
+                  role="alert"
+                  hidden
+                ></p>
               </div>
 
               <div class="c-form__group">
@@ -1589,6 +1609,12 @@
                   name="tel"
                   autocomplete="tel"
                 />
+                <p
+                  class="c-form__error"
+                  id="form-tel-error"
+                  role="alert"
+                  hidden
+                ></p>
               </div>
 
               <div class="c-form__group">
@@ -1731,9 +1757,18 @@
                   id="form-message"
                   name="message"
                 ></textarea>
+                <p
+                  class="c-form__error"
+                  id="form-message-error"
+                  role="alert"
+                  hidden
+                ></p>
               </div>
 
               <div class="c-form__actions">
+                <p class="c-form__success" id="form-success" role="status" hidden>
+                  お問い合わせを受け付けました。（デモのため実際の送信は行われません）
+                </p>
                 <button type="submit" class="c-button c-button--submit">
                   <span class="c-button__text">送信する</span>
                   <span class="c-button__icon" aria-hidden="true"></span>
