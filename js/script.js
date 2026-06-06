@@ -1,1 +1,1 @@
-import"./parts/_viewport.js";import"./parts/_tel.js";
+import"./parts/_viewport.js";import"./parts/_fv-slider.js";import"./parts/_plans-slider.js";import"./parts/_tel.js";

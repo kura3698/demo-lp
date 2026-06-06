@@ -114,6 +114,7 @@ alwaysApply: true
 ## UIコンポーネントの実装方針（Vanilla JS前提）
 
 - **スライダー:** `Swiper` を想定。必要なラッパークラス（`.swiper`, `.swiper-wrapper`, `.swiper-slide`）を付与すること。
+- **スライダー root:** `p-セクション__slider`（または `p-セクション__plans` 等）と `swiper` を**同一要素**に付与してよい（例: `class="p-service-mongol__plans swiper"`）。シャドウ bleed 用 SCSS は `.p-xxx.swiper` 複合セレクタで書くこと（`web-coding-scss.mdc` の「overflow: hidden と box-shadow の切れ防止」参照）。外側ラッパーを増やさない。
 - **アコーディオン:** `<details>` と `<summary>` を使用したセマンティックな実装を第一選択とすること。
 - **モーダル（ポップアップ）:** `<dialog>` タグを使用し、`showModal()` / `close()` メソッドで制御すること。背景スクロール固定も意識する。
 
