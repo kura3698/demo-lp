@@ -22,6 +22,7 @@ $sp-inner-sum: calc($sp-inner + $sp-sidePadding * 2);
 $sm-breakpoint: 500; // small版ブレイクポイント
 
 //z-index
+$z-floating-cta: 99;
 $z-header: 100;
 $z-drawerIcon: 102;
 $z-drawer: 101;

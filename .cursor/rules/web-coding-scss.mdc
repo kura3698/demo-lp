@@ -376,68 +376,170 @@ AIはトークン節約のために `&__` を使いたがりますが、検索�
 }
 ```
 
-## コンポーネント・アーキテクチャ（p-/c- 責務分離）
+## コンポーネント・アーキテクチャ（BEM / 余白 / FLOCSS）
 
-Project レイヤー（`p-`）と Component レイヤー（`c-`）の責務を完全に分離する。UI の変更やクラス追加時は、末尾の**自己検証チェックリスト**で出力前に確認すること。
+FLOCSS の `l-` / `c-` / `p-` 責務を分離し、BEM の Block / Element を軸に設計する。案件ごとのレイヤー定義の詳細は `project.mdc` を参照。UI の変更やクラス追加時は、末尾の**自己検証チェックリスト**で出力前に確認すること。
 
-### 1. プレフィックスのスコープ分離（絶対厳守）
+### 0. Block / Element 定義
 
-- `pages/` 内で `c-` を子セレクタとして上書きすることを禁止
-- `components/` 内で `p-` を参照することも禁止（双方向）
-- レイアウト差分は **Project 専用クラス**（例: `.p-form__cta`, `.p-voice__item`）で吸収する
+| 概念 | 役割 |
+| ---- | ---- |
+| **Block** | 独立したコンポーネント。単体で再利用できる設計を優先する。**外側の余白（margin）を持たない** |
+| **Element** | Block 内部の構成要素。Block 間の余白調整を担当する。**外側余白の付与 OK** |
+
+Block は「どこに配置しても影響を与えない・影響を受けない」粒度で設計する。
+
+| 項目 | ルール |
+| ---- | ------ |
+| サイズ | Block ルート（`.c-button` 等）に固定 `width` / `height` を付けない。`max-width` や子 Element の `width: 100%` は可 |
+| タグ | `h2`, `div` 等のタグセレクタでスタイルを当てない。必ずクラス名に対して指定する |
+
+### 1. プレフィックスと Block の種類（FLOCSS）
+
+| 接頭辞 | 種類 | 責務 | 本案件の例 |
+| ------ | ---- | ---- | ---------- |
+| `c-` | コンポーネント Block | 最小単位・再利用。Element なし or 極めて少ない | `.c-button`, `.c-form-cta__link` |
+| `p-` | Project Block | セクション固有・複合 UI（※他案件の `<p-card>` 型もここに含む） | `.p-form`, `.p-features__item` |
+| `l-` | レイアウト Block | 配置・幅・余白のみ。装飾を持たない | `.l-inner`, `.l-main`, `.l-section` |
+
+### 2. 設計順序
+
+常に**小さい単位から積み上げる**。
+
+```
+最小コンポーネント（.c-button）
+  → コンポーネント群（.c-card + .c-button）
+    → セクション（.p-features + .l-inner）
+      → ページ（.l-main）
+```
+
+### 3. 余白（Margin）設計
+
+**基本ルール**
+
+- margin は **Element 側**で管理する（Block ルートに外側余白を付けない）
+- Block 同士の配置調整は、親 Block の Element（例: `.p-features__item`）または `gap` で行う
+- 余白が必要で親 Element だけでは足りない場合は、さらに上位の Block / Element を追加する
+
+❌ DON'T — Block に外側余白
+
+```scss
+.c-card {
+  margin-block-start: rm(40);
+}
+```
+
+⭕ DO — Element で余白
+
+```scss
+.p-cards__item {
+  margin-block-start: rm(40);
+}
+```
+
+**余白の方向性**
+
+余白は以下を考慮して、**安定側**（消える可能性が低い・改行しても崩れにくい側）に付与する。
 
 ❌ DON'T
 
 ```scss
-// p- のスコープ内で c- を上書きしている
-.p-form__footer .c-form-cta {
-  display: grid;
-  grid-template-columns: minmax(0, rm($form-cta-layout-max-w));
-  gap: rm($form-cta-gap-sp);
+.c-label {
+  margin-inline-start: rm(8);
 }
 ```
 
 ⭕ DO
 
 ```scss
-// p- 専用のクラスとして定義し直す
+.c-date {
+  margin-inline-end: rm(8);
+}
+```
+
+### 4. Modifier（`--`）ルール
+
+**使用してよい（見た目のみ）**
+
+`color`, `background-color`, `border-color`, `box-shadow`, `opacity` 等
+
+```scss
+.c-button { ... }
+.c-button--primary { background-color: $main-color; }
+.c-button--secondary { background-color: $reverse-color; }
+```
+
+**使用しない（構造変更）**
+
+`width`, `height`, `margin`, `padding`, `line-height`, `border-width` 等 → **別 Block** を作る
+
+**例外（レイアウト切り替え Modifier）**
+
+役割が明確な場合のみ許容する（2カラム → 1カラム、左右反転など）。
+
+- 例: `.p-card-list--column`, `.p-card-list--reverse`
+
+### 5. スコープ分離と上書き（絶対厳守）
+
+- `pages/` 内での `.p-* .c-*` ネストは**全面禁止**（レイアウト・見た目・サイズ調整を問わない）
+- `components/` 内で `p-` を参照することも禁止（双方向）
+- コンテキスト依存の微調整は **Project Element の複合クラス**で行う
+
+❌ DON'T
+
+```scss
+.p-features__body .c-button {
+  align-self: center;
+}
+```
+
+⭕ DO
+
+```scss
+.p-features__btn {
+  align-self: center;
+}
+// HTML: class="c-button p-features__btn"
+```
+
+レイアウト差分も同様に **Project 専用クラス**（例: `.p-form__cta`, `.p-voice__item`）で吸収する。
+
+```scss
+// DON'T
+.p-form__footer .c-form-cta {
+  display: grid;
+  gap: rm($form-cta-gap-sp);
+}
+
+// DO
 .p-form__cta {
   display: grid;
-  grid-template-columns: minmax(0, rm($form-cta-layout-max-w));
   gap: rm($form-cta-gap-sp);
 }
 ```
 
-### 2. コンポーネント（Block）の独立性
-
-コンポーネントは「どこに配置しても影響を与えない・影響を受けない」粒度で設計する。
-
-| 項目 | ルール |
-| ---- | ------ |
-| サイズ | Block ルート（`.c-button` 等）に固定 `width` / `height` を付けない。`max-width` や子 Element の `width: 100%` は可 |
-| 余白 | Block ルートに `margin` を設定しない。余白は親の `p-*__item` や `gap` で制御する |
-| タグ | `h2`, `div` 等のタグセレクタでスタイルを当てない。必ずクラス名に対して指定する |
-
-### 3. BEM 設計基準と Modifier の運用
+### 6. BEM 補足
 
 - Element が入れ子になりそうな場合（例: `.cards__item__link`）は、直近の親を起点とした**新しい Block**として切り出すことを検討する
 - 判断基準: 「〇〇（Block）の〇〇（Element）」という日本語表現が自然に成立するか
-- Modifier（`--`）は**見た目の差分**（色・状態等）のみに使用する（例: `.c-card--active`）
-- HTML の構造が変わるような変更には Modifier を使わず、別 Block を作成する
-- 要素（`__`）のネスト結合禁止は、上記「ネスト（階層）とスコープの厳格なルール」と同一
+- 要素（`__`）のネスト結合禁止は、上記「ネスト（階層）とスコープの厳格なルール」を参照
 
-### 4. 余白（Margin）の方向性
+### 7. 設計判断の優先順位
 
-コンポーネント同士の余白は「消える可能性がある方」や「改行しても影響のない方」に配慮する。
+1. 再利用可能な最小 Block を作る
+2. Block を組み合わせて大きな UI を作る
+3. レイアウトは `l-` / `p-` Element で管理する
+4. Block に外側余白を持たせない
+5. Element の入れ子が発生したら Block 化を検討する
+6. Modifier は見た目変更のみ。構造変更は新しい Block を作る
 
-- 例: 日付とラベルが横並びの場合、ラベル側から押すのではなく、日付側の要素に `margin-inline-end` を付与して右側の要素を押し出す
+### 8. AI 自己検証チェックリスト（実装前）
 
-### 5. AI 自己検証チェックリスト（実装前）
-
-- `p-` スコープで `c-` をネストしていないか
-- `c-` Block ルートに `margin` / 固定サイズがないか
+- `.p-* .c-*` ネストがないか
+- Block ルートに `margin` / 固定サイズがないか
+- 余白は Element または `gap` で管理しているか
 - タグセレクタを使っていないか
-- Modifier が見た目差分のみか
+- Modifier が見た目プロパティのみか
 
 ## transform / transition の記述ルール
 
