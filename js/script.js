@@ -1,1 +1,1 @@
-import"./parts/_viewport.js";
+import"./parts/_viewport.js";import"./parts/_tel.js";
