@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   links.forEach((item) => {
     item.addEventListener("click", (event) => {
+      if (item.classList.contains("c-drawer__link")) return;
+
       const targetId = item.getAttribute("href");
 
       if (targetId === "#" || !targetId.startsWith("#")) return;
