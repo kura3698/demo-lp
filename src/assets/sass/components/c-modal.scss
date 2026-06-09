@@ -110,10 +110,16 @@ $modal-author-margin-block-start: 25;
   min-height: 0;
   margin-block-end: 0;
   overflow-y: auto;
+  overscroll-behavior: contain;
   @include font($modal-text-size-sp, 400, 1.8);
 
   @include mq(md) {
     @include font($modal-text-size-pc, 400, 1.5);
+  }
+
+  &:focus-visible {
+    outline: rm(2) solid $main-color;
+    outline-offset: rm(2);
   }
 }
 

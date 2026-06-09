@@ -6,6 +6,42 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const dialogs = new Map();
 
+  const SCROLL_KEYS = new Set([
+    "ArrowDown",
+    "ArrowUp",
+    "PageDown",
+    "PageUp",
+    "Home",
+    "End",
+  ]);
+
+  const scrollModalBody = (scrollBody, key) => {
+    const line =
+      parseInt(getComputedStyle(scrollBody).lineHeight, 10) || 24;
+    const page = scrollBody.clientHeight * 0.9;
+
+    switch (key) {
+      case "ArrowDown":
+        scrollBody.scrollBy({ top: line });
+        break;
+      case "ArrowUp":
+        scrollBody.scrollBy({ top: -line });
+        break;
+      case "PageDown":
+        scrollBody.scrollBy({ top: page });
+        break;
+      case "PageUp":
+        scrollBody.scrollBy({ top: -page });
+        break;
+      case "Home":
+        scrollBody.scrollTop = 0;
+        break;
+      case "End":
+        scrollBody.scrollTop = scrollBody.scrollHeight;
+        break;
+    }
+  };
+
   const backgroundFix = (bool) => {
     const scrollingElement = () => {
       if ("scrollingElement" in document) return document.scrollingElement;
@@ -50,6 +86,12 @@ document.addEventListener("DOMContentLoaded", () => {
       btn.dataset.modalTrigger = "true";
       backgroundFix(true);
       dialog.showModal();
+
+      const scrollBody = dialog.querySelector(".c-modal__body");
+      if (scrollBody) {
+        scrollBody.scrollTop = 0;
+        scrollBody.focus({ preventScroll: true });
+      }
     });
   });
 
@@ -64,6 +106,18 @@ document.addEventListener("DOMContentLoaded", () => {
       if (e.target === dialog) {
         dialog.close();
       }
+    });
+
+    dialog.addEventListener("keydown", (e) => {
+      const scrollBody = dialog.querySelector(".c-modal__body");
+      if (!scrollBody || !SCROLL_KEYS.has(e.key)) return;
+
+      const isOnScrollBody = e.target === scrollBody;
+      const isOnCloseBtn = e.target.closest("[data-modal-close]") !== null;
+      if (!isOnScrollBody && !isOnCloseBtn) return;
+
+      e.preventDefault();
+      scrollModalBody(scrollBody, e.key);
     });
 
     dialog.addEventListener("close", () => {
