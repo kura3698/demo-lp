@@ -65,9 +65,6 @@ $form-control-check-h-sp: 9;
 $form-control-check-w-pc: 7;
 $form-control-check-h-pc: 12;
 $form-radio-fill-inset-ratio: 25%;
-$form-focus-outline-w: 3;
-$form-focus-outline-offset: 2;
-
 $form-error-size-sp: 12;
 $form-error-size-pc: 14;
 $form-error-mt: 5;
@@ -316,7 +313,6 @@ $form-success-size-pc: 16;
 .c-form__checkbox {
   &:focus-visible {
     border-color: $main-color;
-    outline: rm($form-focus-outline-w) solid $main-color;
   }
 }
 

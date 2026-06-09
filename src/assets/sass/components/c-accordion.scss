@@ -1,5 +1,8 @@
 @use "../config/" as *;
 
+$accordion-focus-outline-w: 2;
+$accordion-focus-outline-offset: 2;
+
 // アコーディオン（details / summary）共通
 .c-accordion {
   display: flex;
@@ -8,6 +11,11 @@
 
 .c-accordion__item {
   width: 100%;
+}
+
+.c-accordion__item:has(.c-accordion__summary:focus-visible) {
+  outline: rm($accordion-focus-outline-w) solid $main-color;
+  outline-offset: rm($accordion-focus-outline-offset);
 }
 
 .c-accordion__summary {
@@ -20,6 +28,10 @@
 
   &::marker {
     content: none;
+  }
+
+  &:focus-visible {
+    outline: none;
   }
 }
 

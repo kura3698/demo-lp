@@ -158,7 +158,7 @@ $footer-nav-bottom-to-copyright: 10;
 
   &:focus-visible {
     opacity: $footer-nav-link-hover-opacity;
-    outline: rm($footer-nav-link-focus-outline) solid $text-accent;
+    outline: rm($footer-nav-link-focus-outline) solid $text-main;
     outline-offset: rm($footer-nav-link-focus-outline);
   }
 

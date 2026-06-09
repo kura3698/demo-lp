@@ -1,0 +1,148 @@
+---
+description: overflow スクロール領域のキーボード操作規約（HTML / SCSS / JS）
+alwaysApply: false
+---
+
+# overflow スクロール領域のキーボード操作規約
+
+`overflow-y: auto` / `overflow: auto` で**要素内スクロール**させる領域は、マウス・タッチに加えキーボード操作でもスクロールできるよう実装する。ページ全体のスクロールは対象外。
+
+参照実装: `.c-modal__body`（`index.html`）/ `c-modal.scss` / `_voice-modal.js`
+
+---
+
+## 1. 適用条件
+
+- `overflow-y: auto` / `overflow: auto` で高さ固定・クリップされる領域
+- 例: モーダル本文、ドロワー内パネル、固定高さのリストボックス等
+- ページ全体（`html` / `body`）のスクロールは対象外
+
+---
+
+## 2. フェーズ分離
+
+| フェーズ | HTML / SCSS | JS |
+| --- | --- | --- |
+| 静的 | `tabindex="0"` + `overflow` + `overscroll-behavior` | import コメントアウトのまま可 |
+| 動的 | 変更なし | 代理スクロール JS を追加 |
+
+- 静的フェーズ: マウス・タッチでのスクロールが CSS だけで動作すること
+- 動的フェーズ: ユーザー明示指示後にキーボード代理スクロール JS を実装
+
+---
+
+## 3. HTML 規約
+
+- スクロールコンテナ（`overflow` を付けた要素）に `tabindex="0"` を付与する
+- 内側ラッパーではなく**スクロールする要素そのもの**に付ける
+- 表示時（モーダル open 等）は `scrollTop = 0` + `focus({ preventScroll: true })` で先頭表示・初期フォーカス
+
+```html
+<div class="c-modal__body" tabindex="0">
+  <div class="c-modal__body-inner">…</div>
+</div>
+```
+
+---
+
+## 4. SCSS 規約
+
+- `overscroll-behavior: contain` — 末端での背景スクロール伝播を防止
+- flex 子要素の場合は `min-height: 0` + `flex: 1 1 auto` をセット（`c-modal__body` 参照）
+
+```scss
+.c-xxx__scroll {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+```
+
+---
+
+## 5. JS 規約（動的フェーズ）
+
+`tabindex="0"` の `<div>` では、ブラウザのネイティブ PageUp/PageDown が `overflow` 領域に正しく効かないことがある（特に `<dialog>` 内）。**代理スクロールを必須**とする。
+
+### 対象キー
+
+`ArrowDown` / `ArrowUp` / `PageDown` / `PageUp` / `Home` / `End`
+
+- **Space は含めない** — 本文フォーカス時はブラウザ標準の下スクロール、ボタンフォーカス時はボタン動作を優先
+
+### スクロール量
+
+| キー | 量 |
+| --- | --- |
+| ArrowDown / ArrowUp | `line-height`（取得できなければ 24px） |
+| PageDown / PageUp | `clientHeight * 0.9` |
+| Home / End | `scrollTop = 0` / `scrollTop = scrollHeight` |
+
+### 代理スクロールの発火条件
+
+フォーカスが次のいずれかにあるときに `preventDefault` + `scrollBy` / `scrollTop` で操作する。
+
+1. スクロール領域そのもの（`e.target === scrollEl`）
+2. 同一コンテナ内の操作ボタン（例: `[data-modal-close]`、`[data-scroll-proxy]`）
+
+```javascript
+const SCROLL_KEYS = new Set([
+  "ArrowDown",
+  "ArrowUp",
+  "PageDown",
+  "PageUp",
+  "Home",
+  "End",
+]);
+
+const scrollOverflowRegion = (scrollEl, key) => {
+  const line = parseInt(getComputedStyle(scrollEl).lineHeight, 10) || 24;
+  const page = scrollEl.clientHeight * 0.9;
+
+  switch (key) {
+    case "ArrowDown":
+      scrollEl.scrollBy({ top: line });
+      break;
+    case "ArrowUp":
+      scrollEl.scrollBy({ top: -line });
+      break;
+    case "PageDown":
+      scrollEl.scrollBy({ top: page });
+      break;
+    case "PageUp":
+      scrollEl.scrollBy({ top: -page });
+      break;
+    case "Home":
+      scrollEl.scrollTop = 0;
+      break;
+    case "End":
+      scrollEl.scrollTop = scrollEl.scrollHeight;
+      break;
+  }
+};
+
+container.addEventListener("keydown", (e) => {
+  if (!scrollEl || !SCROLL_KEYS.has(e.key)) return;
+
+  const isOnScrollEl = e.target === scrollEl;
+  const isOnProxyTrigger = e.target.closest("[data-scroll-proxy]") !== null;
+  if (!isOnScrollEl && !isOnProxyTrigger) return;
+
+  e.preventDefault();
+  scrollOverflowRegion(scrollEl, e.key);
+});
+```
+
+- 各 UI ごとに `_xxx.js` に実装する。複数箇所で使う場合は `parts/_overflow-scroll.js` へ切り出してよい
+- `script.js` に直接ロジックを書かない（`web-coding-common.mdc` 準拠）
+
+---
+
+## 6. AI 自己検証チェックリスト
+
+- overflow 領域に `tabindex="0"` があるか
+- ネイティブスクロール任せにしていないか（PageUp/Down 含む）
+- `overscroll-behavior: contain` があるか
+- flex 子の場合 `min-height: 0` があるか
+- Space を `preventDefault` していないか

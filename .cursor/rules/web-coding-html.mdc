@@ -15,6 +15,7 @@ alwaysApply: true
 # アニメーション・JS向けのマークアップ規約
 - **スライダー（Swiper）:** 静的実装フェーズから `web-coding-swiper.mdc` の 3 層構造・コントロール配置・`js-` フック規約に従うこと。後から DOM を組み替えない。
 - **アコーディオン:** 静的実装フェーズから `web-coding-accordion.mdc` の 2 層パネル構造・`is-opened` 連動規約に従うこと。後から DOM を組み替えない。
+- **overflow スクロール領域:** `web-coding-overflow-scroll.mdc` に従い、スクロールコンテナに `tabindex="0"` を付与すること。
 - モーダルウィンドウのHTMLは、各セクションの途中には記述せず、必ず `</body>` の直前にまとめて配置すること。
 
 ## セマンティックとアクセシビリティ

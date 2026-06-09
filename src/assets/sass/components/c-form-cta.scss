@@ -160,7 +160,6 @@ $form-cta-staff-size-pc: 16;
 
   &:focus-visible {
     opacity: 0.7;
-    outline: rm(2) solid $text-accent;
   }
 
   @media (any-hover: hover) {

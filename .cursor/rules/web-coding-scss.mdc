@@ -788,6 +788,10 @@ Swiper 前提の各スライダー SCSS には、**必ず** `:not(.swiper-initia
 - 常時横スライド（ギャラリー等）も同パターンを適用し、wrapper に常時 `display: flex` だけ書く方式は避ける
 - PC で非スライダー化する場合は、フォールバックに加え `mq(md)` 以降で `.swiper-wrapper` の `flex-direction: column` 等を定義する
 
+## overflow スクロール領域（キーボード操作）
+
+`overflow-y: auto` 等で要素内スクロールさせる領域の規約（`tabindex` / `overscroll-behavior` / 代理スクロール JS）は `web-coding-overflow-scroll.mdc` を参照。
+
 ## overflow: hidden と box-shadow の切れ防止
 
 親に `overflow: hidden` があり、子（カード等）に `box-shadow` / `filter` / `outline` がある場合、はみ出し分がクリップされる。Swiper コンテナ（`.swiper`）も `overflow: hidden` + `padding: 0` のため同様。

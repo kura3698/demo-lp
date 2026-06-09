@@ -21,9 +21,6 @@ $form-note-size-sp: 12;
 $form-note-size-pc: 14;
 $form-note-max-w-sp: 300;
 $form-note-max-w-pc: 644;
-$form-recaptcha-focus-outline-w: 3;
-$form-recaptcha-focus-outline-offset: 2;
-
 // ============================================================
 // .p-form — お問い合わせセクション
 // ============================================================
@@ -174,11 +171,6 @@ $form-recaptcha-focus-outline-offset: 2;
   a {
     color: $text-accent;
     text-decoration: underline;
-
-    &:focus-visible {
-      outline: rm($form-recaptcha-focus-outline-w) solid $text-accent;
-      outline-offset: rm($form-recaptcha-focus-outline-offset);
-    }
 
     @media (any-hover: hover) {
       &:hover {

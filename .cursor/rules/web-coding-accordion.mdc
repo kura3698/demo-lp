@@ -15,7 +15,7 @@ alwaysApply: false
 
 | フェーズ | HTML / CSS | JS |
 | --- | --- | --- |
-| 静的 | `details` + `.c-accordion` 構造、開閉見た目（`[open]` / `.is-opened`）、トグル CSS | import コメントアウトのまま |
+| 静的 | `details` + `.c-accordion` 構造、開閉見た目（`[open]` / `.is-opened`）、トグル CSS、**キーボードフォーカス outline** | import コメントアウトのまま |
 | 動的 | 変更なし | `_xxx-accordion.js` を `script.js` で import |
 
 - 静的フェーズ: JS なしでも `details` ネイティブ開閉で崩れないこと
@@ -115,6 +115,37 @@ details.p-xxx__item.c-accordion__item
 - grid / gap / padding は内側（例: `.p-faq__a`）に記述
 - トグル `transition` も `$accordion-duration` を使用し、reduced-motion 対応を付ける
 
+### キーボードフォーカス（必須）
+
+Tab でフォーカスが当たるのは `<details>` 本体ではなく `<summary>`（`.c-accordion__summary`）です。セクション側の `.p-xxx__item` には `overflow: hidden`（border-radius クリップ用）が付くため、**`summary` 直下の outline は親要素内でクリップされ視認できません**。
+
+| 項目 | 内容 |
+| --- | --- |
+| 解決 | outline は **親 `.c-accordion__item`** に付与。`summary` は `outline: none` |
+| セレクタ | `:focus-within` 単体は禁止（マウスクリックでも残る）。**`:has(.c-accordion__summary:focus-visible)`** を使用 |
+| 実装場所 | 共通の `c-accordion.scss`。`p-xxx.scss` には書かない |
+| 色 | `base.scss` のグローバル `:focus-visible` と揃え **`$main-color`** |
+| 変数 | ファイル先頭に `$accordion-focus-outline-w` / `$accordion-focus-outline-offset` を定義（マジックナンバー禁止） |
+
+```scss
+$accordion-focus-outline-w: 2;
+$accordion-focus-outline-offset: 2;
+
+.c-accordion__item:has(.c-accordion__summary:focus-visible) {
+  outline: rm($accordion-focus-outline-w) solid $main-color;
+  outline-offset: rm($accordion-focus-outline-offset);
+}
+
+.c-accordion__summary:focus-visible {
+  outline: none;
+}
+```
+
+#### 禁止
+
+- `overflow: hidden` を外して `summary` に outline を直付けする
+- `tabindex` 追加や JS による focus 制御
+
 ### 初期状態について
 
 本パターン（`details` + height アニメ）では、**`display: none` で初期非表示にしない**。閉じ状態は `details` ネイティブ（`open` なし）+ JS による `height: 0` で制御する。モーダル等の `display: none` 初期化ルールとは用途が異なる。
@@ -159,3 +190,4 @@ const inner = content?.querySelector(".p-faq__a");
 - [ ] `$accordion-duration` がパネル・トグルで一致しているか
 - [ ] `prefers-reduced-motion` 対応があるか
 - [ ] `js-*` にスタイルを当てていないか
+- [ ] キーボード Tab 時、`.c-accordion__item` に outline が表示されるか（summary 直付けではないか）

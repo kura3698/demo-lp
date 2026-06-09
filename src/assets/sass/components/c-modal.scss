@@ -117,10 +117,6 @@ $modal-author-margin-block-start: 25;
     @include font($modal-text-size-pc, 400, 1.5);
   }
 
-  &:focus-visible {
-    outline: rm(2) solid $main-color;
-    outline-offset: rm(2);
-  }
 }
 
 .c-modal__body-inner {

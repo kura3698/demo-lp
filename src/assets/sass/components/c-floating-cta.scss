@@ -58,11 +58,6 @@ $cta-sp-block-size: calc(
   text-align: center;
   pointer-events: auto;
 
-  &:focus-visible {
-    outline: 2px solid $text-accent;
-    outline-offset: rm(2);
-  }
-
   @include mq(md) {
     display: block;
     padding: 0;
