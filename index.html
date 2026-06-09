@@ -1,22 +1,36 @@
 ﻿<!doctype html>
 <html lang="ja">
   <head>
+    <link rel="canonical" href="https://www.mongolia-balloon.com/" />
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="robots" content="noindex" />
-    <title>demo-lp</title>
+    <title>モンゴル体験ツアー</title>
     <!-- OGP -->
-    <meta property="og:title" content="demo-lp" />
+    <meta
+      name="description"
+      content="空から眺める大草原、遊牧民と過ごす時間、満天の星空。モンゴルで唯一の気球ツアーで、この地ならではの暮らしと絶景を体験しませんか。日本人運営だから安心してご参加いただけます。"
+    />
+    <meta property="og:title" content="モンゴル体験ツアー" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://hogehoge.com/" />
-    <meta property="og:description" content="demo-lp" />
-    <meta property="og:image" content="https://hogehoge.com/" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="628" />
+    <meta
+      property="og:description"
+      content="空から眺める大草原、遊牧民と過ごす時間、満天の星空。モンゴルで唯一の気球ツアーで、この地ならではの暮らしと絶景を体験しませんか。日本人運営だから、海外旅行が不安な方でも安心してご参加いただけます。"
+    />
+    <meta
+      property="og:image"
+      content="http://localhost:3000/img/img_gallery-5@2x.webp"
+    />
+    <meta property="og:image:width" content="720" />
+    <meta property="og:image:height" content="498" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="demo-lp" />
-    <meta name="twitter:description" content="demo-lp" />
+    <meta name="twitter:title" content="モンゴル体験ツアー" />
+    <meta
+      name="twitter:description"
+      content="空から眺める大草原、遊牧民と過ごす時間、満天の星空。モンゴルで唯一の気球ツアーで、この地ならではの暮らしと絶景を体験しませんか。日本人運営だから、海外旅行が不安な方でも安心してご参加いただけます。"
+    />
     <!-- google font-->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -28,28 +42,6 @@
     <!-- CSS -->
     <link rel="stylesheet" href="/css/style.css" />
 
-    <!-- 構造化データ
-        <script type="application/ld+json">
-            {
-                "@context": "https://schema.org",
-                "@type": "WebSite",
-                "name": "サイト名",
-                "url": "https://www.example.com"
-            }
-        </script> -->
-
-    <!-- Google Analytics -->
-    <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-XXXXXXXXXX');
-    </script> -->
-
-    <!-- 外部ライブラリ（使う場合のみコメント解除 + script.js の import も解除） -->
-    <!-- <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js" defer></script> -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
@@ -62,12 +54,15 @@
       src="https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY"
       defer
     ></script>
+    <!-- favicon -->
+    <link rel="icon" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon.png" />
   </head>
 
   <body>
     <header class="l-header">
       <div class="l-header__inner">
-        <a href="#top" class="l-header__logo">
+        <a href="#" class="l-header__logo">
           <img
             src="/img/logo.webp"
             alt="Mongolia Balloon Camp"
@@ -104,10 +99,10 @@
               </a>
             </li>
             <li class="p-global-nav__item">
-              <a href="#activity" class="p-global-nav__link">アクティビティ</a>
+              <a href="#" class="p-global-nav__link">アクティビティ</a>
             </li>
             <li class="p-global-nav__item">
-              <a href="#about" class="p-global-nav__link">キャンプについて</a>
+              <a href="#" class="p-global-nav__link">キャンプについて</a>
             </li>
           </ul>
           <ul class="p-global-nav__list p-global-nav__list--right">
@@ -118,7 +113,7 @@
               <a href="#gallery" class="p-global-nav__link">フォトギャラリー</a>
             </li>
             <li class="p-global-nav__item">
-              <a href="#blog" class="p-global-nav__link">ぼるふ〜草原記</a>
+              <a href="#" class="p-global-nav__link">ぼるふ〜草原記</a>
             </li>
           </ul>
         </nav>
@@ -152,10 +147,10 @@
               <a href="#top" class="c-drawer__link">TOP</a>
             </li>
             <li class="c-drawer__item">
-              <a href="#activity" class="c-drawer__link">アクティビティ</a>
+              <a href="#top" class="c-drawer__link">アクティビティ</a>
             </li>
             <li class="c-drawer__item">
-              <a href="#about" class="c-drawer__link">キャンプについて</a>
+              <a href="#top" class="c-drawer__link">キャンプについて</a>
             </li>
             <li class="c-drawer__item">
               <a href="#travel" class="c-drawer__link">旅行例</a>
@@ -164,7 +159,7 @@
               <a href="#gallery" class="c-drawer__link">フォトギャラリー</a>
             </li>
             <li class="c-drawer__item">
-              <a href="#blog" class="c-drawer__link">ぼるふ〜草原記</a>
+              <a href="#top" class="c-drawer__link">ぼるふ〜草原記</a>
             </li>
           </ul>
         </nav>
@@ -186,7 +181,7 @@
                 />
                 <img
                   src="/img/img_fv-1-sp@2x.webp"
-                  alt=""
+                  alt="モンゴルのゲルが並んでいる画像"
                   width="390"
                   height="580"
                   fetchpriority="high"
@@ -225,10 +220,11 @@
                 />
                 <img
                   src="/img/img_fv-2-sp@2x.webp"
-                  alt=""
+                  alt="モンゴルの青空にカラフルな気球が浮かんでいる画像"
                   width="390"
                   height="580"
                   decoding="async"
+                  loading="lazy"
                 />
               </picture>
               <div class="p-fv__content">
@@ -246,6 +242,7 @@
                       width="350"
                       height="130"
                       decoding="async"
+                      loading="lazy"
                     />
                   </picture>
                 </p>
@@ -267,6 +264,7 @@
                   width="390"
                   height="580"
                   decoding="async"
+                  loading="lazy"
                 />
               </picture>
               <div class="p-fv__content">
@@ -284,6 +282,7 @@
                       width="350"
                       height="130"
                       decoding="async"
+                      loading="lazy"
                     />
                   </picture>
                 </p>
@@ -325,7 +324,7 @@
                 <p class="p-features__text">
                   モンゴル気球連盟に加入し、政府からフライト許可を得てお客様を載せてフリーフライトしているのはモンゴルバルーンキャンプだけです。モンゴルで気球を上げ続けて20年の伝統があります。日本人の一流パイロットが操縦し、日本の保険にも加入しています。気球に乗り自然のままに蛇行するトーラ川や動物達、どこまでも続く大草原を上空1,000フィートからお楽しみください。
                 </p>
-                <a href="#balloon" class="c-button p-features__btn">
+                <a href="#" class="c-button p-features__btn">
                   <span class="c-button__text">気球特設ページはこちら</span>
                   <span class="c-button__icon" aria-hidden="true"></span>
                 </a>
@@ -383,7 +382,7 @@
                 <p class="p-features__text">
                   遊牧民と結婚した友子さんがキャンプ場長を務めています。言語も文化も違うモンゴルの地で安全に、そして快適にお客様に過ごしていただけるよう、スタッフ一同心を込めてサポートいたします。旅に関する心配事やご要望がありましたら、いつでもご相談ください。友子さんはモンゴル文化や遊牧民の生活をブログで紹介しています。読んだらモンゴル通になれること間違いなしです！
                 </p>
-                <a href="#blog" class="c-button p-features__btn">
+                <a href="#" class="c-button p-features__btn">
                   <span class="c-button__text">ぼるふ〜草原記を読む</span>
                   <span class="c-button__icon" aria-hidden="true"></span>
                 </a>
@@ -435,7 +434,7 @@
                 <p class="p-features__text">
                   ウランバートルから南西へ200km。都市から離れた大自然のど真ん中にあるので、美しい大草原や山々を一望できます。夜は周囲に光が全くないので、満天の星空と天の川を見ることができます。そんな大自然の中で、熱気球フライトは勿論、乗馬や川下り、フィッシングなど他では真似のできない多彩なオプショナルツアーをご用意しております。
                 </p>
-                <a href="#activity" class="c-button p-features__btn">
+                <a href="#" class="c-button p-features__btn">
                   <span class="c-button__text">アクティビティ詳細はこちら</span>
                   <span class="c-button__icon" aria-hidden="true"></span>
                 </a>
@@ -1412,12 +1411,12 @@
               </summary>
               <div class="c-accordion__panel">
                 <div class="p-faq__a">
-                <span class="p-faq__label p-faq__label--a" aria-hidden="true"
-                  >A</span
-                >
-                <p class="p-faq__answer">
-                  含まれません。お手数ですが、ご自身で航空券の手配をお願いします。ご希望であればチケット手配会社のご紹介も可能です。
-                </p>
+                  <span class="p-faq__label p-faq__label--a" aria-hidden="true"
+                    >A</span
+                  >
+                  <p class="p-faq__answer">
+                    含まれません。お手数ですが、ご自身で航空券の手配をお願いします。ご希望であればチケット手配会社のご紹介も可能です。
+                  </p>
                 </div>
               </div>
             </details>
@@ -1441,12 +1440,12 @@
               </summary>
               <div class="c-accordion__panel">
                 <div class="p-faq__a">
-                <span class="p-faq__label p-faq__label--a" aria-hidden="true"
-                  >A</span
-                >
-                <p class="p-faq__answer">
-                  モンゴリカホテルは日本語スタッフ、キャンプ場は日本人スタッフと日本語スタッフが常駐しています。その他の送迎時のドライバーはモンゴル語しか話せませんが、送付資料の中にモンゴル語でコミュニケーションするための資料がありますので、そちらでコミュニケーションはしていただけます。
-                </p>
+                  <span class="p-faq__label p-faq__label--a" aria-hidden="true"
+                    >A</span
+                  >
+                  <p class="p-faq__answer">
+                    モンゴリカホテルは日本語スタッフ、キャンプ場は日本人スタッフと日本語スタッフが常駐しています。その他の送迎時のドライバーはモンゴル語しか話せませんが、送付資料の中にモンゴル語でコミュニケーションするための資料がありますので、そちらでコミュニケーションはしていただけます。
+                  </p>
                 </div>
               </div>
             </details>
@@ -1470,13 +1469,13 @@
               </summary>
               <div class="c-accordion__panel">
                 <div class="p-faq__a">
-                <span class="p-faq__label p-faq__label--a" aria-hidden="true"
-                  >A</span
-                >
-                <p class="p-faq__answer">
-                  基本的に朝晩が寒く、日中が暑いです。ですので、フリースなどの上着を必ずお持ちください。日中も日差しがきついので、半袖よりも薄手の長袖を羽織っているほうがいいでしょう。また、帽子・サングラスもお持ちになってください。
-                  乗馬は必ずズボン着用です。靴もサンダルでは乗る事ができませんので、ご注意ください。シャワーを浴びるなどのキャンプ場内の移動やゲル内でくつろぐ用にサンダルをお持ちになると便利です。
-                </p>
+                  <span class="p-faq__label p-faq__label--a" aria-hidden="true"
+                    >A</span
+                  >
+                  <p class="p-faq__answer">
+                    基本的に朝晩が寒く、日中が暑いです。ですので、フリースなどの上着を必ずお持ちください。日中も日差しがきついので、半袖よりも薄手の長袖を羽織っているほうがいいでしょう。また、帽子・サングラスもお持ちになってください。
+                    乗馬は必ずズボン着用です。靴もサンダルでは乗る事ができませんので、ご注意ください。シャワーを浴びるなどのキャンプ場内の移動やゲル内でくつろぐ用にサンダルをお持ちになると便利です。
+                  </p>
                 </div>
               </div>
             </details>
@@ -1500,18 +1499,18 @@
               </summary>
               <div class="c-accordion__panel">
                 <div class="p-faq__a">
-                <span class="p-faq__label p-faq__label--a" aria-hidden="true"
-                  >A</span
-                >
-                <p class="p-faq__answer">
-                  現地でのアルコール注文やアクティビティの追加は、アメリカドルもしくは日本円でお支払いいただけます。アメリカドルは旧ドル札はレートが悪いため使用できませんのでご注意ください。
-                </p>
+                  <span class="p-faq__label p-faq__label--a" aria-hidden="true"
+                    >A</span
+                  >
+                  <p class="p-faq__answer">
+                    現地でのアルコール注文やアクティビティの追加は、アメリカドルもしくは日本円でお支払いいただけます。アメリカドルは旧ドル札はレートが悪いため使用できませんのでご注意ください。
+                  </p>
                 </div>
               </div>
             </details>
           </div>
 
-          <a href="https://hogehoge.com/faq/" class="c-button p-faq__cta">
+          <a href="#" class="c-button p-faq__cta">
             <span class="c-button__text">よくある質問一覧を見る</span>
             <span class="c-button__icon" aria-hidden="true"></span>
           </a>
@@ -1804,7 +1803,12 @@
                   role="alert"
                   hidden
                 ></p>
-                <p class="c-form__success" id="form-success" role="status" hidden>
+                <p
+                  class="c-form__success"
+                  id="form-success"
+                  role="status"
+                  hidden
+                >
                   お問い合わせを受け付けました。（デモのため実際の送信は行われません）
                 </p>
                 <button type="submit" class="c-button c-button--submit">
@@ -1896,9 +1900,9 @@
         <nav class="p-footer-nav" aria-label="フッターナビゲーション">
           <ul class="p-footer-nav__list">
             <li class="p-footer-nav__group p-footer-nav__group--activity">
-              <h2 class="p-footer-nav__heading">
+              <p class="p-footer-nav__heading">
                 <a
-                  href="#activity"
+                  href="#"
                   class="p-footer-nav__link p-footer-nav__link--heading"
                 >
                   <img
@@ -1911,11 +1915,11 @@
                   />
                   アクティビティ
                 </a>
-              </h2>
+              </p>
               <ul class="p-footer-nav__sublist">
                 <li class="p-footer-nav__item">
                   <a
-                    href="#activity-earth"
+                    href="#"
                     class="p-footer-nav__link p-footer-nav__link--sub"
                   >
                     <img
@@ -1931,7 +1935,7 @@
                 </li>
                 <li class="p-footer-nav__item">
                   <a
-                    href="#activity-sky"
+                    href="#"
                     class="p-footer-nav__link p-footer-nav__link--sub"
                   >
                     <img
@@ -1947,7 +1951,7 @@
                 </li>
                 <li class="p-footer-nav__item">
                   <a
-                    href="#activity-river"
+                    href="#"
                     class="p-footer-nav__link p-footer-nav__link--sub"
                   >
                     <img
@@ -1965,9 +1969,9 @@
             </li>
 
             <li class="p-footer-nav__group p-footer-nav__group--about">
-              <h2 class="p-footer-nav__heading">
+              <p class="p-footer-nav__heading">
                 <a
-                  href="#about"
+                  href="#"
                   class="p-footer-nav__link p-footer-nav__link--heading"
                 >
                   <img
@@ -1980,11 +1984,11 @@
                   />
                   キャンプについて
                 </a>
-              </h2>
+              </p>
               <ul class="p-footer-nav__sublist">
                 <li class="p-footer-nav__item">
                   <a
-                    href="#faq"
+                    href="#"
                     class="p-footer-nav__link p-footer-nav__link--sub"
                   >
                     <img
@@ -2000,7 +2004,7 @@
                 </li>
                 <li class="p-footer-nav__item">
                   <a
-                    href="#company"
+                    href="#"
                     class="p-footer-nav__link p-footer-nav__link--sub"
                   >
                     <img
@@ -2018,7 +2022,7 @@
             </li>
 
             <li class="p-footer-nav__group p-footer-nav__group--travel">
-              <h2 class="p-footer-nav__heading">
+              <p class="p-footer-nav__heading">
                 <a
                   href="#travel"
                   class="p-footer-nav__link p-footer-nav__link--heading"
@@ -2033,7 +2037,7 @@
                   />
                   旅行例
                 </a>
-              </h2>
+              </p>
               <ul class="p-footer-nav__sublist">
                 <li class="p-footer-nav__item">
                   <a
@@ -2123,7 +2127,7 @@
             </li>
 
             <li class="p-footer-nav__group p-footer-nav__group--gallery">
-              <h2 class="p-footer-nav__heading">
+              <p class="p-footer-nav__heading">
                 <a
                   href="#gallery"
                   class="p-footer-nav__link p-footer-nav__link--heading"
@@ -2138,13 +2142,13 @@
                   />
                   フォトギャラリー
                 </a>
-              </h2>
+              </p>
             </li>
 
             <li class="p-footer-nav__group p-footer-nav__group--blog">
-              <h2 class="p-footer-nav__heading">
+              <p class="p-footer-nav__heading">
                 <a
-                  href="#blog"
+                  href="#"
                   class="p-footer-nav__link p-footer-nav__link--heading"
                 >
                   <img
@@ -2157,11 +2161,11 @@
                   />
                   ぼるふ〜草原記
                 </a>
-              </h2>
+              </p>
               <ul class="p-footer-nav__sublist">
                 <li class="p-footer-nav__item">
                   <a
-                    href="#blog-welcome"
+                    href="#"
                     class="p-footer-nav__link p-footer-nav__link--sub"
                   >
                     <img
@@ -2181,7 +2185,7 @@
                 </li>
                 <li class="p-footer-nav__item">
                   <a
-                    href="#blog-diary"
+                    href="#"
                     class="p-footer-nav__link p-footer-nav__link--sub"
                   >
                     <img
@@ -2197,7 +2201,7 @@
                 </li>
                 <li class="p-footer-nav__item">
                   <a
-                    href="#blog-people"
+                    href="#"
                     class="p-footer-nav__link p-footer-nav__link--sub"
                   >
                     <img
@@ -2213,7 +2217,7 @@
                 </li>
                 <li class="p-footer-nav__item">
                   <a
-                    href="#blog-nomad"
+                    href="#"
                     class="p-footer-nav__link p-footer-nav__link--sub"
                   >
                     <img
@@ -2229,7 +2233,7 @@
                 </li>
                 <li class="p-footer-nav__item">
                   <a
-                    href="#blog-play"
+                    href="#"
                     class="p-footer-nav__link p-footer-nav__link--sub"
                   >
                     <img
@@ -2245,7 +2249,7 @@
                 </li>
                 <li class="p-footer-nav__item">
                   <a
-                    href="#blog-food"
+                    href="#"
                     class="p-footer-nav__link p-footer-nav__link--sub"
                   >
                     <img
@@ -2292,30 +2296,30 @@
         </header>
         <div class="c-modal__body">
           <div class="c-modal__body-inner">
-          <p>
-            街を離れ大自然そして家畜たちの中へそんな旅が数時間で叶うのがウンドゥルシレットリバーサイドキャンプだ。宿泊ゲル目の前には驚くほど流れがないトーラ川。そう！ここは大平原、陸に高低差がないのだ。泊まれば毎朝水を飲みにくるたくさんの家畜。羊や山羊はベーベーメーメー言いながら群れから離れまいと歩き、時に走る。ここは野生の王国ならぬ家畜の王国だ。
-          </p>
-          <p>
-            夏なら馬の群れがいくつも川に浸かり涼んでいる。ボートに乗れば、珍しいもの（人が乗った船）と私たちを凝視する群れなす馬たちと目が合う。家畜の中に人がいるこの環境が面白い。わたしが「まんぷくモンゴル！」に書いた白馬の王に会ったのもこの川べりだ。身近に馬の群れを観察するのにこれほど恵まれた場所はなかなかない。ふつう半ば野良を暮らす家畜たちに人はなかなか近づけない。夏のモンゴルは世界を旅する渡り鳥の憩いの場でもあるから、秋にはヒマラヤを渡るアネハツルたちがつがいとなり子育てをするの様子も観察できる。
-          </p>
-          <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
-          <p>
-            ウンドゥルシレットを気球に乗れる宿として紹介する人も多い。もちろんの大感動。朝夕の斜めからさす日差しが大地の凹凸に陰影をつけ、すばらしい。眼下の景色を見下ろせば、川が柔らかい砂地を削り地の上を動いてきた様子がよくわかる。
-          </p>
-          <p>
-            天と地の間、冬はマイナス数十℃になる地表を人が動物たちと肩を並べて暮らす景色。野生ですら生き残るのが厳しい環境を遊牧の人たちが人間にしかできない仕事で家畜の命を見守る。たくさんの手をかけないからこそたくさんの命を支えることができる。そう、モンゴルの草原では人が大きな家畜の群れの中でリーダーとしての役割を果たしている。
-          </p>
-          <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
-          <p>
-            広い大地といのちを育む水、その上にはモンゴルブルーの空。その空気を胸いっぱいに吸い込めば、こころとからだの空気が人を離れ、生きもののそれに入れ替わる。生きもの同士の一員として大地に生かされる小さな一員として過ごす休日は生涯忘れることがないに違いない。大きな安堵が広がる。それは生きていることに対する感謝そのものだ。
-          </p>
-          <p class="c-modal__author">鈴木 裕子様</p>
-          <p>
-            「まんぷくモンゴル！公邸料理人、大草原で肉を食う」2023年産業編集センターより刊行。
-          </p>
-          <p>
-            元保育園調理員、専門調理師全種取得。モンゴルでは健康情報としての野菜を伝えたいと野菜の本を２冊出版。
-          </p>
+            <p>
+              街を離れ大自然そして家畜たちの中へそんな旅が数時間で叶うのがウンドゥルシレットリバーサイドキャンプだ。宿泊ゲル目の前には驚くほど流れがないトーラ川。そう！ここは大平原、陸に高低差がないのだ。泊まれば毎朝水を飲みにくるたくさんの家畜。羊や山羊はベーベーメーメー言いながら群れから離れまいと歩き、時に走る。ここは野生の王国ならぬ家畜の王国だ。
+            </p>
+            <p>
+              夏なら馬の群れがいくつも川に浸かり涼んでいる。ボートに乗れば、珍しいもの（人が乗った船）と私たちを凝視する群れなす馬たちと目が合う。家畜の中に人がいるこの環境が面白い。わたしが「まんぷくモンゴル！」に書いた白馬の王に会ったのもこの川べりだ。身近に馬の群れを観察するのにこれほど恵まれた場所はなかなかない。ふつう半ば野良を暮らす家畜たちに人はなかなか近づけない。夏のモンゴルは世界を旅する渡り鳥の憩いの場でもあるから、秋にはヒマラヤを渡るアネハツルたちがつがいとなり子育てをするの様子も観察できる。
+            </p>
+            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
+            <p>
+              ウンドゥルシレットを気球に乗れる宿として紹介する人も多い。もちろんの大感動。朝夕の斜めからさす日差しが大地の凹凸に陰影をつけ、すばらしい。眼下の景色を見下ろせば、川が柔らかい砂地を削り地の上を動いてきた様子がよくわかる。
+            </p>
+            <p>
+              天と地の間、冬はマイナス数十℃になる地表を人が動物たちと肩を並べて暮らす景色。野生ですら生き残るのが厳しい環境を遊牧の人たちが人間にしかできない仕事で家畜の命を見守る。たくさんの手をかけないからこそたくさんの命を支えることができる。そう、モンゴルの草原では人が大きな家畜の群れの中でリーダーとしての役割を果たしている。
+            </p>
+            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
+            <p>
+              広い大地といのちを育む水、その上にはモンゴルブルーの空。その空気を胸いっぱいに吸い込めば、こころとからだの空気が人を離れ、生きもののそれに入れ替わる。生きもの同士の一員として大地に生かされる小さな一員として過ごす休日は生涯忘れることがないに違いない。大きな安堵が広がる。それは生きていることに対する感謝そのものだ。
+            </p>
+            <p class="c-modal__author">鈴木 裕子様</p>
+            <p>
+              「まんぷくモンゴル！公邸料理人、大草原で肉を食う」2023年産業編集センターより刊行。
+            </p>
+            <p>
+              元保育園調理員、専門調理師全種取得。モンゴルでは健康情報としての野菜を伝えたいと野菜の本を２冊出版。
+            </p>
           </div>
         </div>
       </div>
@@ -2342,31 +2346,31 @@
         </header>
         <div class="c-modal__body">
           <div class="c-modal__body-inner">
-          <p>
-            かれこれ10年以上はお世話になっています。遊牧民の方が用意してくださった馬で、初心者ながら乗馬を楽しんでみたり、時にはおうちにご招待いただくこともあります。遮るもののない雄大な空を「つながれていない」気球に乗ってお散歩したり（地上の気球運搬用トラックとのカーチェイスもなかなかオツなものです）。蛇行するトーラ川で川遊びや釣りを楽しむこともあれば、上流までボートを運んで川下りをすることも。夜にはまさに「降るような」星空を楽しめます。
-          </p>
-          <p>
-            時にはキャンプファイヤでお酒を飲みながら歌ったり踊ったり。（キャンプファイヤの木材を広い草原のいったいどこから調達してきていただいているのかがいつも謎です）。呑みすぎてべろんべろんになってしまった翌日は好きなだけ寝ていられます。（そして何年経ってもお友達になった遊牧民とその話で盛り上がれる（笑））
-          </p>
-          <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
-          <p>
-            アクティブに動くだけではありません。レストランゲルで読書を楽しんだり、自分のゲルでゴロゴロしたり。とても自由にたくさんやりたいことをやっているのに、忙しくないのです。それは気持ちが落ち着いているから。あくせくと過ごしている生活から解き放たれて気が向くままにすごす時間をただ純粋に楽しめるから。その時間を作っているのはモンゴルの雄大な自然と人々、そして、キャンプ場のスタッフさんのすばらしいホスピタリティだと思います。安全に快適に過ごせるように心をかけてくださる傍らでこちらのわがまま（希望）を叶えるようにいつも親身になって考えてくださるのです。
-          </p>
-          <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
-          <p>
-            息子が2歳の時にもうかがいました。まだおむつも取れていない息子を初めての海外旅行に連れて行くのにキャンプ場と何度もやりとりさせていただきました。必要なものや環境、すべての面で手厚くフォローしていただき熱波で鼻血が出てしまったときはベッドが汚れることも気にせずに涼しい場所をご用意いただき、夜の寒さに自分の分の上着を忘れたときはスタッフさんの上着をお貸しいただき、馬のガイドの方には1時間半に渡って息子の「たんぽぽを摘む」休憩にお付き合いいただきました。お弁当を作っていただいて乗馬トレッキングを楽しんだことも。サングラスをするのを嫌がった息子の目にハエが卵を産んでしまう、というトラブルの時にも冷静に対応していただき、事なきを得ました。川遊びでパンパンに膨れ上がったオムツを見てみんなで笑ったのもとてもよい思い出です。
-          </p>
-          <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
-          <p>
-            雄大な自然はもちろんのこと最後は「人」のすばらしさ。決して物が多い場所ではないけれど、お料理はとてもおいしく、野菜も食べられるように配慮してくださっています。晴れているときにはベッドから星空が見える快適なゲル。お湯のシャワーも浴びられるようになり、水洗トイレもあります。
-          </p>
-          <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
-          <p>
-            15年前に少年だった遊牧民は、今や立派な大人。しっかり者の奥さんと、かわいい子どもたちに囲まれた一家の大黒柱になっています。そんな彼らに会いに行き、酌み交わすお酒も楽しみの一つ。
-          </p>
-          <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
-          <p>子育てが落ち着いたら、心を洗いにまた必ず訪れるつもりです。</p>
-          <p class="c-modal__author">長田　亮子様</p>
+            <p>
+              かれこれ10年以上はお世話になっています。遊牧民の方が用意してくださった馬で、初心者ながら乗馬を楽しんでみたり、時にはおうちにご招待いただくこともあります。遮るもののない雄大な空を「つながれていない」気球に乗ってお散歩したり（地上の気球運搬用トラックとのカーチェイスもなかなかオツなものです）。蛇行するトーラ川で川遊びや釣りを楽しむこともあれば、上流までボートを運んで川下りをすることも。夜にはまさに「降るような」星空を楽しめます。
+            </p>
+            <p>
+              時にはキャンプファイヤでお酒を飲みながら歌ったり踊ったり。（キャンプファイヤの木材を広い草原のいったいどこから調達してきていただいているのかがいつも謎です）。呑みすぎてべろんべろんになってしまった翌日は好きなだけ寝ていられます。（そして何年経ってもお友達になった遊牧民とその話で盛り上がれる（笑））
+            </p>
+            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
+            <p>
+              アクティブに動くだけではありません。レストランゲルで読書を楽しんだり、自分のゲルでゴロゴロしたり。とても自由にたくさんやりたいことをやっているのに、忙しくないのです。それは気持ちが落ち着いているから。あくせくと過ごしている生活から解き放たれて気が向くままにすごす時間をただ純粋に楽しめるから。その時間を作っているのはモンゴルの雄大な自然と人々、そして、キャンプ場のスタッフさんのすばらしいホスピタリティだと思います。安全に快適に過ごせるように心をかけてくださる傍らでこちらのわがまま（希望）を叶えるようにいつも親身になって考えてくださるのです。
+            </p>
+            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
+            <p>
+              息子が2歳の時にもうかがいました。まだおむつも取れていない息子を初めての海外旅行に連れて行くのにキャンプ場と何度もやりとりさせていただきました。必要なものや環境、すべての面で手厚くフォローしていただき熱波で鼻血が出てしまったときはベッドが汚れることも気にせずに涼しい場所をご用意いただき、夜の寒さに自分の分の上着を忘れたときはスタッフさんの上着をお貸しいただき、馬のガイドの方には1時間半に渡って息子の「たんぽぽを摘む」休憩にお付き合いいただきました。お弁当を作っていただいて乗馬トレッキングを楽しんだことも。サングラスをするのを嫌がった息子の目にハエが卵を産んでしまう、というトラブルの時にも冷静に対応していただき、事なきを得ました。川遊びでパンパンに膨れ上がったオムツを見てみんなで笑ったのもとてもよい思い出です。
+            </p>
+            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
+            <p>
+              雄大な自然はもちろんのこと最後は「人」のすばらしさ。決して物が多い場所ではないけれど、お料理はとてもおいしく、野菜も食べられるように配慮してくださっています。晴れているときにはベッドから星空が見える快適なゲル。お湯のシャワーも浴びられるようになり、水洗トイレもあります。
+            </p>
+            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
+            <p>
+              15年前に少年だった遊牧民は、今や立派な大人。しっかり者の奥さんと、かわいい子どもたちに囲まれた一家の大黒柱になっています。そんな彼らに会いに行き、酌み交わすお酒も楽しみの一つ。
+            </p>
+            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
+            <p>子育てが落ち着いたら、心を洗いにまた必ず訪れるつもりです。</p>
+            <p class="c-modal__author">長田　亮子様</p>
           </div>
         </div>
       </div>
