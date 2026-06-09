@@ -58,6 +58,10 @@
       src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"
       defer
     ></script>
+    <script
+      src="https://www.google.com/recaptcha/api.js?render=YOUR_SITE_KEY"
+      defer
+    ></script>
   </head>
 
   <body>
@@ -1772,6 +1776,34 @@
               </div>
 
               <div class="c-form__actions">
+                <input
+                  type="hidden"
+                  name="g-recaptcha-response"
+                  id="form-recaptcha-token"
+                />
+                <p class="p-form__recaptcha-note">
+                  このサイトは reCAPTCHA によって保護されており、Google の
+                  <a
+                    href="https://policies.google.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >プライバシーポリシー</a
+                  >
+                  と
+                  <a
+                    href="https://policies.google.com/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >利用規約</a
+                  >
+                  が適用されます。
+                </p>
+                <p
+                  class="c-form__error"
+                  id="form-recaptcha-error"
+                  role="alert"
+                  hidden
+                ></p>
                 <p class="c-form__success" id="form-success" role="status" hidden>
                   お問い合わせを受け付けました。（デモのため実際の送信は行われません）
                 </p>

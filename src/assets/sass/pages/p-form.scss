@@ -21,6 +21,8 @@ $form-note-size-sp: 12;
 $form-note-size-pc: 14;
 $form-note-max-w-sp: 300;
 $form-note-max-w-pc: 644;
+$form-recaptcha-focus-outline-w: 3;
+$form-recaptcha-focus-outline-offset: 2;
 
 // ============================================================
 // .p-form — お問い合わせセクション
@@ -146,5 +148,42 @@ $form-note-max-w-pc: 644;
   @include mq(md) {
     max-width: rm($form-note-max-w-pc);
     @include font($form-note-size-pc, 400, 1.5);
+  }
+}
+
+// ============================================================
+// reCAPTCHA — バッジ非表示 + 告知文
+// ============================================================
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+.p-form__recaptcha-note {
+  width: 100%;
+  max-width: rm($form-note-max-w-sp);
+  color: $text-main;
+  text-align: center;
+  @include font($form-note-size-sp, 400, 1.5);
+
+  @include mq(md) {
+    max-width: rm($form-note-max-w-pc);
+    @include font($form-note-size-pc, 400, 1.5);
+  }
+
+  a {
+    color: $text-accent;
+    text-decoration: underline;
+
+    &:focus-visible {
+      outline: rm($form-recaptcha-focus-outline-w) solid $text-accent;
+      outline-offset: rm($form-recaptcha-focus-outline-offset);
+    }
+
+    @media (any-hover: hover) {
+      &:hover {
+        opacity: 0.7;
+      }
+    }
   }
 }
