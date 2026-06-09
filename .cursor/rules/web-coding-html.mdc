@@ -137,7 +137,34 @@ alwaysApply: true
 
 - パスは `/img/...` のみ（`src/assets/img` は参照しない）
 - `width` と `height` を必ず指定（CLS対策）。
-- ファーストビュー（FV）以外の画像には `loading="lazy" decoding="async"` を付与すること。
+- **遅延読み込み:** FV（`.p-fv`）とヘッダー（`.l-header`）**以外**のすべての `<img>` に `loading="lazy"` を必ず付与すること。
+- **デコード:** すべての `<img>` に `decoding="async"` を付与すること（FV・ヘッダー含む）。
+
+### `loading` 属性の付与ルール
+
+| 範囲 | `loading="lazy"` | 判定基準 |
+| --- | --- | --- |
+| `.l-header` 内 | 付けない | `<header class="l-header">` 配下のすべての `<img>`（ロゴ・ナビアイコン等） |
+| `.p-fv` 内 | 付けない | `<section class="p-fv">` 配下のすべての `<img>`（背景・見出し画像・スライド2以降も含む） |
+| 上記以外 | **必須** | `main` 以降の各セクション、フッター、モーダル（`</body>` 直前）等 |
+
+```html
+<!-- ⭕ ヘッダー: lazy なし -->
+<header class="l-header">
+  <img src="/img/logo.webp" alt="サイト名" width="114" height="50" decoding="async" />
+</header>
+
+<!-- ⭕ FV: lazy なし（初回スライドは fetchpriority="high" も可） -->
+<section class="p-fv">
+  <img src="/img/img_fv-1-sp@2x.webp" alt="…" width="390" height="580" fetchpriority="high" decoding="async" />
+</section>
+
+<!-- ⭕ それ以外: lazy 必須 -->
+<img src="/img/photo_sample.webp" alt="説明文" width="400" height="300" loading="lazy" decoding="async" />
+
+<!-- ❌ FV・ヘッダーに lazy を付けないこと -->
+<img src="/img/logo.webp" alt="サイト名" width="114" height="50" loading="lazy" decoding="async" />
+```
 
 ### imgタグ実装ルール
 
@@ -230,6 +257,45 @@ alwaysApply: true
 
 - `order` はあくまで視覚上の並び替えのみ。**DOMの順序（HTML）は絶対に変えない**こと。
 - Gridレイアウトの場合は `grid-row` / `grid-column` または `grid-template-areas` で同様に制御する。
+
+## 特殊文字のエスケープ
+
+要素のテキスト内容および属性値に、以下の特殊文字が含まれる場合は必ず HTML エンティティに変換すること。
+
+| 文字 | エンティティ |
+| --- | --- |
+| `<` | `&lt;` |
+| `>` | `&gt;` |
+| `&` | `&amp;` |
+| `"` | `&quot;` |
+| `'` | `&apos;` |
+
+### 適用範囲
+
+- **対象:** 要素のテキスト内容（`<p>`, `<span>`, `<h2>` 等の開始・終了タグの間）、属性値（`alt`, `title`, `content`, `aria-label`, `href` 等）
+- **対象外:** HTML タグ構文そのもの（`<div>`, `class="..."` の区切り記号など）
+
+### 注意事項
+
+- `&` は他の文字より**先に**エスケープすること（二重変換防止）
+- 日本語の鉤括弧 `「」` は ASCII の `"` ではないためエスケープ不要
+
+```html
+<!-- ⭕ テキスト内の & -->
+<p>モンゴリカホテル&amp;リゾート</p>
+
+<!-- ⭕ 属性値内の &（URL 含む） -->
+<link href="https://example.com?a=1&amp;b=2" rel="stylesheet" />
+
+<!-- ⭕ 比較・不等号をテキストで表示する場合 -->
+<p>10&lt;20、30&gt;25</p>
+
+<!-- ⭕ 属性値内の引用符 -->
+<p aria-label="Tom&apos;s tour">…</p>
+
+<!-- ❌ テキストに生の & -->
+<p>ホテル&リゾート</p>
+```
 
 ## 避ける例
 
