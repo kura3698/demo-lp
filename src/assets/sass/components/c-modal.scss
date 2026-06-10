@@ -6,7 +6,8 @@
 
 $modal-panel-pad-inline-sp: 20;
 $modal-panel-pad-inline-pc: 40;
-$modal-panel-pad-block-sp: 30;
+$modal-panel-pad-block-start-sp: 30;
+$modal-panel-pad-block-end-sp: 4;
 $modal-panel-pad-block-pc: 40;
 $modal-panel-gap: 20;
 $modal-root-gap-sp: 20;
@@ -68,9 +69,10 @@ $modal-author-margin-block-start: 25;
   min-height: 0;
   gap: rm($modal-panel-gap);
   overflow: hidden;
-  padding: rm($modal-panel-pad-block-sp) rm($modal-panel-pad-inline-sp);
+  padding-block: rm($modal-panel-pad-block-start-sp)
+    rm($modal-panel-pad-block-end-sp);
+  padding-inline: rm($modal-panel-pad-inline-sp);
   border: rm(1) solid $main-color;
-  border-radius: rm(7);
   background-color: $reverse-color;
   box-shadow: rm($modal-panel-shadow-x) rm($modal-panel-shadow-y)
     rm($modal-panel-shadow-blur) rgba($text-main, 0.3);
@@ -104,6 +106,10 @@ $modal-author-margin-block-start: 25;
   }
 }
 
+.c-modal__author--start {
+  text-align: start;
+}
+
 .c-modal__body {
   position: relative;
   flex: 1 1 auto;
@@ -116,7 +122,6 @@ $modal-author-margin-block-start: 25;
   @include mq(md) {
     @include font($modal-text-size-pc, 400, 1.5);
   }
-
 }
 
 .c-modal__body-inner {
@@ -143,6 +148,10 @@ $modal-author-margin-block-start: 25;
 
 .c-modal__body-inner .c-modal__author {
   margin-block-start: rm($modal-author-margin-block-start);
+}
+
+.c-modal__body-inner .c-modal__author + p {
+  margin-block-start: 0;
 }
 
 .c-modal__blank {

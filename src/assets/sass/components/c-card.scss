@@ -12,8 +12,8 @@ $card-shadow: rm(3) rm(3) rm(4) rgba($text-main, 0.3);
 
 // 画像（height は aspect-ratio で算出するため固定しない）
 $img-width-pc: 310; // PC: 画像幅
-$img-ratio-w: 310; // 自然比率 width
-$img-ratio-h: 250; // 自然比率 height
+$img-ratio-w: 330; // 自然比率 width
+$img-ratio-h: 220; // 自然比率 height
 
 // 本文レイアウト
 $body-gap-sp: 9; // SP: body の flex gap
@@ -47,7 +47,7 @@ $img-ratio-h-plan: 200; // --plan: PC画像高さ
 $body-gap-reserve-pc: 45; // --reserve: PC title ↔ text 間隔
 $body-gap-reserve-note: 10; // --reserve: PC text ↔ note 間隔
 $body-gap-plan-sp: 15; // --plan: SP body gap（Figma CardMongolPlan）
-$card-plan-min-h-sp: 420; // --plan: SP カード最小高さ（最長テキスト基準）
+$card-plan-min-h-sp: 452; // --plan: SP カード最小高さ（最長テキスト基準）
 $body-min-h-plan: 220; // --plan: PC body min-height
 $price-size-plan-pc: 22; // --plan: PC価格フォントサイズ
 $note-size-sp: 13; // --reserve: SP注釈フォントサイズ
@@ -186,37 +186,42 @@ $price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
 // .c-card--reserve — 予約必須注釈付きカード
 // ============================================================
 
-.c-card--reserve .c-card__figure {
-  aspect-ratio: #{$sp-img-ratio-w} / #{$sp-img-ratio-h};
+.c-card--reserve {
+  .c-card__figure {
+    aspect-ratio: #{$sp-img-ratio-w} / #{$sp-img-ratio-h};
 
-  @include mq(md) {
-    aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h};
+    @include mq(md) {
+      aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h};
+    }
   }
-}
 
-.c-card--reserve .c-card__body {
-  @include mq(md) {
-    gap: 0;
+  .c-card__body {
+    @include mq(md) {
+      gap: 0;
+    }
   }
-}
 
-.c-card--reserve .c-card__title {
-  @include mq(md) {
-    margin-block-end: rm($body-gap-reserve-pc);
+  .c-card__title {
+    @include mq(md) {
+      margin-block-end: rm($body-gap-reserve-pc);
+    }
   }
-}
 
-.c-card--reserve .c-card__text {
-  @include mq(md) {
-    margin-block-end: rm($body-gap-reserve-note);
+  .c-card__text {
+    @include mq(md) {
+      margin-block-end: rm($body-gap-reserve-note);
+    }
   }
-}
 
-.c-card--reserve .c-card__price {
-  @include mq(md) {
-    inset-inline-start: $price-inset-inline-reserve;
-    inset-block-start: $price-inset-block-reserve;
+  .c-card__price {
+    @include mq(md) {
+      inset-inline-start: $price-inset-inline-reserve;
+      inset-block-start: $price-inset-block-reserve;
+    }
   }
+
+  // .c-card__note {
+  // }
 }
 
 // ── 注釈テキスト ─────────────────────────────────────────────
@@ -227,6 +232,7 @@ $price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
   line-height: normal;
   color: $text-accent;
   white-space: nowrap;
+  margin-block-start: rm(-8);
 }
 
 // ============================================================
@@ -241,30 +247,39 @@ $price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
     min-height: auto;
     height: auto;
   }
-}
 
-.c-card--plan .c-card__figure {
-  aspect-ratio: #{$sp-img-ratio-w} / #{$sp-img-ratio-h};
+  .c-card__figure {
+    aspect-ratio: #{$sp-img-ratio-w} / #{$sp-img-ratio-h};
 
-  @include mq(md) {
-    aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h-plan};
+    @include mq(md) {
+      aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h-plan};
+    }
   }
-}
 
-.c-card--plan .c-card__body {
-  gap: rm($body-gap-plan-sp);
-  flex: 1;
+  .c-card__body {
+    gap: rm($body-gap-plan-sp);
+    flex: 1;
 
-  @include mq(md) {
-    gap: rm($body-gap-pc);
-    min-height: rm($body-min-h-plan);
+    @include mq(md) {
+      gap: rm($body-gap-pc);
+      min-height: rm($body-min-h-plan);
+    }
   }
-}
 
-.c-card--plan .c-card__price {
-  @include mq(md) {
-    inset-inline-start: $price-inset-inline-plan;
-    inset-block-start: $price-inset-block-plan;
-    font-size: rm($price-size-plan-pc);
+  .c-card__title {
+    line-height: 1.25;
+  }
+
+  .c-card__text {
+    margin-block-start: rm(-15);
+  }
+
+  .c-card__price {
+    margin-inline-end: rm(10);
+    @include mq(md) {
+      inset-inline-start: $price-inset-inline-plan;
+      inset-block-start: $price-inset-block-plan;
+      font-size: rm($price-size-plan-pc);
+    }
   }
 }

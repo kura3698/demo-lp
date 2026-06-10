@@ -39,13 +39,18 @@ $infocard-tail-inset-shower-px: 118;
 $infocard-tail-inset-restaurant: math.div(
     $infocard-tail-inset-restaurant-px,
     $infocard-width-pc
-  ) * 100%;
-$infocard-tail-inset-ger: math.div($infocard-tail-inset-ger-px, $infocard-width-pc) *
+  ) *
+  100%;
+$infocard-tail-inset-ger: math.div(
+    $infocard-tail-inset-ger-px,
+    $infocard-width-pc
+  ) *
   100%;
 $infocard-tail-inset-shower: math.div(
     $infocard-tail-inset-shower-px,
     $infocard-width-pc
-  ) * 100%;
+  ) *
+  100%;
 
 // 宿泊ゲル画像トリミング（Figma object-position 相当）
 $infocard-ger-img-pos-x-sp: 3.29%;
@@ -188,8 +193,8 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 }
 
 .c-infocard--ger .c-infocard__text p.c-infocard__note:nth-of-type(3) {
-  margin-block-start: rm(2);
-  text-align: center;
+  text-align: end;
+  margin-inline-end: 8px;
 }
 
 @include mq-info-pc {

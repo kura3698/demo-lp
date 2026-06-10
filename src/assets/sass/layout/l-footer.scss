@@ -3,9 +3,10 @@
 .l-footer {
   background-color: $main-color;
   color: $reverse-color;
+  overflow: hidden;
 }
 
 .l-footer__inner {
   padding-block-start: rm(40);
-  padding-block-end: rm(30);
+  padding-block-end: rm(75);
 }

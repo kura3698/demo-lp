@@ -38,23 +38,23 @@ $day-label-pad-block: 2; // SP バッジ padding-block
 $day-pad-block-start: 12; // PC 日付セル padding-block-start
 
 // 食事
-$meals-label-gap-sp:  35; // SP: 食事ラベルとテキストの gap
-$meals-text-char-gap:  4; // 食事テキスト 文字間 gap（SP / PC 共通）
+$meals-label-gap-sp: 20; // SP: 食事ラベルとテキストの gap
+$meals-text-char-gap: 4; // 食事テキスト 文字間 gap（SP / PC 共通）
 
 // リスト・アイテム
-$list-gap:   10; // スケジュールリスト行間 gap
-$item-gap:   10; // スケジュールアイテム（アイコン ↔ テキスト）gap
-$row-gap-sp: 10; // SP: 行ブロック間の margin-block-start
+$list-gap: 10; // スケジュールリスト行間 gap
+$item-gap: 10; // スケジュールアイテム（アイコン ↔ テキスト）gap
+$row-gap-sp: 4; // SP: 行ブロック間の margin-block-start
 
 // 日付バッジ
 $day-label-width: 50; // SP: バッジ幅
 
 // 宿泊地セル
-$lodge-cell-gap-sp: 10; // SP: ラベル ↔ 宿泊地名 の flex gap
+$lodge-cell-gap-sp: 20; // SP: ラベル ↔ 宿泊地名 の flex gap
 
 // ラベル共通幅（「食事」2字と「宿泊地」3字を同幅に揃える）
 $label-min-inline-size: 3em;
-
+$lodge-name-pad-inline-start-sp: 18;
 // ボーダー — 外枠（solid）と内罫線（dotted）を分離
 $table-border-outer: 0.5px solid $text-main;
 $table-border-inner: 0.5px dotted $text-main;
@@ -337,7 +337,7 @@ $table-border-inner: 0.5px dotted $text-main;
 // ── 宿泊地名（::before でアイコンを表示）────────────────────
 
 .c-schedule-table__lodge-name {
-  @include font(12, 400, 1.5);
+  @include font(14, 400, 1.5);
   color: $text-main;
   text-align: center;
 }
@@ -347,7 +347,7 @@ $table-border-inner: 0.5px dotted $text-main;
 .c-schedule-table__lodge-name--camp {
   position: relative;
   // SP: アイコン幅 + gap 分だけ左にパディングを取りアイコンを絶対配置
-  padding-inline-start: rm($icon-lodge-sp + $lodge-icon-gap-sp);
+  padding-inline-start: rm($lodge-name-pad-inline-start-sp);
 
   @include mq(md) {
     padding-inline-start: 0;

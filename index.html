@@ -366,12 +366,6 @@
             </li>
 
             <li class="p-features__item" id="blog">
-              <span id="blog-welcome" tabindex="-1" aria-hidden="true"></span>
-              <span id="blog-diary" tabindex="-1" aria-hidden="true"></span>
-              <span id="blog-people" tabindex="-1" aria-hidden="true"></span>
-              <span id="blog-nomad" tabindex="-1" aria-hidden="true"></span>
-              <span id="blog-play" tabindex="-1" aria-hidden="true"></span>
-              <span id="blog-food" tabindex="-1" aria-hidden="true"></span>
               <div class="p-features__body">
                 <div class="p-features__label">
                   <span class="p-features__num">02</span>
@@ -515,8 +509,8 @@
                 <img
                   src="/img/img_service-ture-card@2x.webp"
                   alt="熱気球が大草原を飛ぶツアーのイメージ"
-                  width="310"
-                  height="250"
+                  width="330"
+                  height="220"
                   loading="lazy"
                   decoding="async"
                 />
@@ -557,7 +551,9 @@
                         />
                       </figure>
                       <p class="c-schedule-table__text">
-                        14:40 成田空港よりモンゴル航空にてウランバートルへ
+                        14:40 成田空港よりモンゴル航空にて<span
+                          >ウランバートルへ</span
+                        >
                       </p>
                     </li>
                     <li class="c-schedule-table__item">
@@ -572,7 +568,9 @@
                         />
                       </figure>
                       <p class="c-schedule-table__text">
-                        19:10 チンギスハン国際空港着　日本語ガイドがお出迎え
+                        19:10 チンギスハン国際空港着<span
+                          >日本語ガイドがお出迎え</span
+                        >
                       </p>
                     </li>
                     <li class="c-schedule-table__item">
@@ -587,7 +585,9 @@
                         />
                       </figure>
                       <p class="c-schedule-table__text">
-                        空港より約40分のモンゴルの緑に囲まれたモンゴリカホテル&amp;リゾートへご案内
+                        空港より約40分のモンゴルの緑に囲まれた<span
+                          >モンゴリカホテル&amp;リゾートへ</span
+                        >
                       </p>
                     </li>
                   </ul>
@@ -646,7 +646,9 @@
                         />
                       </figure>
                       <p class="c-schedule-table__text">
-                        午後：遊牧民インストラクターより乗馬レッスン、乗馬で大草原・遊牧民ゲル訪問
+                        午後：遊牧民インストラクターより乗馬<span
+                          >レッスン、乗馬で大草原・遊牧民ゲル訪問</span
+                        >
                       </p>
                     </li>
                     <li class="c-schedule-table__item">
@@ -744,7 +746,7 @@
                     <li class="c-schedule-table__item">
                       <figure class="c-schedule-table__icon">
                         <img
-                          src="/img/icon_schedule-sightseeing.svg"
+                          src="/img/icon_schedule-bag.svg"
                           alt=""
                           width="26"
                           height="26"
@@ -754,7 +756,7 @@
                       </figure>
                       <div>
                         <p class="c-schedule-table__text">
-                          午後：日本語ガイドとウランバートル市内観光<br />スフバートル広場やノミンデパートでショッピング
+                          午後：日本語ガイドとウランバートル市内観光スフバートル広場やノミンデパートでショッピング
                         </p>
                         <p class="c-schedule-table__note">
                           ※モンゴリカホテル&amp;リゾートの近くにある小川で散歩や近くの山で山登りなどもできます。
@@ -812,7 +814,9 @@
                         />
                       </figure>
                       <p class="c-schedule-table__text">
-                        07:55 チンギスハン国際空港よりモンゴル航空にて成田空港へ
+                        07:55 チンギスハン国際空港よりモンゴル<span
+                          >航空にて成田空港へ</span
+                        >
                       </p>
                     </li>
                     <li class="c-schedule-table__item">
@@ -876,14 +880,22 @@
           <div class="p-service-mongol__top">
             <div class="p-service-mongol__intro">
               <div class="p-service-mongol__intro-figure">
-                <img
-                  src="/img/img_service-mongol-1@2x.webp"
-                  alt="モンゴルの遊牧民は野菜を食べないって本当？ゲル生活は快適？馬と羊をどうやって放牧しているの？といった疑問を浮かべる女性の画像。"
-                  width="350"
-                  height="200"
-                  loading="lazy"
-                  decoding="async"
-                />
+                <picture>
+                  <source
+                    media="(min-width: 768px)"
+                    srcset="/img/img_service-mongol-pc-1@2x.webp"
+                    width="419"
+                    height="239"
+                  />
+                  <img
+                    src="/img/img_service-mongol-sp-1@2x.webp"
+                    alt="モンゴルの遊牧民は野菜を食べないって本当？ゲル生活は快適？馬と羊をどうやって放牧しているの？といった疑問を浮かべる女性の画像。"
+                    width="350"
+                    height="200"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
               </div>
             </div>
 
@@ -900,10 +912,9 @@
                 <div class="c-card__body">
                   <h3 class="c-card__title">
                     友子さん主催！本当の遊牧民の暮らしを<br
-                      class="p-service-mongol__reserve-title-br--sp"
+                      class="u-md-hidden"
                     />
-                    知れる<br class="p-service-mongol__reserve-title-br--pc" />
-                    モンゴル遊牧民体験ツアー
+                    知れる<br class="u-md-visible" />モンゴル遊牧民体験ツアー
                   </h3>
                   <p class="c-card__price">81,000円〜</p>
                   <p class="c-card__text">
@@ -930,16 +941,33 @@
             </div>
           </div>
 
-          <h2
-            id="service-mongol-plans-heading"
-            class="p-service-mongol__plans-heading"
-          >
-            モンゴルを遊び尽くせる<br />多彩なツアープラン
-          </h2>
+          <div class="p-service-mongol__plans-heading-container">
+            <div class="p-service-mongol__plans-deco" aria-hidden="true">
+              <span
+                class="p-service-mongol__plans-deco-item p-service-mongol__plans-deco-item--earth c-head-decoration"
+                >大地から</span
+              >
+              <span
+                class="p-service-mongol__plans-deco-item p-service-mongol__plans-deco-item--sky c-head-decoration"
+                >空から</span
+              >
+              <span
+                class="p-service-mongol__plans-deco-item p-service-mongol__plans-deco-item--river c-head-decoration"
+                >川から</span
+              >
+            </div>
+            <h2
+              id="service-mongol-plans-heading"
+              class="p-service-mongol__plans-heading"
+            >
+              モンゴルを遊び尽くせる<br />多彩なツアープラン
+            </h2>
+          </div>
 
           <div
             class="p-service-mongol__plans js-swiper swiper"
-            aria-label="ツアープラン一覧"
+            role="region"
+            aria-labelledby="service-mongol-plans-heading"
           >
             <div class="swiper-wrapper">
               <div class="swiper-slide" id="activity-earth">
@@ -1028,53 +1056,49 @@
             </p>
 
             <div class="p-service-mongol__cta-box-stage">
-              <div
+              <figure
                 class="p-service-mongol__cta-box-deco p-service-mongol__cta-box-deco--horse"
                 aria-hidden="true"
               >
-                <div class="p-service-mongol__cta-box-deco-figure">
-                  <picture>
-                    <source
-                      media="(min-width: 1060px)"
-                      srcset="/img/img_service-mongol-6-pc@2x.webp"
-                      width="198"
-                      height="174"
-                    />
-                    <img
-                      src="/img/img_service-mongol-6-sp@2x.webp"
-                      alt="皆様のお越しをと言っている馬の画像"
-                      width="53"
-                      height="90"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </picture>
-                </div>
-              </div>
+                <picture>
+                  <source
+                    media="(min-width: 1060px)"
+                    srcset="/img/img_service-mongol-6-pc@2x.webp"
+                    width="198"
+                    height="174"
+                  />
+                  <img
+                    src="/img/img_service-mongol-6-sp@2x.webp"
+                    alt=""
+                    width="53"
+                    height="90"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              </figure>
 
-              <div
+              <figure
                 class="p-service-mongol__cta-box-deco p-service-mongol__cta-box-deco--sheep"
                 aria-hidden="true"
               >
-                <div class="p-service-mongol__cta-box-deco-figure">
-                  <picture>
-                    <source
-                      media="(min-width: 1060px)"
-                      srcset="/img/img_service-mongol-7-pc@2x.webp"
-                      width="176"
-                      height="146"
-                    />
-                    <img
-                      src="/img/img_service-mongol-7-sp@2x.webp"
-                      alt="お待ちしていますと言っている羊の画像"
-                      width="78"
-                      height="72"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </picture>
-                </div>
-              </div>
+                <picture>
+                  <source
+                    media="(min-width: 1060px)"
+                    srcset="/img/img_service-mongol-7-pc@2x.webp"
+                    width="176"
+                    height="146"
+                  />
+                  <img
+                    src="/img/img_service-mongol-7-sp@2x.webp"
+                    alt=""
+                    width="78"
+                    height="72"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </picture>
+              </figure>
 
               <div class="p-service-mongol__cta-box-inner">
                 <p class="p-service-mongol__cta-box-text">
@@ -1114,7 +1138,7 @@
             </picture>
           </div>
           <div class="p-info__head-inner">
-            <h2 id="info-heading" class="p-info__heading c-head">
+            <h2 id="info-heading" class="p-info__heading c-head c-head--info">
               ツーリストキャンプについて
             </h2>
           </div>
@@ -1127,13 +1151,14 @@
                   <h3 class="c-infocard__title">レストラン</h3>
                   <div class="c-infocard__text">
                     <p>
-                      眺めが良く、お客様同士の交流の場にもなるレストラン。モンゴル全国優秀調理師コンクールで銀賞を受賞したチョイジャブ　ガントールさんが作る料理はどれも絶品です！
+                      眺めが良く、お客様同士の交流の場にもなるレストラン。モンゴル全国優秀調理師コンクールで銀賞を受賞したチョイジャブ　ガントールさんが作る料理はどれも絶品です！<br
+                        class="u-md-visible"
+                      />ビールなどアルコールのご提供も可能です。
                     </p>
-                    <p>ビールなどアルコールのご提供も可能です。</p>
                   </div>
                   <figure class="c-infocard__figure">
                     <img
-                      src="/img/img_info-1@2x.webp"
+                      src="/img/img_info-3@2x.webp"
                       alt="大きな窓から湖と山の景色が見えるレストランの画像"
                       width="540"
                       height="320"
@@ -1157,9 +1182,7 @@
                         >１泊３食付き60ドル</strong
                       >
                     </p>
-                    <p class="c-infocard__note">
-                      　　　　　　　 （１名様あたりの金額）
-                    </p>
+                    <p class="c-infocard__note">（１名様あたりの金額）</p>
                     <p>ゲルを１人または２人で利用する場合</p>
                     <p>1泊につき20〜40ドル追加料金がかかります。</p>
                     <p class="c-infocard__note">
@@ -1168,7 +1191,7 @@
                   </div>
                   <figure class="c-infocard__figure">
                     <img
-                      src="/img/img_info-2@2x.webp"
+                      src="/img/img_info-1@2x.webp"
                       alt="草原に立つ白いゲルの画像"
                       width="540"
                       height="320"
@@ -1192,7 +1215,7 @@
                   </div>
                   <figure class="c-infocard__figure">
                     <img
-                      src="/img/img_info-3@2x.webp"
+                      src="/img/img_info-2@2x.webp"
                       alt="男女表示のある水洗トイレ・温水シャワー室の入口ドア"
                       width="540"
                       height="320"
@@ -1215,7 +1238,11 @@
         <div class="l-inner p-voice__inner">
           <h2 id="voice-heading" class="p-voice__heading c-head">お客様の声</h2>
 
-          <div class="p-voice__slider swiper" aria-label="お客様の声一覧">
+          <div
+            class="p-voice__slider swiper"
+            role="region"
+            aria-labelledby="voice-heading"
+          >
             <ul class="p-voice__list swiper-wrapper">
               <li class="p-voice__item swiper-slide">
                 <article class="c-voice-card p-voice__card">
@@ -1225,7 +1252,7 @@
                   </header>
                   <blockquote class="c-voice-card__quote">
                     <p class="c-voice-card__text">
-                      街を離れ大自然そして家畜たちの中へそんな旅が数時間で叶うのがウンドゥルシレットリバーサイドキャンプだ。宿泊ゲル目の前には驚くほど流れがないトーラ川。そう！ここは大平原、陸に高低差がないのだ。泊まれば毎朝水を飲みにくるたくさんの家畜。羊や山羊はベーベーメーメー言いながら群れから離れまいと歩き、時に走る。ここは野生の王国ならぬ家畜の王国だ。<br />夏なら馬の群れがいくつも川に浸かり涼んでいる。ボートに乗れば、珍しいもの（人が乗った船）と私たちを凝視する群れなす馬たちと目が合う。家畜の中に人がいるこの環境が面白い。わたしが「まんぷくモンゴル！」に書いた白馬の王に会ったのもこの川べりだ。身近に馬の群れを観察するのにこれほど恵まれた場所はなかなかない。ふつう半ば野良を暮らす家畜たちに人はなかなか近づけない。夏のモンゴルは世界を旅する渡り鳥の憩いの場でもあるから、秋にはヒマラヤを渡るアネハツルたちがつがいとなり子育てをするの様子も観察できる。<br />ウンドゥルシレットを気球に乗れる宿として紹介する人も多い。もちろんの大感動。朝夕の斜めからさす日差しが大地の凹凸に陰影をつけ、すばらしい。眼下の景色を見下ろせば、川が柔らかい砂地を削り地の上を動いてきた様子がよくわかる。<br />天と地の間、冬はマイナス数十℃になる地表を人が動物たちと肩を並べて暮らす景色。野生ですら生き残るのが厳しい環境を遊牧の人たちが人間にしかできない仕事で家畜の命を見守る。たくさんの手をかけないからこそたくさんの命を支えることができる。そう、モンゴルの草原では人が大きな家畜の群れの中でリーダーとしての役割を果たしている。<br />広い大地といのちを育む水、その上にはモンゴルブルーの空。その空気を胸いっぱいに吸い込めば、こころとからだの空気が人を離れ、生きもののそれに入れ替わる。生きもの同士の一員として大地に生かされる小さな一員として過ごす休日は生涯忘れることがないに違いない。大きな安堵が広がる。それは生きていることに対する感謝そのものだ。
+                      街を離れ大自然そして家畜たちの中へそんな旅が数時間で叶うのがウンドゥルシレットリバーサイドキャンプだ。宿泊ゲル目の前には驚くほど流れがないトーラ川。そう！ここは大平原、陸に高低差がないのだ。泊まれば毎朝水を飲みにくるたくさんの家畜。羊や山羊はベーベーメーメー言いながら群れから離れまいと歩き、時に走る。ここは野生の王国ならぬ家畜の王国だ。夏なら馬の群れがいくつも川に浸かり涼んでいる。ボートに乗れば、珍しいもの（人が乗った船）と私たちを凝視する群れなす馬たちと目が合う。家畜の中に人がいるこの環境が面白い。わたしが「まんぷくモンゴル！」に書いた白馬の王に会ったのもこの川べりだ。身近に馬の群れを観察するのにこれほど恵まれた場所はなかなかない。ふつう半ば野良を暮らす家畜たちに人はなかなか近づけない。夏のモンゴルは世界を旅する渡り鳥の憩いの場でもあるから、秋にはヒマラヤを渡るアネハツルたちがつがいとなり子育てをするの様子も観察できる。ウンドゥルシレットを気球に乗れる宿として紹介する人も多い。もちろんの大感動。朝夕の斜めからさす日差しが大地の凹凸に陰影をつけ、すばらしい。眼下の景色を見下ろせば、川が柔らかい砂地を削り地の上を動いてきた様子がよくわかる。<br />天と地の間、冬はマイナス数十℃になる地表を人が動物たちと肩を並べて暮らす景色。野生ですら生き残るのが厳しい環境を遊牧の人たちが人間にしかできない仕事で家畜の命を見守る。たくさんの手をかけないからこそたくさんの命を支えることができる。そう、モンゴルの草原では人が大きな家畜の群れの中でリーダーとしての役割を果たしている。<br />広い大地といのちを育む水、その上にはモンゴルブルーの空。その空気を胸いっぱいに吸い込めば、こころとからだの空気が人を離れ、生きもののそれに入れ替わる。生きもの同士の一員として大地に生かされる小さな一員として過ごす休日は生涯忘れることがないに違いない。大きな安堵が広がる。それは生きていることに対する感謝そのものだ。
                     </p>
                   </blockquote>
                   <button
@@ -1247,7 +1274,7 @@
                   </header>
                   <blockquote class="c-voice-card__quote">
                     <p class="c-voice-card__text">
-                      かれこれ10年以上はお世話になっています。遊牧民の方が用意してくださった馬で、初心者ながら乗馬を楽しんでみたり、時にはおうちにご招待いただくこともあります。遮るもののない雄大な空を「つながれていない」気球に乗ってお散歩したり（地上の気球運搬用トラックとのカーチェイスもなかなかオツなものです）。蛇行するトーラ川で川遊びや釣りを楽しむこともあれば、上流までボートを運んで川下りをすることも。夜にはまさに「降るような」星空を楽しめます。<br />時にはキャンプファイヤでお酒を飲みながら歌ったり踊ったり。（キャンプファイヤの木材を<br />広い草原のいったいどこから調達してきていただいているのかがいつも謎です）。呑みすぎてべろんべろんになってしまった翌日は好きなだけ寝ていられます。（そして何年経ってもお友達になった遊牧民とその話で盛り上がれる（笑））<br />アクティブに動くだけではありません。レストランゲルで読書を楽しんだり、自分のゲルでゴロゴロしたり。とても自由にたくさんやりたいことをやっているのに、忙しくないのです。それは気持ちが落ち着いているから。あくせくと過ごしている生活から解き放たれて気が向くままにすごす時間をただ純粋に楽しめるから。その時間を作っているのはモンゴルの雄大な自然と人々、そして、キャンプ場のスタッフさんのすばらしいホスピタリティだと思います。安全に快適に過ごせるように心をかけてくださる傍らでこちらのわがまま（希望）を叶えるようにいつも親身になって考えてくださるのです。<br />息子が2歳の時にもうかがいました。まだおむつも取れていない息子を初めての海外旅行に連れて行くのにキャンプ場と何度もやりとりさせていただきました。必要なものや環境、すべての面で手厚くフォローしていただき熱波で鼻血が出てしまったときはベッドが汚れることも気にせずに涼しい場所をご用意いただき、夜の寒さに自分の分の上着を忘れたときはスタッフさんの上着をお貸しいただき、馬のガイドの方には1時間半に渡って息子の「たんぽぽを摘む」休憩にお付き合いいただきました。お弁当を作っていただいて乗馬トレッキングを楽しんだことも。サングラスをするのを嫌がった息子の目にハエが卵を産んでしまう、というトラブルの時にも冷静に対応していただき、事なきを得ました。川遊びでパンパンに膨れ上がったオムツを見てみんなで笑ったのもとてもよい思い出です。<br />雄大な自然はもちろんのこと最後は「人」のすばらしさ。決して物が多い場所ではないけれど、お料理はとてもおいしく、野菜も食べられるように配慮してくださっています。晴れているときにはベッドから星空が見える快適なゲル。お湯のシャワーも浴びられるようになり、水洗トイレもあります。<br />15年前に少年だった遊牧民は、今や立派な大人。しっかり者の奥さんと、かわいい子どもたちに囲まれた一家の大黒柱になっています。そんな彼らに会いに行き、酌み交わすお酒も楽しみの一つ。<br />子育てが落ち着いたら、心を洗いにまた必ず訪れるつもりです。
+                      かれこれ10年以上はお世話になっています。遊牧民の方が用意してくださった馬で、初心者ながら乗馬を楽しんでみたり、時にはおうちにご招待いただくこともあります。遮るもののない雄大な空を「つながれていない」気球に乗ってお散歩したり（地上の気球運搬用トラックとのカーチェイスもなかなかオツなものです）。蛇行するトーラ川で川遊びや釣りを楽しむこともあれば、上流までボートを運んで川下りをすることも。夜にはまさに「降るような」星空を楽しめます。時にはキャンプファイヤでお酒を飲みながら歌ったり踊ったり。（キャンプファイヤの木材を広い草原のいったいどこから調達してきていただいているのかがいつも謎です）。呑みすぎてべろんべろんになってしまった翌日は好きなだけ寝ていられます。（そして何年経ってもお友達になった遊牧民とその話で盛り上がれる（笑））アクティブに動くだけではありません。レストランゲルで読書を楽しんだり、自分のゲルでゴロゴロしたり。とても自由にたくさんやりたいことをやっているのに、忙しくないのです。それは気持ちが落ち着いているから。あくせくと過ごしている生活から解き放たれて気が向くままにすごす時間をただ純粋に楽しめるから。その時間を作っているのはモンゴルの雄大な自然と人々、そして、キャンプ場のスタッフさんのすばらしいホスピタリティだと思います。安全に快適に過ごせるように心をかけてくださる傍らでこちらのわがまま（希望）を叶えるようにいつも親身になって考えてくださるのです。<br />息子が2歳の時にもうかがいました。まだおむつも取れていない息子を初めての海外旅行に連れて行くのにキャンプ場と何度もやりとりさせていただきました。必要なものや環境、すべての面で手厚くフォローしていただき熱波で鼻血が出てしまったときはベッドが汚れることも気にせずに涼しい場所をご用意いただき、夜の寒さに自分の分の上着を忘れたときはスタッフさんの上着をお貸しいただき、馬のガイドの方には1時間半に渡って息子の「たんぽぽを摘む」休憩にお付き合いいただきました。お弁当を作っていただいて乗馬トレッキングを楽しんだことも。サングラスをするのを嫌がった息子の目にハエが卵を産んでしまう、というトラブルの時にも冷静に対応していただき、事なきを得ました。川遊びでパンパンに膨れ上がったオムツを見てみんなで笑ったのもとてもよい思い出です。<br />雄大な自然はもちろんのこと最後は「人」のすばらしさ。決して物が多い場所ではないけれど、お料理はとてもおいしく、野菜も食べられるように配慮してくださっています。晴れているときにはベッドから星空が見える快適なゲル。お湯のシャワーも浴びられるようになり、水洗トイレもあります。<br />15年前に少年だった遊牧民は、今や立派な大人。しっかり者の奥さんと、かわいい子どもたちに囲まれた一家の大黒柱になっています。そんな彼らに会いに行き、酌み交わすお酒も楽しみの一つ。<br />子育てが落ち着いたら、心を洗いにまた必ず訪れるつもりです。
                     </p>
                   </blockquote>
                   <button
@@ -1264,17 +1291,7 @@
             </ul>
 
             <div class="p-voice__controls" aria-hidden="true">
-              <button
-                type="button"
-                class="p-voice__nav p-voice__nav--prev"
-                aria-label="前のお客様の声"
-              ></button>
               <div class="p-voice__pagination" role="presentation"></div>
-              <button
-                type="button"
-                class="p-voice__nav p-voice__nav--next"
-                aria-label="次のお客様の声"
-              ></button>
             </div>
           </div>
         </div>
@@ -1474,7 +1491,7 @@
                     >A</span
                   >
                   <p class="p-faq__answer">
-                    基本的に朝晩が寒く、日中が暑いです。ですので、フリースなどの上着を必ずお持ちください。日中も日差しがきついので、半袖よりも薄手の長袖を羽織っているほうがいいでしょう。また、帽子・サングラスもお持ちになってください。
+                    基本的に朝晩が寒く、日中が暑いです。ですので、フリースなどの上着を必ずお持ちください。日中も日差しがきついので、半袖よりも薄手の長袖を羽織っているほうがいいでしょう。また、帽子・サングラスもお持ちになってください。<br />
                     乗馬は必ずズボン着用です。靴もサンダルでは乗る事ができませんので、ご注意ください。シャワーを浴びるなどのキャンプ場内の移動やゲル内でくつろぐ用にサンダルをお持ちになると便利です。
                   </p>
                 </div>
@@ -1504,7 +1521,7 @@
                     >A</span
                   >
                   <p class="p-faq__answer">
-                    現地でのアルコール注文やアクティビティの追加は、アメリカドルもしくは日本円でお支払いいただけます。アメリカドルは旧ドル札はレートが悪いため使用できませんのでご注意ください。
+                    現地でのアルコール注文やアクティビティの追加は、アメリカドルもしくは日本円でお支払いいただけます。<br />アメリカドルは旧ドル札はレートが悪いため使用できませんのでご注意ください。
                   </p>
                 </div>
               </div>
@@ -1781,23 +1798,6 @@
                   name="g-recaptcha-response"
                   id="form-recaptcha-token"
                 />
-                <p class="p-form__recaptcha-note">
-                  このサイトは reCAPTCHA によって保護されており、Google の
-                  <a
-                    href="https://policies.google.com/privacy"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >プライバシーポリシー</a
-                  >
-                  と
-                  <a
-                    href="https://policies.google.com/terms"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >利用規約</a
-                  >
-                  が適用されます。
-                </p>
                 <p
                   class="c-form__error"
                   id="form-recaptcha-error"
@@ -1816,6 +1816,23 @@
                   <span class="c-button__text">送信する</span>
                   <span class="c-button__icon" aria-hidden="true"></span>
                 </button>
+                <p class="p-form__recaptcha-note">
+                  このサイトは reCAPTCHA によって保護されており、Google の
+                  <a
+                    href="https://policies.google.com/privacy"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >プライバシーポリシー</a
+                  >
+                  と
+                  <a
+                    href="https://policies.google.com/terms"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >利用規約</a
+                  >
+                  が適用されます。
+                </p>
               </div>
             </form>
 
@@ -2110,7 +2127,7 @@
                     <span class="p-footer-nav__text-group">
                       <span class="p-footer-nav__text">モンゴル５〜６日間</span>
                       <span class="p-footer-nav__text"
-                        >大草原で乗馬・熱気球とカラコロム観光</span
+                        >大草原で乗馬・熱気球と<span>カラコロム観光</span></span
                       >
                     </span>
                   </a>
@@ -2319,29 +2336,22 @@
         <div class="c-modal__body" tabindex="0">
           <div class="c-modal__body-inner">
             <p>
-              街を離れ大自然そして家畜たちの中へそんな旅が数時間で叶うのがウンドゥルシレットリバーサイドキャンプだ。宿泊ゲル目の前には驚くほど流れがないトーラ川。そう！ここは大平原、陸に高低差がないのだ。泊まれば毎朝水を飲みにくるたくさんの家畜。羊や山羊はベーベーメーメー言いながら群れから離れまいと歩き、時に走る。ここは野生の王国ならぬ家畜の王国だ。
-            </p>
-            <p>
+              街を離れ大自然そして家畜たちの中へそんな旅が数時間で叶うのがウンドゥルシレットリバーサイドキャンプだ。宿泊ゲル目の前には驚くほど流れがないトーラ川。そう！ここは大平原、陸に高低差がないのだ。泊まれば毎朝水を飲みにくるたくさんの家畜。羊や山羊はベーベーメーメー言いながら群れから離れまいと歩き、時に走る。ここは野生の王国ならぬ家畜の王国だ。<br />
               夏なら馬の群れがいくつも川に浸かり涼んでいる。ボートに乗れば、珍しいもの（人が乗った船）と私たちを凝視する群れなす馬たちと目が合う。家畜の中に人がいるこの環境が面白い。わたしが「まんぷくモンゴル！」に書いた白馬の王に会ったのもこの川べりだ。身近に馬の群れを観察するのにこれほど恵まれた場所はなかなかない。ふつう半ば野良を暮らす家畜たちに人はなかなか近づけない。夏のモンゴルは世界を旅する渡り鳥の憩いの場でもあるから、秋にはヒマラヤを渡るアネハツルたちがつがいとなり子育てをするの様子も観察できる。
             </p>
-            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
             <p>
-              ウンドゥルシレットを気球に乗れる宿として紹介する人も多い。もちろんの大感動。朝夕の斜めからさす日差しが大地の凹凸に陰影をつけ、すばらしい。眼下の景色を見下ろせば、川が柔らかい砂地を削り地の上を動いてきた様子がよくわかる。
-            </p>
-            <p>
+              ウンドゥルシレットを気球に乗れる宿として紹介する人も多い。もちろんの大感動。朝夕の斜めからさす日差しが大地の凹凸に陰影をつけ、すばらしい。眼下の景色を見下ろせば、川が柔らかい砂地を削り地の上を動いてきた様子がよくわかる。<br />
               天と地の間、冬はマイナス数十℃になる地表を人が動物たちと肩を並べて暮らす景色。野生ですら生き残るのが厳しい環境を遊牧の人たちが人間にしかできない仕事で家畜の命を見守る。たくさんの手をかけないからこそたくさんの命を支えることができる。そう、モンゴルの草原では人が大きな家畜の群れの中でリーダーとしての役割を果たしている。
             </p>
-            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
             <p>
               広い大地といのちを育む水、その上にはモンゴルブルーの空。その空気を胸いっぱいに吸い込めば、こころとからだの空気が人を離れ、生きもののそれに入れ替わる。生きもの同士の一員として大地に生かされる小さな一員として過ごす休日は生涯忘れることがないに違いない。大きな安堵が広がる。それは生きていることに対する感謝そのものだ。
             </p>
-            <p class="c-modal__author">鈴木 裕子様</p>
+            <p class="c-modal__author c-modal__author--start">鈴木 裕子様</p>
             <p>
-              「まんぷくモンゴル！公邸料理人、大草原で肉を食う」2023年産業編集センターより刊行。
-            </p>
-            <p>
+              「まんぷくモンゴル！公邸料理人、大草原で肉を食う」2023年産業編集センターより刊行。<br />
               元保育園調理員、専門調理師全種取得。モンゴルでは健康情報としての野菜を伝えたいと野菜の本を２冊出版。
             </p>
+            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
           </div>
         </div>
       </div>
@@ -2369,30 +2379,24 @@
         <div class="c-modal__body" tabindex="0">
           <div class="c-modal__body-inner">
             <p>
-              かれこれ10年以上はお世話になっています。遊牧民の方が用意してくださった馬で、初心者ながら乗馬を楽しんでみたり、時にはおうちにご招待いただくこともあります。遮るもののない雄大な空を「つながれていない」気球に乗ってお散歩したり（地上の気球運搬用トラックとのカーチェイスもなかなかオツなものです）。蛇行するトーラ川で川遊びや釣りを楽しむこともあれば、上流までボートを運んで川下りをすることも。夜にはまさに「降るような」星空を楽しめます。
-            </p>
-            <p>
+              かれこれ10年以上はお世話になっています。遊牧民の方が用意してくださった馬で、初心者ながら乗馬を楽しんでみたり、時にはおうちにご招待いただくこともあります。遮るもののない雄大な空を「つながれていない」気球に乗ってお散歩したり（地上の気球運搬用トラックとのカーチェイスもなかなかオツなものです）。蛇行するトーラ川で川遊びや釣りを楽しむこともあれば、上流までボートを運んで川下りをすることも。夜にはまさに「降るような」星空を楽しめます。<br />
               時にはキャンプファイヤでお酒を飲みながら歌ったり踊ったり。（キャンプファイヤの木材を広い草原のいったいどこから調達してきていただいているのかがいつも謎です）。呑みすぎてべろんべろんになってしまった翌日は好きなだけ寝ていられます。（そして何年経ってもお友達になった遊牧民とその話で盛り上がれる（笑））
             </p>
-            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
             <p>
               アクティブに動くだけではありません。レストランゲルで読書を楽しんだり、自分のゲルでゴロゴロしたり。とても自由にたくさんやりたいことをやっているのに、忙しくないのです。それは気持ちが落ち着いているから。あくせくと過ごしている生活から解き放たれて気が向くままにすごす時間をただ純粋に楽しめるから。その時間を作っているのはモンゴルの雄大な自然と人々、そして、キャンプ場のスタッフさんのすばらしいホスピタリティだと思います。安全に快適に過ごせるように心をかけてくださる傍らでこちらのわがまま（希望）を叶えるようにいつも親身になって考えてくださるのです。
             </p>
-            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
             <p>
               息子が2歳の時にもうかがいました。まだおむつも取れていない息子を初めての海外旅行に連れて行くのにキャンプ場と何度もやりとりさせていただきました。必要なものや環境、すべての面で手厚くフォローしていただき熱波で鼻血が出てしまったときはベッドが汚れることも気にせずに涼しい場所をご用意いただき、夜の寒さに自分の分の上着を忘れたときはスタッフさんの上着をお貸しいただき、馬のガイドの方には1時間半に渡って息子の「たんぽぽを摘む」休憩にお付き合いいただきました。お弁当を作っていただいて乗馬トレッキングを楽しんだことも。サングラスをするのを嫌がった息子の目にハエが卵を産んでしまう、というトラブルの時にも冷静に対応していただき、事なきを得ました。川遊びでパンパンに膨れ上がったオムツを見てみんなで笑ったのもとてもよい思い出です。
             </p>
-            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
             <p>
               雄大な自然はもちろんのこと最後は「人」のすばらしさ。決して物が多い場所ではないけれど、お料理はとてもおいしく、野菜も食べられるように配慮してくださっています。晴れているときにはベッドから星空が見える快適なゲル。お湯のシャワーも浴びられるようになり、水洗トイレもあります。
             </p>
-            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
             <p>
               15年前に少年だった遊牧民は、今や立派な大人。しっかり者の奥さんと、かわいい子どもたちに囲まれた一家の大黒柱になっています。そんな彼らに会いに行き、酌み交わすお酒も楽しみの一つ。
             </p>
-            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
             <p>子育てが落ち着いたら、心を洗いにまた必ず訪れるつもりです。</p>
-            <p class="c-modal__author">長田　亮子様</p>
+            <p class="c-modal__author c-modal__author--start">長田　亮子様</p>
+            <p class="c-modal__blank" aria-hidden="true">&#8203;</p>
           </div>
         </div>
       </div>

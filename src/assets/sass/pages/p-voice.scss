@@ -4,9 +4,10 @@
 // ローカル変数（Figma 6142:208 PC / 6023:973 SP）
 // ============================================================
 
-$voice-section-pad-block-sp: 40;
+$voice-section-pad-block-start-sp: 40;
+$voice-section-pad-block-end-sp: 31;
 $voice-section-pad-block-pc: 90;
-$voice-heading-mb-sp: 30;
+$voice-heading-mb-sp: 22;
 $voice-heading-mb-pc: 60;
 // c-voice-card box-shadow（rm(3) rm(4) rm(4)）のはみ出し余白
 $voice-card-shadow-y: 4;
@@ -16,7 +17,7 @@ $voice-list-gap-sp: 30;
 $voice-controls-gap-sp: 20;
 $voice-controls-mt-sp: 30;
 $voice-pagination-bullet-size: 10;
-$voice-pagination-bullet-gap: 10;
+$voice-pagination-bullet-gap: 21;
 $voice-nav-btn-size: 40;
 $voice-cards-gap-min: 40;
 $voice-cards-gap-max: 75;
@@ -28,7 +29,8 @@ $voice-item-max-w-sp: $sp-inner; // 550 — SP スライド最大幅
 
 .p-voice {
   background-color: $bg-main;
-  padding-block: rm($voice-section-pad-block-sp);
+  padding-block: rm($voice-section-pad-block-start-sp)
+    rm($voice-section-pad-block-end-sp);
 
   @include mq(md) {
     padding-block: rm($voice-section-pad-block-pc);

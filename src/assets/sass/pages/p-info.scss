@@ -47,7 +47,7 @@ $info-section-pad-block-end-sp: 40;
 .p-info {
   background-color: $bg-main;
   padding-block-end: rm($info-section-pad-block-end-sp);
-
+  margin-block-start: rm(-64);
   @include mq-info-pc {
     display: grid;
     min-height: rm($info-bg-pc-h);
@@ -62,7 +62,6 @@ $info-section-pad-block-end-sp: 40;
 
 .p-info__head {
   position: relative;
-
   @include mq-info-pc {
     grid-area: 1 / 1;
     z-index: 0;
@@ -92,7 +91,6 @@ $info-section-pad-block-end-sp: 40;
   inset-inline: 0;
   display: flex;
   justify-content: center;
-  padding-inline: rm($sp-sidePadding);
   pointer-events: none;
 
   @include mq-info-pc {

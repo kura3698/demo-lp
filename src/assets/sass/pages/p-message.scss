@@ -1,4 +1,5 @@
 @use "sass:color";
+@use "sass:math";
 @use "../config/" as *;
 
 // ============================================================
@@ -8,13 +9,15 @@
 // セクション
 $message-section-pad-block-sp: 40;
 $message-section-pad-block-pc: 90;
-$message-section-pad-inline-sp: 20;
-$message-section-pad-inline-pc: 285; // (1440 - 870) / 2
-$message-content-w-pc: $pc-camp - $message-section-pad-inline-pc * 2;
+$message-content-w-pc: 870; // カンプ PC コンテンツ幅（6082:1358）
+$message-section-pad-inline-pc: math.div(
+  $pc-camp - $message-content-w-pc,
+  2
+);
 $message-heading-to-box-gap-sp: 32;
 $message-heading-to-box-gap-pc: 60;
 $message-section-max-h-pc: 806; // Figma PC フレーム高（6082:1358）
-$message-heading-height-pc: 46; // .c-head の PC 装飾高（c-head.scss と一致）
+$message-heading-height-pc: 46; // .c-head 装飾高 PC（c-head.scss $head-deco-height-pc と一致）
 $message-box-max-h-pc: $message-section-max-h-pc -
   $message-section-pad-block-pc * 2 - $message-heading-height-pc -
   $message-heading-to-box-gap-pc;
@@ -25,12 +28,11 @@ $message-bg-h: 1614;
 
 // ボックス（6082:1359 PC / 6182:743 SP）
 $message-box-min-h-pc: 520;
-$message-box-pad-block-sp: 20;
+$message-box-pad-block-sp: 13;
 $message-box-pad-inline-sp: 15;
 $message-box-pad-block-pc: 25;
 $message-box-pad-inline-pc: 40;
-$message-box-border-sp: 1;
-$message-box-border-pc: 1;
+$message-box-border-width: 1;
 $message-box-bg-alpha: 0.7;
 
 // 本文
@@ -40,6 +42,7 @@ $message-text-lh-sp: 1.5;
 $message-text-lh-pc: 1.6;
 $message-emphasis-lh-sp: 1.7;
 $message-emphasis-lh-pc: 1.8;
+$message-emphasis-margin-block: 2; // 強調テキスト上下余白（カンプ SP/PC 共通）
 
 // ============================================================
 // .p-message — 私たちの思い
@@ -89,13 +92,13 @@ $message-emphasis-lh-pc: 1.8;
   width: 100%;
   max-width: 100%;
   padding-block: rm($message-section-pad-block-sp);
-  padding-inline: rm($message-section-pad-inline-sp);
+  padding-inline: rm($sp-sidePadding);
 
   @include mq(md) {
     gap: rm($message-heading-to-box-gap-pc);
     padding-block: rm($message-section-pad-block-pc);
     padding-inline: max(
-      rm($message-section-pad-inline-sp),
+      rm($sp-sidePadding),
       calc((100% - rm($message-content-w-pc)) / 2)
     );
   }
@@ -115,13 +118,12 @@ $message-emphasis-lh-pc: 1.8;
   padding-block: rm($message-box-pad-block-sp);
   padding-inline: rm($message-box-pad-inline-sp);
   background-color: color.change($reverse-color, $alpha: $message-box-bg-alpha);
-  border: rm($message-box-border-sp) solid $main-color;
+  border: rm($message-box-border-width) solid $main-color;
 
   @include mq(md) {
     min-height: rm($message-box-min-h-pc);
     padding-block: rm($message-box-pad-block-pc);
     padding-inline: rm($message-box-pad-inline-pc);
-    border-width: rm($message-box-border-pc);
   }
 
   @include mq(xxl) {
@@ -148,7 +150,7 @@ $message-emphasis-lh-pc: 1.8;
 
 .p-message__text--emphasis {
   @include font($message-text-size-sp, 700, $message-emphasis-lh-sp);
-
+  margin-block: rm($message-emphasis-margin-block);
   @include mq(md) {
     @include font($message-text-size-pc, 700, $message-emphasis-lh-pc);
   }

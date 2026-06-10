@@ -1,11 +1,11 @@
 @use "../config/" as *;
 
 // フッターナビ — レイアウト（カンプ px）
-$footer-nav-sp-column-gap-min: 40;
+$footer-nav-sp-column-gap-min: 38;
 $footer-nav-sp-column-gap-max: 60;
 $footer-nav-sp-content-width: 500;
 $footer-nav-sp-group-gap-activity-travel: 25;
-$footer-nav-sp-group-offset-blog: -220; // gallery との視覚間隔調整（SP）
+$footer-nav-sp-group-offset-blog: -210; // gallery との視覚間隔調整（SP）
 $footer-nav-gap-heading-sub: 12;
 $footer-nav-gap-sub: 8;
 $footer-nav-pc-column-gap-min: 20;
@@ -21,7 +21,7 @@ $footer-nav-icon-circle-size: 13;
 $footer-nav-icon-arrow-size: 8;
 $footer-nav-icon-arrow-offset-block: 5;
 $footer-nav-gap-heading-icon: 7;
-$footer-nav-gap-icon-text: 12;
+$footer-nav-gap-icon-text: 10;
 $footer-nav-link-focus-outline: 2;
 $footer-nav-link-hover-opacity: 0.7;
 
@@ -30,10 +30,10 @@ $footer-nav-note-sp-width: 350;
 $footer-nav-note-pc-width: 644;
 $footer-nav-bottom-sp-width: 350;
 $footer-nav-bottom-pc-width: 950;
-$footer-nav-nav-to-note-sp: 40;
+$footer-nav-nav-to-note-sp: 18;
 $footer-nav-nav-to-note-pc: 60;
-$footer-nav-note-to-bottom: 10;
-$footer-nav-bottom-to-copyright: 10;
+$footer-nav-note-to-bottom: 15;
+$footer-nav-bottom-to-copyright: 14;
 
 .p-footer-nav__list {
   display: grid;
@@ -145,6 +145,7 @@ $footer-nav-bottom-to-copyright: 10;
 
 .p-footer-nav__item {
   width: 100%;
+  margin-inline-start: rm(3);
 }
 
 .p-footer-nav__link {
@@ -204,6 +205,7 @@ $footer-nav-bottom-to-copyright: 10;
 
 .p-footer-nav__text {
   line-height: 1.5;
+  width: rm(145);
 }
 
 .p-footer__note {
@@ -226,7 +228,6 @@ $footer-nav-bottom-to-copyright: 10;
 .p-footer__bottom {
   width: 100%;
   max-width: rm($footer-nav-bottom-sp-width);
-  padding-block-start: rm($footer-nav-note-to-bottom);
   border-block-start: 1px solid $reverse-color;
   margin-block-start: rm($footer-nav-note-to-bottom);
   margin-inline: auto;

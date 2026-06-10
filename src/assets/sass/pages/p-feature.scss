@@ -28,10 +28,10 @@ $features-badge-offset-inline: 73;
 // タイトルデコレーション（SVG アイコン幅 = padding-inline と一致）
 $features-title-deco-w: 22;
 $features-title-deco-inset-s: 10; // ::before の inset-block-start
-$features-title-deco-inset-e: 5; // ::after の inset-block-end
-
+$features-title-deco-inset-block-end: 1; // ::after の inset-block-end
+$features-title-deco-inset-inline-end: -2; // ::after の inset-inline-end
 // リスト
-$features-list-gap-sp: 60;
+$features-list-gap-sp: 40;
 $features-list-gap-pc: 80;
 $features-list-max-w: 950;
 
@@ -138,8 +138,8 @@ $features-text-margin-end: 19;
     background: url("/img/deco_feature-right.svg") no-repeat center left /
       contain;
     content: "";
-    inset-block-end: rm($features-title-deco-inset-e);
-    inset-inline-end: 0;
+    inset-block-end: rm($features-title-deco-inset-block-end);
+    inset-inline-end: rm($features-title-deco-inset-inline-end);
     width: rm($features-title-deco-w);
     height: 100%;
   }
@@ -321,7 +321,6 @@ $features-text-margin-end: 19;
   font-weight: 400;
   line-height: 1.5;
   color: $text-main;
-  margin-block-end: rm($features-text-margin-end);
 
   @include mq(md) {
     line-height: 1.7;

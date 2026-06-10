@@ -20,7 +20,7 @@ $voice-card-header-gap-sp: 1;
 $voice-card-header-gap-pc: 5;
 $voice-card-header-mb-sp: 15;
 $voice-card-header-mb-pc: 15;
-$voice-card-quote-mb-sp: 20;
+$voice-card-quote-mb-sp: 15;
 $voice-card-quote-mb-pc: 20;
 
 $voice-card-title-size-sp: 16;
@@ -87,6 +87,7 @@ $voice-card-min-height-pc: 635;
   justify-self: end;
   color: $text-main;
   @include font($voice-card-author-size-sp, 700, 1.5, 0.8);
+  margin-inline-end: rm(5);
 
   @include mq(lg) {
     @include font($voice-card-author-size-pc, 700, 1.5, 1);

@@ -133,6 +133,70 @@ alwaysApply: true
 | 色         | コントラスト WCAG AA 以上を目安（テキスト 4.5:1）                      |
 | キーボード | Tab 順序・フォーカスリングを維持（`outline: none` 単体禁止）           |
 | 言語       | `<html lang="ja">`                                                     |
+| ARIA 命名  | `div`/`span`（generic）に `aria-label` 禁止。`role="region"` + `aria-labelledby` またはセマンティック要素を使う |
+
+### ARIA 命名（generic 要素）
+
+ロール未指定の `<div>` / `<span>` の暗黙ロールは **generic** であり、`aria-label` / `aria-labelledby` は許可されない。
+
+**禁止**
+
+- ロール未指定の `<div>` / `<span>` に `aria-label` または `aria-labelledby` を付けない
+
+**許可される要素（暗黙ロールが命名をサポート）**
+
+- `nav`, `section`, `aside`, `button`, `a`（名前付きリンク）などセマンティック要素
+- 明示的に `role="region"` / `role="group"` 等、命名可能なロールを付与した要素
+
+**推奨パターン（見出しがある場合）**
+
+```html
+<h2 id="xxx-heading">見出し</h2>
+<div role="region" aria-labelledby="xxx-heading">…</div>
+```
+
+- 可視見出しがあるときは `aria-label` より `aria-labelledby` を優先（重複読み上げ防止）
+- 親 `<section aria-labelledby="...">` で十分な場合は子 `<div>` への命名は不要（`p-gallery` のように section 見出しで足りるケース）
+
+```html
+<!-- NG: generic div に aria-label -->
+<div class="p-xxx__slider" aria-label="一覧">…</div>
+
+<!-- OK: role="region" + 既存見出しを参照 -->
+<h2 id="plans-heading">プラン一覧</h2>
+<div class="p-xxx__slider" role="region" aria-labelledby="plans-heading">…</div>
+
+<!-- OK: セマンティック要素はそのまま命名可 -->
+<nav aria-label="メインナビゲーション">…</nav>
+<section aria-labelledby="gallery-heading">…</section>
+
+<!-- OK: 命名可能な role を明示 -->
+<div role="group" aria-label="スライドのページ送り">…</div>
+```
+
+スライダー root の詳細は `web-coding-swiper.mdc` の「アクセシビリティ（root）」を参照。
+
+## `br` のレスポンシブ改行
+
+レスポンシブで改行の ON/OFF が必要な場合、`<br>` には **`p-*` / `c-*` クラスを付けない**。必ず `src/assets/sass/utility/u-disp.scss` のユーティリティを使うこと。
+
+| 用途 | クラス | 挙動 |
+| --- | --- | --- |
+| SP のみ改行 | `u-md-hidden` | SP: 改行あり / PC（768px〜）: 改行なし |
+| PC のみ改行 | `u-md-visible` | SP: 改行なし / PC（768px〜）: 改行あり |
+| lg / xl 以降のみ | `u-lg-visible` / `u-xl-visible` 等 | 既存ユーティリティを用途に合わせて選択 |
+
+```html
+<!-- SP のみ改行 -->
+モンゴル遊牧民の暮らしが気になる<br class="u-md-hidden" />
+
+<!-- PC のみ改行 -->
+知れる<br class="u-md-visible" />モンゴル遊牧民体験ツアー
+```
+
+- 装飾目的の `br` には `aria-hidden="true"` を付与可（`p-footer__note` の既存パターン）
+- **禁止:** `class="p-xxx__lead-br--sp-only"` のような `p-*` 専用 `br` クラス
+- 標準 BP（`mq(md)` 等）で足りない場合は、先に `u-disp.scss` にユーティリティを追加してから HTML で参照する（詳細は `web-coding-scss.mdc`）
 
 ## 画像
 
@@ -183,6 +247,32 @@ alwaysApply: true
   <img src="/img/photo_hero.webp" alt="説明文" width="1440" height="900" decoding="async" />
 </div>
 ```
+
+**1-1. 配置ラッパーと画像ラッパーの二重化禁止**
+配置（`position: absolute` / `inset` / `transform`）と画像サイズ（`width` / `height` / `overflow: hidden`）を別要素に分けない。1要素に集約すること。
+
+```html
+<!-- ❌ 禁止: 配置用 div + サイズ用 div の二重ラップ -->
+<div class="p-xxx__deco p-xxx__deco--horse" aria-hidden="true">
+  <div class="p-xxx__deco-figure">
+    <picture>…</picture>
+  </div>
+</div>
+
+<!-- ⭕ 装飾・absolute 配置: figure 1要素に集約 -->
+<figure class="p-xxx__deco p-xxx__deco--horse" aria-hidden="true">
+  <picture>…</picture>
+</figure>
+
+<!-- ⭕ 親がインタラクション要素で figure が不適な場合のみ picture にクラス -->
+<a href="#form" class="c-floating-cta__link">
+  <picture class="c-floating-cta__figure">…</picture>
+</a>
+```
+
+- 装飾・absolute 配置の画像 → `<figure>` を優先（画像ラッパー規約と配置スタイルを同時に満たす）
+- `picture` に直接クラスを付けるのは、親が `<a>` 等で `figure` が不適な場合のみ
+- **例外:** 配置基準とクリップ/サイズ基準が別要素である必要があるときのみ二重ラップ可（`transform-origin` の分離など、技術的理由が明確な場合）
 
 **2. `img` のベーススタイルは `base.scss` で管理**
 `src/assets/sass/common/base.scss` に `img` タグのリセット・ベーススタイル（`object-fit: cover` 等）が定義されている。指示がない限り、各コンポーネントのSCSSで `img` タグのベース挙動を上書き・再定義しないこと。

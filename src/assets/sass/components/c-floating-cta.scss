@@ -7,6 +7,7 @@ $cta-pc-offset: 40;
 $cta-sp-border: 5;
 $cta-sp-pad-block: 12;
 $cta-sp-pad-inline: 27;
+$cta-sp-height: 60;
 $cta-sp-font-size: 24;
 $cta-sp-line-height: 1.5;
 $cta-hover-scale: 1.1;
@@ -57,10 +58,11 @@ $cta-sp-block-size: calc(
   border: rm($cta-sp-border) solid $main-color;
   text-align: center;
   pointer-events: auto;
-
+  max-height: rm($cta-sp-height);
   @include mq(md) {
     display: block;
     padding: 0;
+    max-height: none;
     border: none;
     background-color: transparent;
   }

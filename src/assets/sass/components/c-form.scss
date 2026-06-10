@@ -272,6 +272,7 @@ $form-success-size-pc: 16;
   display: flex;
   flex-wrap: wrap;
   gap: rm($form-options-gap-inquiry-sp);
+  margin-block-start: rm(4);
 
   @include mq(md) {
     grid-column: 2;
