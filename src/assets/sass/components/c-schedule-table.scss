@@ -5,9 +5,9 @@
 // ============================================================
 
 // PC 列幅（カンプ 852px 内訳: day + schedule + meals + lodge）
-$col-day: 89;
+$col-day-pc: 65; // PC: 日付列幅（カンプ 65px）
 $col-meals: 54;
-$col-lodge: 115;
+$col-lodge-pc: 125; // PC: 宿泊地列幅（カンプ 125px）
 
 // アイコンサイズ
 $icon-sp: 19; // スケジュールアイコン (SP)
@@ -21,36 +21,52 @@ $icon-offset: 2;
 // 宿泊地アイコンとテキストの間隔
 $lodge-icon-gap-sp: 10; // SP: アイコン右端 ↔ テキスト左端
 $lodge-gap-pc: 5; // PC: アイコン下辺 ↔ テキスト上辺
+$lodge-dash-width: 30; // 宿泊なし横棒の幅（カンプ 30px）
+$lodge-dash-height: 1; // 宿泊なし横棒の高さ（カンプ 1px）
 
 // セル padding
 $cell-pad-sp: 15; // スケジュールセル (SP)
-$cell-pad-pc: 20; // スケジュールセル (PC)
+$cell-pad-pc: 20; // 食事・宿泊地セル (PC)
+$schedule-pad-pc: 24; // スケジュールセル (PC)
+$schedule-pad-inline-end-pc: 5; // スケジュールセル padding-inline-end (PC)
 $footer-pad-block-sp: 5; // 食事・宿泊地 padding-block (SP)
 $footer-pad-block-pc: 10; // 食事・宿泊地 padding-block (PC)
 $footer-pad-inline-pc: 5; // 食事・宿泊地 padding-inline (PC)
 
 // ヘッダー padding
-$header-pad-block: 9;
+$header-pad-block-pc: 6; // PC: ヘッダーセル padding-block
 $header-pad-inline: 5;
 
 // 日付セル
 $day-label-pad-block: 2; // SP バッジ padding-block
-$day-pad-block-start: 12; // PC 日付セル padding-block-start
+$day-pad-block-start: 9; // PC 日付セル padding-block-start
 
 // 食事
 $meals-label-gap-sp: 20; // SP: 食事ラベルとテキストの gap
 $meals-text-char-gap: 4; // 食事テキスト 文字間 gap（SP / PC 共通）
 
 // リスト・アイテム
-$list-gap: 10; // スケジュールリスト行間 gap
-$item-gap: 10; // スケジュールアイテム（アイコン ↔ テキスト）gap
+$list-gap: 10; // スケジュールリスト行間 gap (SP)
+$list-gap-pc: 18; // スケジュールリスト行間 gap (PC)
+$item-gap: 10; // スケジュールアイテム（アイコン ↔ テキスト）gap (SP)
+$item-gap-pc: 14; // スケジュールアイテム gap (PC)
 $row-gap-sp: 4; // SP: 行ブロック間の margin-block-start
+$content-row-column-gap: 4; // 本文と括弧書き注釈の間隔（カンプ PC 4px）
+
+// 機内食アイコン
+$meals-flight-icon-width-sp: 11.25;
+$meals-flight-icon-height-sp: 6.75;
+$meals-flight-icon-width-pc: 15;
+$meals-flight-icon-height-pc: 9;
+$meals-flight-icon-margin-block-pc: 3;
 
 // 日付バッジ
 $day-label-width: 50; // SP: バッジ幅
 
 // 宿泊地セル
 $lodge-cell-gap-sp: 20; // SP: ラベル ↔ 宿泊地名 の flex gap
+$lodge-name-font-size-pc: 12; // PC: 宿泊地名フォントサイズ
+$lodge-icon-inset-block-start-pc: -4; // PC: 宿泊アイコンの上方向オフセット
 
 // ラベル共通幅（「食事」2字と「宿泊地」3字を同幅に揃える）
 $label-min-inline-size: 3em;
@@ -85,27 +101,26 @@ $table-border-inner: 0.5px dotted $text-main;
 
 .c-schedule-table__th {
   @include mq(md) {
-    padding-block: rm($header-pad-block);
+    padding-block: rm($header-pad-block-pc);
     padding-inline: rm($header-pad-inline);
     background-color: $main-color;
     color: $reverse-color;
     text-align: center;
     @include font(18, 400, 1.5, 0.9);
-
     // 内罫線（全辺 dotted をベースに外辺 solid で上書き）
     border: $table-border-inner;
     border-block-start: $table-border-outer; // 外枠 — 上辺
 
     // 固定列幅（スケジュール列 = 残り幅）
     &:nth-child(1) {
-      width: rm($col-day);
+      width: rm($col-day-pc);
       border-inline-start: $table-border-outer; // 外枠 — 左辺
     }
     &:nth-child(3) {
       width: rm($col-meals);
     }
     &:nth-child(4) {
-      width: rm($col-lodge);
+      width: rm($col-lodge-pc);
       border-inline-end: $table-border-outer; // 外枠 — 右辺
     }
   }
@@ -178,7 +193,8 @@ $table-border-inner: 0.5px dotted $text-main;
 
   @include mq(md) {
     display: table-cell;
-    padding: rm($cell-pad-pc);
+    padding: rm($schedule-pad-pc);
+    padding-inline-end: rm($schedule-pad-inline-end-pc);
     // PC: 全辺を内罫線（dotted）
     border: $table-border-inner;
   }
@@ -191,6 +207,9 @@ $table-border-inner: 0.5px dotted $text-main;
   list-style: none;
   padding: 0;
   margin: 0;
+  @include mq(md) {
+    gap: rm($list-gap-pc);
+  }
 }
 
 .c-schedule-table__item {
@@ -201,6 +220,23 @@ $table-border-inner: 0.5px dotted $text-main;
 
   @include mq(md) {
     grid-template-columns: rm($icon-pc) 1fr;
+    gap: rm($item-gap-pc);
+    align-items: center;
+  }
+}
+
+// PC: 複数行コンテンツの item のみアイコン上揃え
+.c-schedule-table__item:is(
+  :has(.c-schedule-table__note):not(:has(.c-schedule-table__content--row)),
+  :has(.c-schedule-table__text br.u-md-visible),
+  :has(.c-schedule-table__text .u-md-visible--inline)
+) {
+  @include mq(md) {
+    align-items: flex-start;
+
+    .c-schedule-table__icon {
+      margin-block-start: rm($icon-offset);
+    }
   }
 }
 
@@ -223,6 +259,9 @@ $table-border-inner: 0.5px dotted $text-main;
 .c-schedule-table__text {
   @include font(14, 400, 1.5);
   color: $text-main;
+  @include mq(md) {
+    line-height: 1.7;
+  }
 }
 
 .c-schedule-table__note {
@@ -231,6 +270,28 @@ $table-border-inner: 0.5px dotted $text-main;
 
   @include mq(md) {
     @include font(12, 400, 1.7);
+  }
+}
+
+// .c-schedule-table__content {
+// }
+
+.c-schedule-table__content--row {
+  @include mq(md) {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+
+    .c-schedule-table__text,
+    .c-schedule-table__note {
+      margin: 0;
+    }
+
+    .c-schedule-table__note {
+      flex-shrink: 0;
+      white-space: nowrap;
+      @include font(14, 400, 1.5);
+    }
   }
 }
 
@@ -287,12 +348,13 @@ $table-border-inner: 0.5px dotted $text-main;
 
 .c-schedule-table__meals-flight-icon {
   flex-shrink: 0;
-  width: rm(11.25);
-  height: rm(6.75);
+  width: rm($meals-flight-icon-width-sp);
+  height: rm($meals-flight-icon-height-sp);
 
   @include mq(md) {
-    width: rm(15);
-    height: rm(9);
+    width: rm($meals-flight-icon-width-pc);
+    height: rm($meals-flight-icon-height-pc);
+    margin-block: rm($meals-flight-icon-margin-block-pc);
   }
 }
 
@@ -340,6 +402,24 @@ $table-border-inner: 0.5px dotted $text-main;
   @include font(14, 400, 1.5);
   color: $text-main;
   text-align: center;
+  @include mq(md) {
+    font-size: rm($lodge-name-font-size-pc);
+  }
+}
+
+.c-schedule-table__lodge-name--dash {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-inline: auto;
+
+  &::before {
+    content: "";
+    display: block;
+    width: rm($lodge-dash-width);
+    height: rm($lodge-dash-height);
+    background-color: $text-main;
+  }
 }
 
 // ホテル・キャンプ共通の ::before アイコン設定
@@ -373,7 +453,7 @@ $table-border-inner: 0.5px dotted $text-main;
       width: rm($icon-lodge-pc);
       height: rm($icon-lodge-pc);
       // PC: パディング領域の中央に配置
-      inset-block-start: 0;
+      inset-block-start: rm($lodge-icon-inset-block-start-pc);
       inset-inline-start: 50%;
       transform: translateX(-50%);
     }

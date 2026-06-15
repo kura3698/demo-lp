@@ -23,10 +23,10 @@ $top-mb-plans-pc: 64;
 $lead-size-sp: 14;
 $lead-size-pc: 20;
 $intro-max-w-sp: 334; // SP イラスト最大幅（カンプ）
-$intro-max-w-pc: 419; // PC イラスト最大幅（Figma イラスト領域）
+$intro-max-w-pc: 443; // PC イラスト最大幅（Figma イラスト領域）
 
 $plans-heading-mb-sp: 30; // 見出し ↔ カードリスト
-$plans-heading-mb-pc: 30;
+$plans-heading-mb-pc: 70;
 $plans-heading-size-sp: 22; // プラン見出しフォントサイズ（SP）
 $plans-heading-size-pc: 30; // プラン見出しフォントサイズ（PC）
 
@@ -43,7 +43,7 @@ $plans-deco-line-width-pc: 92; // 下線幅（PC）
 $plans-deco-line-height-pc: 23; // 下線高さ（PC）
 $plans-deco-line-inset-inline-sp: 4; // SP: 下線の左方向オフセット
 $plans-deco-line-inset-block-sp: 12; // SP: 下線の上方向オフセット
-$plans-deco-line-inset-block-pc: 10; // PC: 下線の上方向オフセット
+$plans-deco-line-inset-block-pc: 27; // PC: 下線の上方向オフセット
 $plans-deco-rotate: -14deg; // ラベル傾き
 
 // 装飾アイテム配置（deco グループ基準、カンプ px）
@@ -51,9 +51,9 @@ $plans-deco-sky-inset-block-sp: 25;
 $plans-deco-sky-inset-inline-sp: 5;
 $plans-deco-river-inset-block-sp: 51;
 $plans-deco-river-inset-inline-sp: 7;
-$plans-deco-sky-inset-block-pc: 46;
+$plans-deco-sky-inset-block-pc: 42;
 $plans-deco-sky-inset-inline-pc: 6;
-$plans-deco-river-inset-block-pc: 89;
+$plans-deco-river-inset-block-pc: 86;
 $plans-deco-river-inset-inline-pc: 9;
 $plans-gap-sp: 20; // SP: スライド間 gap（カード ↔ カード）
 // c-card $card-shadow（rm(3) rm(3) rm(4)）のはみ出し余白
@@ -70,7 +70,7 @@ $plans-pagination-bullet-opacity-active: 1; // アクティブドット不透明
 
 // CTA box（Figma 6132:477 / 6124:430）
 $cta-gap-plans-sp: 30; // SP: カードリスト ↔ CTA
-$cta-gap-plans-pc: 64; // PC
+$cta-gap-plans-pc: 21; // PC
 $cta-comment-gap-sp: 30; // SP: コメント ↔ box
 $cta-box-pad-inline-sp: 14; // SP: 本文左右
 $cta-box-pad-block-sp: 14; // SP: 本文上下
@@ -80,7 +80,7 @@ $cta-box-border-sp: 1; // SP: 0.7px → 1
 $cta-box-max-w-sp: $bp-md; // SP: 白枠 max-width（768）
 $cta-box-max-w-pc: 743; // PC: 白枠 max-width（手直しカンプ）
 $cta-text-size-sp: 14; // c-card__text と同一
-$cta-text-size-pc: 18; // c-card__text と同一
+$cta-text-size-pc: 20;
 $cta-comment-size-sp: 12; // コメント（Figma SP 12px）
 $cta-comment-size-pc: 16; // コメント最大 16px
 
@@ -130,6 +130,10 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
 .p-service-mongol {
   background-color: $bg-main;
   overflow: hidden;
+
+  @include mq("md") {
+    margin-block-end: rm(64);
+  }
 }
 
 // ── セクション主見出し ───────────────────────────────────────
@@ -152,6 +156,7 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
 
   @include mq(md) {
     @include font($heading-size-pc, 700, 1.5);
+    margin-inline-start: 0;
   }
 }
 
@@ -161,7 +166,8 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
   inset-inline-start: calc(50% - rm($badge-offset-inline-sp));
 
   @include mq(md) {
-    inset-inline-start: rm(-$badge-offset-inline-pc);
+    inset-inline-start: calc(50% - 286px);
+    inset-block-end: calc(100% + 13px);
   }
 }
 
@@ -232,8 +238,8 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
   inset-inline-end: calc(50% + rm($plans-deco-group-offset-inline-end-sp));
 
   @include mq(md) {
-    inset-block-start: rm(-$plans-deco-offset-block-pc);
-    inset-inline-end: rm(-$plans-deco-offset-inline-pc);
+    inset-block-start: calc(50% - 44px);
+    inset-inline-end: calc(50% + 249px);
   }
 }
 
@@ -251,7 +257,6 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
   }
 
   @include mq(md) {
-    padding-block-end: rm($plans-deco-line-inset-block-pc);
     @include font($plans-deco-size-pc, 500, 1.5);
 
     &::after {
@@ -293,7 +298,7 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
   text-align: center;
 
   @include mq(md) {
-    @include font($plans-heading-size-pc, 700, 1.5);
+    @include font($plans-heading-size-pc, 700, 1.3);
   }
 }
 
@@ -306,6 +311,9 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
   padding-block-end: rm($plans-padding-block-end-sp);
   width: calc(100% + #{rm($plans-shadow-bleed)});
   margin-block-end: rm($plans-slider-margin-block-end-sp);
+  @include mq("md") {
+    margin-block-end: rm(0);
+  }
 }
 
 // Swiper有効化前の静的表示用スタイル
@@ -483,10 +491,10 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
   }
 
   @include mq-cta-pc {
-    width: rm($cta-sheep-w-pc);
-    height: rm($cta-sheep-h-pc);
-    inset-inline-start: calc(50% + rm($cta-sheep-offset-inline-pc));
-    inset-block-start: rm($cta-sheep-inset-block-pc);
+    height: 9.125rem;
+    inset-block-start: 49px;
+    inset-inline-start: calc(50% + 264px);
     transform: none;
+    width: 271px;
   }
 }

@@ -17,19 +17,33 @@ $features-pc-img-sub-h: 150;
 $features-figure-gap: 10; // 画像エリア内 gap（メイン・サブ共通）
 
 // 見出しエリア
+$features-head-gap: 4;
 $features-head-margin-sp: 30;
-$features-head-margin-pc: 70;
+$features-head-margin-pc: 62;
+$features-head-margin-block-start-pc: -9;
 $features-subtitle-margin-pc: 12;
 
 // バッジ配置（カンプ px）
 $features-badge-offset-block: 17;
-$features-badge-offset-inline: 73;
+$features-badge-offset-inline-sp: 73;
+$features-badge-offset-inline-pc: 126;
 
 // タイトルデコレーション（SVG アイコン幅 = padding-inline と一致）
-$features-title-deco-w: 22;
-$features-title-deco-inset-s: 10; // ::before の inset-block-start
-$features-title-deco-inset-block-end: 1; // ::after の inset-block-end
-$features-title-deco-inset-inline-end: -2; // ::after の inset-inline-end
+$features-title-deco-w-sp: 22;
+$features-title-deco-w-pc: 35;
+$features-title-deco-inset-block-start-sp: 10;
+$features-title-deco-inset-inline-start-sp: 3;
+$features-title-deco-inset-block-end-sp: 1;
+$features-title-deco-inset-inline-end-sp: -2;
+$features-title-deco-inset-block-start-pc: 10;
+$features-title-deco-inset-inline-start-pc: -8;
+$features-title-deco-inset-block-end-pc: 8;
+$features-title-deco-inset-inline-end-pc: -6;
+
+// タイトル数字（「３」）
+$features-title-num-font-size-sp: 30;
+$features-title-num-font-size-pc: 42;
+$features-title-num-margin-inline: 7;
 // リスト
 $features-list-gap-sp: 40;
 $features-list-gap-pc: 80;
@@ -58,6 +72,13 @@ $features-num-sep-gap: 12;
 // テキスト
 $features-text-margin-end: 19;
 
+// ナンバー（英字フォントサイズ）
+$features-num-font-size-sp: 45;
+$features-num-font-size-pc: 65;
+
+// ボタン
+$features-btn-margin-block-start: 21;
+
 // ============================================================
 // セクション
 // ============================================================
@@ -73,7 +94,7 @@ $features-text-margin-end: 19;
   margin-block-end: rm($features-head-margin-sp);
   display: flex;
   flex-direction: column;
-  gap: rm(4);
+  gap: rm($features-head-gap);
 
   @include mq(md) {
     margin-block-end: rm($features-head-margin-pc);
@@ -90,6 +111,7 @@ $features-text-margin-end: 19;
   margin-inline: auto;
 
   @include mq(md) {
+    margin-block-start: rm($features-head-margin-block-start-pc);
   }
 }
 
@@ -97,7 +119,11 @@ $features-text-margin-end: 19;
 .p-features__head-badge {
   position: absolute;
   inset-block-end: calc(100% + rm($features-badge-offset-block));
-  inset-inline-end: calc(50% + rm($features-badge-offset-inline));
+  inset-inline-end: calc(50% + rm($features-badge-offset-inline-sp));
+  @include mq(md) {
+    inset-block-end: calc(100% + rm($features-badge-offset-block));
+    inset-inline-end: calc(50% + rm($features-badge-offset-inline-pc));
+  }
 }
 
 // "モンゴルバルーンキャンプ" サブタイトル（.c-head-decoration の絶対配置の基点）
@@ -120,17 +146,28 @@ $features-text-margin-end: 19;
   display: block;
   @include font(22, 700, 1.8);
   color: $text-main;
-  padding-inline: rm($features-title-deco-w);
+  padding-inline: rm($features-title-deco-w-sp);
+  width: 100%;
+
+  @include mq(md) {
+    @include font(30, 500, 1.5);
+  }
 
   &::before {
     position: absolute;
     background: url("/img/deco_feature-left.svg") no-repeat center left /
       contain;
     content: "";
-    inset-block-start: rm($features-title-deco-inset-s);
-    inset-inline-start: rm(3);
-    width: rm($features-title-deco-w);
+    inset-block-start: rm($features-title-deco-inset-block-start-sp);
+    inset-inline-start: rm($features-title-deco-inset-inline-start-sp);
+    width: rm($features-title-deco-w-sp);
     height: 100%;
+
+    @include mq(md) {
+      width: rm($features-title-deco-w-pc);
+      inset-block-start: rm($features-title-deco-inset-block-start-pc);
+      inset-inline-start: rm($features-title-deco-inset-inline-start-pc);
+    }
   }
 
   &::after {
@@ -138,26 +175,27 @@ $features-text-margin-end: 19;
     background: url("/img/deco_feature-right.svg") no-repeat center left /
       contain;
     content: "";
-    inset-block-end: rm($features-title-deco-inset-block-end);
-    inset-inline-end: rm($features-title-deco-inset-inline-end);
-    width: rm($features-title-deco-w);
+    inset-block-end: rm($features-title-deco-inset-block-end-sp);
+    inset-inline-end: rm($features-title-deco-inset-inline-end-sp);
+    width: rm($features-title-deco-w-sp);
     height: 100%;
-  }
-
-  @include mq(md) {
-    @include font(30, 500, 1.5);
+    @include mq(md) {
+      width: rm($features-title-deco-w-pc);
+      inset-block-end: rm($features-title-deco-inset-block-end-pc);
+      inset-inline-end: rm($features-title-deco-inset-inline-end-pc);
+    }
   }
 }
 
 // "３" だけ大きく
 .p-features__title-num {
   font-family: $ff-en;
-  font-size: rm(30);
+  font-size: rm($features-title-num-font-size-sp);
   font-weight: 500;
   letter-spacing: -0.1em;
-
+  margin-inline: rm($features-title-num-margin-inline);
   @include mq(md) {
-    font-size: rm(42);
+    font-size: rm($features-title-num-font-size-pc);
   }
 }
 
@@ -172,6 +210,8 @@ $features-text-margin-end: 19;
 
   @include mq(md) {
     gap: rm($features-list-gap-pc);
+    max-width: rm($features-list-max-w);
+    margin-inline: auto;
   }
 }
 
@@ -267,6 +307,7 @@ $features-text-margin-end: 19;
       $bp-md,
       $pc-inner
     );
+    height: 100%;
   }
 }
 
@@ -284,7 +325,7 @@ $features-text-margin-end: 19;
 
 .p-features__num {
   font-family: $ff-en;
-  font-size: rm(45);
+  font-size: rm($features-num-font-size-sp);
   font-weight: 500;
   line-height: 1;
   color: $text-main;
@@ -292,7 +333,7 @@ $features-text-margin-end: 19;
   display: flex;
 
   @include mq(md) {
-    font-size: rm(65);
+    font-size: rm($features-num-font-size-pc);
   }
 
   &::after {
@@ -330,4 +371,5 @@ $features-text-margin-end: 19;
 // ボタン中央配置
 .p-features__btn {
   align-self: center;
+  margin-block-start: rm($features-btn-margin-block-start);
 }

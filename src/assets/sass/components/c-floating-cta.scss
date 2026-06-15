@@ -14,6 +14,9 @@ $cta-hover-scale: 1.1;
 $cta-hover-float-y: 12;
 $cta-hover-scale-duration: 0.4s;
 $cta-hover-duration: 2.5s;
+// FV通過後の表示開始スクロール量（カンプ SP px）
+$cta-sp-scroll-threshold: 70;
+$cta-sp-fade-duration: 0.3s;
 
 $cta-sp-block-size: calc(
   #{rm($cta-sp-border * 2)} + #{rm($cta-sp-pad-block * 2)} +
@@ -38,11 +41,23 @@ $cta-sp-block-size: calc(
   z-index: $z-floating-cta;
   width: 100vw;
   pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity $cta-sp-fade-duration ease,
+    visibility $cta-sp-fade-duration ease;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+  }
 
   @include mq(md) {
     inset-block-end: rm($cta-pc-offset);
     inset-inline: auto rm($cta-pc-offset);
     width: rm($cta-pc-w);
+    opacity: 1;
+    visibility: visible;
   }
 }
 

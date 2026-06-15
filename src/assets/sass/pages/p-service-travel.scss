@@ -10,7 +10,7 @@ $heading-icon-gap: 15; // 見出しアイコン ↔ テキスト gap
 // バッジ配置（カンプ px）
 $badge-offset-block: 18; // バッジ下辺が見出し上辺より上に出る量（SP/PC 共通）
 $badge-offset-inline-sp: 170; // SP: 見出し左端より外側へのオフセット
-$badge-offset-inline-pc: 88; // PC: 見出し左端より外側へのオフセット
+$badge-offset-inline-pc: 251; // PC: 見出し中央から左方向へのオフセット
 
 // 余白
 $heading-mb-sp: 32; // 見出し ↔ リード文
@@ -65,7 +65,7 @@ $table-heading-mb-pc: 30;
   inset-inline-start: calc(50% - rm($badge-offset-inline-sp));
 
   @include mq(md) {
-    inset-inline-start: rm(-$badge-offset-inline-pc);
+    inset-inline-start: calc(50% - rm($badge-offset-inline-pc));
   }
 }
 

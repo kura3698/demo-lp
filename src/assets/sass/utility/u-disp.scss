@@ -59,6 +59,19 @@
   }
 }
 
+.u-md-visible--inline {
+  display: none;
+  @include mq("md") {
+    display: inline-block;
+  }
+}
+
+.u-md-inline {
+  @include mq("md") {
+    display: inline;
+  }
+}
+
 .u-lg-visible {
   display: none;
   @include mq("lg") {

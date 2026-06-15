@@ -9,7 +9,7 @@ $form-label-col-pc: 266;
 $form-field-col-pc: 460;
 
 $form-gap-sp: 15;
-$form-gap-pc: 30;
+$form-gap-pc: 32;
 $form-label-to-field-gap-sp: 5;
 $form-label-row-gap-sp: 10;
 
@@ -97,7 +97,7 @@ $form-success-size-pc: 16;
   @include mq(md) {
     grid-template-columns: rm($form-label-col-pc) minmax(0, 1fr);
     align-items: center;
-    gap: 0;
+    gap: 25px;
     width: 100%;
   }
 }
@@ -210,6 +210,7 @@ $form-success-size-pc: 16;
     grid-row: 2;
     min-height: rm($form-textarea-min-h-pc);
     padding-block: rm($form-input-pad-inline-pc);
+    margin-block-start: -11px;
   }
 }
 
@@ -296,6 +297,7 @@ $form-success-size-pc: 16;
     grid-column: 1;
     grid-row: 2;
     gap: rm($form-options-gap-activities-pc);
+    margin-block-start: 12px;
   }
 }
 

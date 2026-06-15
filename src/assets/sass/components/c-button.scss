@@ -87,6 +87,7 @@
 
   @include mq(md) {
     height: rm(70);
+    padding-inline: 0;
   }
 }
 
