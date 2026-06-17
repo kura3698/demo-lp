@@ -12,6 +12,7 @@ alwaysApply: true
 - **BEMクラスの無断生成禁止:** 勝手に新しいコンポーネントクラスを作成する前に、既存のUtility（`u-`）やLayout（`l-`）で解決できないか検討すること。
 - **`br` 改行の表示切替:** `pages/` や `components/` に `br` の `display` 切替専用セレクタ（例: `.p-xxx__lead-br--sp-only`）を新規作成しない。`u-disp.scss` のユーティリティを使う（HTML 側の詳細は `web-coding-html.mdc`）。
 - **自動生成ファイル保護:** 各層の `index.scss` はGulpによる自動生成のため**【編集厳禁】**。スタイル追加は必ず各パーシャルファイル（`_*.scss`）に行うこと。
+- **full-bleed 背景:** セクション全幅背景に `margin-inline: calc(50% - 50vw)` と `$pc-camp` 固定幅の併用は禁止。詳細は **`Safari 横ずれ防止（full-bleed 背景）`** 節を参照。
 
 ## フォルダ
 
@@ -292,6 +293,7 @@ $card-mb-sp: 41; // 【禁止】変数名の略語（mb）とコメント不足
 | --- | --- |
 | フロー内配置 | Flex / Grid（`margin`, `gap`, `align`） |
 | セクション内重ね | Grid オーバーレイ（同一 `grid-area` で重ねる） |
+| セクション全幅背景 | Grid 重ね + 親 `overflow: hidden` + 子 `absolute; inset: 0` + `object-fit: cover`（`50vw` ハック禁止） |
 | 装飾・バッジ | 親 `relative` + 子 `absolute` + 比率 inset |
 
 ### 基本ルール
@@ -338,6 +340,110 @@ $card-mb-sp: 41; // 【禁止】変数名の略語（mb）とコメント不足
   position: absolute;
   top: rm(12); // 【禁止】物理方向 + マジックナンバー
   left: rm(-8);
+}
+```
+
+## Safari 横ずれ防止（full-bleed 背景）
+
+セクション全幅の背景画像を PC 域で表示する際、Safari で横方向にずれる原因になりやすいパターンを禁止し、代替実装を統一する。
+
+### 禁止パターン
+
+| パターン | 問題 |
+| --- | --- |
+| `margin-inline: calc(50% - 50vw)` と `$pc-camp` 固定幅の子要素の併用 | Safari が `%` と `vw` の合成を Chrome と異なる解釈し、**viewport がカンプ幅未満の PC 域（例: 1060〜1439px）で横ずれ**しやすい |
+| PC 用 MQ 内で `width: rm($pc-camp)` 固定 + full-bleed | 上記と同根。viewport より子が広くなる |
+
+### 推奨パターン（Grid 重ね + absolute fill）
+
+参照実装: `p-message.scss` / `p-info.scss`（1060px 以上部分）
+
+```scss
+// セクション: grid 重ね
+.p-xxx {
+  display: grid;
+  overflow-x: hidden;
+}
+
+.p-xxx__head {
+  position: relative;
+  grid-area: 1 / 1;
+  overflow: hidden;
+}
+
+.p-xxx__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.p-xxx__bg picture,
+.p-xxx__bg img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+```
+
+- **`calc(50% - 50vw)` は使わない**
+- 背景は **親（head）の 100% にフィット**させ、viewport 幅に追従させる
+
+### メディアクエリ表記
+
+`$pc-inner-sum` 相当の BP 用 mixin では、nested `calc` を MQ に渡さない。
+
+```scss
+// NG
+@media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) { ... }
+
+// OK（p-service-mongol の mq-cta-pc と同型）
+$section-pc-min-width: $pc-inner + $pc-sidePadding * 2;
+@media screen and (min-width: #{$section-pc-min-width}px) { ... }
+```
+
+### AIへの短い指示例
+
+| 指示フレーズ | 意味 |
+| --- | --- |
+| `Safari full-bleed ルールで` | `50vw` ハック禁止・absolute fill + object-fit cover |
+| `full-bleed 背景は grid 重ね` | セクション grid + head relative + bg absolute inset 0 |
+
+⭕ 良い例
+
+```scss
+.p-info__head {
+  position: relative;
+  overflow: hidden;
+}
+
+.p-info__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.p-info__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+```
+
+❌ 悪い例
+
+```scss
+.p-info__bg {
+  margin-inline: calc(50% - 50vw); // 【禁止】Safari で横ずれの原因
+
+  picture {
+    width: rm($pc-camp); // 【禁止】viewport より広くなる
+    height: rm(1000);
+  }
 }
 ```
 

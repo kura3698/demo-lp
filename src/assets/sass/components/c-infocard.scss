@@ -46,9 +46,11 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 // 宿泊ゲル 注釈行の右余白（カンプ SP 8px）
 $infocard-ger-note-margin-inline-end: 8;
 
-// 1060px（$pc-inner-sum）以上
+// 1060px（$pc-inner + 左右 padding）以上
+$info-pc-min-width: $pc-inner + $pc-sidePadding * 2;
+
 @mixin mq-info-pc {
-  @media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
+  @media screen and (min-width: #{$info-pc-min-width}px) {
     @content;
   }
 }

@@ -31,11 +31,13 @@ $info-item-width-pc: 320;
 $info-section-pad-block-end-sp: 40;
 
 // ============================================================
-// mixin — 1060px（$pc-inner-sum）以上
+// mixin — 1060px（$pc-inner + 左右 padding）以上
 // ============================================================
 
+$info-pc-min-width: $pc-inner + $pc-sidePadding * 2;
+
 @mixin mq-info-pc {
-  @media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
+  @media screen and (min-width: #{$info-pc-min-width}px) {
     @content;
   }
 }
@@ -65,6 +67,7 @@ $info-section-pad-block-end-sp: 40;
     grid-area: 1 / 1;
     z-index: 0;
     min-height: rm($info-bg-pc-h);
+    overflow: hidden;
   }
 }
 
@@ -105,27 +108,48 @@ $info-section-pad-block-end-sp: 40;
 
 @include mq-info-pc {
   .p-info__bg {
-    display: flex;
-    justify-content: center;
+    position: absolute;
+    inset: 0;
     width: 100%;
+    height: 100%;
     overflow: hidden;
     line-height: 0;
-    margin-inline: calc(50% - 50vw);
   }
 
   .p-info__bg picture {
-    flex-shrink: 0;
     display: block;
-    width: rm($info-bg-pc-w);
-    height: rm($info-bg-pc-h);
+    width: 100%;
+    height: 100%;
   }
 
   .p-info__bg img {
     display: block;
-    width: rm($info-bg-pc-w);
-    height: rm($info-bg-pc-h);
+    width: 100%;
+    height: 100%;
     max-width: none;
     aspect-ratio: auto;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+@include mq(xxl) {
+  .p-info__bg {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+
+  .p-info__bg picture {
+    width: rm($info-bg-pc-w);
+    height: rm($info-bg-pc-h);
+    flex-shrink: 0;
+  }
+
+  .p-info__bg img {
+    width: rm($info-bg-pc-w);
+    height: rm($info-bg-pc-h);
+    object-fit: fill;
   }
 }
 
