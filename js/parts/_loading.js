@@ -1,1 +1,0 @@
-document.addEventListener("DOMContentLoaded",()=>{let e=document.getElementById("js-loading");function t(){e.classList.add("js-loaded")}e&&(sessionStorage.getItem("visited")?setTimeout(t,0):(sessionStorage.setItem("visited","first"),setTimeout(t,4e3)))});

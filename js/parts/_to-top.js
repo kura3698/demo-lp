@@ -1,1 +1,0 @@
-document.addEventListener("DOMContentLoaded",()=>{let o=document.querySelector(".c-to-top");o&&(window.addEventListener("scroll",()=>{300<(window.scrollY||document.documentElement.scrollTop)?o.classList.add("js-show"):o.classList.remove("js-show")}),o.addEventListener("click",()=>{window.scrollTo({top:0,behavior:"smooth"})}))});
