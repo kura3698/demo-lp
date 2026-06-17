@@ -278,7 +278,7 @@ $form-success-size-pc: 16;
   @include mq(md) {
     grid-column: 2;
     grid-row: 1;
-    gap: rm($form-options-gap-inquiry-pc);
+    gap: rclamp(25, $form-options-gap-inquiry-pc, $bp-md, $pc-inner);
   }
 }
 
@@ -307,7 +307,7 @@ $form-success-size-pc: 16;
   gap: rm($form-control-gap-sp);
 
   @include mq(md) {
-    gap: rm($form-control-gap-pc);
+    gap: rclamp(7, $form-control-gap-pc, $bp-md, $pc-inner);
   }
 }
 

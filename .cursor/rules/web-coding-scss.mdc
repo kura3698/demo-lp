@@ -564,49 +564,14 @@ Block は「どこに配置しても影響を与えない・影響を受けな�
       → ページ（.l-main）
 ```
 
-### 3. 余白（Margin）設計
+### 3. 余白（Spacing）設計
 
-**基本ルール**
+**詳細は `web-coding-spacing.mdc` を参照。** 要点のみ:
 
-- margin は **Element 側**で管理する（Block ルートに外側余白を付けない）
-- Block 同士の配置調整は、親 Block の Element（例: `.p-features__item`）または `gap` で行う
-- 余白が必要で親 Element だけでは足りない場合は、さらに上位の Block / Element を追加する
-
-❌ DON'T — Block に外側余白
-
-```scss
-.c-card {
-  margin-block-start: rm(40);
-}
-```
-
-⭕ DO — Element で余白
-
-```scss
-.p-cards__item {
-  margin-block-start: rm(40);
-}
-```
-
-**余白の方向性**
-
-余白は以下を考慮して、**安定側**（消える可能性が低い・改行しても崩れにくい側）に付与する。
-
-❌ DON'T
-
-```scss
-.c-label {
-  margin-inline-start: rm(8);
-}
-```
-
-⭕ DO
-
-```scss
-.c-date {
-  margin-inline-end: rm(8);
-}
-```
+- 兄弟間は **`gap` 優先**（親を flex/grid に）
+- `gap` 不可時は **上/左要素**に `margin-block-end` / `margin-inline-end`（下/右への `margin-*-start` は新規禁止）
+- inline 軸の間隔は **`rclamp()` 基本**
+- margin は **Element 側**のみ（Block ルートに外側余白を付けない）
 
 ### 4. Modifier（`--`）ルール
 
@@ -855,13 +820,13 @@ HTMLはテキスト先・画像後で記述し、CSSの `order` または `grid-
 
 ## `rclamp()` の使いどころルール
 
-`rclamp()` はフォントサイズだけでなく、**2カラムレイアウト内の `gap` や余白がブレイクポイント付近で急変する場合にも積極的に使用**すること。
+`rclamp()` はフォントサイズだけでなく、**block 軸の `gap` や余白がブレイクポイント付近で急変する場合**にも使用する。**inline 軸（左右間隔）の `column-gap` の詳細は `web-coding-spacing.mdc` を参照。**
 
 ### 基本方針
 
 - `$min`: SPの値（またはブレイクポイント直後に望ましい最小値）
 - `$max`: PCの最大値
-- viewport範囲: `$bp-md` 〜 `$pc-inner` を基本とする（コンテナが内側に収まる地点で最大値に達するのが自然）
+- viewport範囲（フォント・block 軸 gap）: `$bp-md` 〜 `$pc-inner` を基本とする
 
 ```scss
 // フォントサイズ
@@ -869,11 +834,9 @@ HTMLはテキスト先・画像後で記述し、CSSの `order` または `grid-
   font-size: rclamp(18, 28, $bp-md, $pc-inner);
 }
 
-// gap・余白
+// block 軸 gap（滑らかな変化が必要なとき）
 .p-card__item {
-  @include mq(md) {
-    gap: rclamp(20, 50, $bp-md, $pc-inner);
-  }
+  gap: rclamp(20, 50, $bp-md, $pc-inner);
 }
 ```
 

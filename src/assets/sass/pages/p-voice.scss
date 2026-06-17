@@ -4,9 +4,10 @@
 // ローカル変数（Figma 6142:208 PC / 6023:973 SP）
 // ============================================================
 
-$voice-section-pad-block-start-sp: 40;
+$voice-section-pad-block-start-sp: 80;
 $voice-section-pad-block-end-sp: 31;
 $voice-section-pad-block-pc: 90;
+$voice-section-pad-block-end-pc: 81;
 $voice-heading-mb-sp: 22;
 $voice-heading-mb-pc: 60;
 // c-voice-card box-shadow（rm(3) rm(4) rm(4)）のはみ出し余白
@@ -33,7 +34,8 @@ $voice-item-max-w-sp: $sp-inner; // 550 — SP スライド最大幅
     rm($voice-section-pad-block-end-sp);
 
   @include mq(md) {
-    padding-block: rm($voice-section-pad-block-pc) 81px;
+    padding-block: rm($voice-section-pad-block-pc)
+      rm($voice-section-pad-block-end-pc);
   }
 }
 

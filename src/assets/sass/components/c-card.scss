@@ -305,7 +305,6 @@ $price-inset-block-plan-image-tall-pc: math.div(
     @include mq(md) {
       inset-block-start: 36%;
       inset-inline-start: 89%;
-      font-size: rm($price-size-plan-pc);
     }
   }
 }
@@ -337,7 +336,7 @@ $price-inset-block-plan-image-tall-pc: math.div(
   .c-card__price {
     @include mq(md) {
       inset-inline-start: 88%;
-      inset-block-start: 34%;
+      inset-block-start: 37%;
     }
   }
 }

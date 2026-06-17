@@ -46,12 +46,11 @@ $info-section-pad-block-end-sp: 40;
 
 .p-info {
   background-color: $bg-main;
-  padding-block-end: rm($info-section-pad-block-end-sp);
-  margin-block-start: rm(-64);
+  // margin-block-start: rm(-64);
+  padding-block: rm(0);
   @include mq-info-pc {
     display: grid;
     min-height: rm($info-bg-pc-h);
-    padding-block: 0;
     overflow-x: hidden;
   }
 }

@@ -25,23 +25,30 @@
   }
 }
 
+.u-xs-hidden--inline {
+  display: none;
+  @include mq("xs") {
+    display: inline-block;
+  }
+}
+
 .u-sm-visible {
   display: block;
-  @include mq("md") {
+  @include mq("sm") {
     display: none;
   }
 }
 
 .u-sm-hidden {
   display: none;
-  @include mq("md") {
-    display: inline-block;
+  @include mq("sm") {
+    display: block;
   }
 }
 
 .u-sm-hidden--inline {
   display: none;
-  @include mq("md") {
+  @include mq("sm") {
     display: inline-block;
   }
 }

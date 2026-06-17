@@ -410,15 +410,14 @@ $table-border-inner: 0.5px dotted $text-main;
 .c-schedule-table__lodge-name--dash {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  margin-inline: auto;
-
+  width: rm(14);
   &::before {
     content: "";
     display: block;
     width: rm($lodge-dash-width);
     height: rm($lodge-dash-height);
     background-color: $text-main;
+    margin-inline: auto;
   }
 }
 

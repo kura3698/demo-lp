@@ -43,7 +43,6 @@ $infocard-ger-img-pos-x-sp: 3.29%;
 $infocard-ger-img-pos-y-sp: 71.19%;
 $infocard-ger-img-pos-x-pc: 6.13%;
 $infocard-ger-img-pos-y-pc: 78.97%;
-$infocard-ger-price-gap-em: 1;
 // 宿泊ゲル 注釈行の右余白（カンプ SP 8px）
 $infocard-ger-note-margin-inline-end: 8;
 
@@ -187,17 +186,42 @@ $infocard-ger-note-margin-inline-end: 8;
 }
 
 .c-infocard--ger .c-infocard__text p:nth-of-type(2) {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  gap: 0;
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "lead emphasis"
+    ". note";
   align-items: baseline;
-  gap: #{$infocard-ger-price-gap-em}em;
+  margin-inline-end: auto;
+
+  @include mq(sm) {
+    grid-template-columns: auto auto auto;
+    grid-template-areas: "lead emphasis note";
+  }
+
+  @include mq-info-pc {
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "lead emphasis"
+      ". note";
+  }
+}
+
+.c-infocard--ger .c-infocard__price-lead {
+  grid-area: lead;
+}
+
+.c-infocard--ger .c-infocard__text p:nth-of-type(2) .c-infocard__emphasis {
+  grid-area: emphasis;
+  margin-inline-start: 1em;
+}
+
+.c-infocard--ger .c-infocard__text p:nth-of-type(2) .c-infocard__note {
+  grid-area: note;
 }
 
 @include mq-info-pc {
-  .c-infocard--ger .c-infocard__text p:nth-of-type(2) {
-    flex-wrap: nowrap;
-  }
-
   .c-infocard--ger .c-infocard__text p:nth-of-type(4),
   .c-infocard--ger .c-infocard__text p:nth-of-type(5) {
     display: inline;

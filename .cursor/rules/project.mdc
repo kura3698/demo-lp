@@ -25,6 +25,8 @@ alwaysApply: true
 | ブレイクポイント      | 768        | `$breakpoint`                         |
 | PCの狭い幅            | 852        | `$pc-narrow-inner`                    |
 
+余白（gap / margin / rclamp）の詳細 → `web-coding-spacing.mdc`
+
 ## レスポンシブ方針
 
 | 設定項目           | 値           | 選択肢・補足                                     |

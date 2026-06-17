@@ -55,7 +55,7 @@ $cta-sp-block-size: calc(
   @include mq(md) {
     inset-block-end: rm($cta-pc-offset);
     inset-inline: auto rm($cta-pc-offset);
-    width: rm($cta-pc-w);
+    width: rclamp(100, $cta-pc-w, $bp-md, $pc-inner);
     opacity: 1;
     visibility: visible;
   }

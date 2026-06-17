@@ -12,8 +12,9 @@ $heading-size-pc: 30; // 主見出しフォントサイズ（PC）
 $heading-margin-inline-start-sp: 42; // 主見出し左オフセット（カンプ SP）
 $heading-margin-block-start-sp: -3; // 主見出し上方向微調整（カンプ SP）
 $badge-offset-block: 15; // バッジ下辺が見出し上辺より上に出る量
+$badge-offset-block-pc: 13; // PC: バッジ下辺が見出し上辺より上に出る量
 $badge-offset-inline-sp: 149; // SP: 見出し中心より左
-$badge-offset-inline-pc: 88; // PC: 見出し左端より外側（Figma left -88px）
+$badge-inset-inline-from-center-pc: 286; // PC: 見出し中心より左（バッジ配置）
 
 // 第1ブロック（Figma 6126:432 / 6120:388）
 $top-gap-sp: 17; // __top 内 gap
@@ -32,9 +33,9 @@ $plans-heading-size-pc: 30; // プラン見出しフォントサイズ（PC）
 
 // プラン見出し装飾（Figma 6115:284 / 6120:372）
 $plans-deco-group-center-offset-block-sp: 30; // SP: 装飾グループの縦方向中心オフセット
+$plans-deco-group-center-offset-block-pc: 44; // PC: 装飾グループの縦方向中心オフセット
 $plans-deco-group-offset-inline-end-sp: 173; // SP: 装飾グループの右端オフセット（見出し中心基準）
-$plans-deco-offset-inline-pc: 46; // PC: 装飾グループの右端オフセット
-$plans-deco-offset-block-pc: 23; // PC: 装飾グループの上オフセット
+$plans-deco-group-offset-inline-end-pc: 249; // PC: 装飾グループの右端オフセット（見出し中心基準）
 $plans-deco-size-sp: 12; // ラベルフォントサイズ（SP）
 $plans-deco-size-pc: 18; // ラベルフォントサイズ（PC）
 $plans-deco-line-width-sp: 54; // 下線幅（SP）
@@ -60,6 +61,7 @@ $plans-gap-sp: 20; // SP: スライド間 gap（カード ↔ カード）
 $card-shadow-offset: 3;
 $card-shadow-blur: 4;
 $plans-shadow-bleed: 8; // offset + blur + 1px 余裕
+$plans-shadow-bleed-inline-sum-pc: $plans-shadow-bleed * 2; // PC: 片側 bleed × 2（width 相殺用）
 $plans-gap-pc: 30; // PC: カード間 gap（Figma gap-[30px]）
 $plans-padding-block-end-sp: 39; // SP: カードリスト下部 padding-block-end
 $plans-slider-margin-block-end-sp: 61; // SP: プラン一覧下余白
@@ -90,8 +92,8 @@ $cta-horse-h-sp: 90;
 $cta-horse-w-pc: 198; // PC: 馬幅（手直しカンプ）
 $cta-sheep-w-sp: 105;
 $cta-sheep-h-sp: 72;
-$cta-sheep-w-pc: 176;
-$cta-sheep-h-pc: 146;
+$cta-sheep-w-pc: 271; // PC: 羊幅（手直しカンプ）
+$cta-sheep-h-pc: 146; // PC: 羊高さ（手直しカンプ）
 
 // SP: stage 中心基準オフセット（手直しカンプ）
 $cta-horse-inset-inline-sp: 178;
@@ -111,10 +113,12 @@ $cta-horse-group-block-pc: 42;
 $cta-horse-img-offset-block-pc: -9;
 $cta-horse-inset-block-pc: $cta-horse-group-block-pc +
   $cta-horse-img-offset-block-pc;
-$cta-sheep-offset-inline-pc: 300;
-$cta-sheep-inset-block-pc: 38;
+$cta-sheep-offset-inline-pc: 264; // PC: stage 中心より右
+$cta-sheep-inset-block-pc: 49; // PC: 羊の上端位置
 $cta-box-inner-z-index: 1; // 白枠（装飾より下）
 $cta-box-deco-z-index: 2; // 馬・羊装飾
+
+$section-margin-block-end-pc: 64; // PC: セクション下余白
 
 // CTA: PC 切替は $pc-inner-sum（1060px）以上
 @mixin mq-cta-pc {
@@ -131,8 +135,8 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
   background-color: $bg-main;
   overflow: hidden;
 
-  @include mq("md") {
-    margin-block-end: rm(64);
+  @include mq-cta-pc {
+    margin-block-end: rm($section-margin-block-end-pc);
   }
 }
 
@@ -166,8 +170,8 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
   inset-inline-start: calc(50% - rm($badge-offset-inline-sp));
 
   @include mq(md) {
-    inset-inline-start: calc(50% - 286px);
-    inset-block-end: calc(100% + 13px);
+    inset-inline-start: calc(50% - #{rm($badge-inset-inline-from-center-pc)});
+    inset-block-end: calc(100% + #{rm($badge-offset-block-pc)});
   }
 }
 
@@ -238,8 +242,10 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
   inset-inline-end: calc(50% + rm($plans-deco-group-offset-inline-end-sp));
 
   @include mq(md) {
-    inset-block-start: calc(50% - 44px);
-    inset-inline-end: calc(50% + 249px);
+    inset-block-start: calc(
+      50% - #{rm($plans-deco-group-center-offset-block-pc)}
+    );
+    inset-inline-end: calc(50% + #{rm($plans-deco-group-offset-inline-end-pc)});
   }
 }
 
@@ -312,7 +318,12 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
   width: calc(100% + #{rm($plans-shadow-bleed)});
   margin-block-end: rm($plans-slider-margin-block-end-sp);
   @include mq("md") {
-    margin-block-end: rm(0);
+    box-sizing: border-box;
+    margin-block-end: 0;
+    width: calc(100% + #{rm($plans-shadow-bleed-inline-sum-pc)});
+    padding-block-start: rm($plans-shadow-bleed);
+    padding-inline-start: rm($plans-shadow-bleed);
+    margin-block-start: rm(-$plans-shadow-bleed);
   }
 }
 
@@ -491,10 +502,10 @@ $cta-box-deco-z-index: 2; // 馬・羊装飾
   }
 
   @include mq-cta-pc {
-    height: 9.125rem;
-    inset-block-start: 49px;
-    inset-inline-start: calc(50% + 264px);
+    width: rm($cta-sheep-w-pc);
+    height: rm($cta-sheep-h-pc);
+    inset-block-start: rm($cta-sheep-inset-block-pc);
+    inset-inline-start: calc(50% + #{rm($cta-sheep-offset-inline-pc)});
     transform: none;
-    width: 271px;
   }
 }

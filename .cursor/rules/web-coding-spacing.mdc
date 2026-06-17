@@ -1,0 +1,205 @@
+---
+description: 余白（gap / margin / rclamp）の設計・実装規約
+globs: src/assets/sass/**/*.scss
+alwaysApply: false
+---
+
+# 余白（Spacing）ルール
+
+兄弟要素間の余白は **`gap` を第一選択**とする。`gap` が使えない場合のみ margin で補い、**上（左）の要素が下（右）を押し出す**方向に付与する。左右（inline 軸）の間隔は **`rclamp()` で流体化**する。
+
+数値の直書き・略語変数名・Block ルートへの外側 margin は `web-coding-scss.mdc` のマジックナンバー禁止・BEM アーキテクチャ節に従う。
+
+---
+
+## 3原則
+
+| 優先度 | 原則 | 実装 |
+| --- | --- | --- |
+| 1 | **gap 優先** | 兄弟要素間は親に `display: flex` / `grid` を置き `gap` で管理 |
+| 2 | **margin は上から下** | `gap` が使えないときは **上の要素** に `margin-block-end`（横並びなら **左の要素** に `margin-inline-end`）。**下（右）への `margin-*-start` は新規禁止** |
+| 3 | **左右間隔は rclamp** | inline 軸の `column-gap`（横 `flex` の `gap`）は **基本 `rclamp()`** で SP〜PC を滑らかにスケール |
+
+「安定側に付与」（`margin-block-end` / `margin-inline-end`）と「上から下」は同じ思想——**先頭要素が後続を押し出す**。
+
+---
+
+## 4階層
+
+| 階層 | 担当 | 例 |
+| --- | --- | --- |
+| L1 Layout | ページ外枠 | `.l-section`（上下 padding）、`.l-inner`（左右 padding） |
+| L2 Section | セクション内ブロック間 | `.p-xxx__header` と `.p-xxx__body` の `gap` |
+| L3 Component | コンポーネント内部 | `.c-card__body` の `gap`、`.c-form` の `gap` |
+| L4 微調整 | 装飾重なり等の例外 | ネガティブ margin（要コメント・別節参照） |
+
+- **L1** の padding は Layout 専用。`p-*` Block ルートにセクション間の外側 margin を付けない。
+- **L2〜L3** は原則 `gap`。margin はフォールバックのみ。
+
+---
+
+## 判断フロー
+
+```
+余白が必要
+  └─ 兄弟が同一 flex/grid 親か？
+       ├─ Yes → gap を使う
+       │    ├─ block 軸（縦）→ row-gap / gap: rm() + mq(md) または rclamp（滑らかな変化が必要なとき）
+       │    └─ inline 軸（横）→ column-gap: rclamp() 基本
+       └─ No  → 上/左要素に margin-block-end / margin-inline-end
+```
+
+**第一選択:** 間隔が必要な兄弟を **同じ親の flex/grid にまとめられるなら、DOM を増やす前に `gap` を検討**する。
+
+---
+
+## block 軸 vs inline 軸
+
+| 軸 | プロパティ | 値の指定 | 備考 |
+| --- | --- | --- | --- |
+| **block（縦）** | `gap` / `row-gap` | `rm($min)` + `@include mq(md) { … }` が基本 | SP/PC 差が大きく BP 付近で急変する場合は `rclamp()`（`p-feature.scss` パターン） |
+| **inline（横）** | `column-gap` / 横 `flex` の `gap` | **`rclamp($min, $max, $sp-camp, $pc-inner)` 基本** | `$is-liquid-layout: false` でも左右間隔だけ流体化する |
+
+### inline 軸 — `rclamp()` のデフォルト
+
+```scss
+column-gap: rclamp($gap-min, $gap-max, $sp-camp, $pc-inner);
+```
+
+- `$gap-min` = カンプ SP px、`$gap-max` = カンプ PC px
+- 390px 幅で min、コンテンツ幅 1000px 付近で max（以降 clamp）
+
+### inline 軸 — viewport 例外
+
+| 条件 | viewport | 例 |
+| --- | --- | --- |
+| SP/PC で値が同じ（4px 等） | `rclamp` 不要、`rm()` 固定 | スライド間の細い隙間 |
+| md 未満は固定・md 以降だけ伸ばす | `$bp-md` → `$pc-inner` | フォームの inquiry options |
+| 全幅レイアウトで PC カンプ基準 | `$breakpoint` → `$pc-camp` | フッターナビ PC |
+
+`rclamp()` を使う場合、`@include mq(md)` による2段階の gap 上書きは不要（inline 軸）。
+
+---
+
+## `gap` を使う（第一選択）
+
+- 見出し ↔ 本文、カード一覧、フォーム項目など **同じ親の兄弟**
+- 親に `display: grid` または `display: flex` + `gap` / `row-gap` / `column-gap`
+
+```scss
+// 縦並び（block 軸）
+.p-features__inner {
+  display: grid;
+  gap: rm($features-list-gap-sp);
+
+  @include mq(md) {
+    gap: rm($features-list-gap-pc);
+  }
+}
+
+// 横並び（inline 軸）
+.c-head--info {
+  display: flex;
+  gap: rclamp($head-gap-sp, $head-gap-pc, $sp-camp, $pc-inner);
+}
+```
+
+---
+
+## `gap` が使えないとき — margin フォールバック
+
+以下に限り、**上（左）の Element** に margin を付与する。
+
+- 親が異なるブロック間（見出し Element と別ラッパーのリストなど）
+- **1つだけ**間隔を変えたい兄弟（`gap` だと全兄弟に効く）
+- Swiper `spaceBetween` 等 JS 管轄（CSS `gap` と二重化しない）
+
+### NG / OK
+
+```scss
+// NG: 下の要素を押し下げる
+.c-form__actions {
+  margin-block-start: rm(10);
+}
+
+// OK: 上の要素が下を押す
+.c-form__fields {
+  margin-block-end: rm(10);
+}
+
+// NG: 右要素を押す
+.c-label + .c-field {
+  margin-inline-start: rm(8);
+}
+
+// OK: 左要素が右を押す
+.c-label {
+  margin-inline-end: rm(8);
+}
+```
+
+- margin は **Element 側**のみ（Block ルートに外側 margin 禁止）
+- 論理プロパティ必須（`margin-block-end` / `margin-inline-end`）。物理方向（`margin-top` 等）は使わない
+
+---
+
+## 例外
+
+### ネガティブ margin
+
+- **装飾重なり・視覚微調整のみ**（`c-card.scss` の注釈位置など）
+- 変数名 + 用途コメント必須
+- セクション余白の相殺には使わない（`web-coding-scss.mdc`「overflow: hidden と box-shadow」節の負 margin 禁止方針と整合）
+
+### Layout の padding
+
+- `.l-section` / `.l-inner` の `padding` は L1 専用（gap ルールの対象外）
+- 内側余白（ボタン・入力欄・カード内）は対象要素の `padding`
+
+### Swiper
+
+- スライド間隔は `spaceBetween`（JS）。CSS `gap` と二重化しない
+- 静的フォールバックは `web-coding-swiper.mdc` 参照
+
+### 既存コード
+
+- 既存 SCSS に `margin-block-start` 等の旧パターンが残っていても **グランドファザー**とする
+- **新規・修正時**は本ルールに寄せる
+
+---
+
+## 変数・命名
+
+カンプ px はファイル先頭のローカル変数に集約し、`rm()` / `rclamp()` で適用する。
+
+| 接尾辞 | 用途 |
+| --- | --- |
+| `-gap` | `gap` / `row-gap` / `column-gap` 用 |
+| `-margin-block-end` | 縦 margin フォールバック |
+| `-margin-inline-end` | 横 margin フォールバック |
+| `-sp` / `-pc` | BP 別（ペアで定義） |
+
+**禁止:** `mt`, `mb`, `pad` 等の略語
+
+```scss
+// 見出し下端 ↔ カード上端（カンプ SP 40px / PC 80px）
+$features-list-gap-sp: 40;
+$features-list-gap-pc: 80;
+```
+
+- 2ファイル以上で同値 → `variables.scss` へ昇格（例: `$space-section-block-sp`）
+- コメントは「何 ↔ 何の間隔（カンプ SP/PC）」を一文で
+
+---
+
+## AI 自己検証チェックリスト
+
+実装・レビュー前に確認すること。
+
+- [ ] 兄弟間の余白は親の `gap` で解決できないか検討したか
+- [ ] margin を使う場合、**上/左要素**の `margin-block-end` / `margin-inline-end` か（`margin-*-start` でないか）
+- [ ] inline 軸の間隔は `rclamp($min, $max, $sp-camp, $pc-inner)` を使ったか（例外条件に該当しないか）
+- [ ] Block ルートに外側 `margin` がないか
+- [ ] 数値はローカル変数 + `rm()` / `rclamp()` か（マジックナンバー直書きでないか）
+- [ ] 変数名に略語（`mt`, `mb`, `pad`）がないか
+- [ ] `pages/` 内で `.p-* .c-*` ネストによる余白上書きをしていないか
