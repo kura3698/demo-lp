@@ -21,7 +21,7 @@ $form-cta-pad-inline-pc: 17;
 $form-cta-pad-block-end-mail-pc: 33;
 
 $form-cta-inner-gap-sp: 7;
-$form-cta-inner-gap-tel-pc: 18;
+$form-cta-inner-gap-tel-pc: 14;
 $form-cta-inner-gap-mail-pc: 17;
 $form-cta-head-gap-sp: 15;
 $form-cta-head-gap-pc: 10;
@@ -39,6 +39,19 @@ $form-cta-value-tracking-tel-sp: 2.4;
 $form-cta-value-tracking-tel-pc: 1.2;
 $form-cta-staff-size-sp: 14;
 $form-cta-staff-size-pc: 16;
+$form-cta-line-height: 1.5;
+$form-cta-value-margin-inline-start-sp: 5;
+
+// tel SP 外枠高（Figma 6228:518）— パディング + 見出し行 + 値行2段
+$form-cta-head-row-block-size-sp: $form-cta-icon-size-sp;
+$form-cta-value-line-block-size-sp: $form-cta-value-size-sp *
+  $form-cta-line-height;
+$form-cta-staff-line-block-size-sp: $form-cta-staff-size-sp *
+  $form-cta-line-height;
+$form-cta-card-min-block-size-sp: $form-cta-pad-block-start-sp +
+  $form-cta-pad-block-end-sp + $form-cta-head-row-block-size-sp +
+  $form-cta-inner-gap-sp + $form-cta-value-line-block-size-sp +
+  $form-cta-staff-line-block-size-sp;
 
 // ============================================================
 // .c-form-cta__link — カード本体
@@ -56,6 +69,7 @@ $form-cta-staff-size-pc: 16;
   width: 100%;
   max-width: rm($form-cta-card-max-w);
   height: 100%;
+  min-block-size: rm($form-cta-card-min-block-size-sp);
   padding-block: rm($form-cta-pad-block-start-sp) rm($form-cta-pad-block-end-sp);
   padding-inline: rm($form-cta-pad-inline-sp);
   border-radius: rm($form-cta-radius);
@@ -66,12 +80,14 @@ $form-cta-staff-size-pc: 16;
   text-decoration: none;
 
   @include mq(md) {
+    min-block-size: auto;
     column-gap: rm($form-cta-head-gap-pc);
     row-gap: rm($form-cta-inner-gap-tel-pc);
     padding-block-start: rm($form-cta-pad-block-start-pc);
     padding-inline: rm($form-cta-pad-inline-pc);
     box-shadow: rm($form-cta-shadow-x) rm($form-cta-shadow-y)
       rm($form-cta-shadow-blur) rgba($text-main, $form-cta-shadow-opacity-pc);
+    padding-block-end: 16px;
   }
 }
 
@@ -113,8 +129,9 @@ $form-cta-staff-size-pc: 16;
   grid-area: value;
   display: grid;
   grid-template-rows: auto auto;
-  gap: rm($form-cta-value-gap-pc);
   align-content: start;
+  align-self: stretch;
+  min-block-size: 100%;
   width: 100%;
   color: $text-main;
   text-align: center;
@@ -127,8 +144,13 @@ $form-cta-staff-size-pc: 16;
 }
 
 .c-form-cta__link--tel .c-form-cta__value {
-  @include font($form-cta-value-size-sp, 700, 1.5, $form-cta-value-tracking-tel-sp);
-
+  @include font(
+    $form-cta-value-size-sp,
+    700,
+    1.5,
+    $form-cta-value-tracking-tel-sp
+  );
+  margin-inline-start: rm($form-cta-value-margin-inline-start-sp);
   @include mq(md) {
     @include font(
       $form-cta-value-size-pc,
@@ -136,6 +158,7 @@ $form-cta-staff-size-pc: 16;
       1.5,
       $form-cta-value-tracking-tel-pc
     );
+    margin-inline-start: 0;
   }
 }
 
@@ -148,6 +171,7 @@ $form-cta-staff-size-pc: 16;
 
   @include mq(md) {
     @include font($form-cta-staff-size-pc, 400, 1.5);
+    margin-block-start: 5px;
   }
 }
 
@@ -160,7 +184,6 @@ $form-cta-staff-size-pc: 16;
 
   &:focus-visible {
     opacity: 0.7;
-    outline: rm(2) solid $text-accent;
   }
 
   @media (any-hover: hover) {
@@ -169,4 +192,3 @@ $form-cta-staff-size-pc: 16;
     }
   }
 }
-

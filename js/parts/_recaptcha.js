@@ -1,0 +1,1 @@
+let RECAPTCHA_SITE_KEY="YOUR_SITE_KEY";function getRecaptchaToken(c="contact"){return new Promise((e,t)=>{"undefined"==typeof grecaptcha?t(new Error("reCAPTCHA not loaded")):grecaptcha.ready(()=>{grecaptcha.execute(RECAPTCHA_SITE_KEY,{action:c}).then(e).catch(t)})})}export{RECAPTCHA_SITE_KEY,getRecaptchaToken};

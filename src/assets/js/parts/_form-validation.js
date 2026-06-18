@@ -1,8 +1,12 @@
+import { getRecaptchaToken } from "./_recaptcha.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const form = document.querySelector(".js-form");
   if (!form) return;
 
   const successEl = document.getElementById("form-success");
+  const recaptchaErrorEl = document.getElementById("form-recaptcha-error");
+  const recaptchaTokenEl = document.getElementById("form-recaptcha-token");
   const submitBtn = form.querySelector('[type="submit"]');
 
   const fields = {
@@ -71,6 +75,18 @@ document.addEventListener("DOMContentLoaded", () => {
     error.setAttribute("hidden", "");
   };
 
+  const showRecaptchaError = (message) => {
+    if (!recaptchaErrorEl) return;
+    recaptchaErrorEl.textContent = message;
+    recaptchaErrorEl.removeAttribute("hidden");
+  };
+
+  const clearRecaptchaError = () => {
+    if (!recaptchaErrorEl) return;
+    recaptchaErrorEl.textContent = "";
+    recaptchaErrorEl.setAttribute("hidden", "");
+  };
+
   const validateField = (field) => {
     const message = field.validate(field.input.value);
     if (message) {
@@ -113,12 +129,30 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     if (!validateForm()) return;
 
-    showSuccess();
+    clearRecaptchaError();
+    if (submitBtn) {
+      submitBtn.disabled = true;
+    }
+
+    try {
+      const token = await getRecaptchaToken("contact");
+      if (recaptchaTokenEl) {
+        recaptchaTokenEl.value = token;
+      }
+      showSuccess();
+    } catch {
+      showRecaptchaError(
+        "送信に失敗しました。時間をおいて再度お試しください。"
+      );
+      if (submitBtn) {
+        submitBtn.disabled = false;
+      }
+    }
   });
 
   ["name", "email", "tel"].forEach((key) => {

@@ -6,7 +6,7 @@
 
 $form-section-pad-block-sp: 40;
 $form-section-pad-block-pc: 90;
-$form-heading-mb-sp: 30;
+$form-heading-mb-sp: 32;
 $form-heading-mb-pc: 60;
 $form-container-max-w-pc: 753;
 $form-container-gap-sp: 40;
@@ -19,9 +19,11 @@ $form-cta-gap-pc: 50;
 $form-cta-pt-pc: 15;
 $form-note-size-sp: 12;
 $form-note-size-pc: 14;
+$form-note-line-height: 1.5;
 $form-note-max-w-sp: 300;
 $form-note-max-w-pc: 644;
-
+$form-recaptcha-note-margin-block-start: 15; // reCAPTCHA 告知文の上余白（カンプ SP）
+$form-recaptcha-link-hover-opacity: 0.7;
 // ============================================================
 // .p-form — お問い合わせセクション
 // ============================================================
@@ -63,7 +65,7 @@ $form-note-max-w-pc: 644;
 }
 
 .p-form__form {
-  width: fit-content;
+  width: 100%;
   margin-inline: auto;
 }
 
@@ -141,10 +143,43 @@ $form-note-max-w-pc: 644;
   width: 100%;
   max-width: rm($form-note-max-w-sp);
   color: $text-main;
-  @include font($form-note-size-sp, 400, 1.5);
+  @include font($form-note-size-sp, 400, $form-note-line-height);
 
   @include mq(md) {
     max-width: rm($form-note-max-w-pc);
-    @include font($form-note-size-pc, 400, 1.5);
+    @include font($form-note-size-pc, 400, $form-note-line-height);
+  }
+}
+
+// ============================================================
+// reCAPTCHA — バッジ非表示 + 告知文
+// ============================================================
+
+.grecaptcha-badge {
+  visibility: hidden;
+}
+
+.p-form__recaptcha-note {
+  width: 100%;
+  max-width: rm($form-note-max-w-sp);
+  color: $text-main;
+  text-align: center;
+  margin-block-start: rm($form-recaptcha-note-margin-block-start);
+  @include font($form-note-size-sp, 400, $form-note-line-height);
+
+  @include mq(md) {
+    max-width: rm($form-note-max-w-pc);
+    @include font($form-note-size-pc, 400, $form-note-line-height);
+  }
+
+  a {
+    color: $text-accent;
+    text-decoration: underline;
+
+    @media (any-hover: hover) {
+      &:hover {
+        opacity: $form-recaptcha-link-hover-opacity;
+      }
+    }
   }
 }

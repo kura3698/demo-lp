@@ -1,5 +1,15 @@
 @use "../config/" as *;
 
+// 見出し装飾（カンプ値）
+$head-deco-rotate: -14deg;
+$head-deco-padding-block-end-pc: 15;
+$head-deco-line-inset-inline-start-sp: -5;
+$head-deco-line-width-sp: 115; // 下線幅（親要素に対する %）
+$head-deco-line-height-sp: 37; // 下線高さ（親要素に対する %）
+$head-deco-line-inset-block-offset-pc: 12;
+$head-deco-line-width-pc: 120; // PC: 下線幅（親要素に対する %）
+$head-deco-line-inset-inline-start-pc: -20;
+
 // 見出し内の小見出し装飾（hタグは付けない・配置は .p-feature__head-badge 等で調整）
 .c-head-decoration {
   position: relative;
@@ -9,25 +19,27 @@
   color: $text-main;
   text-align: center;
   @include font(14, 500, 1.43, 0);
-  transform: rotate(-14deg);
+  transform: rotate($head-deco-rotate);
 
   @include mq(md) {
-    padding-block-end: rm(15);
+    padding-block-end: rm($head-deco-padding-block-end-pc);
     @include font(20, 500, 1, 0);
   }
 
   &::after {
     content: "";
     position: absolute;
-    inset-inline-start: rm(-5);
+    inset-inline-start: rm($head-deco-line-inset-inline-start-sp);
     inset-block-start: 100%;
     background: url("/img/deco_head-line@2x.webp") no-repeat center / cover;
     pointer-events: none;
-    width: 115%;
-    height: 37%;
+    width: #{$head-deco-line-width-sp}#{"%"};
+    height: #{$head-deco-line-height-sp}#{"%"};
 
     @include mq(md) {
-      inset-block-start: calc(100% - rm(15));
+      inset-block-start: calc(100% - rm($head-deco-line-inset-block-offset-pc));
+      width: #{$head-deco-line-width-pc}#{"%"};
+      inset-inline-start: rm($head-deco-line-inset-inline-start-pc);
     }
   }
 }

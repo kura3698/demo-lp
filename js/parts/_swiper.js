@@ -1,1 +1,0 @@
-document.addEventListener("DOMContentLoaded",()=>{var e=document.querySelectorAll(".js-swiper");e.length&&"undefined"!=typeof Swiper&&e.forEach(e=>{new Swiper(e,{loop:!0,slidesPerView:1,pagination:{el:e.querySelector(".swiper-pagination"),clickable:!0},navigation:{nextEl:e.querySelector(".swiper-button-next"),prevEl:e.querySelector(".swiper-button-prev")}})})});

@@ -1,23 +1,49 @@
 @use "../config/" as *;
 
+// カンプ値（SP 390px / PC inner 1000px）
+$head-font-size-sp: 18;
+$head-font-size-pc: 30;
+$head-gap: 15;
+$head-gap-sp: 10;
+$head-gap-pc: 15;
+$head-deco-width-sp: 58;
+$head-deco-width-pc: 125;
+$head-deco-height-sp: 20;
+$head-deco-height-pc: 46;
+$head-deco-dot-width-sp: 16;
+$head-deco-dot-width-pc: 35;
+
 .c-head {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: rm(15);
+  gap: rm($head-gap);
+  white-space: nowrap;
   color: $text-main;
-  @include font(18, 700, 1.5, 0.9);
-
-  @include mq(md) {
-    @include font(30, 700, 1.5, 1.5);
-  }
+  @include font($head-font-size-sp, 700, 1.5, 0.9);
+  font-size: rclamp(
+    $head-font-size-sp,
+    $head-font-size-pc,
+    $sp-camp,
+    $pc-inner
+  );
 
   &::before,
   &::after {
     content: "";
     flex-shrink: 0;
-    width: rm(58);
-    height: rm(20);
+    width: rclamp(
+      $head-deco-width-sp,
+      $head-deco-width-pc,
+      $sp-camp,
+      $pc-inner
+    );
+    height: rclamp(
+      $head-deco-height-sp,
+      $head-deco-height-pc,
+      $sp-camp,
+      $pc-inner
+    );
     opacity: 0.8;
     background-image:
       url("/img/deco_section-title-red@2x.webp"),
@@ -25,21 +51,35 @@
       url("/img/deco_section-title-red@2x.webp");
     background-repeat: no-repeat;
     background-size:
-      rm(16) rm(20),
-      rm(16) rm(20),
-      rm(16) rm(20);
+      rclamp(
+          $head-deco-dot-width-sp,
+          $head-deco-dot-width-pc,
+          $sp-camp,
+          $pc-inner
+        )
+        rclamp($head-deco-height-sp, $head-deco-height-pc, $sp-camp, $pc-inner),
+      rclamp(
+          $head-deco-dot-width-sp,
+          $head-deco-dot-width-pc,
+          $sp-camp,
+          $pc-inner
+        )
+        rclamp($head-deco-height-sp, $head-deco-height-pc, $sp-camp, $pc-inner),
+      rclamp(
+          $head-deco-dot-width-sp,
+          $head-deco-dot-width-pc,
+          $sp-camp,
+          $pc-inner
+        )
+        rclamp($head-deco-height-sp, $head-deco-height-pc, $sp-camp, $pc-inner);
     background-position:
       left center,
       center center,
       right center;
-
-    @include mq(md) {
-      width: rm(125);
-      height: rm(46);
-      background-size:
-        rm(35) rm(46),
-        rm(35) rm(46),
-        rm(35) rm(46);
-    }
   }
+}
+
+.c-head--info {
+  letter-spacing: 0;
+  gap: rclamp($head-gap-sp, $head-gap-pc, $sp-camp, $pc-inner);
 }

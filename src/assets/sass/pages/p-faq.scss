@@ -7,12 +7,13 @@
 // トグル: 6213:191 PC / 6213:268 SP
 // ============================================================
 
-$faq-section-pad-block-sp: 40;
+$faq-section-pad-block-start-sp: 40;
+$faq-section-pad-block-end-sp: 43;
 $faq-section-pad-block-pc: 90;
 $faq-heading-mb-sp: 30;
 $faq-heading-mb-pc: 60;
-$faq-list-gap-sp: 15;
-$faq-list-gap-pc: 20;
+$faq-list-gap-sp: 13;
+$faq-list-gap-pc: 18;
 $faq-cta-mt-sp: 30;
 $faq-cta-mt-pc: 61;
 $faq-list-max-w-sp: $sp-inner;
@@ -27,17 +28,16 @@ $faq-q-pad-block-sp: 9;
 $faq-q-pad-block-pc: 11;
 $faq-q-pad-inline-sp: 10;
 $faq-q-pad-inline-pc: 22;
-$faq-q-pad-inline-end-sp: 50;
-$faq-q-pad-inline-end-pc: 61;
-$faq-toggle-w-sp: 13;
-$faq-toggle-h-sp: 13;
+$faq-q-pad-inline-end-sp: 10;
+$faq-q-pad-inline-end-pc: 25;
+$faq-toggle-sp: 11;
 $faq-toggle-w-pc: 20;
 $faq-toggle-h-pc: 20;
-$faq-toggle-icon-w-sp: 9;
-$faq-toggle-icon-h-sp: 7;
+$faq-toggle-icon-sp: 7;
 $faq-toggle-icon-w-pc: 12;
 $faq-toggle-icon-h-pc: 9;
-$faq-a-pad-block-sp: 9;
+$faq-a-pad-block-start-sp: 9;
+$faq-a-pad-block-end-sp: 7;
 $faq-a-pad-block-pc: 12;
 $faq-a-pad-inline-sp: 10;
 $faq-a-pad-inline-pc: 22;
@@ -56,7 +56,8 @@ $faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
 
 .p-faq {
   background-color: $bg-main;
-  padding-block: rm($faq-section-pad-block-sp);
+  padding-block: rm($faq-section-pad-block-start-sp)
+    rm($faq-section-pad-block-end-sp);
 
   @include mq(md) {
     padding-block: rm($faq-section-pad-block-pc);
@@ -203,8 +204,8 @@ $faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  width: rm($faq-toggle-w-sp);
-  height: rm($faq-toggle-h-sp);
+  width: rm($faq-toggle-sp);
+  height: rm($faq-toggle-sp);
 
   &::before {
     content: "";
@@ -224,8 +225,8 @@ $faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
 .p-faq__toggle img {
   position: relative;
   z-index: 1;
-  width: rm($faq-toggle-icon-w-sp);
-  height: rm($faq-toggle-icon-h-sp);
+  width: rm($faq-toggle-icon-sp);
+  height: rm($faq-toggle-icon-sp);
   object-fit: contain;
   transform-origin: center;
   transition: transform #{$accordion-duration}s ease;
@@ -258,7 +259,8 @@ $faq-border-color: color.change($text-main, $alpha: $faq-border-alpha);
   display: grid;
   grid-template-columns: auto 1fr;
   gap: rm($faq-a-gap-sp);
-  padding-block: rm($faq-a-pad-block-sp);
+  padding-block-start: rm($faq-a-pad-block-start-sp);
+  padding-block-end: rm($faq-a-pad-block-end-sp);
   padding-inline: rm($faq-a-pad-inline-sp) rm($faq-a-pad-inline-end-sp);
   border: 0;
   border-radius: 0;

@@ -8,18 +8,18 @@
 $heading-icon-gap: 15; // 見出しアイコン ↔ テキスト gap
 
 // バッジ配置（カンプ px）
-$badge-offset-block: 6; // バッジ下辺が見出し上辺より上に出る量（SP/PC 共通）
-$badge-offset-inline-sp: 166; // SP: 見出し左端より外側へのオフセット
-$badge-offset-inline-pc: 88; // PC: 見出し左端より外側へのオフセット
+$badge-offset-block: 18; // バッジ下辺が見出し上辺より上に出る量（SP/PC 共通）
+$badge-offset-inline-sp: 170; // SP: 見出し左端より外側へのオフセット
+$badge-offset-inline-pc: 251; // PC: 見出し中央から左方向へのオフセット
 
 // 余白
-$heading-mb-sp: 29; // 見出し ↔ リード文
+$heading-mb-sp: 32; // 見出し ↔ リード文
 $heading-mb-pc: 44;
 $lead-mb-sp: 20; // リード文 ↔ カード
 $lead-mb-pc: 44;
 $card-mb-sp: 41; // カード ↔ テーブル見出し
 $card-mb-pc: 44;
-$table-heading-mb-sp: 10; // テーブル見出し ↔ テーブル
+$table-heading-mb-sp: 8; // テーブル見出し ↔ テーブル
 $table-heading-mb-pc: 30;
 
 // ============================================================
@@ -40,7 +40,7 @@ $table-heading-mb-pc: 30;
   justify-content: center;
   gap: rm($heading-icon-gap);
   color: $text-main;
-  @include font(18, 700, 1.5, 0.9);
+  @include font(21, 700, 1.5, 0.9);
 
   @include mq(md) {
     @include font(30, 700, 1.5, 1.5);
@@ -65,7 +65,7 @@ $table-heading-mb-pc: 30;
   inset-inline-start: calc(50% - rm($badge-offset-inline-sp));
 
   @include mq(md) {
-    inset-inline-start: rm(-$badge-offset-inline-pc);
+    inset-inline-start: calc(50% - rm($badge-offset-inline-pc));
   }
 }
 

@@ -6,7 +6,6 @@
 // ============================================================
 
 // カード外形
-$infocard-width-pc: 320;
 $infocard-pad-block-sp: 10;
 $infocard-pad-inline-sp: 15;
 $infocard-pad-pc: 15;
@@ -24,38 +23,34 @@ $infocard-title-sp: 16;
 $infocard-title-pc: 18;
 $infocard-text-sp: 14;
 $infocard-text-pc: 16;
-$infocard-note-sp: 14;
-$infocard-note-pc: 14;
+$infocard-note-size: 14;
+$infocard-line-height: 1.5;
 
 // PC 吹き出し三角（Figma Polygon 21×25 / 6170:522,525,528）
 $infocard-tail-w: 21;
 $infocard-tail-h: 25;
 $infocard-tail-half-w: math.div($infocard-tail-w, 2);
+// PC 吹き出し三角の縦位置（カード下端との接続、カンプ基準）
+$infocard-tail-inset-block-ratio: 98%;
 
-// PC 三角の水平位置（Figma left: 35 / 58 / 118、カード幅 320px 基準）
-$infocard-tail-inset-restaurant-px: 35;
-$infocard-tail-inset-ger-px: 58;
-$infocard-tail-inset-shower-px: 118;
-$infocard-tail-inset-restaurant: math.div(
-    $infocard-tail-inset-restaurant-px,
-    $infocard-width-pc
-  ) * 100%;
-$infocard-tail-inset-ger: math.div($infocard-tail-inset-ger-px, $infocard-width-pc) *
-  100%;
-$infocard-tail-inset-shower: math.div(
-    $infocard-tail-inset-shower-px,
-    $infocard-width-pc
-  ) * 100%;
+// PC 三角の水平位置（Figma left: 45 / 69 / 128）
+$infocard-tail-inset-restaurant-px: 45;
+$infocard-tail-inset-ger-px: 69;
+$infocard-tail-inset-shower-px: 128;
 
 // 宿泊ゲル画像トリミング（Figma object-position 相当）
 $infocard-ger-img-pos-x-sp: 3.29%;
 $infocard-ger-img-pos-y-sp: 71.19%;
 $infocard-ger-img-pos-x-pc: 6.13%;
 $infocard-ger-img-pos-y-pc: 78.97%;
+// 宿泊ゲル 注釈行の右余白（カンプ SP 8px）
+$infocard-ger-note-margin-inline-end: 8;
 
-// 1060px（$pc-inner-sum）以上
+// 1060px（$pc-inner + 左右 padding）以上
+$info-pc-min-width: $pc-inner + $pc-sidePadding * 2;
+
 @mixin mq-info-pc {
-  @media screen and (min-width: calc(#{$pc-inner-sum} * 1px)) {
+  @media screen and (min-width: #{$info-pc-min-width}px) {
     @content;
   }
 }
@@ -92,7 +87,7 @@ $infocard-ger-img-pos-y-pc: 78.97%;
     &::after {
       content: "";
       position: absolute;
-      inset-block-start: 100%;
+      inset-block-start: $infocard-tail-inset-block-ratio;
       inset-inline-start: var(--infocard-tail-inset-inline, 0);
       border-style: solid;
       border-color: $reverse-color transparent transparent transparent;
@@ -127,7 +122,7 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 .c-infocard__title {
   font-size: rclamp($infocard-title-sp, $infocard-title-pc, $bp-md, $pc-inner);
   font-weight: 700;
-  line-height: 1.5;
+  line-height: $infocard-line-height;
   color: $text-main;
 }
 
@@ -137,7 +132,7 @@ $infocard-ger-img-pos-y-pc: 78.97%;
   gap: 0;
   font-size: rclamp($infocard-text-sp, $infocard-text-pc, $bp-md, $pc-inner);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: $infocard-line-height;
   color: $text-main;
 }
 
@@ -151,9 +146,9 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 }
 
 .c-infocard__note {
-  font-size: rclamp($infocard-note-sp, $infocard-note-pc, $bp-md, $pc-inner);
+  font-size: rm($infocard-note-size);
   font-weight: 400;
-  line-height: 1.5;
+  line-height: $infocard-line-height;
   color: $text-main;
 }
 
@@ -163,19 +158,19 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 
 .c-infocard--tail-restaurant .c-infocard__body {
   @include mq-info-pc {
-    --infocard-tail-inset-inline: #{$infocard-tail-inset-restaurant};
+    --infocard-tail-inset-inline: #{rm($infocard-tail-inset-restaurant-px)};
   }
 }
 
 .c-infocard--tail-ger .c-infocard__body {
   @include mq-info-pc {
-    --infocard-tail-inset-inline: #{$infocard-tail-inset-ger};
+    --infocard-tail-inset-inline: #{rm($infocard-tail-inset-ger-px)};
   }
 }
 
 .c-infocard--tail-shower .c-infocard__body {
   @include mq-info-pc {
-    --infocard-tail-inset-inline: #{$infocard-tail-inset-shower};
+    --infocard-tail-inset-inline: #{rm($infocard-tail-inset-shower-px)};
   }
 }
 
@@ -188,8 +183,44 @@ $infocard-ger-img-pos-y-pc: 78.97%;
 }
 
 .c-infocard--ger .c-infocard__text p.c-infocard__note:nth-of-type(3) {
-  margin-block-start: rm(2);
-  text-align: center;
+  text-align: end;
+  margin-inline-end: rm($infocard-ger-note-margin-inline-end);
+}
+
+.c-infocard--ger .c-infocard__text p:nth-of-type(2) {
+  display: grid;
+  gap: 0;
+  grid-template-columns: auto auto;
+  grid-template-areas:
+    "lead emphasis"
+    ". note";
+  align-items: baseline;
+  margin-inline-end: auto;
+
+  @include mq(sm) {
+    grid-template-columns: auto auto auto;
+    grid-template-areas: "lead emphasis note";
+  }
+
+  @include mq-info-pc {
+    grid-template-columns: auto auto;
+    grid-template-areas:
+      "lead emphasis"
+      ". note";
+  }
+}
+
+.c-infocard--ger .c-infocard__price-lead {
+  grid-area: lead;
+}
+
+.c-infocard--ger .c-infocard__text p:nth-of-type(2) .c-infocard__emphasis {
+  grid-area: emphasis;
+  margin-inline-start: 1em;
+}
+
+.c-infocard--ger .c-infocard__text p:nth-of-type(2) .c-infocard__note {
+  grid-area: note;
 }
 
 @include mq-info-pc {

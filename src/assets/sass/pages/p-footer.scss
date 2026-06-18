@@ -1,11 +1,11 @@
 @use "../config/" as *;
 
 // フッターナビ — レイアウト（カンプ px）
-$footer-nav-sp-column-gap-min: 40;
+$footer-nav-sp-column-gap-min: 38;
 $footer-nav-sp-column-gap-max: 60;
 $footer-nav-sp-content-width: 500;
 $footer-nav-sp-group-gap-activity-travel: 25;
-$footer-nav-sp-group-offset-blog: -220; // gallery との視覚間隔調整（SP）
+$footer-nav-sp-group-offset-blog: -210; // gallery との視覚間隔調整（SP）
 $footer-nav-gap-heading-sub: 12;
 $footer-nav-gap-sub: 8;
 $footer-nav-pc-column-gap-min: 20;
@@ -21,7 +21,7 @@ $footer-nav-icon-circle-size: 13;
 $footer-nav-icon-arrow-size: 8;
 $footer-nav-icon-arrow-offset-block: 5;
 $footer-nav-gap-heading-icon: 7;
-$footer-nav-gap-icon-text: 12;
+$footer-nav-gap-icon-text: 10;
 $footer-nav-link-focus-outline: 2;
 $footer-nav-link-hover-opacity: 0.7;
 
@@ -30,10 +30,26 @@ $footer-nav-note-sp-width: 350;
 $footer-nav-note-pc-width: 644;
 $footer-nav-bottom-sp-width: 350;
 $footer-nav-bottom-pc-width: 950;
-$footer-nav-nav-to-note-sp: 40;
-$footer-nav-nav-to-note-pc: 60;
-$footer-nav-note-to-bottom: 10;
-$footer-nav-bottom-to-copyright: 10;
+$footer-nav-nav-to-note-sp: 18;
+$footer-nav-nav-to-note-pc: 38;
+$footer-nav-note-to-bottom: 15;
+$footer-nav-bottom-to-copyright: 14;
+
+// フッターナビ — PC 一覧幅・テキスト幅（カンプ px）
+$footer-nav-pc-content-width: 875;
+$footer-nav-text-width-sp: 145;
+$footer-nav-text-width-pc: 160;
+$footer-nav-item-margin-inline-start: 3;
+
+// フッター — タイポグラフィ・装飾
+$footer-line-height: 1.5;
+$footer-nav-link-font-size: 12;
+$footer-note-font-size-sp: 12;
+$footer-note-font-size-pc: 16;
+$footer-copyright-font-size-sp: 10;
+$footer-copyright-font-size-pc: 12;
+$footer-nav-link-transition-duration: 0.3;
+$footer-bottom-border-width: 1;
 
 .p-footer-nav__list {
   display: grid;
@@ -62,8 +78,7 @@ $footer-nav-bottom-to-copyright: 10;
       $breakpoint,
       $pc-camp
     );
-    max-width: none;
-    margin-inline: 0;
+    max-width: rm($footer-nav-pc-content-width);
   }
 }
 
@@ -145,6 +160,7 @@ $footer-nav-bottom-to-copyright: 10;
 
 .p-footer-nav__item {
   width: 100%;
+  margin-inline-start: rm($footer-nav-item-margin-inline-start);
 }
 
 .p-footer-nav__link {
@@ -153,12 +169,12 @@ $footer-nav-bottom-to-copyright: 10;
   width: 100%;
   color: $reverse-color;
   text-decoration: none;
-  transition: opacity 0.3s ease;
-  @include font(12, 400, 1.5);
+  transition: opacity $footer-nav-link-transition-duration ease;
+  @include font($footer-nav-link-font-size, 400, $footer-line-height);
 
   &:focus-visible {
     opacity: $footer-nav-link-hover-opacity;
-    outline: rm($footer-nav-link-focus-outline) solid $text-accent;
+    outline: rm($footer-nav-link-focus-outline) solid $text-main;
     outline-offset: rm($footer-nav-link-focus-outline);
   }
 
@@ -203,7 +219,11 @@ $footer-nav-bottom-to-copyright: 10;
 }
 
 .p-footer-nav__text {
-  line-height: 1.5;
+  line-height: $footer-line-height;
+  width: rm($footer-nav-text-width-sp);
+  @include mq("md") {
+    width: rm($footer-nav-text-width-pc);
+  }
 }
 
 .p-footer__note {
@@ -213,21 +233,20 @@ $footer-nav-bottom-to-copyright: 10;
   margin-inline: auto;
   color: $reverse-color;
   text-align: left;
-  line-height: 1.5;
-  @include font(12, 400, 1.5);
+  line-height: $footer-line-height;
+  @include font($footer-note-font-size-sp, 400, $footer-line-height);
 
   @include mq(md) {
     max-width: rm($footer-nav-note-pc-width);
     margin-block-start: rm($footer-nav-nav-to-note-pc);
-    @include font(16, 400, 1.5);
+    @include font($footer-note-font-size-pc, 400, $footer-line-height);
   }
 }
 
 .p-footer__bottom {
   width: 100%;
   max-width: rm($footer-nav-bottom-sp-width);
-  padding-block-start: rm($footer-nav-note-to-bottom);
-  border-block-start: 1px solid $reverse-color;
+  border-block-start: rm($footer-bottom-border-width) solid $reverse-color;
   margin-block-start: rm($footer-nav-note-to-bottom);
   margin-inline: auto;
 
@@ -241,9 +260,9 @@ $footer-nav-bottom-to-copyright: 10;
   margin: 0;
   color: $reverse-color;
   text-align: center;
-  @include font(10, 400, 1.5);
+  @include font($footer-copyright-font-size-sp, 400, $footer-line-height);
 
   @include mq(md) {
-    @include font(12, 400, 1.5);
+    @include font($footer-copyright-font-size-pc, 400, $footer-line-height);
   }
 }

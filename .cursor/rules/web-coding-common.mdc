@@ -67,6 +67,7 @@ alwaysApply: true
    - スライダー（Swiper等）、モーダル、アコーディオン等は、このフェーズでは「JSなしで崩れない静的な見た目（CSS）」のみを完璧に作り込むこと。
    - **Swiper 前提のスライダー**は `web-coding-swiper.mdc` に従い、静的フェーズの時点で `swiper` / `swiper-wrapper` / `swiper-slide` の 3 層マークアップと `:not(.swiper-initialized)` フォールバック CSS を完成させること（動的フェーズで DOM を組み替えない）。
    - **アコーディオン（details / summary）**は `web-coding-accordion.mdc` に従い、静的フェーズの時点で 2 層パネル構造・`[open]` / `.is-opened` スタイルを完成させること（動的フェーズで DOM を組み替えない）。
+   - **overflow スクロール領域**は `web-coding-overflow-scroll.mdc` に従い、静的フェーズの時点で `tabindex="0"` と CSS（`overflow` / `overscroll-behavior`）を完成させること（キーボード代理スクロール JS は動的フェーズ）。
 
 2. 動的実装フェーズ：
    - ユーザーから「JavaScriptの実装、またはアニメーションの実装を開始してください」と明示的な指示があった場合のみ、JSの記述やアニメーションライブラリの導入を行うこと。
@@ -86,6 +87,7 @@ alwaysApply: true
 - 外部ライブラリ: `index.html` の CDN ブロック（GSAP / Swiper）。不要ならコメントアウトし、`script.js` の import も合わせて無効化
 - クラス: `l-` `c-` `p-` `u-` / 状態 `is-` / JSフック `js-`（`js-` にスタイルを当てない）
 - `p-*` の内側に `l-inner` を入れ子（全幅背景対応）
+- overflow スクロール領域: `web-coding-overflow-scroll.mdc` 参照
 
 ## JavaScript
 

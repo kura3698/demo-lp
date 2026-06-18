@@ -58,6 +58,15 @@ Swiper 公式の 3 層を**省略・入れ替え・外側ラッパー追加禁�
 - 装飾のみのコントロール群は `aria-hidden="true"` を付与可（`p-voice__controls` 参照）
 - 操作ボタンは `button type="button"` + `aria-label`
 
+### アクセシビリティ（root）
+
+Swiper root は `<div>` のため、**`aria-label` 単体は禁止**（generic ロールでは命名不可。`web-coding-html.mdc` の「ARIA 命名（generic 要素）」参照）。
+
+- 直上または関連する `h2` の `id` を `aria-labelledby` で参照し、併せて **`role="region"`** を付与する
+- 可視見出しがあるときは `aria-label` より `aria-labelledby` を優先する
+- 親 `section` の `aria-labelledby` で領域名が足りる場合（`p-gallery` 等）は root への追加命名は省略可
+- pagination 等のコントロールは `role="group"` + `aria-label` で命名可
+
 ---
 
 ## 3. JS フック（`js-`）の使い分け
@@ -131,7 +140,12 @@ Swiper 公式の 3 層を**省略・入れ替え・外側ラッパー追加禁�
 ### カード一覧（パターン A）
 
 ```html
-<div class="p-service-mongol__plans swiper" aria-label="ツアープラン一覧">
+<h2 id="service-mongol-plans-heading">…</h2>
+<div
+  class="p-service-mongol__plans swiper"
+  role="region"
+  aria-labelledby="service-mongol-plans-heading"
+>
   <div class="swiper-wrapper">
     <div class="swiper-slide">
       <a href="#" class="c-card c-card--plan">…</a>
@@ -145,7 +159,12 @@ Swiper 公式の 3 層を**省略・入れ替え・外側ラッパー追加禁�
 ### リスト意味あり（パターン A + セマンティック）
 
 ```html
-<div class="p-voice__slider swiper" aria-label="お客様の声一覧">
+<h2 id="voice-heading">お客様の声</h2>
+<div
+  class="p-voice__slider swiper"
+  role="region"
+  aria-labelledby="voice-heading"
+>
   <ul class="p-voice__list swiper-wrapper">
     <li class="p-voice__item swiper-slide">
       <article class="c-voice-card">…</article>
@@ -177,5 +196,6 @@ Swiper 公式の 3 層を**省略・入れ替え・外側ラッパー追加禁�
 - [ ] pagination / nav を静的 HTML に含めているか
 - [ ] PC 非スライダー時の CSS（縦並び・非表示）があるか
 - [ ] `js-*` にスタイルを当てていないか
+- [ ] root `<div>` に `aria-label` だけ付けていないか（`role="region"` + `aria-labelledby` または親 section で命名）
 
 参照実装（マークアップ + フォールバック CSS）: `p-fv` / `p-service-mongol__plans` / `p-voice__slider`

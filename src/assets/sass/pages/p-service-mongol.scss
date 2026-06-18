@@ -5,37 +5,74 @@
 // ============================================================
 
 // 主見出し（Figma 6114:233 / p-service-travel 準拠）
-$heading-mb-sp: 29; // 主見出し ↔ __top
+$heading-mb-sp: 32; // 主見出し ↔ __top
 $heading-mb-pc: 44;
-$badge-offset-block: 6; // バッジ下辺が見出し上辺より上に出る量
-$badge-offset-inline-sp: 166; // SP: 見出し中心より左
-$badge-offset-inline-pc: 88; // PC: 見出し左端より外側（Figma left -88px）
+$heading-size-sp: 22; // 主見出しフォントサイズ（SP）
+$heading-size-pc: 30; // 主見出しフォントサイズ（PC）
+$heading-margin-inline-start-sp: 42; // 主見出し左オフセット（カンプ SP）
+$heading-margin-block-start-sp: -3; // 主見出し上方向微調整（カンプ SP）
+$badge-offset-block: 15; // バッジ下辺が見出し上辺より上に出る量
+$badge-offset-block-pc: 13; // PC: バッジ下辺が見出し上辺より上に出る量
+$badge-offset-inline-sp: 149; // SP: 見出し中心より左
+$badge-inset-inline-from-center-pc: 286; // PC: 見出し中心より左（バッジ配置）
 
 // 第1ブロック（Figma 6126:432 / 6120:388）
-$top-gap-sp: 20; // __top 内 gap
+$top-gap-sp: 17; // __top 内 gap
 $top-gap-pc: 45;
-$top-mb-plans-sp: 30; // __top ↔ プラン見出し
+$top-mb-plans-sp: 69; // __top ↔ プラン見出し
 $top-mb-plans-pc: 64;
 $lead-size-sp: 14;
 $lead-size-pc: 20;
-$intro-max-w-sp: 350; // SP イラスト最大幅（カンプ）
-$intro-max-w-pc: 419; // PC イラスト最大幅（Figma イラスト領域）
+$intro-max-w-sp: 334; // SP イラスト最大幅（カンプ）
+$intro-max-w-pc: 443; // PC イラスト最大幅（Figma イラスト領域）
 
-$plans-heading-mb-sp: 20; // 見出し ↔ カードリスト
-$plans-heading-mb-pc: 30;
+$plans-heading-mb-sp: 30; // 見出し ↔ カードリスト
+$plans-heading-mb-pc: 70;
+$plans-heading-size-sp: 22; // プラン見出しフォントサイズ（SP）
+$plans-heading-size-pc: 30; // プラン見出しフォントサイズ（PC）
+
+// プラン見出し装飾（Figma 6115:284 / 6120:372）
+$plans-deco-group-center-offset-block-sp: 30; // SP: 装飾グループの縦方向中心オフセット
+$plans-deco-group-center-offset-block-pc: 44; // PC: 装飾グループの縦方向中心オフセット
+$plans-deco-group-offset-inline-end-sp: 173; // SP: 装飾グループの右端オフセット（見出し中心基準）
+$plans-deco-group-offset-inline-end-pc: 249; // PC: 装飾グループの右端オフセット（見出し中心基準）
+$plans-deco-size-sp: 12; // ラベルフォントサイズ（SP）
+$plans-deco-size-pc: 18; // ラベルフォントサイズ（PC）
+$plans-deco-line-width-sp: 54; // 下線幅（SP）
+$plans-deco-line-height-sp: 13; // 下線高さ（SP）
+$plans-deco-line-width-pc: 92; // 下線幅（PC）
+$plans-deco-line-height-pc: 23; // 下線高さ（PC）
+$plans-deco-line-inset-inline-sp: 4; // SP: 下線の左方向オフセット
+$plans-deco-line-inset-block-sp: 12; // SP: 下線の上方向オフセット
+$plans-deco-line-inset-block-pc: 27; // PC: 下線の上方向オフセット
+$plans-deco-rotate: -14deg; // ラベル傾き
+
+// 装飾アイテム配置（deco グループ基準、カンプ px）
+$plans-deco-sky-inset-block-sp: 25;
+$plans-deco-sky-inset-inline-sp: 5;
+$plans-deco-river-inset-block-sp: 51;
+$plans-deco-river-inset-inline-sp: 7;
+$plans-deco-sky-inset-block-pc: 42;
+$plans-deco-sky-inset-inline-pc: 6;
+$plans-deco-river-inset-block-pc: 86;
+$plans-deco-river-inset-inline-pc: 9;
 $plans-gap-sp: 20; // SP: スライド間 gap（カード ↔ カード）
 // c-card $card-shadow（rm(3) rm(3) rm(4)）のはみ出し余白
 $card-shadow-offset: 3;
 $card-shadow-blur: 4;
 $plans-shadow-bleed: 8; // offset + blur + 1px 余裕
+$plans-shadow-bleed-inline-sum-pc: $plans-shadow-bleed * 2; // PC: 片側 bleed × 2（width 相殺用）
 $plans-gap-pc: 30; // PC: カード間 gap（Figma gap-[30px]）
-$plans-pagination-gap-sp: 20; // SP: カード ↔ ページネーション
+$plans-padding-block-end-sp: 39; // SP: カードリスト下部 padding-block-end
+$plans-slider-margin-block-end-sp: 61; // SP: プラン一覧下余白
 $plans-pagination-bullet-size: 10; // ページネーションドット直径
 $plans-pagination-bullet-gap: 10; // ドット間隔
+$plans-pagination-bullet-opacity: 0.3; // 非アクティブドット不透明度
+$plans-pagination-bullet-opacity-active: 1; // アクティブドット不透明度
 
 // CTA box（Figma 6132:477 / 6124:430）
 $cta-gap-plans-sp: 30; // SP: カードリスト ↔ CTA
-$cta-gap-plans-pc: 64; // PC
+$cta-gap-plans-pc: 21; // PC
 $cta-comment-gap-sp: 30; // SP: コメント ↔ box
 $cta-box-pad-inline-sp: 14; // SP: 本文左右
 $cta-box-pad-block-sp: 14; // SP: 本文上下
@@ -45,7 +82,7 @@ $cta-box-border-sp: 1; // SP: 0.7px → 1
 $cta-box-max-w-sp: $bp-md; // SP: 白枠 max-width（768）
 $cta-box-max-w-pc: 743; // PC: 白枠 max-width（手直しカンプ）
 $cta-text-size-sp: 14; // c-card__text と同一
-$cta-text-size-pc: 18; // c-card__text と同一
+$cta-text-size-pc: 20;
 $cta-comment-size-sp: 12; // コメント（Figma SP 12px）
 $cta-comment-size-pc: 16; // コメント最大 16px
 
@@ -53,16 +90,16 @@ $cta-comment-size-pc: 16; // コメント最大 16px
 $cta-horse-w-sp: 53;
 $cta-horse-h-sp: 90;
 $cta-horse-w-pc: 198; // PC: 馬幅（手直しカンプ）
-$cta-sheep-w-sp: 78;
+$cta-sheep-w-sp: 105;
 $cta-sheep-h-sp: 72;
-$cta-sheep-w-pc: 176;
-$cta-sheep-h-pc: 146;
+$cta-sheep-w-pc: 271; // PC: 羊幅（手直しカンプ）
+$cta-sheep-h-pc: 146; // PC: 羊高さ（手直しカンプ）
 
 // SP: stage 中心基準オフセット（手直しカンプ）
-$cta-horse-inset-inline-sp: 180;
-$cta-horse-inset-block-sp: -81;
-$cta-sheep-inset-inline-sp: 110;
-$cta-sheep-inset-block-sp: -69;
+$cta-horse-inset-inline-sp: 178;
+$cta-horse-inset-block-sp: -77;
+$cta-sheep-inset-inline-sp: 89;
+$cta-sheep-inset-block-sp: -66;
 $cta-horse-rotate-sp: -17deg;
 $cta-sheep-rotate-sp: 13deg;
 
@@ -76,8 +113,12 @@ $cta-horse-group-block-pc: 42;
 $cta-horse-img-offset-block-pc: -9;
 $cta-horse-inset-block-pc: $cta-horse-group-block-pc +
   $cta-horse-img-offset-block-pc;
-$cta-sheep-offset-inline-pc: 300;
-$cta-sheep-inset-block-pc: 38;
+$cta-sheep-offset-inline-pc: 264; // PC: stage 中心より右
+$cta-sheep-inset-block-pc: 49; // PC: 羊の上端位置
+$cta-box-inner-z-index: 1; // 白枠（装飾より下）
+$cta-box-deco-z-index: 2; // 馬・羊装飾
+
+$section-margin-block-end-pc: 64; // PC: セクション下余白
 
 // CTA: PC 切替は $pc-inner-sum（1060px）以上
 @mixin mq-cta-pc {
@@ -92,6 +133,11 @@ $cta-sheep-inset-block-pc: 38;
 
 .p-service-mongol {
   background-color: $bg-main;
+  overflow: hidden;
+
+  @include mq-cta-pc {
+    margin-block-end: rm($section-margin-block-end-pc);
+  }
 }
 
 // ── セクション主見出し ───────────────────────────────────────
@@ -108,10 +154,13 @@ $cta-sheep-inset-block-pc: 38;
 
 .p-service-mongol__heading {
   color: $text-main;
-  @include font(18, 700, 1.5);
+  @include font($heading-size-sp, 700, 1.5);
+  margin-inline-start: rm($heading-margin-inline-start-sp);
+  margin-block-start: rm($heading-margin-block-start-sp);
 
   @include mq(md) {
-    @include font(30, 700, 1.5);
+    @include font($heading-size-pc, 700, 1.5);
+    margin-inline-start: 0;
   }
 }
 
@@ -121,7 +170,8 @@ $cta-sheep-inset-block-pc: 38;
   inset-inline-start: calc(50% - rm($badge-offset-inline-sp));
 
   @include mq(md) {
-    inset-inline-start: rm(-$badge-offset-inline-pc);
+    inset-inline-start: calc(50% - #{rm($badge-inset-inline-from-center-pc)});
+    inset-block-end: calc(100% + #{rm($badge-offset-block-pc)});
   }
 }
 
@@ -168,37 +218,93 @@ $cta-sheep-inset-block-pc: 38;
   width: 100%;
 }
 
-.p-service-mongol__reserve-title-br--sp {
-  @include mq(md) {
-    display: none;
-  }
-}
-
-.p-service-mongol__reserve-title-br--pc {
-  display: none;
-
-  @include mq(md) {
-    display: block;
-  }
-}
-
 .p-service-mongol__reserve-text-ger {
   @include mq(md) {
     display: none;
   }
 }
 
-// ── プラン見出し（第2弾で装飾見出しに差し替え可能） ─────────
+// ── プラン見出し（装飾付き） ─────────────────────────────────
 
-.p-service-mongol__plans-heading {
-  @include font(18, 700, 1.5);
-  color: $text-main;
+.p-service-mongol__plans-heading-container {
+  position: relative;
   text-align: center;
   margin-block-end: rm($plans-heading-mb-sp);
 
   @include mq(md) {
-    @include font(30, 700, 1.5);
     margin-block-end: rm($plans-heading-mb-pc);
+  }
+}
+
+.p-service-mongol__plans-deco {
+  position: absolute;
+  inset-block-start: calc(50% - rm($plans-deco-group-center-offset-block-sp));
+  inset-inline-end: calc(50% + rm($plans-deco-group-offset-inline-end-sp));
+
+  @include mq(md) {
+    inset-block-start: calc(
+      50% - #{rm($plans-deco-group-center-offset-block-pc)}
+    );
+    inset-inline-end: calc(50% + #{rm($plans-deco-group-offset-inline-end-pc)});
+  }
+}
+
+.p-service-mongol__plans-deco-item {
+  position: absolute;
+  white-space: nowrap;
+  @include font($plans-deco-size-sp, 500, 1.5);
+  transform: rotate($plans-deco-rotate);
+
+  &::after {
+    inset-inline-start: rm(-$plans-deco-line-inset-inline-sp);
+    inset-block-start: rm($plans-deco-line-inset-block-sp);
+    width: rm($plans-deco-line-width-sp);
+    height: rm($plans-deco-line-height-sp);
+  }
+
+  @include mq(md) {
+    @include font($plans-deco-size-pc, 500, 1.5);
+
+    &::after {
+      inset-block-start: calc(100% - rm($plans-deco-line-inset-block-pc));
+      width: rm($plans-deco-line-width-pc);
+      height: rm($plans-deco-line-height-pc);
+    }
+  }
+}
+
+.p-service-mongol__plans-deco-item--earth {
+  inset-block-start: 0;
+  inset-inline-start: 0;
+}
+
+.p-service-mongol__plans-deco-item--sky {
+  inset-block-start: rm($plans-deco-sky-inset-block-sp);
+  inset-inline-start: rm($plans-deco-sky-inset-inline-sp);
+
+  @include mq(md) {
+    inset-block-start: rm($plans-deco-sky-inset-block-pc);
+    inset-inline-start: rm($plans-deco-sky-inset-inline-pc);
+  }
+}
+
+.p-service-mongol__plans-deco-item--river {
+  inset-block-start: rm($plans-deco-river-inset-block-sp);
+  inset-inline-start: rm($plans-deco-river-inset-inline-sp);
+
+  @include mq(md) {
+    inset-block-start: rm($plans-deco-river-inset-block-pc);
+    inset-inline-start: rm($plans-deco-river-inset-inline-pc);
+  }
+}
+
+.p-service-mongol__plans-heading {
+  @include font($plans-heading-size-sp, 700, 1.5);
+  color: $text-main;
+  text-align: center;
+
+  @include mq(md) {
+    @include font($plans-heading-size-pc, 700, 1.3);
   }
 }
 
@@ -208,8 +314,17 @@ $cta-sheep-inset-block-pc: 38;
   overflow: hidden;
   box-sizing: border-box;
   padding-inline-end: rm($plans-shadow-bleed);
-  padding-block-end: rm($plans-shadow-bleed);
+  padding-block-end: rm($plans-padding-block-end-sp);
   width: calc(100% + #{rm($plans-shadow-bleed)});
+  margin-block-end: rm($plans-slider-margin-block-end-sp);
+  @include mq("md") {
+    box-sizing: border-box;
+    margin-block-end: 0;
+    width: calc(100% + #{rm($plans-shadow-bleed-inline-sum-pc)});
+    padding-block-start: rm($plans-shadow-bleed);
+    padding-inline-start: rm($plans-shadow-bleed);
+    margin-block-start: rm(-$plans-shadow-bleed);
+  }
 }
 
 // Swiper有効化前の静的表示用スタイル
@@ -238,7 +353,6 @@ $cta-sheep-inset-block-pc: 38;
   justify-content: center;
   align-items: center;
   gap: rm($plans-pagination-bullet-gap);
-  margin-block-start: rm($plans-pagination-gap-sp);
 }
 
 .p-service-mongol__plans .swiper-pagination-bullet {
@@ -247,12 +361,12 @@ $cta-sheep-inset-block-pc: 38;
   height: rm($plans-pagination-bullet-size);
   border-radius: 50%;
   background-color: $text-main;
-  opacity: 0.3;
+  opacity: $plans-pagination-bullet-opacity;
   cursor: pointer;
 }
 
 .p-service-mongol__plans .swiper-pagination-bullet-active {
-  opacity: 1;
+  opacity: $plans-pagination-bullet-opacity-active;
 }
 
 @include mq(md) {
@@ -311,7 +425,7 @@ $cta-sheep-inset-block-pc: 38;
 
 .p-service-mongol__cta-box-inner {
   position: relative;
-  z-index: 1;
+  z-index: $cta-box-inner-z-index;
   width: 100%;
   max-width: rm($cta-box-max-w-sp);
   margin-inline: auto;
@@ -351,43 +465,25 @@ $cta-sheep-inset-block-pc: 38;
 
 .p-service-mongol__cta-box-deco {
   position: absolute;
-  z-index: 2;
+  z-index: $cta-box-deco-z-index;
   pointer-events: none;
-}
-
-.p-service-mongol__cta-box-deco-figure {
   overflow: hidden;
 }
 
-.p-service-mongol__cta-box-deco--horse .p-service-mongol__cta-box-deco-figure {
+.p-service-mongol__cta-box-deco--horse {
   width: rm($cta-horse-w-sp);
   height: rm($cta-horse-h-sp);
-
-  @include mq-cta-pc {
-    width: rm($cta-horse-w-pc);
-    height: auto;
-  }
-}
-
-.p-service-mongol__cta-box-deco--sheep .p-service-mongol__cta-box-deco-figure {
-  width: rm($cta-sheep-w-sp);
-  height: rm($cta-sheep-h-sp);
-
-  @include mq-cta-pc {
-    width: rm($cta-sheep-w-pc);
-    height: rm($cta-sheep-h-pc);
-  }
-}
-
-.p-service-mongol__cta-box-deco--horse {
   inset-inline-start: calc(50% - rm($cta-horse-inset-inline-sp));
   inset-block-start: rm($cta-horse-inset-block-sp);
   transform: rotate($cta-horse-rotate-sp);
+
   @include mq(md) {
     inset-inline-start: calc(50% + rm($cta-horse-offset-inline-md));
   }
 
   @include mq-cta-pc {
+    width: rm($cta-horse-w-pc);
+    height: auto;
     inset-inline-start: calc(50% + rm($cta-horse-offset-inline-pc));
     inset-block-start: rm($cta-horse-inset-block-pc);
     transform: none;
@@ -395,16 +491,21 @@ $cta-sheep-inset-block-pc: 38;
 }
 
 .p-service-mongol__cta-box-deco--sheep {
+  width: rm($cta-sheep-w-sp);
+  height: rm($cta-sheep-h-sp);
   inset-inline-start: calc(50% + rm($cta-sheep-inset-inline-sp));
   inset-block-start: rm($cta-sheep-inset-block-sp);
   transform: rotate($cta-sheep-rotate-sp);
+
   @include mq(md) {
     inset-inline-start: calc(50% + rm($cta-sheep-offset-inline-md));
   }
 
   @include mq-cta-pc {
-    inset-inline-start: calc(50% + rm($cta-sheep-offset-inline-pc));
+    width: rm($cta-sheep-w-pc);
+    height: rm($cta-sheep-h-pc);
     inset-block-start: rm($cta-sheep-inset-block-pc);
+    inset-inline-start: calc(50% + #{rm($cta-sheep-offset-inline-pc)});
     transform: none;
   }
 }

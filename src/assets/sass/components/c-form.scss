@@ -9,7 +9,7 @@ $form-label-col-pc: 266;
 $form-field-col-pc: 460;
 
 $form-gap-sp: 15;
-$form-gap-pc: 30;
+$form-gap-pc: 32;
 $form-label-to-field-gap-sp: 5;
 $form-label-row-gap-sp: 10;
 
@@ -65,9 +65,6 @@ $form-control-check-h-sp: 9;
 $form-control-check-w-pc: 7;
 $form-control-check-h-pc: 12;
 $form-radio-fill-inset-ratio: 25%;
-$form-focus-outline-w: 3;
-$form-focus-outline-offset: 2;
-
 $form-error-size-sp: 12;
 $form-error-size-pc: 14;
 $form-error-mt: 5;
@@ -100,7 +97,7 @@ $form-success-size-pc: 16;
   @include mq(md) {
     grid-template-columns: rm($form-label-col-pc) minmax(0, 1fr);
     align-items: center;
-    gap: 0;
+    gap: 25px;
     width: 100%;
   }
 }
@@ -213,6 +210,7 @@ $form-success-size-pc: 16;
     grid-row: 2;
     min-height: rm($form-textarea-min-h-pc);
     padding-block: rm($form-input-pad-inline-pc);
+    margin-block-start: -11px;
   }
 }
 
@@ -275,11 +273,12 @@ $form-success-size-pc: 16;
   display: flex;
   flex-wrap: wrap;
   gap: rm($form-options-gap-inquiry-sp);
+  margin-block-start: rm(4);
 
   @include mq(md) {
     grid-column: 2;
     grid-row: 1;
-    gap: rm($form-options-gap-inquiry-pc);
+    gap: rclamp(25, $form-options-gap-inquiry-pc, $bp-md, $pc-inner);
   }
 }
 
@@ -298,6 +297,7 @@ $form-success-size-pc: 16;
     grid-column: 1;
     grid-row: 2;
     gap: rm($form-options-gap-activities-pc);
+    margin-block-start: 12px;
   }
 }
 
@@ -307,7 +307,7 @@ $form-success-size-pc: 16;
   gap: rm($form-control-gap-sp);
 
   @include mq(md) {
-    gap: rm($form-control-gap-pc);
+    gap: rclamp(7, $form-control-gap-pc, $bp-md, $pc-inner);
   }
 }
 
@@ -316,7 +316,6 @@ $form-success-size-pc: 16;
 .c-form__checkbox {
   &:focus-visible {
     border-color: $main-color;
-    outline: rm($form-focus-outline-w) solid $main-color;
   }
 }
 

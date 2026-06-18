@@ -12,6 +12,7 @@ $card-shadow: rm(3) rm(3) rm(4) rgba($text-main, 0.3);
 
 // 画像（height は aspect-ratio で算出するため固定しない）
 $img-width-pc: 310; // PC: 画像幅
+$img-ratio-h-pc: 250; // PC: 画像高さ（aspect-ratio 用）
 $img-ratio-w: 310; // 自然比率 width
 $img-ratio-h: 250; // 自然比率 height
 
@@ -44,14 +45,20 @@ $price-inset-block-base: math.div($price-pos-block-base, $price-body-h-base) *
 $sp-img-ratio-w: 330; // SP: 3枚統一の画像幅
 $sp-img-ratio-h: 220; // SP: 3枚統一の画像高さ
 $img-ratio-h-plan: 200; // --plan: PC画像高さ
+$img-ratio-h-plan-image-tall-pc: 230; // --plan-image-tall: 3枚目PC画像高さ（カンプ）
+$body-min-h-plan-image-tall-pc: 203; // --plan-image-tall: 3枚目PC body 高さ（Figma 6082:1484）
+$body-gap-plan-image-tall-pc: 24; // --plan-image-tall: 3枚目PC title ↔ 本文間隔
 $body-gap-reserve-pc: 45; // --reserve: PC title ↔ text 間隔
 $body-gap-reserve-note: 10; // --reserve: PC text ↔ note 間隔
 $body-gap-plan-sp: 15; // --plan: SP body gap（Figma CardMongolPlan）
-$card-plan-min-h-sp: 420; // --plan: SP カード最小高さ（最長テキスト基準）
-$body-min-h-plan: 220; // --plan: PC body min-height
+$card-plan-min-h-sp: 452; // --plan: SP カード最小高さ（最長テキスト基準）
+$body-min-h-plan: 200; // --plan: PC body min-height
 $price-size-plan-pc: 22; // --plan: PC価格フォントサイズ
 $note-size-sp: 13; // --reserve: SP注釈フォントサイズ
 $note-size-pc: 16; // --reserve: PC注釈フォントサイズ
+$note-margin-block-start-sp: -8; // --reserve: SP注釈の上方向ネガティブ余白
+$plan-text-margin-block-start-sp: -15; // --plan: SP本文の上方向ネガティブ余白
+$plan-price-margin-inline-end-sp: 10; // --plan: SP価格の右余白
 
 $price-body-w-reserve: 625;
 $price-body-h-reserve: 229;
@@ -75,6 +82,21 @@ $price-pos-block-plan: 87.5;
 $price-inset-inline-plan: math.div($price-pos-inline-plan, $price-body-w-plan) *
   100%;
 $price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
+  100%;
+
+$price-body-w-plan-image-tall-pc: 615;
+$price-body-h-plan-image-tall-pc: 203;
+$price-pos-inline-plan-image-tall-pc: 486;
+$price-pos-block-plan-image-tall-pc: 44;
+$price-inset-inline-plan-image-tall-pc: math.div(
+    $price-pos-inline-plan-image-tall-pc,
+    $price-body-w-plan-image-tall-pc
+  ) *
+  100%;
+$price-inset-block-plan-image-tall-pc: math.div(
+    $price-pos-block-plan-image-tall-pc,
+    $price-body-h-plan-image-tall-pc
+  ) *
   100%;
 
 // ============================================================
@@ -122,6 +144,7 @@ $price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
   margin: 0;
 
   @include mq(md) {
+    aspect-ratio: #{$img-width-pc} / #{$img-ratio-h-pc};
     width: rm($img-width-pc);
   }
 }
@@ -186,37 +209,42 @@ $price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
 // .c-card--reserve — 予約必須注釈付きカード
 // ============================================================
 
-.c-card--reserve .c-card__figure {
-  aspect-ratio: #{$sp-img-ratio-w} / #{$sp-img-ratio-h};
+.c-card--reserve {
+  // .c-card__figure {
+  //   aspect-ratio: #{$sp-img-ratio-w} / #{$sp-img-ratio-h};
 
-  @include mq(md) {
-    aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h};
-  }
-}
+  //   @include mq(md) {
+  //     aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h};
+  //   }
+  // }
 
-.c-card--reserve .c-card__body {
-  @include mq(md) {
-    gap: 0;
+  .c-card__body {
+    @include mq(md) {
+      gap: 0;
+    }
   }
-}
 
-.c-card--reserve .c-card__title {
-  @include mq(md) {
-    margin-block-end: rm($body-gap-reserve-pc);
+  .c-card__title {
+    @include mq(md) {
+      margin-block-end: rm($body-gap-reserve-pc);
+    }
   }
-}
 
-.c-card--reserve .c-card__text {
-  @include mq(md) {
-    margin-block-end: rm($body-gap-reserve-note);
+  .c-card__text {
+    @include mq(md) {
+      margin-block-end: rm($body-gap-reserve-note);
+    }
   }
-}
 
-.c-card--reserve .c-card__price {
-  @include mq(md) {
-    inset-inline-start: $price-inset-inline-reserve;
-    inset-block-start: $price-inset-block-reserve;
+  .c-card__price {
+    @include mq(md) {
+      inset-inline-start: $price-inset-inline-reserve;
+      inset-block-start: $price-inset-block-reserve;
+    }
   }
+
+  // .c-card__note {
+  // }
 }
 
 // ── 注釈テキスト ─────────────────────────────────────────────
@@ -227,6 +255,7 @@ $price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
   line-height: normal;
   color: $text-accent;
   white-space: nowrap;
+  margin-block-start: rm($note-margin-block-start-sp);
 }
 
 // ============================================================
@@ -241,30 +270,73 @@ $price-inset-block-plan: math.div($price-pos-block-plan, $price-body-h-plan) *
     min-height: auto;
     height: auto;
   }
-}
 
-.c-card--plan .c-card__figure {
-  aspect-ratio: #{$sp-img-ratio-w} / #{$sp-img-ratio-h};
+  .c-card__figure {
+    aspect-ratio: #{$sp-img-ratio-w} / #{$sp-img-ratio-h};
 
-  @include mq(md) {
-    aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h-plan};
+    @include mq(md) {
+      aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h-plan};
+    }
+  }
+
+  .c-card__body {
+    gap: rm($body-gap-plan-sp);
+    flex: 1;
+
+    @include mq(md) {
+      gap: rm(54);
+      min-height: rm($body-min-h-plan);
+    }
+  }
+
+  .c-card__title {
+    line-height: 1.25;
+  }
+
+  .c-card__text {
+    margin-block-start: rm($plan-text-margin-block-start-sp);
+    @include mq("md") {
+      margin-block-start: 0;
+    }
+  }
+
+  .c-card__price {
+    margin-inline-end: rm($plan-price-margin-inline-end-sp);
+    @include mq(md) {
+      inset-block-start: 36%;
+      inset-inline-start: 89%;
+    }
   }
 }
 
-.c-card--plan .c-card__body {
-  gap: rm($body-gap-plan-sp);
-  flex: 1;
+// ============================================================
+// .c-card--plan-image-tall — プラン3枚目（PC: 縦長画像）
+// ============================================================
 
-  @include mq(md) {
-    gap: rm($body-gap-pc);
-    min-height: rm($body-min-h-plan);
+.c-card--plan-image-tall {
+  .c-card__figure {
+    @include mq(md) {
+      aspect-ratio: #{$img-ratio-w} / #{$img-ratio-h-plan-image-tall-pc};
+    }
   }
-}
 
-.c-card--plan .c-card__price {
-  @include mq(md) {
-    inset-inline-start: $price-inset-inline-plan;
-    inset-block-start: $price-inset-block-plan;
-    font-size: rm($price-size-plan-pc);
+  .c-card__body {
+    @include mq(md) {
+      gap: rm($body-gap-plan-image-tall-pc);
+      min-height: rm($body-min-h-plan-image-tall-pc);
+    }
+  }
+
+  .c-card__title {
+    @include mq(md) {
+      line-height: 1.5;
+    }
+  }
+
+  .c-card__price {
+    @include mq(md) {
+      inset-inline-start: 88%;
+      inset-block-start: 37%;
+    }
   }
 }
