@@ -60,8 +60,14 @@
   background-color: currentColor;
   translate: 0 -50%;
   transition: background-color 0.3s ease;
-  mask: url("/img/icon_arrow.svg") no-repeat center / contain;
-  -webkit-mask: url("/img/icon_arrow.svg") no-repeat center / contain;
+  mask-image: url("/img/icon_arrow.svg");
+  mask-repeat: no-repeat;
+  mask-position: center;
+  mask-size: contain;
+  -webkit-mask-image: url("/img/icon_arrow.svg");
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  -webkit-mask-size: contain;
 
   @include mq(md) {
     right: rm(20);

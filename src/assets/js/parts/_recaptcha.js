@@ -1,4 +1,4 @@
-export const RECAPTCHA_SITE_KEY = "YOUR_SITE_KEY";
+export const RECAPTCHA_SITE_KEY = "6LfK2i4tAAAAAAPUzODsanEvT4ON5B3c8Xzkr7lp";
 
 export function getRecaptchaToken(action = "contact") {
   return new Promise((resolve, reject) => {

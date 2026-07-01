@@ -1,0 +1,1 @@
+let FORM_SUBMIT_URL="https://script.google.com/macros/s/AKfycbzFRe3XkTgBMEv5SkGeHGgvHTAd2eNF6ny_mWbKIiMjKHMJjvMHqAhOLRHk3Zwzw_qH/exec";export{FORM_SUBMIT_URL};

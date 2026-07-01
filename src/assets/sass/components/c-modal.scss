@@ -163,3 +163,13 @@ $modal-author-margin-block-start: 25;
   flex-shrink: 0;
   margin-inline: auto;
 }
+
+.c-modal--form-success .c-modal__body--plain {
+  flex: 0 1 auto;
+  overflow: visible;
+  text-align: center;
+}
+
+.c-modal--form-success .c-modal__body--plain p {
+  margin: 0;
+}

@@ -1,0 +1,1 @@
+document.addEventListener("DOMContentLoaded",()=>{let e=document.querySelector(".l-header__logo");e&&window.addEventListener("scroll",()=>{100<window.scrollY?(e.style.opacity="0",e.style.visibility="hidden"):(e.style.opacity="1",e.style.visibility="visible")})});
